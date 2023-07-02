@@ -1,0 +1,45 @@
+<%@ val domain: biz.lobachev.annette.data_dictionary.builder.rendering.markdown.MdDomain %>
+<%@ val fieldHeader: String %>
+<%@ val indexHeader: String %>
+<%@ val relationHeader: String %>
+\#  ${domain.name}
+
+#if (domain.description.nonEmpty)
+${domain.description}
+
+#end
+#for (group <- domain.groups)
+\#\# ${group.name}
+
+#if (group.description.nonEmpty)
+${group.description}
+
+#end
+#for (entity <- group.entities)
+\#\#\# ${entity.name} (${entity.fullTableName})
+
+#if (entity.description.nonEmpty)
+${entity.description}
+
+#end
+${fieldHeader}
+#for (field <- entity.fields)
+| ${field.dbFieldName} | ${field.datatype} | ${field.pk} | ${field.required} | ${field.description} |
+#end
+
+#if (entity.indexes.nonEmpty)
+${indexHeader}
+#for (index <- entity.indexes)
+| ${index.fields} | ${index.unique} | ${index.description} |
+#end
+
+#end
+#if (entity.relations.nonEmpty)
+${relationHeader}
+#for (relation <- entity.relations)
+| ${relation.f1} | ${relation.relationEntityName} (${relation.relationEntityFullTableName}) | ${relation.f2} | ${relation.relationType} | ${relation.description} |
+#end
+
+#end
+#end
+#end

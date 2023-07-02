@@ -1,0 +1,47 @@
+
+
+// Group PersonGroup - Person Group Model 
+
+table persons {
+  id integer [pk, not null, increment, note: 'Person Id']
+  firstname varchar(40) [not null, note: 'Person first name']
+  lastname varchar(40) [not null, note: 'Person last name']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    (lastname, firstname) [name: 'persons_lastname_firstname', note: 'Search index by lastname and firstname']
+  }
+
+  note: 'Person'
+}
+
+table groups {
+  id integer [pk, not null, increment, note: 'Group Id']
+  name varchar(100) [not null, note: 'Group name']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Group'
+}
+
+table group_members {
+  id integer [pk, not null, increment, note: ' Group member id']
+  group_id integer [not null, note: 'Group Id']
+  person_id integer [not null, note: 'Person Id']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    (group_id, person_id) [unique, name: 'group_members_person_group_ids', note: 'Person id in each group must be unique']
+  }
+
+  note: 'Group member'
+}
+
+// Relation to groups
+Ref group_members_group_id: group_members.group_id > groups.id
+// Relation to persons
+Ref group_members_person_id: group_members.person_id > persons.id
+
+

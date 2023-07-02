@@ -1,0 +1,660 @@
+// Ledger Type
+enum ledger_type {
+  L [note: 'Leading ledger']
+  X [note: 'Extension ledger']
+}
+
+// General ledger account type
+enum g_l_account_type {
+  X [note: 'Balance Sheet Account']
+  N [note: 'Nonoperating Expense or Income']
+  P [note: 'Primary Costs or Revenue']
+  S [note: 'Secondary Costs']
+  C [note: 'Cash Account']
+}
+
+// Account type
+enum account_type {
+  A [note: 'Assets']
+  D [note: 'Customer']
+  K [note: 'Vendor']
+  M [note: 'Materials']
+  S [note: 'General Ledger']
+}
+
+// Debit/Credit
+enum debit_credit {
+  D [note: 'Debit']
+  C [note: 'Credit']
+}
+
+
+// Group Common - Common tables and data structures 
+
+table common.countries {
+  id varchar(3) [pk, not null, note: 'Country Id']
+  name varchar(100) [not null, note: 'Name']
+  key varchar(3) [note: 'Country Key']
+  language_id varchar(3) [not null, note: 'Language Id']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Country'
+}
+
+// Reference to language
+Ref countries_language_id: common.countries.language_id > common.languages.id
+
+
+table common.languages {
+  id varchar(3) [pk, not null, note: 'Language Id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Language'
+}
+
+table common.currencies {
+  id varchar(5) [pk, not null, note: 'Currency Id']
+  name varchar(100) [not null, note: 'Name']
+  short_name varchar(20) [not null, note: 'Short name']
+  iso_code varchar(3) [not null, note: 'Currency ISO code']
+  key varchar(3) [not null, note: 'Currency key']
+  decimals integer [not null, note: 'Currency decimals']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Currency'
+}
+
+table common.exchange_rate_types {
+  id varchar(4) [pk, not null, note: 'Exchange rate type Id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Exchange rate type'
+}
+
+table common.exchange_rates {
+  exchange_rate_type_id varchar(4) [not null, note: 'Exchange rate type Id']
+  from_currency_id varchar(5) [not null, note: 'Currency Id']
+  to_currency_id varchar(5) [not null, note: 'Currency Id']
+  effective_from date [not null]
+  exchange_rate decimal(25,5) [not null, note: 'Exchange rate']
+  ratio_from integer [not null, note: 'Currency ratio from']
+  ratio_to integer [not null, note: 'Currency ratio to']
+  direct_rate boolean [not null, note: 'Direct ratio indicator']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    (exchange_rate_type_id, from_currency_id, to_currency_id, effective_from) [pk]
+  }
+
+  note: 'ExchangeRate'
+}
+
+// Reference to exchange rate type
+Ref exchange_rates_exchange_rate_type_id: common.exchange_rates.exchange_rate_type_id > common.exchange_rate_types.id
+// Reference (from) to currency 
+Ref exchange_rates_from_currency_id: common.exchange_rates.from_currency_id > common.currencies.id
+// Reference (to) to currency 
+Ref exchange_rates_to_currency_id: common.exchange_rates.to_currency_id > common.currencies.id
+
+
+table common.units_of_measurement {
+  id varchar(6) [pk, not null, note: 'Unit of measurement Id']
+  name varchar(100) [not null, note: 'Name']
+  short_name varchar(30) [not null, note: 'Short name']
+  iso_code varchar(3) [note: 'ISOCode']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Unit of measurement'
+}
+
+table common.uom_texts {
+  language_id varchar(3) [not null, note: 'Language Id']
+  uom_id varchar(6) [not null, note: 'Unit of measurement Id']
+  name varchar(100) [not null, note: 'Name']
+  short_name varchar(20) [not null, note: 'Short name']
+  commercial_code varchar(6) [not null, note: 'UoM commercial code']
+  technical_code varchar(6) [not null, note: 'UoM technical code']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    (language_id, uom_id) [pk]
+  }
+
+  note: 'Unit of measurement text'
+}
+
+// Reference to language
+Ref uom_texts_language_id: common.uom_texts.language_id > common.languages.id
+// Reference to unit of measurement
+Ref uom_texts_uom_id: common.uom_texts.uom_id > common.units_of_measurement.id
+
+
+
+// Group Ledger - Ledger settings 
+
+table ledger.ledgers {
+  id varchar(4) [pk, not null, note: 'Ledger Id']
+  name varchar(100) [not null, note: 'Name']
+  leading boolean [not null, note: 'Leading ledger indicator']
+  ledger_type ledger_type [not null, note: 'Ledger Type']
+  underlying_ledger varchar(4) [note: 'Underlying ledger']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Ledger'
+}
+
+// Reference to ledger
+Ref ledgers_underlying_ledger: ledger.ledgers.underlying_ledger > ledger.ledgers.id
+
+
+table ledger.ledger_groups {
+  id varchar(2) [pk, not null, note: 'Ledger Group Id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Ledger Group'
+}
+
+table ledger.ledger_group_ledgers {
+  ledger_group_id varchar(2) [not null, note: 'Ledger Group Id']
+  ledger_id varchar(4) [not null, note: 'Ledger Id']
+  representative boolean [not null, note: 'Representative ledger indicator']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    (ledger_group_id, ledger_id) [pk]
+  }
+
+  note: 'Ledger assignments to ledger group'
+}
+
+// Reference to ledger
+Ref ledger_group_ledgers_ledger_id: ledger.ledger_group_ledgers.ledger_id > ledger.ledgers.id
+// Reference to ledger group
+Ref ledger_group_ledgers_ledger_group_id: ledger.ledger_group_ledgers.ledger_group_id > ledger.ledger_groups.id
+
+
+
+// Group GLAccount - General Ledger account settings 
+
+table gl_account.charts_of_accounts {
+  id varchar(4) [pk, not null, note: 'Chart of accounts id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Chart of accounts'
+}
+
+table gl_account.gl_accounts {
+  chart_of_accounts_id varchar(4) [not null, note: 'Chart of accounts id']
+  gl_account_id varchar(10) [not null, note: 'General ledger account id']
+  short_name varchar(20) [not null, note: 'Short name']
+  name varchar(100) [not null, note: 'Name']
+  gl_account_type g_l_account_type [not null, note: 'General ledger account type']
+  gl_account_group_id varchar(10) [not null, note: 'General ledger account group id']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    (chart_of_accounts_id, gl_account_id) [pk]
+  }
+
+  note: 'General ledger account'
+}
+
+// Reference to Chart Of Accounts
+Ref gl_accounts_chart_of_accounts_id: gl_account.gl_accounts.chart_of_accounts_id > gl_account.charts_of_accounts.id
+// Reference to GLAccountGroup
+Ref gl_accounts_gl_account_group_id: gl_account.gl_accounts.(chart_of_accounts_id, gl_account_group_id) > gl_account.gl_account_groups.(chart_of_accounts_id, gl_account_group_id)
+
+
+table gl_account.gl_account_groups {
+  chart_of_accounts_id varchar(4) [not null, note: 'Chart of accounts id']
+  gl_account_group_id varchar(10) [not null, note: 'General ledger account group id']
+  name varchar(100) [not null, note: 'Name']
+  gl_account_id varchar(10) [not null, note: 'General ledger account id']
+  from_gl_account_id varchar(10) [not null, note: 'From GL account']
+  to_gl_account_id varchar(10) [not null, note: 'To GL account']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    (chart_of_accounts_id, gl_account_group_id) [pk]
+  }
+
+  note: 'General ledger account group'
+}
+
+// Reference to Chart Of Accounts
+Ref gl_account_groups_chart_of_accounts_id: gl_account.gl_account_groups.chart_of_accounts_id > gl_account.charts_of_accounts.id
+
+
+
+// Group Analytics - Analytic tables 
+
+table analytics.creditors {
+  id varchar(10) [pk, not null, note: 'Creditor id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Creditor'
+}
+
+table analytics.debtors {
+  id varchar(10) [pk, not null, note: 'Debtor id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Debtor'
+}
+
+table analytics.business_partners {
+  id varchar(10) [pk, not null, note: 'Business partner id']
+  name varchar(100) [not null, note: 'Name']
+  creditor_id varchar(10) [note: 'Creditor id']
+  debtor_id varchar(10) [note: 'Debtor id']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    (creditor_id) [unique, name: 'business_partners_creditor_id', note: 'Unique creditorId']
+    (debtor_id) [unique, name: 'business_partners_debtor_id', note: 'Unique debtorId']
+  }
+
+  note: 'Business partner'
+}
+
+// Reference to Creditor
+Ref business_partners_creditor_id: analytics.business_partners.creditor_id - analytics.creditors.id
+// Reference to Debtor
+Ref business_partners_debtor_id: analytics.business_partners.debtor_id - analytics.debtors.id
+
+
+table analytics.business_areas {
+  id varchar(4) [pk, not null, note: 'Business area id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Business area'
+}
+
+table analytics.functional_areas {
+  id varchar(20) [pk, not null, note: 'Functional area id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Functional area'
+}
+
+table analytics.segments {
+  id varchar(10) [pk, not null, note: 'Segment id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Segment'
+}
+
+table analytics.attributes {
+  id varchar(10) [pk, not null, note: 'Attribute id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Attribute'
+}
+
+table analytics.attribute_values {
+  attribute_id varchar(10) [not null, note: 'Attribute id']
+  attribute_value_id varchar(20) [not null, note: 'Attribute value id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    (attribute_id, attribute_value_id) [pk]
+  }
+
+  note: 'Attribute value'
+}
+
+// Relation to Attribute
+Ref attribute_values_attribute_id: analytics.attribute_values.attribute_id > analytics.attributes.id
+
+
+
+// Group Logistic - Logistic tables 
+
+table logistic.materials {
+  id varchar(40) [pk, not null, note: 'Material id']
+  name varchar(100) [not null, note: 'Name']
+  short_name varchar(20) [not null, note: 'Short name']
+  basic_uom_id varchar(6) [not null, note: 'Unit of measurement Id']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Material'
+}
+
+// Reference to Unit Of Measurement
+Ref materials_basic_uom_id: logistic.materials.basic_uom_id > common.units_of_measurement.id
+
+
+table logistic.plants {
+  id varchar(4) [pk, not null, note: 'Plant id']
+  name varchar(100) [not null, note: 'Name']
+  short_name varchar(20) [not null, note: 'Short name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Plant'
+}
+
+table logistic.locations {
+  plant_id varchar(4) [not null, note: 'Plant id']
+  location_id varchar(10) [not null, note: 'Location id']
+  name varchar(100) [not null, note: 'Name']
+  short_name varchar(20) [not null, note: 'Short name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    (plant_id, location_id) [pk]
+  }
+
+  note: 'Location'
+}
+
+// Reference to Plant
+Ref locations_plant_id: logistic.locations.plant_id > logistic.plants.id
+
+
+table logistic.valuation_areas {
+  id varchar(20) [pk, not null, note: 'Valuation area id']
+  name varchar(100) [not null, note: 'Name']
+  short_name varchar(20) [not null, note: 'Short name']
+  company_code_id varchar(4) [not null, note: 'Company code']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Valuation area'
+}
+
+// Reference to CompanyCode
+Ref valuation_areas_company_code_id: logistic.valuation_areas.company_code_id > company_code.company_codes.id
+
+
+
+// Group CompanyCode - Company code tables 
+
+table company_code.company_codes {
+  id varchar(4) [pk, not null, note: 'Company code']
+  name varchar(100) [not null, note: 'Name']
+  country_id varchar(3) [not null, note: 'Country Id']
+  language_id varchar(3) [not null, note: 'Language Id']
+  currency_id varchar(5) [not null, note: 'Currency Id']
+  chart_of_accounts_id varchar(4) [not null, note: 'Chart of accounts id']
+  fy_variant_id varchar(2) [not null, note: 'Fiscal year variant id']
+  posting_period_variant_id varchar(4) [not null, note: 'Posting period variant id']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Company code'
+}
+
+// Reference to Country
+Ref company_codes_country_id: company_code.company_codes.country_id > common.countries.id
+// Reference to Language
+Ref company_codes_language_id: company_code.company_codes.language_id > common.languages.id
+// Reference to Currency
+Ref company_codes_currency_id: company_code.company_codes.currency_id > common.currencies.id
+// Reference to ChartOfAccounts
+Ref company_codes_chart_of_accounts_id: company_code.company_codes.chart_of_accounts_id > gl_account.charts_of_accounts.id
+// Reference to FYVariant
+Ref company_codes_fy_variant_id: company_code.company_codes.fy_variant_id > company_code.fy_variants.id
+// Reference to PostingPeriodVariant
+Ref company_codes_posting_period_variant_id: company_code.company_codes.posting_period_variant_id > company_code.posting_period_variants.id
+
+
+table company_code.company_code_ledgers {
+  company_code_id varchar(4) [not null, note: 'Company code']
+  ledger_id varchar(4) [not null, note: 'Ledger Id']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    (company_code_id, ledger_id) [pk]
+  }
+
+  note: 'Company code ledger'
+}
+
+// Reference to CompanyCode
+Ref company_code_ledgers_company_code_id: company_code.company_code_ledgers.company_code_id > company_code.company_codes.id
+// Reference to Ledger
+Ref company_code_ledgers_ledger_id: company_code.company_code_ledgers.ledger_id > ledger.ledgers.id
+
+
+table company_code.fy_variants {
+  id varchar(2) [pk, not null, note: 'Fiscal year variant id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Fiscal year variant'
+}
+
+table company_code.posting_period_variants {
+  id varchar(4) [pk, not null, note: 'Posting period variant id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Posting period variant'
+}
+
+table company_code.open_periods {
+  posting_period_variant_id varchar(4) [not null, note: 'Posting period variant id']
+  account_type account_type [not null, note: 'Account type']
+  to_account varchar(10) [not null, note: 'To account']
+  from_account varchar(10) [not null, note: 'From account']
+  from_fy1 integer [not null, note: 'Group 1: From fiscal year']
+  from_period1 integer [not null, note: 'Group 1: From period']
+  to_fy1 integer [not null, note: 'Group 1: To fiscal year']
+  to_period1 integer [not null, note: 'Group 1: To period']
+  from_fy2 integer [not null, note: 'Group 2: From fiscal year']
+  from_period2 integer [not null, note: 'Group 2: From period']
+  to_fy2 integer [not null, note: 'Group 2: To fiscal year']
+  to_period2 integer [not null, note: 'Group 2: To period']
+  from_fy3 integer [not null, note: 'Group 3: From fiscal year']
+  from_period3 integer [not null, note: 'Group 3: From period']
+  to_fy3 integer [not null, note: 'Group 3: To fiscal year']
+  to_period3 integer [not null, note: 'Group 3: To period']
+
+  indexes {
+    (posting_period_variant_id, account_type, to_account) [pk]
+  }
+
+  note: 'Open period'
+}
+
+// Reference to PostingPeriodVariant
+Ref open_periods_posting_period_variant_id: company_code.open_periods.posting_period_variant_id > company_code.posting_period_variants.id
+
+
+
+// Group LedgerEntry - Ledger entry tables 
+
+table ledger_entry.ledger_entries {
+  entry_no uuid [pk, not null, note: 'Entry no']
+  ledger_id varchar(4) [not null, note: 'Ledger Id']
+  company_code_id varchar(4) [not null, note: 'Company code']
+  fiscal_year integer [not null, note: 'Fiscal year']
+  document_number varchar(10) [not null, note: 'Document number']
+  line_item_no varchar(6) [not null, note: 'Line item no']
+  posting_date date [not null, note: 'Posting date']
+  document_date date [not null, note: 'Document date']
+  valuation_date date [not null, note: 'Valuation date']
+  period integer [not null, note: 'Period']
+  fy_period integer [not null, note: 'Fiscal year period']
+  chart_of_accounts_id varchar(4) [not null, note: 'Chart of accounts id']
+  gl_account_id varchar(10) [not null, note: 'General ledger account id']
+  creditor_id varchar(10) [note: 'Creditor id']
+  debtor_id varchar(10) [note: 'Debtor id']
+  business_partner_id varchar(10) [note: 'Business partner id']
+  business_area_id varchar(4) [note: 'Business area id']
+  functional_area_id varchar(20) [note: 'Functional area id']
+  segment_id varchar(10) [note: 'Segment id']
+  valuation_area_id varchar(20) [note: 'Valuation area id']
+  plant_id varchar(4) [note: 'Plant id']
+  location_id varchar(10) [note: 'Location id']
+  material_id varchar(40) [note: 'Material id']
+  debit_credit debit_credit [not null, note: 'Debit/credit indicator']
+  document_amount decimal(25,2) [not null, note: 'Document amount']
+  document_currency_id varchar(5) [not null, note: 'Document currency']
+  company_code_amount decimal(25,2) [not null, note: 'Company code amount']
+  company_code_currency_id varchar(5) [not null, note: 'Company code currency']
+  quantity decimal(25,3) [note: 'Quantity']
+  uom_id varchar(6) [note: 'Unit of measurement Id']
+  basic_uom_id varchar(6) [note: 'Unit of measurement Id']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    (ledger_id, company_code_id, fiscal_year, document_number, line_item_no) [unique, name: 'ledger_entries_p_k', note: 'Ledger entry natural key']
+  }
+
+  note: 'LedgerEntry'
+}
+
+// Reference to Ledger
+Ref ledger_entries_ledger_id: ledger_entry.ledger_entries.ledger_id > ledger.ledgers.id
+// Reference to CompanyCode
+Ref ledger_entries_company_code_id: ledger_entry.ledger_entries.company_code_id > company_code.company_codes.id
+// Reference to GLAccount
+Ref ledger_entries_gl_account_id: ledger_entry.ledger_entries.(chart_of_accounts_id, gl_account_id) > gl_account.gl_accounts.(chart_of_accounts_id, gl_account_id)
+// Reference to Creditor
+Ref ledger_entries_creditor_id: ledger_entry.ledger_entries.creditor_id > analytics.creditors.id
+// Reference to Debtor
+Ref ledger_entries_debtor_id: ledger_entry.ledger_entries.debtor_id > analytics.debtors.id
+// Reference to BusinessPartner
+Ref ledger_entries_business_partner_id: ledger_entry.ledger_entries.business_partner_id > analytics.business_partners.id
+// Reference to BusinessArea
+Ref ledger_entries_business_area_id: ledger_entry.ledger_entries.business_area_id > analytics.business_areas.id
+// Reference to FunctionalArea
+Ref ledger_entries_functional_area_id: ledger_entry.ledger_entries.functional_area_id > analytics.functional_areas.id
+// Reference to Segment
+Ref ledger_entries_segment_id: ledger_entry.ledger_entries.segment_id > analytics.segments.id
+// Reference to ValuationArea
+Ref ledger_entries_valuation_area_id: ledger_entry.ledger_entries.valuation_area_id > logistic.valuation_areas.id
+// Reference to Plant
+Ref ledger_entries_plant_id: ledger_entry.ledger_entries.plant_id > logistic.plants.id
+// Reference to Location
+Ref ledger_entries_location_id: ledger_entry.ledger_entries.(plant_id, location_id) > logistic.locations.(plant_id, location_id)
+// Reference to Material
+Ref ledger_entries_material_id: ledger_entry.ledger_entries.material_id > logistic.materials.id
+// Reference to Currency
+Ref ledger_entries_document_currency_id: ledger_entry.ledger_entries.document_currency_id > common.currencies.id
+// Reference to Currency
+Ref ledger_entries_company_code_currency_id: ledger_entry.ledger_entries.company_code_currency_id > common.currencies.id
+// Reference to UnitOfMeasurement
+Ref ledger_entries_uom_id: ledger_entry.ledger_entries.uom_id > common.units_of_measurement.id
+// Reference to UnitOfMeasurement
+Ref ledger_entries_basic_uom_id: ledger_entry.ledger_entries.basic_uom_id > common.units_of_measurement.id
+
+
+table ledger_entry.ledger_entry_attributes {
+  entry_no uuid [not null, note: 'Entry no']
+  attribute_id varchar(10) [not null, note: 'Attribute id']
+  attribute_value_id varchar(20) [not null, note: 'Attribute value id']
+
+  indexes {
+    (entry_no, attribute_id, attribute_value_id) [pk]
+  }
+
+  note: 'Ledger entry attribute'
+}
+
+// Reference to LedgerEntry
+Ref ledger_entry_attributes_entry_no: ledger_entry.ledger_entry_attributes.entry_no > ledger_entry.ledger_entries.entry_no
+// Reference to AttributeValue
+Ref ledger_entry_attributes_attribute_value_id: ledger_entry.ledger_entry_attributes.(attribute_id, attribute_value_id) > analytics.attribute_values.(attribute_id, attribute_value_id)
+
+
