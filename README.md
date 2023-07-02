@@ -30,7 +30,7 @@ libraryDependencies += "biz.lobachev.annette" %% "data-dictionary-builder" % "0.
 Create model definition `Simple.scala`: 
 
 ```scala
-package ddbapp
+package biz.lobachev.annette.data_dictionary.builder_test.simple
 
 import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
 import biz.lobachev.annette.data_dictionary.builder.model._
@@ -42,29 +42,31 @@ object Simple {
       // format: off
       dataElement("PersonId", "personId", IntInt(), "Person Id"),
       dataElement("GroupId", "groupId", IntInt(), "Group Id")
+      // format: on
     )
     .withGroups(
       group("Shared", "Shared data structures")
         .withEntities(
           embeddedEntity("Modification", "Modification data structure")
             .withFields(
-              // format: off
-              "updatedBy" :# StringVarchar(20) :@ "User updated record",
-              "updatedAt"       :# InstantTimestamp() :@ "Timestamp of record update"
-              // format: on
-    )),
-    group("PersonGroup", "Person Group Model")
-      withEntities (
+        // format: off
+        "updatedBy" :# StringVarchar(20) :@ "User updated record",
+        "updatedAt" :# InstantTimestamp() :@ "Timestamp of record update"
+        // format: on
+            )
+        ),
+      group("PersonGroup", "Person Group Model")
+        withEntities (
         tableEntity("Person", "Person")
           .withPK(
             "id" :#++ "PersonId"
           )
           .withFields(
             // format: off
-         "firstname" :# StringVarchar(40) :@ "Person first name",
-         "lastname"        :# StringVarchar(40) :@ "Person last name",
-         include("Modification")
-         // format: on
+            "firstname" :# StringVarchar(40) :@ "Person first name",
+            "lastname"  :# StringVarchar(40) :@ "Person last name",
+            include("Modification")
+            // format: on
           )
           .withIndexes(
             index("lastnameFirstname", "Search index by lastname and firstname", "lastname", "firstname")
@@ -75,9 +77,9 @@ object Simple {
           )
           .withFields(
             // format: off
-          "name" :# StringVarchar(100) :@ "Group name",
-          include("Modification")
-          // format: on
+            "name" :# StringVarchar(100) :@ "Group name",
+            include("Modification")
+            // format: on
           ),
         tableEntity("GroupMember", "Group member")
           .withPK(
@@ -85,10 +87,10 @@ object Simple {
           )
           .withFields(
             // format: off
-          "groupId" :# "GroupId",
-          "personId"      :# "PersonId",
-          include("Modification")
-          // format: on
+            "groupId"    :# "GroupId",
+            "personId"   :# "PersonId",
+            include("Modification")
+            // format: on
           )
           .withIndexes(
             uniqueIndex("personGroupIds", "Person id in each group must be unique", "groupId", "personId")
@@ -97,7 +99,8 @@ object Simple {
             manyToOneRelation("groupId", "Relation to groups", "Group", "groupId"     -> "id"),
             manyToOneRelation("personId", "Relation to persons", "Person", "personId" -> "id")
           ),
-    ))
+      )
+    )
 
 }
 ```
