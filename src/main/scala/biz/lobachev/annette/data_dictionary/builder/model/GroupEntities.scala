@@ -1,6 +1,4 @@
-package biz.lobachev.annette.data_dictionary.builder.dsl
-
-import biz.lobachev.annette.data_dictionary.builder.model.{Entity, Group}
+package biz.lobachev.annette.data_dictionary.builder.model
 
 case class GroupEntities(
   group: Group,
@@ -12,5 +10,7 @@ case class GroupEntities(
     copy(entities = entities ++ entitySeq.map(e => e.copy(groupId = group.id)))
 
   def withEntities(entitySeq: Entity*): GroupEntities = withEntitySeq(entitySeq)
+
+  def withAttributes(seq: Attribute*) = copy(group = group.copy(attributes = group.attributes ++ seq))
 
 }

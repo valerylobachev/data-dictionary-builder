@@ -5,5 +5,10 @@ case class EnumData(
   name: String,
   description: String = "",
   length: Int,
-  elements: Seq[(String, String)]
-)
+  elements: Seq[(String, String)],
+  attributes: Attributes = Seq.empty
+) {
+  def withValues(seq: (String, String)*) = copy(elements = seq)
+
+  def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq)
+}

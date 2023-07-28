@@ -5,5 +5,10 @@ case class EntityIndex(
   name: String,
   description: String = "",
   unique: Boolean = false,
-  fields: Seq[String]
-)
+  fields: Seq[String],
+  attributes: Attributes = Seq.empty
+) {
+  def withDescription(description: String) = copy(description = description)
+
+  def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq)
+}

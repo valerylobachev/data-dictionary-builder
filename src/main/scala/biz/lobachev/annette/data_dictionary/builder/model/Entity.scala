@@ -22,8 +22,24 @@ case class Entity(
   pk: Seq[String] = Seq.empty,
   indexes: ListMap[String, EntityIndex] = ListMap.empty,
   relations: Seq[EntityRelation] = Seq.empty,
-  schema: Option[String] = None
+  schema: Option[String] = None,
+  attributes: Attributes = Seq.empty
 ) {
+
+  def withTableName(tableName: String) = copy(tableName = tableName)
+
+  def withDescription(description: String) = copy(description = description)
+
+  def withFields(seq: EntityField*) = copy(fields = fields ++ seq)
+
+  def withPK(seq: EntityField*) = copy(fields = seq, pk = seq.map(_.fieldName))
+
+  def withIndexes(seq: EntityIndex*) = copy(indexes = ListMap.from(seq.map(e => e.id -> e)))
+
+  def withRelations(seq: EntityRelation*) = copy(relations = seq)
+
+  def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq)
+
   def fullTableName(): String =
     Seq(schema.map(wrapQuotes), Some(wrapQuotes(tableName))).flatten.mkString(".")
 }

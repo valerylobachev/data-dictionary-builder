@@ -1,17 +1,7 @@
 package biz.lobachev.annette.data_dictionary.builder.dsl
 
-import biz.lobachev.annette.data_dictionary.builder.model.{
-  EmbeddedEntity,
-  Entity,
-  EntityField,
-  EntityIndex,
-  EntityRelation,
-  StructEntity,
-  TableEntity
-}
+import biz.lobachev.annette.data_dictionary.builder.model.{EmbeddedEntity, Entity, StructEntity, TableEntity}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
-
-import scala.collection.immutable.ListMap
 
 trait Entities {
 
@@ -69,17 +59,4 @@ trait Entities {
       tableName = id.pluralize.snakeCase
     )
 
-  implicit class EntityImplicit(entity: Entity) {
-    def withTableName(tableName: String) = entity.copy(tableName = tableName)
-
-    def withDescription(description: String) = entity.copy(description = description)
-
-    def withFields(seq: EntityField*) = entity.copy(fields = entity.fields ++ seq)
-
-    def withPK(seq: EntityField*) = entity.copy(fields = seq, pk = seq.map(_.fieldName))
-
-    def withIndexes(seq: EntityIndex*) = entity.copy(indexes = ListMap.from(seq.map(e => e.id -> e)))
-
-    def withRelations(seq: EntityRelation*) = entity.copy(relations = seq) //ListMap.from(seq.map(e => e.id -> e)))
-  }
 }

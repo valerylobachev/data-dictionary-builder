@@ -8,4 +8,8 @@ case class DataElement(
   dbFieldName: String,
   dataType: DataType,
   notNull: Boolean = true,
-)
+  attributes: Attributes = Seq.empty
+) {
+  def withDescription(description: String) = copy(description = description)
+  def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq)
+}

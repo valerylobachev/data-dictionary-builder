@@ -1,6 +1,6 @@
 package biz.lobachev.annette.data_dictionary.builder.dsl
 
-import biz.lobachev.annette.data_dictionary.builder.model.Group
+import biz.lobachev.annette.data_dictionary.builder.model.{Group, GroupEntities}
 
 trait Groups {
 

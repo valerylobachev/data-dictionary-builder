@@ -37,8 +37,4 @@ trait Relations {
       fields = fields
     )
 
-  implicit class EntityRelationImplicit(relation: EntityRelation) {
-    def withFields(seq: (String, String)*) = relation.copy(fields = seq)
-  }
-
 }

@@ -1,11 +1,16 @@
 package biz.lobachev.annette.data_dictionary.builder_test.finance
 
 import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
+import biz.lobachev.annette.data_dictionary.builder.helper.JavaPackage.{javaModelPackage, javaRepoPackage}
 
 trait CompanyCode {
 
   val companyCodeGroup = group("CompanyCode", "Company code tables")
     .withSchema("company_code")
+    .withAttributes(
+      javaModelPackage("finance.data.company_code.model"),
+      javaRepoPackage("finance.data.company_code")
+    )
     .withEntities(
       tableEntity("CompanyCode", "Company code", "CompanyCode")
         .withPK(

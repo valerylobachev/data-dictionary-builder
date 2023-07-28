@@ -1,12 +1,16 @@
 package biz.lobachev.annette.data_dictionary.builder_test.finance
 
 import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
+import biz.lobachev.annette.data_dictionary.builder.helper.JavaPackage.{javaModelPackage, javaRepoPackage}
 
 trait Analytics {
 
   val analyticsGroup = group("Analytics", "Analytic tables")
     .withSchema("analytics")
-
+    .withAttributes(
+      javaModelPackage("finance.data.analytics.model"),
+      javaRepoPackage("finance.data.analytics")
+    )
     .withEntities(
       // ***************************** Creditor *****************************
       tableEntity("Creditor", "Creditor", "Creditor")

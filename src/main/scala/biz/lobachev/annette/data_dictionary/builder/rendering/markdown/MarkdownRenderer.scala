@@ -45,7 +45,7 @@ case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = E
     )
 
   private def renderGroup(group: Group) =
-    MDGroup(
+    MdGroup(
       name = group.name,
       description = if (group.description.isBlank) "" else group.description,
       entities = domain.entities.values
@@ -76,7 +76,7 @@ case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = E
       dbFieldName = field.dbFieldName,
       description =
         if (field.description.isBlank) field.name
-        else s"${field.name}<br>${field.description}",
+        else s"${field.name}<br>${field.description.mdReplaceNL}",
       datatype = datatype,
       pk = if (entity.pk.contains(field.fieldName)) "X" else "",
       required = if (field.notNull) "X" else ""
@@ -89,7 +89,7 @@ case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = E
       unique = if (index.unique) "X" else "",
       description =
         if (index.description.isBlank) index.name
-        else s"${index.name}<br>${index.description}"
+        else s"${index.name}<br>${index.description.mdReplaceNL}"
     )
 
   private def renderRelation(relation: EntityRelation, fields: Seq[EntityField]) = {
@@ -106,7 +106,7 @@ case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = E
       },
       description =
         if (relation.description.isBlank) relation.name
-        else s"${relation.name}<br>${relation.description}"
+        else s"${relation.name}<br>${relation.description.mdReplaceNL}"
     )
   }
 

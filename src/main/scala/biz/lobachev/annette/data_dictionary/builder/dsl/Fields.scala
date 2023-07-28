@@ -70,6 +70,7 @@ trait Fields {
     def :#?(dataType: DataType) = field(fieldName, dataType, "", false)
 
     def :#++(dataType: DataType) = field(fieldName, dataType, "", true, true)
+
   }
 
   def include(entityId: String)              = field("", EmbeddedEntityType(entityId), "")

@@ -16,11 +16,15 @@ case class EntityRelation(
   referenceEntityId: String,
   fields: Seq[(String, String)],
   onUpdate: ForeignKeyAction = NoAction,
-  onDelete: ForeignKeyAction = NoAction
-)
+  onDelete: ForeignKeyAction = NoAction,
+  attributes: Attributes = Seq.empty
+) {
+  def withFields(seq: (String, String)*) = copy(fields = seq)
+
+  def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq)
+}
 
 sealed trait RelationType
 
 case object ManyToOne extends RelationType
-case object OneToOne extends RelationType
-
+case object OneToOne  extends RelationType

@@ -15,6 +15,6 @@ trait Shared {
           "updatedBy"       :# "UserId"             :@ "User updated record",
           "updatedAt"       :# InstantTimestamp()   :@ "Timestamp of record update"
           // format: on
-        )
+        ),
     )
 }

@@ -3,10 +3,10 @@ package biz.lobachev.annette.data_dictionary.builder.rendering.markdown
 case class MdDomain(
   name: String,
   description: String,
-  groups: Seq[MDGroup]
+  groups: Seq[MdGroup]
 )
 
-case class MDGroup(
+case class MdGroup(
   name: String,
   description: String,
   entities: Seq[MdEntity]

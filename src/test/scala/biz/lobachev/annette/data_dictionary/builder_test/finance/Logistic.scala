@@ -1,15 +1,20 @@
 package biz.lobachev.annette.data_dictionary.builder_test.finance
 
 import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
+import biz.lobachev.annette.data_dictionary.builder.helper.JavaPackage.{javaModelPackage, javaRepoPackage}
 
 trait Logistic {
 
   val logisticGroup = group("Logistic", "Logistic tables")
     .withSchema("logistic")
+    .withAttributes(
+      javaModelPackage("finance.data.logistic.model"),
+      javaRepoPackage("finance.data.logistic"),
+    )
     .withEntities(
       tableEntity("Material", "Material", "Material")
         .withPK(
-          "id" :# "MaterialId"
+          "id" :# "MaterialId",
         )
         .withFields(
           // format: off
@@ -20,11 +25,11 @@ trait Logistic {
           // format: on
         )
         .withRelations(
-          manyToOneRelation("basicUomId", "Reference to Unit Of Measurement", "UnitOfMeasurement", "basicUomId" -> "id")
+          manyToOneRelation("basicUomId", "Reference to Unit Of Measurement", "UnitOfMeasurement", "basicUomId" -> "id"),
         ),
       tableEntity("Plant", "Plant", "Plant")
         .withPK(
-          "id" :# "PlantId"
+          "id" :# "PlantId",
         )
         .withFields(
           // format: off
@@ -48,11 +53,11 @@ trait Logistic {
           // format: on
         )
         .withRelations(
-          manyToOneRelation("plantId", "Reference to Plant", "Plant", "plantId" -> "id")
+          manyToOneRelation("plantId", "Reference to Plant", "Plant", "plantId" -> "id"),
         ),
       tableEntity("ValuationArea", "Valuation area", "ValuationArea")
         .withPK(
-          "id" :# "ValuationAreaId"
+          "id" :# "ValuationAreaId",
         )
         .withFields(
           // format: off

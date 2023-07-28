@@ -18,7 +18,4 @@ trait Enums {
       elements = Seq.empty
     )
 
-  implicit class EnumDataImplicit(enumData: EnumData) {
-    def withValues(seq: (String, String)*) = enumData.copy(elements = seq)
-  }
 }

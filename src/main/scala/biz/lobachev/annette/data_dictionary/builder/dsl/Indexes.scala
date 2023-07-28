@@ -19,8 +19,4 @@ trait Indexes {
       fields = fields
     )
 
-  implicit class IndexImplicit(index: EntityIndex) {
-    def withDescription(description: String) = index.copy(description = description)
-  }
-
 }

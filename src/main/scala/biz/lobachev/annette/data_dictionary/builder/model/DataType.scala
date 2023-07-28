@@ -15,14 +15,14 @@ case class StringJsonB(defaultValue: Option[String] = None)             extends 
 
 case class IntInt(defaultValue: Option[Int] = None)        extends DataType
 case class LongLong(defaultValue: Option[Long] = None)     extends DataType
-case class ShortSmallint(defaultValue: Option[Int] = None) extends DataType
+case class ShortSmallint(defaultValue: Option[Short] = None) extends DataType
 
 case class BigDecimalNumeric(precision: Int, scale: Int, defaultValue: Option[BigDecimal] = None) extends DataType
 case class BigIntegerNumeric(precision: Int, defaultValue: Option[BigInteger] = None)             extends DataType
 
-case class DoubleDouble(defaultValue: Option[Double] = None)  extends DataType
-case class FloatFloat(defaultValue: Option[Float] = None)     extends DataType
-case class BooleanBoolean(defaultValue: Option[Float] = None) extends DataType
+case class DoubleDouble(defaultValue: Option[Double] = None)    extends DataType
+case class FloatFloat(defaultValue: Option[Float] = None)       extends DataType
+case class BooleanBoolean(defaultValue: Option[Boolean] = None) extends DataType
 
 case class UuidUuid(defaultValue: Option[UUID] = None) extends DataType
 

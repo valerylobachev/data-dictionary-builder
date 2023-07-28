@@ -38,8 +38,5 @@ trait DataElements {
       notNull = notNull
     )
 
-  implicit class DataElementImplicit(dataElement: DataElement) {
-    def withDescription(description: String) = dataElement.copy(description = description)
-  }
 
 }

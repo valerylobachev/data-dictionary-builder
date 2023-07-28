@@ -1,12 +1,17 @@
 package biz.lobachev.annette.data_dictionary.builder_test.finance
 
 import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
+import biz.lobachev.annette.data_dictionary.builder.helper.JavaPackage.{javaModelPackage, javaRepoPackage}
 import biz.lobachev.annette.data_dictionary.builder.model._
 
 trait Common {
 
   val commonGroup = group("Common", "Common tables and data structures")
     .withSchema("common")
+    .withAttributes(
+      javaModelPackage("finance.data.common.model"),
+      javaRepoPackage("finance.data.common")
+    )
     .withEntities(
       // ***************************** Countries & Languages *****************************
       tableEntity("Country", "Country", "Country")
@@ -97,7 +102,7 @@ trait Common {
       tableEntity("UnitOfMeasurement", "Unit of measurement", "UnitOfMeasurement")
         .withTableName("units_of_measurement")
         .withPK(
-          "id" :# DataElementType("UoMId")
+          "id" :# "UoMId"
         )
         .withFields(
           // format: off

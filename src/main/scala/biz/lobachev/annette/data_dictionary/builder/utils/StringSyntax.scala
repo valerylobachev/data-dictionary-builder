@@ -25,6 +25,10 @@ object StringSyntax {
     def pluralize = English.plural(s)
   }
 
+  implicit class MdNewLines(s: String) {
+    def mdReplaceNL = s.replace("\n", "<br>")
+  }
+
   def wrapQuotes(s: String): String = {
     if (s.matches(".*\\s.*")) s"\"$s\""
     else s

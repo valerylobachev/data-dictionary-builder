@@ -1,12 +1,17 @@
 package biz.lobachev.annette.data_dictionary.builder_test.finance
 
 import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
+import biz.lobachev.annette.data_dictionary.builder.helper.JavaPackage.{javaModelPackage, javaRepoPackage}
 import biz.lobachev.annette.data_dictionary.builder.model._
 
 trait GLAccount {
 
   val glAccountGroup = group("GLAccount", "General Ledger account settings")
     .withSchema("gl_account")
+    .withAttributes(
+      javaModelPackage("finance.data.gl_account.model"),
+      javaRepoPackage("finance.data.gl_account")
+    )
     .withEntities(
       tableEntity("ChartOfAccounts", "Chart of accounts", "ChartOfAccounts")
         .withTableName("charts_of_accounts")

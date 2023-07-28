@@ -12,8 +12,30 @@ case class Domain(
   groups: ListMap[String, Group] = ListMap.empty,
   entities: ListMap[String, Entity] = ListMap.empty,
   dataElements: ListMap[String, DataElement] = ListMap.empty,
-  enums: ListMap[String, EnumData] = ListMap.empty
+  enums: ListMap[String, EnumData] = ListMap.empty,
+  attributes: Attributes = Seq.empty
 ) extends ModelValidator {
+
+  def withGroupSeq(groupSeq: Seq[GroupEntities]): Domain =
+    copy(
+      groups = groups ++ groupSeq.map(m => m.group.id -> m.group),
+      entities =
+        entities ++ groupSeq.flatMap(g => g.entities.map(e => e.id -> e.copy(schema = g.group.schema)))
+    )
+
+  def withGroups(groupSeq: GroupEntities*) = withGroupSeq(groupSeq)
+
+  def withDataElementSeq(seq: Seq[DataElement]) =
+    copy(dataElements = ListMap.from(seq.map(e => e.id -> e)))
+
+  def withDataElements(seq: DataElement*)       = withDataElementSeq(seq)
+
+  def withEnumSeq(seq: Seq[EnumData]) =
+    copy(enums = ListMap.from(seq.map(e => e.id -> e)))
+
+  def withEnums(seq: EnumData*)       = withEnumSeq(seq)
+
+  def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq)
 
   def build(): Either[Seq[String], Domain] = {
     val newEntities = entities.values.map { entity =>
