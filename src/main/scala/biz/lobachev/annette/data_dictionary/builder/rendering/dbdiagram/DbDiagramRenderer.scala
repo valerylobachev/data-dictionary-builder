@@ -8,7 +8,10 @@ import biz.lobachev.annette.data_dictionary.builder.model.Domain
 
 case class DbDiagramRenderer(domain: Domain) extends Renderer {
 
-  override def render(): Seq[RenderResult] = {
+  override def render(): Seq[RenderResult] =
+    renderAll() ++ renderByGroup()
+
+  def renderAll(): Seq[RenderResult] = {
     val enums   = renderEnums()
     val content = domain.groups.values.map { group =>
       val groupContent = domain.entities.values
@@ -21,11 +24,44 @@ case class DbDiagramRenderer(domain: Domain) extends Renderer {
     }.toSeq
     Seq(
       RenderResult(
-        "",
-        s"db_diagram.dbml",
-        (enums +: content).mkString("\n")
-      )
+        "diagrams",
+        s"${domain.id}.dbml",
+        (enums +: content).mkString("\n"),
+      ),
     )
+  }
+
+  def renderByGroup(): Seq[RenderResult] = {
+    val enums = renderEnums()
+    domain.groups.values.map { group =>
+      val groupContent = domain.entities.values
+        .filter(entity => entity.groupId == group.id && entity.entityType == TableEntity)
+        .map(entity => renderEntity(entity))
+        .mkString("\n")
+      val otherContent = domain.entities.values
+        .filter(entity => entity.groupId == group.id && entity.entityType == TableEntity)
+        .flatMap { entity =>
+          (entity.relations ++ domain.rolloutEntity(entity).relations)
+            .filter(r => domain.entities(r.referenceEntityId).groupId != group.id)
+            .map(_.referenceEntityId)
+        }
+        .toSet
+        .toSeq
+        .map((entityId: String) => renderEntity(domain.entities(entityId), Some(group.id)))
+        .mkString("\n")
+      if (groupContent.nonEmpty) {
+        val related = if (otherContent.nonEmpty) s"// Related entities \n\n$otherContent\n" else ""
+        val content = s"// Group ${group.id} - ${group.name} \n\n$groupContent\n\n$related"
+        Some(
+          RenderResult(
+            "diagrams",
+            s"${group.id}.dbml",
+            s"$enums\n$content",
+          ),
+        )
+      } else None
+    }.flatten.toSeq
+
   }
 
   def renderEnums(): String =
@@ -37,10 +73,10 @@ case class DbDiagramRenderer(domain: Domain) extends Renderer {
 
     }.mkString("\n")
 
-  def renderEntity(entity: Entity): String = {
+  def renderEntity(entity: Entity, group: Option[String] = None): String = {
     val fields    = renderFields(entity)
     val indexes   = renderIndexes(entity)
-    val relations = renderRelations(entity)
+    val relations = renderRelations(entity, group)
     s"table ${entity.fullTableName()} {\n$fields" +
       (if (indexes.nonEmpty) s"\n$indexes" else "") +
       (if (entity.name.nonEmpty) s"\n  note: '${entity.name}'\n") +
@@ -54,12 +90,12 @@ case class DbDiagramRenderer(domain: Domain) extends Renderer {
       .rolloutEntityFields(entity)
       .map { field =>
         val datatype =
-          domain.getTargetDataType(field.dataType, POSTGRESQL) //domain.dataElements(field.dataElementId).sqlDataType
+          domain.getTargetDataType(field.dataType, POSTGRESQL) // domain.dataElements(field.dataElementId).sqlDataType
         val params   = Seq(
           if (entity.pk.length == 1 && entity.pk.head == field.fieldName) Some("pk") else None,
           if (field.notNull) Some("not null") else None,
           if (field.autoIncrement) Some("increment") else None,
-          if (field.name.nonEmpty) Some(s"note: '${field.name}'") else None
+          if (field.name.nonEmpty) Some(s"note: '${field.name}'") else None,
         ).flatten
         val paramStr = if (params.nonEmpty) params.mkString("[", ", ", "]") else ""
         s"  ${field.dbFieldName} $datatype $paramStr\n"
@@ -84,7 +120,7 @@ case class DbDiagramRenderer(domain: Domain) extends Renderer {
       val params   = Seq(
         if (index.unique) Some("unique") else None,
         Some(s"name: '$indexId'"),
-        if (index.name.nonEmpty) Some(s"note: '${index.name}'") else None
+        if (index.name.nonEmpty) Some(s"note: '${index.name}'") else None,
       ).flatten
       val paramStr = if (params.nonEmpty) params.mkString("[", ", ", "]") else ""
       Some(s"    $fields $paramStr\n")
@@ -94,28 +130,31 @@ case class DbDiagramRenderer(domain: Domain) extends Renderer {
     else ""
   }
 
-  def renderRelations(entity: Entity): String = {
+  def renderRelations(entity: Entity, group: Option[String] = None): String = {
     val fr        = domain.rolloutEntity(entity)
     val fields    = fr.fields
     val relations = entity.relations ++ fr.relations
     relations.map { relation =>
       val relationEntity = domain.entities(relation.referenceEntityId)
-      val relationType   = relation.relationType match {
-        case ManyToOne => ">"
-        case OneToOne  => "-"
-      }
-      val comment        = if (relation.name.nonEmpty) s"// ${relation.name}\n" else ""
-      val relationId     = entity.tableName + '_' + relation.id.snakeCase
-      if (relation.fields.size == 1) {
-        val f1 = getEntityField(fields, relation.fields.head._1).dbFieldName
-        val f2 = getEntityField(relationEntity.fields, relation.fields.head._2).dbFieldName
-        s"${comment}Ref $relationId: ${entity.fullTableName()}.$f1 $relationType ${relationEntity.fullTableName()}.$f2\n"
-      } else {
-        val f1 = relation.fields.map(f => getEntityField(fields, f._1).dbFieldName).mkString("(", ", ", ")")
-        val f2 =
-          relation.fields.map(f => getEntityField(relationEntity.fields, f._2).dbFieldName).mkString("(", ", ", ")")
-        s"${comment}Ref $relationId: ${entity.fullTableName()}.$f1 $relationType ${relationEntity.fullTableName()}.$f2\n"
-      }
+      val shouldRender   = group.map(groupId => relationEntity.groupId == groupId).getOrElse(true)
+      if (shouldRender) {
+        val relationType = relation.relationType match {
+          case ManyToOne => ">"
+          case OneToOne  => "-"
+        }
+        val comment      = if (relation.name.nonEmpty) s"// ${relation.name}\n" else ""
+        val relationId   = entity.tableName + '_' + relation.id.snakeCase
+        if (relation.fields.size == 1) {
+          val f1 = getEntityField(fields, relation.fields.head._1).dbFieldName
+          val f2 = getEntityField(relationEntity.fields, relation.fields.head._2).dbFieldName
+          s"${comment}Ref $relationId: ${entity.fullTableName()}.$f1 $relationType ${relationEntity.fullTableName()}.$f2\n"
+        } else {
+          val f1 = relation.fields.map(f => getEntityField(fields, f._1).dbFieldName).mkString("(", ", ", ")")
+          val f2 =
+            relation.fields.map(f => getEntityField(relationEntity.fields, f._2).dbFieldName).mkString("(", ", ", ")")
+          s"${comment}Ref $relationId: ${entity.fullTableName()}.$f1 $relationType ${relationEntity.fullTableName()}.$f2\n"
+        }
+      } else ""
     }.mkString
   }
 

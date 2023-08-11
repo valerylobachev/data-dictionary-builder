@@ -1,0 +1,92 @@
+// Ledger Type
+enum ledger_type {
+  L [note: 'Leading ledger']
+  X [note: 'Extension ledger']
+}
+
+// General ledger account type
+enum g_l_account_type {
+  X [note: 'Balance Sheet Account']
+  N [note: 'Nonoperating Expense or Income']
+  P [note: 'Primary Costs or Revenue']
+  S [note: 'Secondary Costs']
+  C [note: 'Cash Account']
+}
+
+// Account type
+enum account_type {
+  A [note: 'Assets']
+  D [note: 'Customer']
+  K [note: 'Vendor']
+  M [note: 'Materials']
+  S [note: 'General Ledger']
+}
+
+// Debit/Credit
+enum debit_credit {
+  D [note: 'Debit']
+  C [note: 'Credit']
+}
+
+// Group GLAccount - General Ledger account settings 
+
+table gl_account.charts_of_accounts {
+  id varchar(4) [pk, not null, note: 'Chart of accounts id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Chart of accounts'
+}
+
+table gl_account.gl_accounts {
+  chart_of_accounts_id varchar(4) [not null, note: 'Chart of accounts id']
+  gl_account_id varchar(10) [not null, note: 'General ledger account id']
+  short_name varchar(20) [not null, note: 'Short name']
+  name varchar(100) [not null, note: 'Name']
+  gl_account_type g_l_account_type [not null, note: 'General ledger account type']
+  gl_account_group_id varchar(10) [not null, note: 'General ledger account group id']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    (chart_of_accounts_id, gl_account_id) [pk]
+  }
+
+  note: 'General ledger account'
+}
+
+// Reference to Chart Of Accounts
+Ref gl_accounts_chart_of_accounts_id: gl_account.gl_accounts.chart_of_accounts_id > gl_account.charts_of_accounts.id
+// Reference to GLAccountGroup
+Ref gl_accounts_gl_account_group_id: gl_account.gl_accounts.(chart_of_accounts_id, gl_account_group_id) > gl_account.gl_account_groups.(chart_of_accounts_id, gl_account_group_id)
+
+
+table gl_account.gl_account_groups {
+  chart_of_accounts_id varchar(4) [not null, note: 'Chart of accounts id']
+  gl_account_group_id varchar(10) [not null, note: 'General ledger account group id']
+  name varchar(100) [not null, note: 'Name']
+  gl_account_id varchar(10) [not null, note: 'General ledger account id']
+  from_gl_account_id varchar(10) [not null, note: 'From GL account']
+  to_gl_account_id varchar(10) [not null, note: 'To GL account']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    (chart_of_accounts_id, gl_account_group_id) [pk]
+  }
+
+  note: 'General ledger account group'
+}
+
+// Reference to Chart Of Accounts
+Ref gl_account_groups_chart_of_accounts_id: gl_account.gl_account_groups.chart_of_accounts_id > gl_account.charts_of_accounts.id
+
+
+

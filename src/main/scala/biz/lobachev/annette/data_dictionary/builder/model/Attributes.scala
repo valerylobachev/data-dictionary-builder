@@ -1,6 +1,12 @@
 package biz.lobachev.annette.data_dictionary.builder.model
 
 object Attributes {
+  def findRelationAttribute(relation: EntityRelation, key: String): Option[String] =
+    relation.attributes.find(a => a.key == key) match {
+      case Some(attr) => Some(attr.value)
+      case None       => None
+    }
+
   def findEntityAttribute(entity: Entity, domain: Domain, key: String): Option[String] =
     entity.attributes.find(a => a.key == key) match {
       case Some(attr) => Some(attr.value)

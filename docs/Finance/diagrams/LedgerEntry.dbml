@@ -1,0 +1,355 @@
+// Ledger Type
+enum ledger_type {
+  L [note: 'Leading ledger']
+  X [note: 'Extension ledger']
+}
+
+// General ledger account type
+enum g_l_account_type {
+  X [note: 'Balance Sheet Account']
+  N [note: 'Nonoperating Expense or Income']
+  P [note: 'Primary Costs or Revenue']
+  S [note: 'Secondary Costs']
+  C [note: 'Cash Account']
+}
+
+// Account type
+enum account_type {
+  A [note: 'Assets']
+  D [note: 'Customer']
+  K [note: 'Vendor']
+  M [note: 'Materials']
+  S [note: 'General Ledger']
+}
+
+// Debit/Credit
+enum debit_credit {
+  D [note: 'Debit']
+  C [note: 'Credit']
+}
+
+// Group LedgerEntry - Ledger entry tables 
+
+table ledger_entry.ledger_entries {
+  entry_no uuid [pk, not null, note: 'Entry no']
+  ledger_id varchar(4) [not null, note: 'Ledger Id']
+  company_code_id varchar(4) [not null, note: 'Company code']
+  fiscal_year integer [not null, note: 'Fiscal year']
+  document_number varchar(10) [not null, note: 'Document number']
+  line_item_no varchar(6) [not null, note: 'Line item no']
+  posting_date date [not null, note: 'Posting date']
+  document_date date [not null, note: 'Document date']
+  valuation_date date [not null, note: 'Valuation date']
+  period integer [not null, note: 'Period']
+  fy_period integer [not null, note: 'Fiscal year period']
+  chart_of_accounts_id varchar(4) [not null, note: 'Chart of accounts id']
+  gl_account_id varchar(10) [not null, note: 'General ledger account id']
+  creditor_id varchar(10) [note: 'Creditor id']
+  debtor_id varchar(10) [note: 'Debtor id']
+  business_partner_id varchar(10) [note: 'Business partner id']
+  business_area_id varchar(4) [note: 'Business area id']
+  functional_area_id varchar(20) [note: 'Functional area id']
+  segment_id varchar(10) [note: 'Segment id']
+  valuation_area_id varchar(20) [note: 'Valuation area id']
+  plant_id varchar(4) [note: 'Plant id']
+  location_id varchar(10) [note: 'Location id']
+  material_id varchar(40) [note: 'Material id']
+  debit_credit debit_credit [not null, note: 'Debit/credit indicator']
+  document_amount decimal(25,2) [not null, note: 'Document amount']
+  document_currency_id varchar(5) [not null, note: 'Document currency']
+  company_code_amount decimal(25,2) [not null, note: 'Company code amount']
+  company_code_currency_id varchar(5) [not null, note: 'Company code currency']
+  quantity decimal(25,3) [note: 'Quantity']
+  uom_id varchar(6) [note: 'Unit of measurement Id']
+  basic_uom_id varchar(6) [note: 'Unit of measurement Id']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    (ledger_id, company_code_id, fiscal_year, document_number, line_item_no) [unique, name: 'ledger_entries_pk', note: 'Ledger entry natural key']
+  }
+
+  note: 'LedgerEntry'
+}
+
+// Reference to Ledger
+Ref ledger_entries_ledger_id: ledger_entry.ledger_entries.ledger_id > ledger.ledgers.id
+// Reference to CompanyCode
+Ref ledger_entries_company_code_id: ledger_entry.ledger_entries.company_code_id > company_code.company_codes.id
+// Reference to GLAccount
+Ref ledger_entries_gl_account_id: ledger_entry.ledger_entries.(chart_of_accounts_id, gl_account_id) > gl_account.gl_accounts.(chart_of_accounts_id, gl_account_id)
+// Reference to Creditor
+Ref ledger_entries_creditor_id: ledger_entry.ledger_entries.creditor_id > analytics.creditors.id
+// Reference to Debtor
+Ref ledger_entries_debtor_id: ledger_entry.ledger_entries.debtor_id > analytics.debtors.id
+// Reference to BusinessPartner
+Ref ledger_entries_business_partner_id: ledger_entry.ledger_entries.business_partner_id > analytics.business_partners.id
+// Reference to BusinessArea
+Ref ledger_entries_business_area_id: ledger_entry.ledger_entries.business_area_id > analytics.business_areas.id
+// Reference to FunctionalArea
+Ref ledger_entries_functional_area_id: ledger_entry.ledger_entries.functional_area_id > analytics.functional_areas.id
+// Reference to Segment
+Ref ledger_entries_segment_id: ledger_entry.ledger_entries.segment_id > analytics.segments.id
+// Reference to ValuationArea
+Ref ledger_entries_valuation_area_id: ledger_entry.ledger_entries.valuation_area_id > logistic.valuation_areas.id
+// Reference to Plant
+Ref ledger_entries_plant_id: ledger_entry.ledger_entries.plant_id > logistic.plants.id
+// Reference to Location
+Ref ledger_entries_location_id: ledger_entry.ledger_entries.(plant_id, location_id) > logistic.locations.(plant_id, location_id)
+// Reference to Material
+Ref ledger_entries_material_id: ledger_entry.ledger_entries.material_id > logistic.materials.id
+// Reference to Currency
+Ref ledger_entries_document_currency_id: ledger_entry.ledger_entries.document_currency_id > common.currencies.id
+// Reference to Currency
+Ref ledger_entries_company_code_currency_id: ledger_entry.ledger_entries.company_code_currency_id > common.currencies.id
+// Reference to UnitOfMeasurement
+Ref ledger_entries_uom_id: ledger_entry.ledger_entries.uom_id > common.units_of_measurement.id
+// Reference to UnitOfMeasurement
+Ref ledger_entries_basic_uom_id: ledger_entry.ledger_entries.basic_uom_id > common.units_of_measurement.id
+
+
+table ledger_entry.ledger_entry_attributes {
+  entry_no uuid [not null, note: 'Entry no']
+  attribute_id varchar(10) [not null, note: 'Attribute id']
+  attribute_value_id varchar(20) [not null, note: 'Attribute value id']
+
+  indexes {
+    (entry_no, attribute_id, attribute_value_id) [pk]
+  }
+
+  note: 'Ledger entry attribute'
+}
+
+// Reference to LedgerEntry
+Ref ledger_entry_attributes_entry_no: ledger_entry.ledger_entry_attributes.entry_no > ledger_entry.ledger_entries.entry_no
+// Reference to AttributeValue
+Ref ledger_entry_attributes_attribute_value_id: ledger_entry.ledger_entry_attributes.(attribute_id, attribute_value_id) > analytics.attribute_values.(attribute_id, attribute_value_id)
+
+
+
+// Related entities 
+
+table analytics.creditors {
+  id varchar(10) [pk, not null, note: 'Creditor id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Creditor'
+}
+
+table gl_account.gl_accounts {
+  chart_of_accounts_id varchar(4) [not null, note: 'Chart of accounts id']
+  gl_account_id varchar(10) [not null, note: 'General ledger account id']
+  short_name varchar(20) [not null, note: 'Short name']
+  name varchar(100) [not null, note: 'Name']
+  gl_account_type g_l_account_type [not null, note: 'General ledger account type']
+  gl_account_group_id varchar(10) [not null, note: 'General ledger account group id']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    (chart_of_accounts_id, gl_account_id) [pk]
+  }
+
+  note: 'General ledger account'
+}
+
+table logistic.materials {
+  id varchar(40) [pk, not null, note: 'Material id']
+  name varchar(100) [not null, note: 'Name']
+  short_name varchar(20) [not null, note: 'Short name']
+  basic_uom_id varchar(6) [not null, note: 'Unit of measurement Id']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Material'
+}
+
+table logistic.plants {
+  id varchar(4) [pk, not null, note: 'Plant id']
+  name varchar(100) [not null, note: 'Name']
+  short_name varchar(20) [not null, note: 'Short name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Plant'
+}
+
+table company_code.company_codes {
+  id varchar(4) [pk, not null, note: 'Company code']
+  name varchar(100) [not null, note: 'Name']
+  country_id varchar(3) [not null, note: 'Country Id']
+  language_id varchar(3) [not null, note: 'Language Id']
+  currency_id varchar(5) [not null, note: 'Currency Id']
+  chart_of_accounts_id varchar(4) [not null, note: 'Chart of accounts id']
+  fy_variant_id varchar(2) [not null, note: 'Fiscal year variant id']
+  posting_period_variant_id varchar(4) [not null, note: 'Posting period variant id']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Company code'
+}
+
+table analytics.business_areas {
+  id varchar(4) [pk, not null, note: 'Business area id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Business area'
+}
+
+table logistic.valuation_areas {
+  id varchar(20) [pk, not null, note: 'Valuation area id']
+  name varchar(100) [not null, note: 'Name']
+  short_name varchar(20) [not null, note: 'Short name']
+  company_code_id varchar(4) [not null, note: 'Company code']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Valuation area'
+}
+
+table common.units_of_measurement {
+  id varchar(6) [pk, not null, note: 'Unit of measurement Id']
+  name varchar(100) [not null, note: 'Name']
+  short_name varchar(30) [not null, note: 'Short name']
+  iso_code varchar(3) [note: 'ISOCode']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Unit of measurement'
+}
+
+table analytics.functional_areas {
+  id varchar(20) [pk, not null, note: 'Functional area id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Functional area'
+}
+
+table analytics.business_partners {
+  id varchar(10) [pk, not null, note: 'Business partner id']
+  name varchar(100) [not null, note: 'Name']
+  creditor_id varchar(10) [note: 'Creditor id']
+  debtor_id varchar(10) [note: 'Debtor id']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    (creditor_id) [unique, name: 'business_partners_creditor_id', note: 'Unique creditorId']
+    (debtor_id) [unique, name: 'business_partners_debtor_id', note: 'Unique debtorId']
+  }
+
+  note: 'Business partner'
+}
+
+table analytics.attribute_values {
+  attribute_id varchar(10) [not null, note: 'Attribute id']
+  attribute_value_id varchar(20) [not null, note: 'Attribute value id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    (attribute_id, attribute_value_id) [pk]
+  }
+
+  note: 'Attribute value'
+}
+
+table logistic.locations {
+  plant_id varchar(4) [not null, note: 'Plant id']
+  location_id varchar(10) [not null, note: 'Location id']
+  name varchar(100) [not null, note: 'Name']
+  short_name varchar(20) [not null, note: 'Short name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    (plant_id, location_id) [pk]
+  }
+
+  note: 'Location'
+}
+
+table ledger.ledgers {
+  id varchar(4) [pk, not null, note: 'Ledger Id']
+  name varchar(100) [not null, note: 'Name']
+  leading boolean [not null, note: 'Leading ledger indicator']
+  ledger_type ledger_type [not null, note: 'Ledger Type']
+  underlying_ledger varchar(4) [note: 'Underlying ledger']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Ledger'
+}
+
+table analytics.debtors {
+  id varchar(10) [pk, not null, note: 'Debtor id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Debtor'
+}
+
+table common.currencies {
+  id varchar(5) [pk, not null, note: 'Currency Id']
+  name varchar(100) [not null, note: 'Name']
+  short_name varchar(20) [not null, note: 'Short name']
+  iso_code varchar(3) [not null, note: 'Currency ISO code']
+  key varchar(3) [not null, note: 'Currency key']
+  decimals integer [not null, note: 'Currency decimals']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Currency'
+}
+
+table analytics.segments {
+  id varchar(10) [pk, not null, note: 'Segment id']
+  name varchar(100) [not null, note: 'Name']
+  created_by varchar(20) [not null, note: 'User created record']
+  created_at timestamptz [not null, note: 'Timestamp of record create']
+  updated_by varchar(20) [not null, note: 'User updated record']
+  updated_at timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Segment'
+}
+

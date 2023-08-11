@@ -2,6 +2,7 @@ package biz.lobachev.annette.data_dictionary.builder_test.finance
 
 import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
 import biz.lobachev.annette.data_dictionary.builder.helper.JavaPackage.{javaModelPackage, javaRepoPackage}
+import biz.lobachev.annette.data_dictionary.builder.helper.RelationName
 import biz.lobachev.annette.data_dictionary.builder.model.LocalDateDate
 
 trait LedgerEntry {
@@ -61,7 +62,7 @@ trait LedgerEntry {
         )
         .withIndexes(
           uniqueIndex(
-            "PK",
+            "pk",
             "Ledger entry natural key",
             "ledgerId",
             "companyCodeId",
@@ -75,105 +76,139 @@ trait LedgerEntry {
             "ledgerId",
             "Reference to Ledger",
             "Ledger",
-            "ledgerId"              -> "id",
+            "ledgerId" -> "id",
+          ).withAttributes(
+            RelationName.fieldName("ledger"),
           ),
           manyToOneRelation(
             "companyCodeId",
             "Reference to CompanyCode",
             "CompanyCode",
-            "companyCodeId"         -> "id",
+            "companyCodeId" -> "id",
+          ).withAttributes(
+            RelationName.fieldName("companyCode"),
           ),
           manyToOneRelation(
             "glAccountId",
             "Reference to GLAccount",
             "GLAccount",
-            "chartOfAccountsId"     -> "chartOfAccountsId",
-            "glAccountId"           -> "glAccountId",
+            "chartOfAccountsId" -> "chartOfAccountsId",
+            "glAccountId"       -> "glAccountId",
+          ).withAttributes(
+            RelationName.fieldName("glAccount"),
           ),
           manyToOneRelation(
             "creditorId",
             "Reference to Creditor",
             "Creditor",
-            "creditorId"            -> "id",
+            "creditorId" -> "id",
+          ).withAttributes(
+            RelationName.fieldName("creditor"),
           ),
           manyToOneRelation(
             "debtorId",
             "Reference to Debtor",
             "Debtor",
-            "debtorId"              -> "id",
+            "debtorId" -> "id",
+          ).withAttributes(
+            RelationName.fieldName("debtor"),
           ),
           manyToOneRelation(
             "businessPartnerId",
             "Reference to BusinessPartner",
             "BusinessPartner",
-            "businessPartnerId"     -> "id",
+            "businessPartnerId" -> "id",
+          ).withAttributes(
+            RelationName.fieldName("businessPartner"),
           ),
           manyToOneRelation(
             "businessAreaId",
             "Reference to BusinessArea",
             "BusinessArea",
-            "businessAreaId"        -> "id",
+            "businessAreaId" -> "id",
+          ).withAttributes(
+            RelationName.fieldName("businessArea"),
           ),
           manyToOneRelation(
             "functionalAreaId",
             "Reference to FunctionalArea",
             "FunctionalArea",
-            "functionalAreaId"      -> "id",
+            "functionalAreaId" -> "id",
+          ).withAttributes(
+            RelationName.fieldName("functionalArea"),
           ),
           manyToOneRelation(
             "segmentId",
             "Reference to Segment",
             "Segment",
-            "segmentId"             -> "id",
+            "segmentId" -> "id",
+          ).withAttributes(
+            RelationName.fieldName("segment"),
           ),
           manyToOneRelation(
             "valuationAreaId",
             "Reference to ValuationArea",
             "ValuationArea",
-            "valuationAreaId"       -> "id",
+            "valuationAreaId" -> "id",
+          ).withAttributes(
+            RelationName.fieldName("valuationArea"),
           ),
           manyToOneRelation(
             "plantId",
             "Reference to Plant",
             "Plant",
-            "plantId"               -> "id",
+            "plantId" -> "id",
+          ).withAttributes(
+            RelationName.fieldName("plant"),
           ),
           manyToOneRelation(
             "locationId",
             "Reference to Location",
             "Location",
-            "plantId"               -> "plantId",
-            "locationId"            -> "locationId",
+            "plantId"    -> "plantId",
+            "locationId" -> "locationId",
+          ).withAttributes(
+            RelationName.fieldName("location"),
           ),
           manyToOneRelation(
             "materialId",
             "Reference to Material",
             "Material",
-            "materialId"            -> "id",
+            "materialId" -> "id",
+          ).withAttributes(
+            RelationName.fieldName("material"),
           ),
           manyToOneRelation(
             "documentCurrencyId",
             "Reference to Currency",
             "Currency",
-            "documentCurrencyId"    -> "id",
+            "documentCurrencyId" -> "id",
+          ).withAttributes(
+//            RelationName.fieldName("documentCurrency"),
           ),
           manyToOneRelation(
             "companyCodeCurrencyId",
             "Reference to Currency",
             "Currency",
             "companyCodeCurrencyId" -> "id",
+          ).withAttributes(
+//            RelationName.fieldName("companyCodeCurrency"),
           ),
           manyToOneRelation(
             "uomId",
             "Reference to UnitOfMeasurement",
             "UnitOfMeasurement",
-            "uomId"                 -> "id",
+            "uomId" -> "id",
+          ).withAttributes(
+            RelationName.fieldName("uom"),
           ),
           manyToOneRelation(
             "basicUomId",
             "Reference to UnitOfMeasurement",
             "UnitOfMeasurement",
-            "basicUomId"            -> "id",
+            "basicUomId" -> "id",
+          ).withAttributes(
+            RelationName.fieldName("basicUom"),
           ),
         ),
       tableEntity("LedgerEntryAttribute", "Ledger entry attribute", "LedgerEntryAttribute")

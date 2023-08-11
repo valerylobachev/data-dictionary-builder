@@ -3,8 +3,13 @@ package biz.lobachev.annette.data_dictionary.builder_test
 import biz.lobachev.annette.data_dictionary.builder.rendering.Generator
 import biz.lobachev.annette.data_dictionary.builder.rendering.dbdiagram.DbDiagramRenderer
 import biz.lobachev.annette.data_dictionary.builder.rendering.kotlin.KotlinRenderer
-import biz.lobachev.annette.data_dictionary.builder.rendering.markdown.{MarkdownRenderer, PolishTranslaltion, RussianTranslaltion}
-import biz.lobachev.annette.data_dictionary.builder.rendering.xls.ExcelInsertTemplateRenderer
+import biz.lobachev.annette.data_dictionary.builder.rendering.markdown.{
+  MarkdownRenderer,
+  PolishTranslaltion,
+  RussianTranslaltion,
+}
+import biz.lobachev.annette.data_dictionary.builder.rendering.xls_domain.{ExcelDomainRenderer, WorkbookTranslation}
+import biz.lobachev.annette.data_dictionary.builder.rendering.xls_insert.ExcelInsertTemplateRenderer
 import biz.lobachev.annette.data_dictionary.builder_test.finance.Finance
 import org.scalatest.wordspec.AnyWordSpec
 
@@ -27,6 +32,15 @@ class FinanceSpec extends AnyWordSpec with BuildValidator {
         Generator.generate(
           KotlinRenderer(domain),
           s"docs/${domain.id}/kotlin/",
+        )
+      }
+    }
+
+    "generate Excel domain" in {
+      validateAndProcess(build) { domain =>
+        Generator.generate(
+          ExcelDomainRenderer(domain, WorkbookTranslation.ru),
+          s"docs/${domain.id}",
         )
       }
     }

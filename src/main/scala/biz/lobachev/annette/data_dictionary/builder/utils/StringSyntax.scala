@@ -29,9 +29,12 @@ object StringSyntax {
     def mdReplaceNL = s.replace("\n", "<br>")
   }
 
-  def wrapQuotes(s: String): String = {
+  implicit class RemoveBR(s: String) {
+    def replaceBR = s.replace("<br>", "\n")
+  }
+
+  def wrapQuotes(s: String): String =
     if (s.matches(".*\\s.*")) s"\"$s\""
     else s
-  }
 
 }

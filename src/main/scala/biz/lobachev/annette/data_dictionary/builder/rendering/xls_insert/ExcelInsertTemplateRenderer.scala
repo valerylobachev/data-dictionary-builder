@@ -1,4 +1,4 @@
-package biz.lobachev.annette.data_dictionary.builder.rendering.xls
+package biz.lobachev.annette.data_dictionary.builder.rendering.xls_insert
 
 import biz.lobachev.annette.data_dictionary.builder.POSTGRESQL
 import biz.lobachev.annette.data_dictionary.builder.model._

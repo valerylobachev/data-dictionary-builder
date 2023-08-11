@@ -6,8 +6,8 @@ such as data elements, enumerations, tables, data structures, indexes and relati
 * [x] DbDiagram model definition (see [dbdiagram.io](https://dbdiagram.io/)). You can use DbDiagram to 
 visualize model tables and generate SQL DDL scripts for PostgreSQL & MySQL 
 * [x] Markdown model documentation. English, Polish and Russian localizations are provided. 
-* [ ] Excel file to create SQL INSERT statements
-* [ ] Kotlin source code for Spring Boot
+* [x] Excel file to create SQL INSERT statements
+* [x] Kotlin source code for Spring Boot
 * [ ] Java source code for Spring Boot
 * [ ] Scala source code for Slick
 * [ ] Golang source code for Gorm
@@ -24,7 +24,7 @@ visualize model tables and generate SQL DDL scripts for PostgreSQL & MySQL
 Create new Scala project and add Data Dictionary builder library to `build.sbt`:
 
 ```sbt
-libraryDependencies += "biz.lobachev.annette" %% "data-dictionary-builder" % "0.1.0"
+libraryDependencies += "biz.lobachev.annette" %% "data-dictionary-builder" % "0.2.0"
 ```
 
 Create model definition `Simple.scala`: 
@@ -112,6 +112,9 @@ package ddbapp
 
 import biz.lobachev.annette.data_dictionary.builder.rendering.Generator
 import biz.lobachev.annette.data_dictionary.builder.rendering.dbdiagram.DbDiagramRenderer
+import biz.lobachev.annette.data_dictionary.builder.rendering.kotlin.KotlinRenderer
+import biz.lobachev.annette.data_dictionary.builder.rendering.xls_domain.{ExcelDomainRenderer, WorkbookTranslation}
+import biz.lobachev.annette.data_dictionary.builder.rendering.xls_insert.ExcelInsertTemplateRenderer
 import biz.lobachev.annette.data_dictionary.builder.rendering.markdown.{
   MarkdownRenderer,
   PolishTranslaltion,
@@ -124,6 +127,9 @@ object DataDictionaryBuilderApp extends App {
     case Left(err)     => err.foreach(println)
     case Right(domain) =>
       Generator.generate(DbDiagramRenderer(domain), s"docs/${domain.id}/")
+      Generator.generate(KotlinRenderer(domain), s"docs/${domain.id}/kotlin/")
+      Generator.generate(ExcelDomainRenderer(domain, WorkbookTranslation.ru), s"docs/${domain.id}")
+      Generator.generate(ExcelInsertTemplateRenderer(domain), s"docs/${domain.id}/template/")
       Generator.generate(MarkdownRenderer(domain), s"docs/${domain.id}/")
       Generator.generate(MarkdownRenderer(domain, PolishTranslaltion), s"docs/${domain.id}/")
       Generator.generate(MarkdownRenderer(domain, RussianTranslaltion), s"docs/${domain.id}/")

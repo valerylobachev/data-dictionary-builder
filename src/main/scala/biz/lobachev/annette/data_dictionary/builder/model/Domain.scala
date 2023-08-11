@@ -269,7 +269,7 @@ case class Domain(
       case LocalTimeTime(_)                       =>
         target match {
           case SCALA      => "LocalTime"
-          case POSTGRESQL => "date"
+          case POSTGRESQL => "time"
           case _          => UNDEFINED_DATA_TYPE
         }
       case EnumString(enumId, _)                  =>
