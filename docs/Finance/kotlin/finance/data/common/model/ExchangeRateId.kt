@@ -16,17 +16,17 @@ data class ExchangeRateId(
     var exchangeRateTypeId: String = "",
 
     /**
-     * Currency Id
+     * From Currency Id
      */
     var fromCurrencyId: String = "",
 
     /**
-     * Currency Id
+     * To Currency Id
      */
     var toCurrencyId: String = "",
 
     /**
-     * 
+     * Effective from
      */
     var effectiveFrom: LocalDate = LocalDate.now(),
 ) : Serializable 

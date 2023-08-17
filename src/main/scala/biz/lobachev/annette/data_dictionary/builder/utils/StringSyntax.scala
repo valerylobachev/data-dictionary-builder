@@ -33,8 +33,8 @@ object StringSyntax {
     def replaceBR = s.replace("<br>", "\n")
   }
 
-  def wrapQuotes(s: String): String =
-    if (s.matches(".*\\s.*")) s"\"$s\""
-    else s
+  def wrapQuotes(s: String): String = s"\"$s\""
+//    if (s.matches(".*\\s.*")) s"\"$s\""
+//    else s
 
 }

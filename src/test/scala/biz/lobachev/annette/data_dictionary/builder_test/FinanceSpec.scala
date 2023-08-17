@@ -18,10 +18,19 @@ class FinanceSpec extends AnyWordSpec with BuildValidator {
   val build = Finance.financeDomain.build()
 
   "Finance model" should {
-    "generate DB Diagram" in {
+    "generate physical DB Diagram" in {
       validateAndProcess(build) { domain =>
         Generator.generate(
           DbDiagramRenderer(domain),
+          s"docs/${domain.id}/",
+        )
+      }
+    }
+
+    "generate logical DB Diagram" in {
+      validateAndProcess(build) { domain =>
+        Generator.generate(
+          DbDiagramRenderer(domain, true),
           s"docs/${domain.id}/",
         )
       }

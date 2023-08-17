@@ -5,7 +5,7 @@ Store data model example
 
 ## Shared data structures
 
-### Modification data structure (modifications)
+### Modification data structure ("modifications")
 
 | Поле  | Тип данных | ПК | Обязательно| Описание|
 | ------- | ------- | ------- | ------- | ------- |
@@ -14,7 +14,7 @@ Store data model example
 | updated_by | varchar(10) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Address data structure (addresses)
+### Address data structure ("addresses")
 
 | Поле  | Тип данных | ПК | Обязательно| Описание|
 | ------- | ------- | ------- | ------- | ------- |
@@ -25,7 +25,7 @@ Store data model example
 | country | varchar(50) |  | X | Country |
 | postcode | varchar(10) |  | X | Post code |
 
-### Analytics data structure (analyticses)
+### Analytics data structure ("analyticses")
 
 | Поле  | Тип данных | ПК | Обязательно| Описание|
 | ------- | ------- | ------- | ------- | ------- |
@@ -38,13 +38,13 @@ Store data model example
 
 | Поля  | Связанная таблица | Связанные поля | Тип | Описание|
 | ------- | ------- | ------- | ------- | ------- |
-| promotion_id | Promotion (analytics.promotions) | id | Many-To-One | Reference to Promotion |
-| segment_id | Segment (analytics.segments) | id | Many-To-One | Reference to Segment |
-| business_area_id | Business area (analytics.business_areas) | id | Many-To-One | Reference to BusinessArea |
+| promotion_id | Promotion ("analytics"."promotions") | id | Many-To-One | Reference to Promotion |
+| segment_id | Segment ("analytics"."segments") | id | Many-To-One | Reference to Segment |
+| business_area_id | Business area ("analytics"."business_areas") | id | Many-To-One | Reference to BusinessArea |
 
 ## Client tables
 
-### Client (client.clients)
+### Client ("client"."clients")
 
 | Поле  | Тип данных | ПК | Обязательно| Описание|
 | ------- | ------- | ------- | ------- | ------- |
@@ -71,7 +71,7 @@ Store data model example
 | updated_by | varchar(10) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Client address (client.client_addresses)
+### Client address ("client"."client_addresses")
 
 | Поле  | Тип данных | ПК | Обязательно| Описание|
 | ------- | ------- | ------- | ------- | ------- |
@@ -102,11 +102,11 @@ Store data model example
 
 | Поля  | Связанная таблица | Связанные поля | Тип | Описание|
 | ------- | ------- | ------- | ------- | ------- |
-| client_id | Client (client.clients) | id | Many-To-One | Reference to client |
+| client_id | Client ("client"."clients") | id | Many-To-One | Reference to client |
 
 ## Order tables
 
-### Order (orders)
+### Order ("orders")
 
 | Поле  | Тип данных | ПК | Обязательно| Описание|
 | ------- | ------- | ------- | ------- | ------- |
@@ -129,10 +129,10 @@ Store data model example
 
 | Поля  | Связанная таблица | Связанные поля | Тип | Описание|
 | ------- | ------- | ------- | ------- | ------- |
-| client_id | Client (client.clients) | id | Many-To-One | Reference to client |
-| client_id<br>delivery_address_id | Client address (client.client_addresses) | client_id<br>id | Many-To-One | Reference to address |
+| client_id | Client ("client"."clients") | id | Many-To-One | Reference to client |
+| client_id<br>delivery_address_id | Client address ("client"."client_addresses") | client_id<br>id | Many-To-One | Reference to address |
 
-### Order line (order_lines)
+### Order line ("order_lines")
 
 | Поле  | Тип данных | ПК | Обязательно| Описание|
 | ------- | ------- | ------- | ------- | ------- |
@@ -154,10 +154,10 @@ Store data model example
 
 | Поля  | Связанная таблица | Связанные поля | Тип | Описание|
 | ------- | ------- | ------- | ------- | ------- |
-| order_id | Order (orders) | id | Many-To-One | Reference to order |
-| item_id | Item (items) | id | Many-To-One | Reference to item |
+| order_id | Order ("orders") | id | Many-To-One | Reference to order |
+| item_id | Item ("items") | id | Many-To-One | Reference to item |
 
-### Item (items)
+### Item ("items")
 
 | Поле  | Тип данных | ПК | Обязательно| Описание|
 | ------- | ------- | ------- | ------- | ------- |
@@ -171,7 +171,7 @@ Store data model example
 
 ## Analytic tables
 
-### Segment (analytics.segments)
+### Segment ("analytics"."segments")
 
 | Поле  | Тип данных | ПК | Обязательно| Описание|
 | ------- | ------- | ------- | ------- | ------- |
@@ -182,7 +182,7 @@ Store data model example
 | updated_by | varchar(10) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Business area (analytics.business_areas)
+### Business area ("analytics"."business_areas")
 
 | Поле  | Тип данных | ПК | Обязательно| Описание|
 | ------- | ------- | ------- | ------- | ------- |
@@ -193,7 +193,7 @@ Store data model example
 | updated_by | varchar(10) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Promotion (analytics.promotions)
+### Promotion ("analytics"."promotions")
 
 | Поле  | Тип данных | ПК | Обязательно| Описание|
 | ------- | ------- | ------- | ------- | ------- |

@@ -5,7 +5,7 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 ## Shared data structures
 
-### Modification data structure (modifications)
+### Modification data structure ("modifications")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -16,7 +16,7 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 ## Common tables and data structures
 
-### Country (common.countries)
+### Country ("common"."countries")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -34,9 +34,9 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| language_id | Language (common.languages) | id | Many-To-One | Reference to language |
+| language_id | Language ("common"."languages") | id | Many-To-One | Reference to language |
 
-### Language (common.languages)
+### Language ("common"."languages")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -47,7 +47,7 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Currency (common.currencies)
+### Currency ("common"."currencies")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -62,7 +62,7 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Exchange rate type (common.exchange_rate_types)
+### Exchange rate type ("common"."exchange_rate_types")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -73,14 +73,14 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### ExchangeRate (common.exchange_rates)
+### ExchangeRate ("common"."exchange_rates")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
 | exchange_rate_type_id | varchar(4) | X | X | Exchange rate type Id |
-| from_currency_id | varchar(5) | X | X | Currency Id |
-| to_currency_id | varchar(5) | X | X | Currency Id |
-| effective_from | date | X | X |  |
+| from_currency_id | varchar(5) | X | X | From Currency Id |
+| to_currency_id | varchar(5) | X | X | To Currency Id |
+| effective_from | date | X | X | Effective from |
 | exchange_rate | decimal(25,5) |  | X | Exchange rate |
 | ratio_from | integer |  | X | Currency ratio from |
 | ratio_to | integer |  | X | Currency ratio to |
@@ -95,11 +95,11 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| exchange_rate_type_id | Exchange rate type (common.exchange_rate_types) | id | Many-To-One | Reference to exchange rate type |
-| from_currency_id | Currency (common.currencies) | id | Many-To-One | Reference (from) to currency  |
-| to_currency_id | Currency (common.currencies) | id | Many-To-One | Reference (to) to currency  |
+| exchange_rate_type_id | Exchange rate type ("common"."exchange_rate_types") | id | Many-To-One | Reference to exchange rate type |
+| from_currency_id | Currency ("common"."currencies") | id | Many-To-One | Reference (from) to currency  |
+| to_currency_id | Currency ("common"."currencies") | id | Many-To-One | Reference (to) to currency  |
 
-### Unit of measurement (common.units_of_measurement)
+### Unit of measurement ("common"."units_of_measurement")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -112,7 +112,7 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Unit of measurement text (common.uom_texts)
+### Unit of measurement text ("common"."uom_texts")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -132,12 +132,12 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| language_id | Language (common.languages) | id | Many-To-One | Reference to language |
-| uom_id | Unit of measurement (common.units_of_measurement) | id | Many-To-One | Reference to unit of measurement |
+| language_id | Language ("common"."languages") | id | Many-To-One | Reference to language |
+| uom_id | Unit of measurement ("common"."units_of_measurement") | id | Many-To-One | Reference to unit of measurement |
 
 ## Ledger settings
 
-### Ledger (ledger.ledgers)
+### Ledger ("ledger"."ledgers")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -156,9 +156,9 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| underlying_ledger | Ledger (ledger.ledgers) | id | Many-To-One | Reference to ledger |
+| underlying_ledger | Ledger ("ledger"."ledgers") | id | Many-To-One | Reference to ledger |
 
-### Ledger Group (ledger.ledger_groups)
+### Ledger Group ("ledger"."ledger_groups")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -169,7 +169,7 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Ledger assignments to ledger group (ledger.ledger_group_ledgers)
+### Ledger assignments to ledger group ("ledger"."ledger_group_ledgers")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -186,12 +186,12 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| ledger_id | Ledger (ledger.ledgers) | id | Many-To-One | Reference to ledger |
-| ledger_group_id | Ledger Group (ledger.ledger_groups) | id | Many-To-One | Reference to ledger group |
+| ledger_id | Ledger ("ledger"."ledgers") | id | Many-To-One | Reference to ledger |
+| ledger_group_id | Ledger Group ("ledger"."ledger_groups") | id | Many-To-One | Reference to ledger group |
 
 ## General Ledger account settings
 
-### Chart of accounts (gl_account.charts_of_accounts)
+### Chart of accounts ("gl_account"."charts_of_accounts")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -202,7 +202,7 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### General ledger account (gl_account.gl_accounts)
+### General ledger account ("gl_account"."gl_accounts")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -222,10 +222,10 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| chart_of_accounts_id | Chart of accounts (gl_account.charts_of_accounts) | id | Many-To-One | Reference to Chart Of Accounts |
-| chart_of_accounts_id<br>gl_account_group_id | General ledger account group (gl_account.gl_account_groups) | chart_of_accounts_id<br>gl_account_group_id | Many-To-One | Reference to GLAccountGroup |
+| chart_of_accounts_id | Chart of accounts ("gl_account"."charts_of_accounts") | id | Many-To-One | Reference to Chart Of Accounts |
+| chart_of_accounts_id<br>gl_account_group_id | General ledger account group ("gl_account"."gl_account_groups") | chart_of_accounts_id<br>gl_account_group_id | Many-To-One | Reference to GLAccountGroup |
 
-### General ledger account group (gl_account.gl_account_groups)
+### General ledger account group ("gl_account"."gl_account_groups")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -245,11 +245,11 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| chart_of_accounts_id | Chart of accounts (gl_account.charts_of_accounts) | id | Many-To-One | Reference to Chart Of Accounts |
+| chart_of_accounts_id | Chart of accounts ("gl_account"."charts_of_accounts") | id | Many-To-One | Reference to Chart Of Accounts |
 
 ## Analytic tables
 
-### Creditor (analytics.creditors)
+### Creditor ("analytics"."creditors")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -260,7 +260,7 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Debtor (analytics.debtors)
+### Debtor ("analytics"."debtors")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -271,7 +271,7 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Business partner (analytics.business_partners)
+### Business partner ("analytics"."business_partners")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -297,10 +297,10 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| creditor_id | Creditor (analytics.creditors) | id | One-To-One | Reference to Creditor |
-| debtor_id | Debtor (analytics.debtors) | id | One-To-One | Reference to Debtor |
+| creditor_id | Creditor ("analytics"."creditors") | id | One-To-One | Reference to Creditor |
+| debtor_id | Debtor ("analytics"."debtors") | id | One-To-One | Reference to Debtor |
 
-### Business area (analytics.business_areas)
+### Business area ("analytics"."business_areas")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -311,7 +311,7 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Functional area (analytics.functional_areas)
+### Functional area ("analytics"."functional_areas")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -322,7 +322,7 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Segment (analytics.segments)
+### Segment ("analytics"."segments")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -333,7 +333,7 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Attribute (analytics.attributes)
+### Attribute ("analytics"."attributes")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -344,7 +344,7 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Attribute value (analytics.attribute_values)
+### Attribute value ("analytics"."attribute_values")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -361,11 +361,11 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| attribute_id | Attribute (analytics.attributes) | id | Many-To-One | Relation to Attribute |
+| attribute_id | Attribute ("analytics"."attributes") | id | Many-To-One | Relation to Attribute |
 
 ## Logistic tables
 
-### Material (logistic.materials)
+### Material ("logistic"."materials")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -383,9 +383,9 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| basic_uom_id | Unit of measurement (common.units_of_measurement) | id | Many-To-One | Reference to Unit Of Measurement |
+| basic_uom_id | Unit of measurement ("common"."units_of_measurement") | id | Many-To-One | Reference to Unit Of Measurement |
 
-### Plant (logistic.plants)
+### Plant ("logistic"."plants")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -397,7 +397,7 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Location (logistic.locations)
+### Location ("logistic"."locations")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -415,9 +415,9 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| plant_id | Plant (logistic.plants) | id | Many-To-One | Reference to Plant |
+| plant_id | Plant ("logistic"."plants") | id | Many-To-One | Reference to Plant |
 
-### Valuation area (logistic.valuation_areas)
+### Valuation area ("logistic"."valuation_areas")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -435,11 +435,11 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| company_code_id | Company code (company_code.company_codes) | id | Many-To-One | Reference to CompanyCode |
+| company_code_id | Company code ("company_code"."company_codes") | id | Many-To-One | Reference to CompanyCode |
 
 ## Company code tables
 
-### Company code (company_code.company_codes)
+### Company code ("company_code"."company_codes")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -461,14 +461,14 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| country_id | Country (common.countries) | id | Many-To-One | Reference to Country |
-| language_id | Language (common.languages) | id | Many-To-One | Reference to Language |
-| currency_id | Currency (common.currencies) | id | Many-To-One | Reference to Currency |
-| chart_of_accounts_id | Chart of accounts (gl_account.charts_of_accounts) | id | Many-To-One | Reference to ChartOfAccounts |
-| fy_variant_id | Fiscal year variant (company_code.fy_variants) | id | Many-To-One | Reference to FYVariant |
-| posting_period_variant_id | Posting period variant (company_code.posting_period_variants) | id | Many-To-One | Reference to PostingPeriodVariant |
+| country_id | Country ("common"."countries") | id | Many-To-One | Reference to Country |
+| language_id | Language ("common"."languages") | id | Many-To-One | Reference to Language |
+| currency_id | Currency ("common"."currencies") | id | Many-To-One | Reference to Currency |
+| chart_of_accounts_id | Chart of accounts ("gl_account"."charts_of_accounts") | id | Many-To-One | Reference to ChartOfAccounts |
+| fy_variant_id | Fiscal year variant ("company_code"."fy_variants") | id | Many-To-One | Reference to FYVariant |
+| posting_period_variant_id | Posting period variant ("company_code"."posting_period_variants") | id | Many-To-One | Reference to PostingPeriodVariant |
 
-### Company code ledger (company_code.company_code_ledgers)
+### Company code ledger ("company_code"."company_code_ledgers")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -484,10 +484,10 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| company_code_id | Company code (company_code.company_codes) | id | Many-To-One | Reference to CompanyCode |
-| ledger_id | Ledger (ledger.ledgers) | id | Many-To-One | Reference to Ledger |
+| company_code_id | Company code ("company_code"."company_codes") | id | Many-To-One | Reference to CompanyCode |
+| ledger_id | Ledger ("ledger"."ledgers") | id | Many-To-One | Reference to Ledger |
 
-### Fiscal year variant (company_code.fy_variants)
+### Fiscal year variant ("company_code"."fy_variants")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -498,7 +498,7 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Posting period variant (company_code.posting_period_variants)
+### Posting period variant ("company_code"."posting_period_variants")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -509,7 +509,7 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Open period (company_code.open_periods)
+### Open period ("company_code"."open_periods")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -535,11 +535,11 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| posting_period_variant_id | Posting period variant (company_code.posting_period_variants) | id | Many-To-One | Reference to PostingPeriodVariant |
+| posting_period_variant_id | Posting period variant ("company_code"."posting_period_variants") | id | Many-To-One | Reference to PostingPeriodVariant |
 
 ## Ledger entry tables
 
-### LedgerEntry (ledger_entry.ledger_entries)
+### Ledger Entry ("ledger_entry"."ledger_entries")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -572,8 +572,8 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | company_code_amount | decimal(25,2) |  | X | Company code amount |
 | company_code_currency_id | varchar(5) |  | X | Company code currency |
 | quantity | decimal(25,3) |  |  | Quantity |
-| uom_id | varchar(6) |  |  | Unit of measurement Id |
-| basic_uom_id | varchar(6) |  |  | Unit of measurement Id |
+| uom_id | varchar(6) |  |  | Unit of measure id |
+| basic_uom_id | varchar(6) |  |  | Basic unit of measure id |
 | created_by | varchar(20) |  | X | User created record |
 | created_at | timestamptz |  | X | Timestamp of record create |
 | updated_by | varchar(20) |  | X | User updated record |
@@ -591,25 +591,25 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| ledger_id | Ledger (ledger.ledgers) | id | Many-To-One | Reference to Ledger |
-| company_code_id | Company code (company_code.company_codes) | id | Many-To-One | Reference to CompanyCode |
-| chart_of_accounts_id<br>gl_account_id | General ledger account (gl_account.gl_accounts) | chart_of_accounts_id<br>gl_account_id | Many-To-One | Reference to GLAccount |
-| creditor_id | Creditor (analytics.creditors) | id | Many-To-One | Reference to Creditor |
-| debtor_id | Debtor (analytics.debtors) | id | Many-To-One | Reference to Debtor |
-| business_partner_id | Business partner (analytics.business_partners) | id | Many-To-One | Reference to BusinessPartner |
-| business_area_id | Business area (analytics.business_areas) | id | Many-To-One | Reference to BusinessArea |
-| functional_area_id | Functional area (analytics.functional_areas) | id | Many-To-One | Reference to FunctionalArea |
-| segment_id | Segment (analytics.segments) | id | Many-To-One | Reference to Segment |
-| valuation_area_id | Valuation area (logistic.valuation_areas) | id | Many-To-One | Reference to ValuationArea |
-| plant_id | Plant (logistic.plants) | id | Many-To-One | Reference to Plant |
-| plant_id<br>location_id | Location (logistic.locations) | plant_id<br>location_id | Many-To-One | Reference to Location |
-| material_id | Material (logistic.materials) | id | Many-To-One | Reference to Material |
-| document_currency_id | Currency (common.currencies) | id | Many-To-One | Reference to Currency |
-| company_code_currency_id | Currency (common.currencies) | id | Many-To-One | Reference to Currency |
-| uom_id | Unit of measurement (common.units_of_measurement) | id | Many-To-One | Reference to UnitOfMeasurement |
-| basic_uom_id | Unit of measurement (common.units_of_measurement) | id | Many-To-One | Reference to UnitOfMeasurement |
+| ledger_id | Ledger ("ledger"."ledgers") | id | Many-To-One | Reference to Ledger |
+| company_code_id | Company code ("company_code"."company_codes") | id | Many-To-One | Reference to CompanyCode |
+| chart_of_accounts_id<br>gl_account_id | General ledger account ("gl_account"."gl_accounts") | chart_of_accounts_id<br>gl_account_id | Many-To-One | Reference to GLAccount |
+| creditor_id | Creditor ("analytics"."creditors") | id | Many-To-One | Reference to Creditor |
+| debtor_id | Debtor ("analytics"."debtors") | id | Many-To-One | Reference to Debtor |
+| business_partner_id | Business partner ("analytics"."business_partners") | id | Many-To-One | Reference to BusinessPartner |
+| business_area_id | Business area ("analytics"."business_areas") | id | Many-To-One | Reference to BusinessArea |
+| functional_area_id | Functional area ("analytics"."functional_areas") | id | Many-To-One | Reference to FunctionalArea |
+| segment_id | Segment ("analytics"."segments") | id | Many-To-One | Reference to Segment |
+| valuation_area_id | Valuation area ("logistic"."valuation_areas") | id | Many-To-One | Reference to ValuationArea |
+| plant_id | Plant ("logistic"."plants") | id | Many-To-One | Reference to Plant |
+| plant_id<br>location_id | Location ("logistic"."locations") | plant_id<br>location_id | Many-To-One | Reference to Location |
+| material_id | Material ("logistic"."materials") | id | Many-To-One | Reference to Material |
+| document_currency_id | Currency ("common"."currencies") | id | Many-To-One | Reference to Currency |
+| company_code_currency_id | Currency ("common"."currencies") | id | Many-To-One | Reference to Currency |
+| uom_id | Unit of measurement ("common"."units_of_measurement") | id | Many-To-One | Reference to UnitOfMeasurement |
+| basic_uom_id | Unit of measurement ("common"."units_of_measurement") | id | Many-To-One | Reference to UnitOfMeasurement |
 
-### Ledger entry attribute (ledger_entry.ledger_entry_attributes)
+### Ledger entry attribute ("ledger_entry"."ledger_entry_attributes")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -622,6 +622,6 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| entry_no | LedgerEntry (ledger_entry.ledger_entries) | entry_no | Many-To-One | Reference to LedgerEntry |
-| attribute_id<br>attribute_value_id | Attribute value (analytics.attribute_values) | attribute_id<br>attribute_value_id | Many-To-One | Reference to AttributeValue |
+| entry_no | Ledger Entry ("ledger_entry"."ledger_entries") | entry_no | Many-To-One | Reference to LedgerEntry |
+| attribute_id<br>attribute_value_id | Attribute value ("analytics"."attribute_values") | attribute_id<br>attribute_value_id | Many-To-One | Reference to AttributeValue |
 

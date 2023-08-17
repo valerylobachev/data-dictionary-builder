@@ -10,13 +10,13 @@ trait Common {
     .withSchema("common")
     .withAttributes(
       javaModelPackage("finance.data.common.model"),
-      javaRepoPackage("finance.data.common")
+      javaRepoPackage("finance.data.common"),
     )
     .withEntities(
       // ***************************** Countries & Languages *****************************
       tableEntity("Country", "Country", "Country")
         .withPK(
-          "id" :# "CountryId"
+          "id" :# "CountryId",
         )
         .withFields(
           // format: off
@@ -27,20 +27,20 @@ trait Common {
           // format: on
         )
         .withRelations(
-          manyToOneRelation("languageId", "Reference to language", "Language", "languageId" -> "id")
+          manyToOneRelation("languageId", "Reference to language", "Language", "languageId" -> "id"),
         ),
       tableEntity("Language", "Language", "Language")
         .withPK(
-          "id" :# DataElementType("LanguageId")
+          "id" :# DataElementType("LanguageId"),
         )
         .withFields(
           "name" :# "Name",
-          include("Modification")
+          include("Modification"),
         ),
       // ***************************** Currency *****************************
       tableEntity("Currency", "Currency", "Currency")
         .withPK(
-          "id" :# "CurrencyId"
+          "id" :# "CurrencyId",
         )
         .withFields(
           // format: off
@@ -54,19 +54,19 @@ trait Common {
         ),
       tableEntity("ExchangeRateType", "Exchange rate type", "ExchangeRateType")
         .withPK(
-          "id" :# DataElementType("ExchangeRateTypeId")
+          "id" :# DataElementType("ExchangeRateTypeId"),
         )
         .withFields(
           "name" :# "Name",
-          include("Modification")
+          include("Modification"),
         ),
       tableEntity("ExchangeRate", "ExchangeRate", "ExchangeRate")
         .withPK(
           // format: off
           "exchangeRateTypeId" :# "ExchangeRateTypeId",
-          "fromCurrencyId"           :# "CurrencyId",
-          "toCurrencyId"             :# "CurrencyId",
-          "effectiveFrom"            :# LocalDateDate()
+          "fromCurrencyId"           :# "CurrencyId" :@ "From Currency Id" ,
+          "toCurrencyId"             :# "CurrencyId" :@ "To Currency Id" ,
+          "effectiveFrom"            :# LocalDateDate() :@ "Effective from"
           // format: on
         )
         .withFields(
@@ -83,26 +83,26 @@ trait Common {
             "exchangeRateTypeId",
             "Reference to exchange rate type",
             "ExchangeRateType",
-            "exchangeRateTypeId" -> "id"
+            "exchangeRateTypeId" -> "id",
           ),
           manyToOneRelation(
             "fromCurrencyId",
             "Reference (from) to currency ",
             "Currency",
-            "fromCurrencyId"     -> "id"
+            "fromCurrencyId"     -> "id",
           ),
           manyToOneRelation(
             "toCurrencyId",
             "Reference (to) to currency ",
             "Currency",
-            "toCurrencyId"       -> "id"
-          )
+            "toCurrencyId"       -> "id",
+          ),
         ),
       // ***************************** UnitOfMeasurement *****************************
       tableEntity("UnitOfMeasurement", "Unit of measurement", "UnitOfMeasurement")
         .withTableName("units_of_measurement")
         .withPK(
-          "id" :# "UoMId"
+          "id" :# "UoMId",
         )
         .withFields(
           // format: off
@@ -116,7 +116,7 @@ trait Common {
         .withTableName("uom_texts")
         .withPK(
           "languageId" :# "LanguageId",
-          "uomId" :# "UoMId"
+          "uomId" :# "UoMId",
         )
         .withFields(
           // format: off
@@ -132,15 +132,15 @@ trait Common {
             "languageId",
             "Reference to language",
             "Language",
-            "languageId" -> "id"
+            "languageId" -> "id",
           ),
           manyToOneRelation(
             "uomId",
             "Reference to unit of measurement",
             "UnitOfMeasurement",
-            "uomId"      -> "id"
-          )
-        )
+            "uomId"      -> "id",
+          ),
+        ),
     )
 
 }

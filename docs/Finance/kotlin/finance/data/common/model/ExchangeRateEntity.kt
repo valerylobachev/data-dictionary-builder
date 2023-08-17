@@ -24,21 +24,21 @@ data class ExchangeRateEntity(
     var exchangeRateTypeId: String,
 
     /**
-     * Currency Id
+     * From Currency Id
      */
     @Id
     @Column(name = "from_currency_id", nullable = false, length = 5)
     var fromCurrencyId: String,
 
     /**
-     * Currency Id
+     * To Currency Id
      */
     @Id
     @Column(name = "to_currency_id", nullable = false, length = 5)
     var toCurrencyId: String,
 
     /**
-     * 
+     * Effective from
      */
     @Id
     @Column(name = "effective_from", nullable = false)

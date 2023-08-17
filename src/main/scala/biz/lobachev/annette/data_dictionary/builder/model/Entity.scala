@@ -23,7 +23,7 @@ case class Entity(
   indexes: ListMap[String, EntityIndex] = ListMap.empty,
   relations: Seq[EntityRelation] = Seq.empty,
   schema: Option[String] = None,
-  attributes: Attributes = Seq.empty
+  attributes: Attributes = Seq.empty,
 ) {
 
   def withTableName(tableName: String) = copy(tableName = tableName)
@@ -40,6 +40,9 @@ case class Entity(
 
   def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq)
 
-  def fullTableName(): String =
-    Seq(schema.map(wrapQuotes), Some(wrapQuotes(tableName))).flatten.mkString(".")
+  def fullTableName(logical: Boolean = false): String =
+    if (logical && name.trim.nonEmpty)
+      Seq(schema.map(wrapQuotes), Some(wrapQuotes(name))).flatten.mkString(".")
+    else
+      Seq(schema.map(wrapQuotes), Some(wrapQuotes(tableName))).flatten.mkString(".")
 }

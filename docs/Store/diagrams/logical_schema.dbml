@@ -1,0 +1,182 @@
+// Order Status
+enum order_status {
+  P [note: 'Placed']
+  D [note: 'Delivered']
+  C [note: 'Canceled']
+}
+
+
+// Group Client - Client tables 
+
+table "client"."Client" {
+  "Client Id" integer [pk, not null, increment, note: 'Client Id']
+  "Client name" varchar(100) [not null, note: 'Client name']
+  "Description" text [note: 'Description']
+  "First address line" varchar(100) [not null, note: 'First address line']
+  "Second address line" varchar(100) [note: 'Second address line']
+  "City" varchar(50) [not null, note: 'City']
+  "State" varchar(50) [not null, note: 'State']
+  "Country" varchar(50) [not null, note: 'Country']
+  "Post code" varchar(10) [not null, note: 'Post code']
+  "First address line" varchar(100) [not null, note: 'First address line']
+  "Second address line" varchar(100) [note: 'Second address line']
+  "City" varchar(50) [not null, note: 'City']
+  "State" varchar(50) [not null, note: 'State']
+  "Country" varchar(50) [not null, note: 'Country']
+  "Post code" varchar(10) [not null, note: 'Post code']
+  "Promotion Id" varchar(10) [note: 'Promotion Id']
+  "Segment Id" varchar(10) [note: 'Segment Id']
+  "Business Area Id" varchar(10) [note: 'Business Area Id']
+  "User created record" varchar(10) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(10) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Client'
+}
+
+// Reference to Promotion
+Ref clients_promotion_id: "client"."Client"."Promotion Id" > "analytics"."Promotion"."Promotion Id"
+// Reference to Segment
+Ref clients_segment_id: "client"."Client"."Segment Id" > "analytics"."Segment"."Segment Id"
+// Reference to BusinessArea
+Ref clients_business_area_id: "client"."Client"."Business Area Id" > "analytics"."Business area"."Business Area Id"
+
+
+table "client"."Client address" {
+  "Address Id" integer [pk, not null, increment, note: 'Address Id']
+  "Address name" varchar(100) [not null, note: 'Address name']
+  "Description" text [note: 'Description']
+  "Client Id" integer [not null, note: 'Client Id']
+  "First address line" varchar(100) [not null, note: 'First address line']
+  "Second address line" varchar(100) [note: 'Second address line']
+  "City" varchar(50) [not null, note: 'City']
+  "State" varchar(50) [not null, note: 'State']
+  "Country" varchar(50) [not null, note: 'Country']
+  "Post code" varchar(10) [not null, note: 'Post code']
+  "User created record" varchar(10) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(10) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    ("Client Id", "Address Id") [unique, name: 'client_addresses_client_id_id', note: 'Unique clientId & id']
+  }
+
+  note: 'Client address'
+}
+
+// Reference to client
+Ref client_addresses_client_id: "client"."Client address"."Client Id" > "client"."Client"."Client Id"
+
+
+
+// Group Order - Order tables 
+
+table "Order" {
+  "Order Id" integer [pk, not null, increment, note: 'Order Id']
+  "Order name" varchar(100) [not null, note: 'Order name']
+  "Description" text [note: 'Description']
+  "Client Id" integer [not null, note: 'Client Id']
+  "Delivery address" integer [not null, note: 'Delivery address']
+  "Order status" order_status [not null, note: 'Order status']
+  "Promotion Id" varchar(10) [note: 'Promotion Id']
+  "Segment Id" varchar(10) [note: 'Segment Id']
+  "Business Area Id" varchar(10) [note: 'Business Area Id']
+  "User created record" varchar(10) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(10) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Order'
+}
+
+// Reference to client
+Ref orders_client_id: "Order"."Client Id" > "client"."Client"."Client Id"
+// Reference to address
+Ref orders_delivery_address_id: "Order".("Client Id", "Delivery address") > "client"."Client address".("Client Id", "Address Id")
+// Reference to Promotion
+Ref orders_promotion_id: "Order"."Promotion Id" > "analytics"."Promotion"."Promotion Id"
+// Reference to Segment
+Ref orders_segment_id: "Order"."Segment Id" > "analytics"."Segment"."Segment Id"
+// Reference to BusinessArea
+Ref orders_business_area_id: "Order"."Business Area Id" > "analytics"."Business area"."Business Area Id"
+
+
+table "Order line" {
+  "OrderLine Id" integer [pk, not null, increment, note: 'OrderLine Id']
+  "Order Id" integer [not null, note: 'Order Id']
+  "Item Id" integer [not null, note: 'Item Id']
+  "Promotion Id" varchar(10) [note: 'Promotion Id']
+  "Segment Id" varchar(10) [note: 'Segment Id']
+  "Business Area Id" varchar(10) [note: 'Business Area Id']
+  "Amount" decimal(10,2) [not null, note: 'Amount']
+  "Quantity" decimal(10,2) [not null, note: 'Quantity']
+  "User created record" varchar(10) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(10) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Order line'
+}
+
+// Reference to order
+Ref order_lines_order_id: "Order line"."Order Id" > "Order"."Order Id"
+// Reference to item
+Ref order_lines_item_id: "Order line"."Item Id" > "Item"."Item Id"
+// Reference to Promotion
+Ref order_lines_promotion_id: "Order line"."Promotion Id" > "analytics"."Promotion"."Promotion Id"
+// Reference to Segment
+Ref order_lines_segment_id: "Order line"."Segment Id" > "analytics"."Segment"."Segment Id"
+// Reference to BusinessArea
+Ref order_lines_business_area_id: "Order line"."Business Area Id" > "analytics"."Business area"."Business Area Id"
+
+
+table "Item" {
+  "Item Id" integer [pk, not null, increment, note: 'Item Id']
+  "Item Id" integer [not null, note: 'Item Id']
+  "Amount" decimal(10,2) [not null, note: 'Amount']
+  "User created record" varchar(10) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(10) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Item'
+}
+
+
+// Group Analytics - Analytic tables 
+
+table "analytics"."Segment" {
+  "Segment Id" varchar(10) [pk, not null, note: 'Segment Id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(10) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(10) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Segment'
+}
+
+table "analytics"."Business area" {
+  "Business Area Id" varchar(10) [pk, not null, note: 'Business Area Id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(10) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(10) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Business area'
+}
+
+table "analytics"."Promotion" {
+  "Promotion Id" varchar(10) [pk, not null, note: 'Promotion Id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(10) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(10) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Promotion'
+}
+

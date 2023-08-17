@@ -15,7 +15,7 @@ trait LedgerEntry {
     )
     .withEntities(
       // ***************************** LedgerEntry *****************************
-      tableEntity("LedgerEntry", "LedgerEntry", "LedgerEntry")
+      tableEntity("LedgerEntry", "Ledger Entry", "LedgerEntry")
         .withPK(
           "entryNo" :# "EntryNo",
         )
@@ -54,8 +54,8 @@ trait LedgerEntry {
           "companyCodeCurrencyId"   :# "CurrencyId"   :@ "Company code currency",
           // quantities
           "quantity"            :#? "Quantity",
-          "uomId"               :#? "UoMId",
-          "basicUomId"          :#? "UoMId",
+          "uomId"               :#? "UoMId" :@ "Unit of measure id",
+          "basicUomId"          :#? "UoMId" :@ "Basic unit of measure id",
 
           include("Modification")
           // format: on

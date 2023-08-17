@@ -1,0 +1,143 @@
+// Ledger Type
+enum ledger_type {
+  L [note: 'Leading ledger']
+  X [note: 'Extension ledger']
+}
+
+// General ledger account type
+enum g_l_account_type {
+  X [note: 'Balance Sheet Account']
+  N [note: 'Nonoperating Expense or Income']
+  P [note: 'Primary Costs or Revenue']
+  S [note: 'Secondary Costs']
+  C [note: 'Cash Account']
+}
+
+// Account type
+enum account_type {
+  A [note: 'Assets']
+  D [note: 'Customer']
+  K [note: 'Vendor']
+  M [note: 'Materials']
+  S [note: 'General Ledger']
+}
+
+// Debit/Credit
+enum debit_credit {
+  D [note: 'Debit']
+  C [note: 'Credit']
+}
+
+// Group Analytics - Analytic tables 
+
+table "analytics"."Creditor" {
+  "Creditor id" varchar(10) [pk, not null, note: 'Creditor id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Creditor'
+}
+
+table "analytics"."Debtor" {
+  "Debtor id" varchar(10) [pk, not null, note: 'Debtor id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Debtor'
+}
+
+table "analytics"."Business partner" {
+  "Business partner id" varchar(10) [pk, not null, note: 'Business partner id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "Creditor id" varchar(10) [note: 'Creditor id']
+  "Debtor id" varchar(10) [note: 'Debtor id']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    ("Creditor id") [unique, name: 'business_partners_creditor_id', note: 'Unique creditorId']
+    ("Debtor id") [unique, name: 'business_partners_debtor_id', note: 'Unique debtorId']
+  }
+
+  note: 'Business partner'
+}
+
+// Reference to Creditor
+Ref business_partners_creditor_id: "analytics"."Business partner"."Creditor id" - "analytics"."Creditor"."Creditor id"
+// Reference to Debtor
+Ref business_partners_debtor_id: "analytics"."Business partner"."Debtor id" - "analytics"."Debtor"."Debtor id"
+
+
+table "analytics"."Business area" {
+  "Business area id" varchar(4) [pk, not null, note: 'Business area id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Business area'
+}
+
+table "analytics"."Functional area" {
+  "Functional area id" varchar(20) [pk, not null, note: 'Functional area id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Functional area'
+}
+
+table "analytics"."Segment" {
+  "Segment id" varchar(10) [pk, not null, note: 'Segment id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Segment'
+}
+
+table "analytics"."Attribute" {
+  "Attribute id" varchar(10) [pk, not null, note: 'Attribute id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Attribute'
+}
+
+table "analytics"."Attribute value" {
+  "Attribute id" varchar(10) [not null, note: 'Attribute id']
+  "Attribute value id" varchar(20) [not null, note: 'Attribute value id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    ("Attribute id", "Attribute value id") [pk]
+  }
+
+  note: 'Attribute value'
+}
+
+// Relation to Attribute
+Ref attribute_values_attribute_id: "analytics"."Attribute value"."Attribute id" > "analytics"."Attribute"."Attribute id"
+
+
+

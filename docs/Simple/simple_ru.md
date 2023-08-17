@@ -5,7 +5,7 @@ This example provides simple person group data model
 
 ## Shared data structures
 
-### Modification data structure (modifications)
+### Modification data structure ("modifications")
 
 | Поле  | Тип данных | ПК | Обязательно| Описание|
 | ------- | ------- | ------- | ------- | ------- |
@@ -14,7 +14,7 @@ This example provides simple person group data model
 
 ## Person Group Model
 
-### Person (persons)
+### Person ("persons")
 
 | Поле  | Тип данных | ПК | Обязательно| Описание|
 | ------- | ------- | ------- | ------- | ------- |
@@ -31,7 +31,7 @@ This example provides simple person group data model
 | ------- | ------- | ------- |
 | lastname<br>firstname |  | Search index by lastname and firstname |
 
-### Group (groups)
+### Group ("groups")
 
 | Поле  | Тип данных | ПК | Обязательно| Описание|
 | ------- | ------- | ------- | ------- | ------- |
@@ -40,7 +40,7 @@ This example provides simple person group data model
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Group member (group_members)
+### Group member ("group_members")
 
 | Поле  | Тип данных | ПК | Обязательно| Описание|
 | ------- | ------- | ------- | ------- | ------- |
@@ -62,6 +62,6 @@ This example provides simple person group data model
 
 | Поля  | Связанная таблица | Связанные поля | Тип | Описание|
 | ------- | ------- | ------- | ------- | ------- |
-| group_id | Group (groups) | id | Many-To-One | Relation to groups |
-| person_id | Person (persons) | id | Many-To-One | Relation to persons |
+| group_id | Group ("groups") | id | Many-To-One | Relation to groups |
+| person_id | Person ("persons") | id | Many-To-One | Relation to persons |
 

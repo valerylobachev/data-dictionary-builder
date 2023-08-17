@@ -25,7 +25,7 @@ import finance.data.logistic.model.ValuationAreaEntity
 
 
 /**
- * LedgerEntry
+ * Ledger Entry
  */
 @Entity
 @Table(name = "ledger_entries", schema = "ledger_entry")
@@ -207,13 +207,13 @@ data class LedgerEntryEntity(
     var quantity: BigDecimal? = null,
 
     /**
-     * Unit of measurement Id
+     * Unit of measure id
      */
     @Column(name = "uom_id", length = 6)
     var uomId: String? = null,
 
     /**
-     * Unit of measurement Id
+     * Basic unit of measure id
      */
     @Column(name = "basic_uom_id", length = 6)
     var basicUomId: String? = null,

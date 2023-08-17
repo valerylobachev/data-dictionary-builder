@@ -1,0 +1,43 @@
+// Order Status
+enum order_status {
+  P [note: 'Placed']
+  D [note: 'Delivered']
+  C [note: 'Canceled']
+}
+
+// Group Analytics - Analytic tables 
+
+table "analytics"."segments" {
+  "id" varchar(10) [pk, not null, note: 'Segment Id']
+  "name" varchar(100) [not null, note: 'Name']
+  "created_by" varchar(10) [not null, note: 'User created record']
+  "created_at" timestamptz [not null, note: 'Timestamp of record create']
+  "updated_by" varchar(10) [not null, note: 'User updated record']
+  "updated_at" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Segment'
+}
+
+table "analytics"."business_areas" {
+  "id" varchar(10) [pk, not null, note: 'Business Area Id']
+  "name" varchar(100) [not null, note: 'Name']
+  "created_by" varchar(10) [not null, note: 'User created record']
+  "created_at" timestamptz [not null, note: 'Timestamp of record create']
+  "updated_by" varchar(10) [not null, note: 'User updated record']
+  "updated_at" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Business area'
+}
+
+table "analytics"."promotions" {
+  "id" varchar(10) [pk, not null, note: 'Promotion Id']
+  "name" varchar(100) [not null, note: 'Name']
+  "created_by" varchar(10) [not null, note: 'User created record']
+  "created_at" timestamptz [not null, note: 'Timestamp of record create']
+  "updated_by" varchar(10) [not null, note: 'User updated record']
+  "updated_at" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Promotion'
+}
+
+

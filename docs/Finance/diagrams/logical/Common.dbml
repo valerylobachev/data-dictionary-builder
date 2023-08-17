@@ -1,0 +1,154 @@
+// Ledger Type
+enum ledger_type {
+  L [note: 'Leading ledger']
+  X [note: 'Extension ledger']
+}
+
+// General ledger account type
+enum g_l_account_type {
+  X [note: 'Balance Sheet Account']
+  N [note: 'Nonoperating Expense or Income']
+  P [note: 'Primary Costs or Revenue']
+  S [note: 'Secondary Costs']
+  C [note: 'Cash Account']
+}
+
+// Account type
+enum account_type {
+  A [note: 'Assets']
+  D [note: 'Customer']
+  K [note: 'Vendor']
+  M [note: 'Materials']
+  S [note: 'General Ledger']
+}
+
+// Debit/Credit
+enum debit_credit {
+  D [note: 'Debit']
+  C [note: 'Credit']
+}
+
+// Group Common - Common tables and data structures 
+
+table "common"."Country" {
+  "Country Id" varchar(3) [pk, not null, note: 'Country Id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "Country Key" varchar(3) [note: 'Country Key']
+  "Language Id" varchar(3) [not null, note: 'Language Id']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Country'
+}
+
+// Reference to language
+Ref countries_language_id: "common"."Country"."Language Id" > "common"."Language"."Language Id"
+
+
+table "common"."Language" {
+  "Language Id" varchar(3) [pk, not null, note: 'Language Id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Language'
+}
+
+table "common"."Currency" {
+  "Currency Id" varchar(5) [pk, not null, note: 'Currency Id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "Short name" varchar(20) [not null, note: 'Short name']
+  "Currency ISO code" varchar(3) [not null, note: 'Currency ISO code']
+  "Currency key" varchar(3) [not null, note: 'Currency key']
+  "Currency decimals" integer [not null, note: 'Currency decimals']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Currency'
+}
+
+table "common"."Exchange rate type" {
+  "Exchange rate type Id" varchar(4) [pk, not null, note: 'Exchange rate type Id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Exchange rate type'
+}
+
+table "common"."ExchangeRate" {
+  "Exchange rate type Id" varchar(4) [not null, note: 'Exchange rate type Id']
+  "From Currency Id" varchar(5) [not null, note: 'From Currency Id']
+  "To Currency Id" varchar(5) [not null, note: 'To Currency Id']
+  "Effective from" date [not null, note: 'Effective from']
+  "Exchange rate" decimal(25,5) [not null, note: 'Exchange rate']
+  "Currency ratio from" integer [not null, note: 'Currency ratio from']
+  "Currency ratio to" integer [not null, note: 'Currency ratio to']
+  "Direct ratio indicator" boolean [not null, note: 'Direct ratio indicator']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    ("Exchange rate type Id", "From Currency Id", "To Currency Id", "Effective from") [pk]
+  }
+
+  note: 'ExchangeRate'
+}
+
+// Reference to exchange rate type
+Ref exchange_rates_exchange_rate_type_id: "common"."ExchangeRate"."Exchange rate type Id" > "common"."Exchange rate type"."Exchange rate type Id"
+// Reference (from) to currency 
+Ref exchange_rates_from_currency_id: "common"."ExchangeRate"."From Currency Id" > "common"."Currency"."Currency Id"
+// Reference (to) to currency 
+Ref exchange_rates_to_currency_id: "common"."ExchangeRate"."To Currency Id" > "common"."Currency"."Currency Id"
+
+
+table "common"."Unit of measurement" {
+  "Unit of measurement Id" varchar(6) [pk, not null, note: 'Unit of measurement Id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "Short name" varchar(30) [not null, note: 'Short name']
+  "ISOCode" varchar(3) [note: 'ISOCode']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Unit of measurement'
+}
+
+table "common"."Unit of measurement text" {
+  "Language Id" varchar(3) [not null, note: 'Language Id']
+  "Unit of measurement Id" varchar(6) [not null, note: 'Unit of measurement Id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "Short name" varchar(20) [not null, note: 'Short name']
+  "UoM commercial code" varchar(6) [not null, note: 'UoM commercial code']
+  "UoM technical code" varchar(6) [not null, note: 'UoM technical code']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    ("Language Id", "Unit of measurement Id") [pk]
+  }
+
+  note: 'Unit of measurement text'
+}
+
+// Reference to language
+Ref uom_texts_language_id: "common"."Unit of measurement text"."Language Id" > "common"."Language"."Language Id"
+// Reference to unit of measurement
+Ref uom_texts_uom_id: "common"."Unit of measurement text"."Unit of measurement Id" > "common"."Unit of measurement"."Unit of measurement Id"
+
+
+
