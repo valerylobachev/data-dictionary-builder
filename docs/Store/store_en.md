@@ -1,5 +1,10 @@
 #  Store example
 
+* [Shared data structures](#Shared data structures)
+* [Client tables](#Client tables)
+* [Order tables](#Order tables)
+* [Analytic tables](#Analytic tables)
+
 
 Store data model example
 

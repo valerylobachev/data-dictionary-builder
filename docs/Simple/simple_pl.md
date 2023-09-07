@@ -1,5 +1,8 @@
 #  Simple Example
 
+* [Shared data structures](#Shared data structures)
+* [Person Group Model](#Person Group Model)
+
 
 This example provides simple person group data model
 

@@ -4,6 +4,10 @@
 <%@ val relationHeader: String %>
 \#  ${domain.name}
 
+#for (group <- domain.groups)
+* [${group.name}](\#${group.name})
+#end
+
 #if (domain.description.nonEmpty)
 ${domain.description}
 
