@@ -8,7 +8,7 @@ enum order_status {
 
 // Group Client - Client tables 
 
-table "client"."clients" {
+table "client"."client_clients_table" {
   "id" integer [pk, not null, increment, note: 'Client Id']
   "name" varchar(100) [not null, note: 'Client name']
   "description" text [note: 'Description']
@@ -36,14 +36,14 @@ table "client"."clients" {
 }
 
 // Reference to Promotion
-Ref clients_promotion_id: "client"."clients"."promotion_id" > "analytics"."promotions"."id"
+Ref client_clients_table_promotion_id: "client"."client_clients_table"."promotion_id" > "analytics"."analytics_promotions_table"."id"
 // Reference to Segment
-Ref clients_segment_id: "client"."clients"."segment_id" > "analytics"."segments"."id"
+Ref client_clients_table_segment_id: "client"."client_clients_table"."segment_id" > "analytics"."analytics_segments_table"."id"
 // Reference to BusinessArea
-Ref clients_business_area_id: "client"."clients"."business_area_id" > "analytics"."business_areas"."id"
+Ref client_clients_table_business_area_id: "client"."client_clients_table"."business_area_id" > "analytics"."analytics_business_areas_table"."id"
 
 
-table "client"."client_addresses" {
+table "client"."client_client_addresses_table" {
   "id" integer [pk, not null, increment, note: 'Address Id']
   "name" varchar(100) [not null, note: 'Address name']
   "description" text [note: 'Description']
@@ -60,20 +60,20 @@ table "client"."client_addresses" {
   "updated_at" timestamptz [not null, note: 'Timestamp of record update']
 
   indexes {
-    ("client_id", "id") [unique, name: 'client_addresses_client_id_id', note: 'Unique clientId & id']
+    ("client_id", "id") [unique, name: 'client_client_addresses_table_client_id_id', note: 'Unique clientId & id']
   }
 
   note: 'Client address'
 }
 
 // Reference to client
-Ref client_addresses_client_id: "client"."client_addresses"."client_id" > "client"."clients"."id"
+Ref client_client_addresses_table_client_id: "client"."client_client_addresses_table"."client_id" > "client"."client_clients_table"."id"
 
 
 
 // Group Order - Order tables 
 
-table "orders" {
+table "order_orders_table" {
   "id" integer [pk, not null, increment, note: 'Order Id']
   "name" varchar(100) [not null, note: 'Order name']
   "description" text [note: 'Description']
@@ -92,18 +92,18 @@ table "orders" {
 }
 
 // Reference to client
-Ref orders_client_id: "orders"."client_id" > "client"."clients"."id"
+Ref order_orders_table_client_id: "order_orders_table"."client_id" > "client"."client_clients_table"."id"
 // Reference to address
-Ref orders_delivery_address_id: "orders".("client_id", "delivery_address_id") > "client"."client_addresses".("client_id", "id")
+Ref order_orders_table_delivery_address_id: "order_orders_table".("client_id", "delivery_address_id") > "client"."client_client_addresses_table".("client_id", "id")
 // Reference to Promotion
-Ref orders_promotion_id: "orders"."promotion_id" > "analytics"."promotions"."id"
+Ref order_orders_table_promotion_id: "order_orders_table"."promotion_id" > "analytics"."analytics_promotions_table"."id"
 // Reference to Segment
-Ref orders_segment_id: "orders"."segment_id" > "analytics"."segments"."id"
+Ref order_orders_table_segment_id: "order_orders_table"."segment_id" > "analytics"."analytics_segments_table"."id"
 // Reference to BusinessArea
-Ref orders_business_area_id: "orders"."business_area_id" > "analytics"."business_areas"."id"
+Ref order_orders_table_business_area_id: "order_orders_table"."business_area_id" > "analytics"."analytics_business_areas_table"."id"
 
 
-table "order_lines" {
+table "order_order_lines_table" {
   "id" integer [pk, not null, increment, note: 'OrderLine Id']
   "order_id" integer [not null, note: 'Order Id']
   "item_id" integer [not null, note: 'Item Id']
@@ -121,18 +121,18 @@ table "order_lines" {
 }
 
 // Reference to order
-Ref order_lines_order_id: "order_lines"."order_id" > "orders"."id"
+Ref order_order_lines_table_order_id: "order_order_lines_table"."order_id" > "order_orders_table"."id"
 // Reference to item
-Ref order_lines_item_id: "order_lines"."item_id" > "items"."id"
+Ref order_order_lines_table_item_id: "order_order_lines_table"."item_id" > "order_items_table"."id"
 // Reference to Promotion
-Ref order_lines_promotion_id: "order_lines"."promotion_id" > "analytics"."promotions"."id"
+Ref order_order_lines_table_promotion_id: "order_order_lines_table"."promotion_id" > "analytics"."analytics_promotions_table"."id"
 // Reference to Segment
-Ref order_lines_segment_id: "order_lines"."segment_id" > "analytics"."segments"."id"
+Ref order_order_lines_table_segment_id: "order_order_lines_table"."segment_id" > "analytics"."analytics_segments_table"."id"
 // Reference to BusinessArea
-Ref order_lines_business_area_id: "order_lines"."business_area_id" > "analytics"."business_areas"."id"
+Ref order_order_lines_table_business_area_id: "order_order_lines_table"."business_area_id" > "analytics"."analytics_business_areas_table"."id"
 
 
-table "items" {
+table "order_items_table" {
   "id" integer [pk, not null, increment, note: 'Item Id']
   "item_id" integer [not null, note: 'Item Id']
   "price" decimal(10,2) [not null, note: 'Amount']
@@ -147,7 +147,7 @@ table "items" {
 
 // Group Analytics - Analytic tables 
 
-table "analytics"."segments" {
+table "analytics"."analytics_segments_table" {
   "id" varchar(10) [pk, not null, note: 'Segment Id']
   "name" varchar(100) [not null, note: 'Name']
   "created_by" varchar(10) [not null, note: 'User created record']
@@ -158,7 +158,7 @@ table "analytics"."segments" {
   note: 'Segment'
 }
 
-table "analytics"."business_areas" {
+table "analytics"."analytics_business_areas_table" {
   "id" varchar(10) [pk, not null, note: 'Business Area Id']
   "name" varchar(100) [not null, note: 'Name']
   "created_by" varchar(10) [not null, note: 'User created record']
@@ -169,7 +169,7 @@ table "analytics"."business_areas" {
   note: 'Business area'
 }
 
-table "analytics"."promotions" {
+table "analytics"."analytics_promotions_table" {
   "id" varchar(10) [pk, not null, note: 'Promotion Id']
   "name" varchar(100) [not null, note: 'Name']
   "created_by" varchar(10) [not null, note: 'User created record']

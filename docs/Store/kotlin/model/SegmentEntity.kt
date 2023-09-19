@@ -10,7 +10,7 @@ import java.time.Instant
  * Segment
  */
 @Entity
-@Table(name = "segments", schema = "analytics")
+@Table(name = "analytics_segments_table", schema = "analytics")
 data class SegmentEntity(
 
     /**

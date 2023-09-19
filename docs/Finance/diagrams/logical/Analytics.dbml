@@ -30,7 +30,7 @@ enum debit_credit {
 
 // Group Analytics - Analytic tables 
 
-table "analytics"."Creditor" {
+table "Creditor" {
   "Creditor id" varchar(10) [pk, not null, note: 'Creditor id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(20) [not null, note: 'User created record']
@@ -41,7 +41,7 @@ table "analytics"."Creditor" {
   note: 'Creditor'
 }
 
-table "analytics"."Debtor" {
+table "Debtor" {
   "Debtor id" varchar(10) [pk, not null, note: 'Debtor id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(20) [not null, note: 'User created record']
@@ -52,7 +52,7 @@ table "analytics"."Debtor" {
   note: 'Debtor'
 }
 
-table "analytics"."Business partner" {
+table "Business partner" {
   "Business partner id" varchar(10) [pk, not null, note: 'Business partner id']
   "Name" varchar(100) [not null, note: 'Name']
   "Creditor id" varchar(10) [note: 'Creditor id']
@@ -71,12 +71,12 @@ table "analytics"."Business partner" {
 }
 
 // Reference to Creditor
-Ref business_partners_creditor_id: "analytics"."Business partner"."Creditor id" - "analytics"."Creditor"."Creditor id"
+Ref business_partners_creditor_id: "Business partner"."Creditor id" - "Creditor"."Creditor id"
 // Reference to Debtor
-Ref business_partners_debtor_id: "analytics"."Business partner"."Debtor id" - "analytics"."Debtor"."Debtor id"
+Ref business_partners_debtor_id: "Business partner"."Debtor id" - "Debtor"."Debtor id"
 
 
-table "analytics"."Business area" {
+table "Business area" {
   "Business area id" varchar(4) [pk, not null, note: 'Business area id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(20) [not null, note: 'User created record']
@@ -87,7 +87,7 @@ table "analytics"."Business area" {
   note: 'Business area'
 }
 
-table "analytics"."Functional area" {
+table "Functional area" {
   "Functional area id" varchar(20) [pk, not null, note: 'Functional area id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(20) [not null, note: 'User created record']
@@ -98,7 +98,7 @@ table "analytics"."Functional area" {
   note: 'Functional area'
 }
 
-table "analytics"."Segment" {
+table "Segment" {
   "Segment id" varchar(10) [pk, not null, note: 'Segment id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(20) [not null, note: 'User created record']
@@ -109,7 +109,7 @@ table "analytics"."Segment" {
   note: 'Segment'
 }
 
-table "analytics"."Attribute" {
+table "Attribute" {
   "Attribute id" varchar(10) [pk, not null, note: 'Attribute id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(20) [not null, note: 'User created record']
@@ -120,7 +120,7 @@ table "analytics"."Attribute" {
   note: 'Attribute'
 }
 
-table "analytics"."Attribute value" {
+table "Attribute value" {
   "Attribute id" varchar(10) [not null, note: 'Attribute id']
   "Attribute value id" varchar(20) [not null, note: 'Attribute value id']
   "Name" varchar(100) [not null, note: 'Name']
@@ -137,7 +137,7 @@ table "analytics"."Attribute value" {
 }
 
 // Relation to Attribute
-Ref attribute_values_attribute_id: "analytics"."Attribute value"."Attribute id" > "analytics"."Attribute"."Attribute id"
+Ref attribute_values_attribute_id: "Attribute value"."Attribute id" > "Attribute"."Attribute id"
 
 
 

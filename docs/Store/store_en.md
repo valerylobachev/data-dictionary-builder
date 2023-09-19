@@ -10,7 +10,7 @@ Store data model example
 
 ## Shared data structures
 
-### Modification data structure ("modifications")
+### Modification data structure ("modifications_table")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -19,7 +19,7 @@ Store data model example
 | updated_by | varchar(10) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Address data structure ("addresses")
+### Address data structure ("addresses_table")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -30,7 +30,7 @@ Store data model example
 | country | varchar(50) |  | X | Country |
 | postcode | varchar(10) |  | X | Post code |
 
-### Analytics data structure ("analyticses")
+### Analytics data structure ("analyticses_table")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -43,13 +43,13 @@ Store data model example
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| promotion_id | Promotion ("analytics"."promotions") | id | Many-To-One | Reference to Promotion |
-| segment_id | Segment ("analytics"."segments") | id | Many-To-One | Reference to Segment |
-| business_area_id | Business area ("analytics"."business_areas") | id | Many-To-One | Reference to BusinessArea |
+| promotion_id | Promotion ("analytics"."analytics_promotions_table") | id | Many-To-One | Reference to Promotion |
+| segment_id | Segment ("analytics"."analytics_segments_table") | id | Many-To-One | Reference to Segment |
+| business_area_id | Business area ("analytics"."analytics_business_areas_table") | id | Many-To-One | Reference to BusinessArea |
 
 ## Client tables
 
-### Client ("client"."clients")
+### Client ("client"."client_clients_table")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -76,7 +76,7 @@ Store data model example
 | updated_by | varchar(10) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Client address ("client"."client_addresses")
+### Client address ("client"."client_client_addresses_table")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -107,11 +107,11 @@ Store data model example
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| client_id | Client ("client"."clients") | id | Many-To-One | Reference to client |
+| client_id | Client ("client"."client_clients_table") | id | Many-To-One | Reference to client |
 
 ## Order tables
 
-### Order ("orders")
+### Order ("order_orders_table")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -134,10 +134,10 @@ Store data model example
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| client_id | Client ("client"."clients") | id | Many-To-One | Reference to client |
-| client_id<br>delivery_address_id | Client address ("client"."client_addresses") | client_id<br>id | Many-To-One | Reference to address |
+| client_id | Client ("client"."client_clients_table") | id | Many-To-One | Reference to client |
+| client_id<br>delivery_address_id | Client address ("client"."client_client_addresses_table") | client_id<br>id | Many-To-One | Reference to address |
 
-### Order line ("order_lines")
+### Order line ("order_order_lines_table")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -159,10 +159,10 @@ Store data model example
 
 | Fields  | Related table | Related fields | Type | Description|
 | ------- | ------- | ------- | ------- | ------- |
-| order_id | Order ("orders") | id | Many-To-One | Reference to order |
-| item_id | Item ("items") | id | Many-To-One | Reference to item |
+| order_id | Order ("order_orders_table") | id | Many-To-One | Reference to order |
+| item_id | Item ("order_items_table") | id | Many-To-One | Reference to item |
 
-### Item ("items")
+### Item ("order_items_table")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -176,7 +176,7 @@ Store data model example
 
 ## Analytic tables
 
-### Segment ("analytics"."segments")
+### Segment ("analytics"."analytics_segments_table")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -187,7 +187,7 @@ Store data model example
 | updated_by | varchar(10) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Business area ("analytics"."business_areas")
+### Business area ("analytics"."analytics_business_areas_table")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
@@ -198,7 +198,7 @@ Store data model example
 | updated_by | varchar(10) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Promotion ("analytics"."promotions")
+### Promotion ("analytics"."analytics_promotions_table")
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |

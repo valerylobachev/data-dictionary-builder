@@ -7,7 +7,7 @@ enum order_status {
 
 // Group Client - Client tables 
 
-table "client"."Client" {
+table "Client" {
   "Client Id" integer [pk, not null, increment, note: 'Client Id']
   "Client name" varchar(100) [not null, note: 'Client name']
   "Description" text [note: 'Description']
@@ -35,14 +35,14 @@ table "client"."Client" {
 }
 
 // Reference to Promotion
-Ref clients_promotion_id: "client"."Client"."Promotion Id" > "analytics"."Promotion"."Promotion Id"
+Ref client_clients_table_promotion_id: "Client"."Promotion Id" > "Promotion"."Promotion Id"
 // Reference to Segment
-Ref clients_segment_id: "client"."Client"."Segment Id" > "analytics"."Segment"."Segment Id"
+Ref client_clients_table_segment_id: "Client"."Segment Id" > "Segment"."Segment Id"
 // Reference to BusinessArea
-Ref clients_business_area_id: "client"."Client"."Business Area Id" > "analytics"."Business area"."Business Area Id"
+Ref client_clients_table_business_area_id: "Client"."Business Area Id" > "Business area"."Business Area Id"
 
 
-table "client"."Client address" {
+table "Client address" {
   "Address Id" integer [pk, not null, increment, note: 'Address Id']
   "Address name" varchar(100) [not null, note: 'Address name']
   "Description" text [note: 'Description']
@@ -59,20 +59,20 @@ table "client"."Client address" {
   "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
 
   indexes {
-    ("Client Id", "Address Id") [unique, name: 'client_addresses_client_id_id', note: 'Unique clientId & id']
+    ("Client Id", "Address Id") [unique, name: 'client_client_addresses_table_client_id_id', note: 'Unique clientId & id']
   }
 
   note: 'Client address'
 }
 
 // Reference to client
-Ref client_addresses_client_id: "client"."Client address"."Client Id" > "client"."Client"."Client Id"
+Ref client_client_addresses_table_client_id: "Client address"."Client Id" > "Client"."Client Id"
 
 
 
 // Related entities 
 
-table "analytics"."Promotion" {
+table "Promotion" {
   "Promotion Id" varchar(10) [pk, not null, note: 'Promotion Id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(10) [not null, note: 'User created record']
@@ -83,7 +83,7 @@ table "analytics"."Promotion" {
   note: 'Promotion'
 }
 
-table "analytics"."Segment" {
+table "Segment" {
   "Segment Id" varchar(10) [pk, not null, note: 'Segment Id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(10) [not null, note: 'User created record']
@@ -94,7 +94,7 @@ table "analytics"."Segment" {
   note: 'Segment'
 }
 
-table "analytics"."Business area" {
+table "Business area" {
   "Business Area Id" varchar(10) [pk, not null, note: 'Business Area Id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(10) [not null, note: 'User created record']

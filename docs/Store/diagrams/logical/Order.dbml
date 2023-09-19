@@ -26,15 +26,15 @@ table "Order" {
 }
 
 // Reference to client
-Ref orders_client_id: "Order"."Client Id" > "client"."Client"."Client Id"
+Ref order_orders_table_client_id: "Order"."Client Id" > "Client"."Client Id"
 // Reference to address
-Ref orders_delivery_address_id: "Order".("Client Id", "Delivery address") > "client"."Client address".("Client Id", "Address Id")
+Ref order_orders_table_delivery_address_id: "Order".("Client Id", "Delivery address") > "Client address".("Client Id", "Address Id")
 // Reference to Promotion
-Ref orders_promotion_id: "Order"."Promotion Id" > "analytics"."Promotion"."Promotion Id"
+Ref order_orders_table_promotion_id: "Order"."Promotion Id" > "Promotion"."Promotion Id"
 // Reference to Segment
-Ref orders_segment_id: "Order"."Segment Id" > "analytics"."Segment"."Segment Id"
+Ref order_orders_table_segment_id: "Order"."Segment Id" > "Segment"."Segment Id"
 // Reference to BusinessArea
-Ref orders_business_area_id: "Order"."Business Area Id" > "analytics"."Business area"."Business Area Id"
+Ref order_orders_table_business_area_id: "Order"."Business Area Id" > "Business area"."Business Area Id"
 
 
 table "Order line" {
@@ -55,15 +55,15 @@ table "Order line" {
 }
 
 // Reference to order
-Ref order_lines_order_id: "Order line"."Order Id" > "Order"."Order Id"
+Ref order_order_lines_table_order_id: "Order line"."Order Id" > "Order"."Order Id"
 // Reference to item
-Ref order_lines_item_id: "Order line"."Item Id" > "Item"."Item Id"
+Ref order_order_lines_table_item_id: "Order line"."Item Id" > "Item"."Item Id"
 // Reference to Promotion
-Ref order_lines_promotion_id: "Order line"."Promotion Id" > "analytics"."Promotion"."Promotion Id"
+Ref order_order_lines_table_promotion_id: "Order line"."Promotion Id" > "Promotion"."Promotion Id"
 // Reference to Segment
-Ref order_lines_segment_id: "Order line"."Segment Id" > "analytics"."Segment"."Segment Id"
+Ref order_order_lines_table_segment_id: "Order line"."Segment Id" > "Segment"."Segment Id"
 // Reference to BusinessArea
-Ref order_lines_business_area_id: "Order line"."Business Area Id" > "analytics"."Business area"."Business Area Id"
+Ref order_order_lines_table_business_area_id: "Order line"."Business Area Id" > "Business area"."Business Area Id"
 
 
 table "Item" {
@@ -81,7 +81,7 @@ table "Item" {
 
 // Related entities 
 
-table "analytics"."Segment" {
+table "Segment" {
   "Segment Id" varchar(10) [pk, not null, note: 'Segment Id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(10) [not null, note: 'User created record']
@@ -92,7 +92,7 @@ table "analytics"."Segment" {
   note: 'Segment'
 }
 
-table "client"."Client address" {
+table "Client address" {
   "Address Id" integer [pk, not null, increment, note: 'Address Id']
   "Address name" varchar(100) [not null, note: 'Address name']
   "Description" text [note: 'Description']
@@ -109,13 +109,13 @@ table "client"."Client address" {
   "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
 
   indexes {
-    ("Client Id", "Address Id") [unique, name: 'client_addresses_client_id_id', note: 'Unique clientId & id']
+    ("Client Id", "Address Id") [unique, name: 'client_client_addresses_table_client_id_id', note: 'Unique clientId & id']
   }
 
   note: 'Client address'
 }
 
-table "analytics"."Promotion" {
+table "Promotion" {
   "Promotion Id" varchar(10) [pk, not null, note: 'Promotion Id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(10) [not null, note: 'User created record']
@@ -126,7 +126,7 @@ table "analytics"."Promotion" {
   note: 'Promotion'
 }
 
-table "analytics"."Business area" {
+table "Business area" {
   "Business Area Id" varchar(10) [pk, not null, note: 'Business Area Id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(10) [not null, note: 'User created record']
@@ -137,7 +137,7 @@ table "analytics"."Business area" {
   note: 'Business area'
 }
 
-table "client"."Client" {
+table "Client" {
   "Client Id" integer [pk, not null, increment, note: 'Client Id']
   "Client name" varchar(100) [not null, note: 'Client name']
   "Description" text [note: 'Description']

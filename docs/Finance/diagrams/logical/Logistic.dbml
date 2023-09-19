@@ -30,7 +30,7 @@ enum debit_credit {
 
 // Group Logistic - Logistic tables 
 
-table "logistic"."Material" {
+table "Material" {
   "Material id" varchar(40) [pk, not null, note: 'Material id']
   "Name" varchar(100) [not null, note: 'Name']
   "Short name" varchar(20) [not null, note: 'Short name']
@@ -44,10 +44,10 @@ table "logistic"."Material" {
 }
 
 // Reference to Unit Of Measurement
-Ref materials_basic_uom_id: "logistic"."Material"."Unit of measurement Id" > "common"."Unit of measurement"."Unit of measurement Id"
+Ref materials_basic_uom_id: "Material"."Unit of measurement Id" > "Unit of measurement"."Unit of measurement Id"
 
 
-table "logistic"."Plant" {
+table "Plant" {
   "Plant id" varchar(4) [pk, not null, note: 'Plant id']
   "Name" varchar(100) [not null, note: 'Name']
   "Short name" varchar(20) [not null, note: 'Short name']
@@ -59,7 +59,7 @@ table "logistic"."Plant" {
   note: 'Plant'
 }
 
-table "logistic"."Location" {
+table "Location" {
   "Plant id" varchar(4) [not null, note: 'Plant id']
   "Location id" varchar(10) [not null, note: 'Location id']
   "Name" varchar(100) [not null, note: 'Name']
@@ -77,10 +77,10 @@ table "logistic"."Location" {
 }
 
 // Reference to Plant
-Ref locations_plant_id: "logistic"."Location"."Plant id" > "logistic"."Plant"."Plant id"
+Ref locations_plant_id: "Location"."Plant id" > "Plant"."Plant id"
 
 
-table "logistic"."Valuation area" {
+table "Valuation area" {
   "Valuation area id" varchar(20) [pk, not null, note: 'Valuation area id']
   "Name" varchar(100) [not null, note: 'Name']
   "Short name" varchar(20) [not null, note: 'Short name']
@@ -94,13 +94,13 @@ table "logistic"."Valuation area" {
 }
 
 // Reference to CompanyCode
-Ref valuation_areas_company_code_id: "logistic"."Valuation area"."Company code" > "company_code"."Company code"."Company code"
+Ref valuation_areas_company_code_id: "Valuation area"."Company code" > "Company code"."Company code"
 
 
 
 // Related entities 
 
-table "common"."Unit of measurement" {
+table "Unit of measurement" {
   "Unit of measurement Id" varchar(6) [pk, not null, note: 'Unit of measurement Id']
   "Name" varchar(100) [not null, note: 'Name']
   "Short name" varchar(30) [not null, note: 'Short name']
@@ -113,7 +113,7 @@ table "common"."Unit of measurement" {
   note: 'Unit of measurement'
 }
 
-table "company_code"."Company code" {
+table "Company code" {
   "Company code" varchar(4) [pk, not null, note: 'Company code']
   "Name" varchar(100) [not null, note: 'Name']
   "Country Id" varchar(3) [not null, note: 'Country Id']

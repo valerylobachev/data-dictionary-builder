@@ -9,7 +9,7 @@ import jakarta.persistence.*
  * Analytics data structure
  */
 @Entity
-@Table(name = "analyticses")
+@Table(name = "analyticses_table")
 data class AnalyticsEntity(
 
     /**

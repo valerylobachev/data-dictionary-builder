@@ -126,7 +126,7 @@ case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends R
       Some(s"    $pkFields [pk]\n")
     } else None
     val indexes = entity.indexes.values.map { index =>
-      val indexId  = entity.tableName + '_' + index.id.snakeCase
+      val indexId  = entity.fullTableName() + '_' + index.id.snakeCase
       val fields   =
         if (index.fields == 1) index.fields.map(f => getEntityFieldName(entity.fields, f, logical)).head
         else index.fields.map(f => getEntityFieldName(entity.fields, f, logical)).mkString("(", ", ", ")")
@@ -156,7 +156,7 @@ case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends R
           case OneToOne  => "-"
         }
         val comment      = if (relation.name.nonEmpty) s"// ${relation.name}\n" else ""
-        val relationId   = entity.tableName + '_' + relation.id.snakeCase
+        val relationId   = entity.fullTableName() + '_' + relation.id.snakeCase
         if (relation.fields.size == 1) {
           val f1 = getEntityFieldName(fields, relation.fields.head._1, logical)
           val f2 = getEntityFieldName(relationEntity.fields, relation.fields.head._2, logical)

@@ -10,7 +10,7 @@ import java.time.Instant
  * Client
  */
 @Entity
-@Table(name = "clients", schema = "client")
+@Table(name = "client_clients_table", schema = "client")
 data class ClientEntity(
 
     /**

@@ -30,7 +30,7 @@ enum debit_credit {
 
 // Group CompanyCode - Company code tables 
 
-table "company_code"."Company code" {
+table "Company code" {
   "Company code" varchar(4) [pk, not null, note: 'Company code']
   "Name" varchar(100) [not null, note: 'Name']
   "Country Id" varchar(3) [not null, note: 'Country Id']
@@ -48,20 +48,20 @@ table "company_code"."Company code" {
 }
 
 // Reference to Country
-Ref company_codes_country_id: "company_code"."Company code"."Country Id" > "common"."Country"."Country Id"
+Ref company_codes_country_id: "Company code"."Country Id" > "Country"."Country Id"
 // Reference to Language
-Ref company_codes_language_id: "company_code"."Company code"."Language Id" > "common"."Language"."Language Id"
+Ref company_codes_language_id: "Company code"."Language Id" > "Language"."Language Id"
 // Reference to Currency
-Ref company_codes_currency_id: "company_code"."Company code"."Currency Id" > "common"."Currency"."Currency Id"
+Ref company_codes_currency_id: "Company code"."Currency Id" > "Currency"."Currency Id"
 // Reference to ChartOfAccounts
-Ref company_codes_chart_of_accounts_id: "company_code"."Company code"."Chart of accounts id" > "gl_account"."Chart of accounts"."Chart of accounts id"
+Ref company_codes_chart_of_accounts_id: "Company code"."Chart of accounts id" > "Chart of accounts"."Chart of accounts id"
 // Reference to FYVariant
-Ref company_codes_fy_variant_id: "company_code"."Company code"."Fiscal year variant id" > "company_code"."Fiscal year variant"."Fiscal year variant id"
+Ref company_codes_fy_variant_id: "Company code"."Fiscal year variant id" > "Fiscal year variant"."Fiscal year variant id"
 // Reference to PostingPeriodVariant
-Ref company_codes_posting_period_variant_id: "company_code"."Company code"."Posting period variant id" > "company_code"."Posting period variant"."Posting period variant id"
+Ref company_codes_posting_period_variant_id: "Company code"."Posting period variant id" > "Posting period variant"."Posting period variant id"
 
 
-table "company_code"."Company code ledger" {
+table "Company code ledger" {
   "Company code" varchar(4) [not null, note: 'Company code']
   "Ledger Id" varchar(4) [not null, note: 'Ledger Id']
   "User created record" varchar(20) [not null, note: 'User created record']
@@ -77,12 +77,12 @@ table "company_code"."Company code ledger" {
 }
 
 // Reference to CompanyCode
-Ref company_code_ledgers_company_code_id: "company_code"."Company code ledger"."Company code" > "company_code"."Company code"."Company code"
+Ref company_code_ledgers_company_code_id: "Company code ledger"."Company code" > "Company code"."Company code"
 // Reference to Ledger
-Ref company_code_ledgers_ledger_id: "company_code"."Company code ledger"."Ledger Id" > "ledger"."Ledger"."Ledger Id"
+Ref company_code_ledgers_ledger_id: "Company code ledger"."Ledger Id" > "Ledger"."Ledger Id"
 
 
-table "company_code"."Fiscal year variant" {
+table "Fiscal year variant" {
   "Fiscal year variant id" varchar(2) [pk, not null, note: 'Fiscal year variant id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(20) [not null, note: 'User created record']
@@ -93,7 +93,7 @@ table "company_code"."Fiscal year variant" {
   note: 'Fiscal year variant'
 }
 
-table "company_code"."Posting period variant" {
+table "Posting period variant" {
   "Posting period variant id" varchar(4) [pk, not null, note: 'Posting period variant id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(20) [not null, note: 'User created record']
@@ -104,7 +104,7 @@ table "company_code"."Posting period variant" {
   note: 'Posting period variant'
 }
 
-table "company_code"."Open period" {
+table "Open period" {
   "Posting period variant id" varchar(4) [not null, note: 'Posting period variant id']
   "Account type" account_type [not null, note: 'Account type']
   "To account" varchar(10) [not null, note: 'To account']
@@ -130,13 +130,13 @@ table "company_code"."Open period" {
 }
 
 // Reference to PostingPeriodVariant
-Ref open_periods_posting_period_variant_id: "company_code"."Open period"."Posting period variant id" > "company_code"."Posting period variant"."Posting period variant id"
+Ref open_periods_posting_period_variant_id: "Open period"."Posting period variant id" > "Posting period variant"."Posting period variant id"
 
 
 
 // Related entities 
 
-table "common"."Country" {
+table "Country" {
   "Country Id" varchar(3) [pk, not null, note: 'Country Id']
   "Name" varchar(100) [not null, note: 'Name']
   "Country Key" varchar(3) [note: 'Country Key']
@@ -149,7 +149,7 @@ table "common"."Country" {
   note: 'Country'
 }
 
-table "gl_account"."Chart of accounts" {
+table "Chart of accounts" {
   "Chart of accounts id" varchar(4) [pk, not null, note: 'Chart of accounts id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(20) [not null, note: 'User created record']
@@ -160,7 +160,7 @@ table "gl_account"."Chart of accounts" {
   note: 'Chart of accounts'
 }
 
-table "ledger"."Ledger" {
+table "Ledger" {
   "Ledger Id" varchar(4) [pk, not null, note: 'Ledger Id']
   "Name" varchar(100) [not null, note: 'Name']
   "Leading ledger indicator" boolean [not null, note: 'Leading ledger indicator']
@@ -174,7 +174,7 @@ table "ledger"."Ledger" {
   note: 'Ledger'
 }
 
-table "common"."Language" {
+table "Language" {
   "Language Id" varchar(3) [pk, not null, note: 'Language Id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(20) [not null, note: 'User created record']
@@ -185,7 +185,7 @@ table "common"."Language" {
   note: 'Language'
 }
 
-table "common"."Currency" {
+table "Currency" {
   "Currency Id" varchar(5) [pk, not null, note: 'Currency Id']
   "Name" varchar(100) [not null, note: 'Name']
   "Short name" varchar(20) [not null, note: 'Short name']

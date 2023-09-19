@@ -6,9 +6,9 @@ case class EnumData(
   description: String = "",
   length: Int,
   elements: Seq[(String, String)],
-  attributes: Attributes = Seq.empty
+  attributes: Attributes = Map.empty
 ) {
   def withValues(seq: (String, String)*) = copy(elements = seq)
 
-  def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq)
+  def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq.map(a => a.key -> a.value))
 }

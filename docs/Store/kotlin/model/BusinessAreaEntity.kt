@@ -10,7 +10,7 @@ import java.time.Instant
  * Business area
  */
 @Entity
-@Table(name = "business_areas", schema = "analytics")
+@Table(name = "analytics_business_areas_table", schema = "analytics")
 data class BusinessAreaEntity(
 
     /**

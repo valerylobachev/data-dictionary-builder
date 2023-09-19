@@ -30,7 +30,7 @@ enum debit_credit {
 
 // Group LedgerEntry - Ledger entry tables 
 
-table "ledger_entry"."Ledger Entry" {
+table "Ledger Entry" {
   "Entry no" uuid [pk, not null, note: 'Entry no']
   "Ledger Id" varchar(4) [not null, note: 'Ledger Id']
   "Company code" varchar(4) [not null, note: 'Company code']
@@ -75,42 +75,42 @@ table "ledger_entry"."Ledger Entry" {
 }
 
 // Reference to Ledger
-Ref ledger_entries_ledger_id: "ledger_entry"."Ledger Entry"."Ledger Id" > "ledger"."Ledger"."Ledger Id"
+Ref ledger_entries_ledger_id: "Ledger Entry"."Ledger Id" > "Ledger"."Ledger Id"
 // Reference to CompanyCode
-Ref ledger_entries_company_code_id: "ledger_entry"."Ledger Entry"."Company code" > "company_code"."Company code"."Company code"
+Ref ledger_entries_company_code_id: "Ledger Entry"."Company code" > "Company code"."Company code"
 // Reference to GLAccount
-Ref ledger_entries_gl_account_id: "ledger_entry"."Ledger Entry".("Chart of accounts id", "General ledger account id") > "gl_account"."General ledger account".("Chart of accounts id", "General ledger account id")
+Ref ledger_entries_gl_account_id: "Ledger Entry".("Chart of accounts id", "General ledger account id") > "General ledger account".("Chart of accounts id", "General ledger account id")
 // Reference to Creditor
-Ref ledger_entries_creditor_id: "ledger_entry"."Ledger Entry"."Creditor id" > "analytics"."Creditor"."Creditor id"
+Ref ledger_entries_creditor_id: "Ledger Entry"."Creditor id" > "Creditor"."Creditor id"
 // Reference to Debtor
-Ref ledger_entries_debtor_id: "ledger_entry"."Ledger Entry"."Debtor id" > "analytics"."Debtor"."Debtor id"
+Ref ledger_entries_debtor_id: "Ledger Entry"."Debtor id" > "Debtor"."Debtor id"
 // Reference to BusinessPartner
-Ref ledger_entries_business_partner_id: "ledger_entry"."Ledger Entry"."Business partner id" > "analytics"."Business partner"."Business partner id"
+Ref ledger_entries_business_partner_id: "Ledger Entry"."Business partner id" > "Business partner"."Business partner id"
 // Reference to BusinessArea
-Ref ledger_entries_business_area_id: "ledger_entry"."Ledger Entry"."Business area id" > "analytics"."Business area"."Business area id"
+Ref ledger_entries_business_area_id: "Ledger Entry"."Business area id" > "Business area"."Business area id"
 // Reference to FunctionalArea
-Ref ledger_entries_functional_area_id: "ledger_entry"."Ledger Entry"."Functional area id" > "analytics"."Functional area"."Functional area id"
+Ref ledger_entries_functional_area_id: "Ledger Entry"."Functional area id" > "Functional area"."Functional area id"
 // Reference to Segment
-Ref ledger_entries_segment_id: "ledger_entry"."Ledger Entry"."Segment id" > "analytics"."Segment"."Segment id"
+Ref ledger_entries_segment_id: "Ledger Entry"."Segment id" > "Segment"."Segment id"
 // Reference to ValuationArea
-Ref ledger_entries_valuation_area_id: "ledger_entry"."Ledger Entry"."Valuation area id" > "logistic"."Valuation area"."Valuation area id"
+Ref ledger_entries_valuation_area_id: "Ledger Entry"."Valuation area id" > "Valuation area"."Valuation area id"
 // Reference to Plant
-Ref ledger_entries_plant_id: "ledger_entry"."Ledger Entry"."Plant id" > "logistic"."Plant"."Plant id"
+Ref ledger_entries_plant_id: "Ledger Entry"."Plant id" > "Plant"."Plant id"
 // Reference to Location
-Ref ledger_entries_location_id: "ledger_entry"."Ledger Entry".("Plant id", "Location id") > "logistic"."Location".("Plant id", "Location id")
+Ref ledger_entries_location_id: "Ledger Entry".("Plant id", "Location id") > "Location".("Plant id", "Location id")
 // Reference to Material
-Ref ledger_entries_material_id: "ledger_entry"."Ledger Entry"."Material id" > "logistic"."Material"."Material id"
+Ref ledger_entries_material_id: "Ledger Entry"."Material id" > "Material"."Material id"
 // Reference to Currency
-Ref ledger_entries_document_currency_id: "ledger_entry"."Ledger Entry"."Document currency" > "common"."Currency"."Currency Id"
+Ref ledger_entries_document_currency_id: "Ledger Entry"."Document currency" > "Currency"."Currency Id"
 // Reference to Currency
-Ref ledger_entries_company_code_currency_id: "ledger_entry"."Ledger Entry"."Company code currency" > "common"."Currency"."Currency Id"
+Ref ledger_entries_company_code_currency_id: "Ledger Entry"."Company code currency" > "Currency"."Currency Id"
 // Reference to UnitOfMeasurement
-Ref ledger_entries_uom_id: "ledger_entry"."Ledger Entry"."Unit of measure id" > "common"."Unit of measurement"."Unit of measurement Id"
+Ref ledger_entries_uom_id: "Ledger Entry"."Unit of measure id" > "Unit of measurement"."Unit of measurement Id"
 // Reference to UnitOfMeasurement
-Ref ledger_entries_basic_uom_id: "ledger_entry"."Ledger Entry"."Basic unit of measure id" > "common"."Unit of measurement"."Unit of measurement Id"
+Ref ledger_entries_basic_uom_id: "Ledger Entry"."Basic unit of measure id" > "Unit of measurement"."Unit of measurement Id"
 
 
-table "ledger_entry"."Ledger entry attribute" {
+table "Ledger entry attribute" {
   "Entry no" uuid [not null, note: 'Entry no']
   "Attribute id" varchar(10) [not null, note: 'Attribute id']
   "Attribute value id" varchar(20) [not null, note: 'Attribute value id']
@@ -123,15 +123,15 @@ table "ledger_entry"."Ledger entry attribute" {
 }
 
 // Reference to LedgerEntry
-Ref ledger_entry_attributes_entry_no: "ledger_entry"."Ledger entry attribute"."Entry no" > "ledger_entry"."Ledger Entry"."Entry no"
+Ref ledger_entry_attributes_entry_no: "Ledger entry attribute"."Entry no" > "Ledger Entry"."Entry no"
 // Reference to AttributeValue
-Ref ledger_entry_attributes_attribute_value_id: "ledger_entry"."Ledger entry attribute".("Attribute id", "Attribute value id") > "analytics"."Attribute value".("Attribute id", "Attribute value id")
+Ref ledger_entry_attributes_attribute_value_id: "Ledger entry attribute".("Attribute id", "Attribute value id") > "Attribute value".("Attribute id", "Attribute value id")
 
 
 
 // Related entities 
 
-table "analytics"."Creditor" {
+table "Creditor" {
   "Creditor id" varchar(10) [pk, not null, note: 'Creditor id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(20) [not null, note: 'User created record']
@@ -142,7 +142,7 @@ table "analytics"."Creditor" {
   note: 'Creditor'
 }
 
-table "gl_account"."General ledger account" {
+table "General ledger account" {
   "Chart of accounts id" varchar(4) [not null, note: 'Chart of accounts id']
   "General ledger account id" varchar(10) [not null, note: 'General ledger account id']
   "Short name" varchar(20) [not null, note: 'Short name']
@@ -161,7 +161,7 @@ table "gl_account"."General ledger account" {
   note: 'General ledger account'
 }
 
-table "logistic"."Material" {
+table "Material" {
   "Material id" varchar(40) [pk, not null, note: 'Material id']
   "Name" varchar(100) [not null, note: 'Name']
   "Short name" varchar(20) [not null, note: 'Short name']
@@ -174,7 +174,7 @@ table "logistic"."Material" {
   note: 'Material'
 }
 
-table "logistic"."Plant" {
+table "Plant" {
   "Plant id" varchar(4) [pk, not null, note: 'Plant id']
   "Name" varchar(100) [not null, note: 'Name']
   "Short name" varchar(20) [not null, note: 'Short name']
@@ -186,7 +186,7 @@ table "logistic"."Plant" {
   note: 'Plant'
 }
 
-table "company_code"."Company code" {
+table "Company code" {
   "Company code" varchar(4) [pk, not null, note: 'Company code']
   "Name" varchar(100) [not null, note: 'Name']
   "Country Id" varchar(3) [not null, note: 'Country Id']
@@ -203,7 +203,7 @@ table "company_code"."Company code" {
   note: 'Company code'
 }
 
-table "analytics"."Business area" {
+table "Business area" {
   "Business area id" varchar(4) [pk, not null, note: 'Business area id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(20) [not null, note: 'User created record']
@@ -214,7 +214,7 @@ table "analytics"."Business area" {
   note: 'Business area'
 }
 
-table "logistic"."Valuation area" {
+table "Valuation area" {
   "Valuation area id" varchar(20) [pk, not null, note: 'Valuation area id']
   "Name" varchar(100) [not null, note: 'Name']
   "Short name" varchar(20) [not null, note: 'Short name']
@@ -227,7 +227,7 @@ table "logistic"."Valuation area" {
   note: 'Valuation area'
 }
 
-table "common"."Unit of measurement" {
+table "Unit of measurement" {
   "Unit of measurement Id" varchar(6) [pk, not null, note: 'Unit of measurement Id']
   "Name" varchar(100) [not null, note: 'Name']
   "Short name" varchar(30) [not null, note: 'Short name']
@@ -240,7 +240,7 @@ table "common"."Unit of measurement" {
   note: 'Unit of measurement'
 }
 
-table "analytics"."Functional area" {
+table "Functional area" {
   "Functional area id" varchar(20) [pk, not null, note: 'Functional area id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(20) [not null, note: 'User created record']
@@ -251,7 +251,7 @@ table "analytics"."Functional area" {
   note: 'Functional area'
 }
 
-table "analytics"."Business partner" {
+table "Business partner" {
   "Business partner id" varchar(10) [pk, not null, note: 'Business partner id']
   "Name" varchar(100) [not null, note: 'Name']
   "Creditor id" varchar(10) [note: 'Creditor id']
@@ -269,7 +269,7 @@ table "analytics"."Business partner" {
   note: 'Business partner'
 }
 
-table "analytics"."Attribute value" {
+table "Attribute value" {
   "Attribute id" varchar(10) [not null, note: 'Attribute id']
   "Attribute value id" varchar(20) [not null, note: 'Attribute value id']
   "Name" varchar(100) [not null, note: 'Name']
@@ -285,7 +285,7 @@ table "analytics"."Attribute value" {
   note: 'Attribute value'
 }
 
-table "logistic"."Location" {
+table "Location" {
   "Plant id" varchar(4) [not null, note: 'Plant id']
   "Location id" varchar(10) [not null, note: 'Location id']
   "Name" varchar(100) [not null, note: 'Name']
@@ -302,7 +302,7 @@ table "logistic"."Location" {
   note: 'Location'
 }
 
-table "ledger"."Ledger" {
+table "Ledger" {
   "Ledger Id" varchar(4) [pk, not null, note: 'Ledger Id']
   "Name" varchar(100) [not null, note: 'Name']
   "Leading ledger indicator" boolean [not null, note: 'Leading ledger indicator']
@@ -316,7 +316,7 @@ table "ledger"."Ledger" {
   note: 'Ledger'
 }
 
-table "analytics"."Debtor" {
+table "Debtor" {
   "Debtor id" varchar(10) [pk, not null, note: 'Debtor id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(20) [not null, note: 'User created record']
@@ -327,7 +327,7 @@ table "analytics"."Debtor" {
   note: 'Debtor'
 }
 
-table "common"."Currency" {
+table "Currency" {
   "Currency Id" varchar(5) [pk, not null, note: 'Currency Id']
   "Name" varchar(100) [not null, note: 'Name']
   "Short name" varchar(20) [not null, note: 'Short name']
@@ -342,7 +342,7 @@ table "common"."Currency" {
   note: 'Currency'
 }
 
-table "analytics"."Segment" {
+table "Segment" {
   "Segment id" varchar(10) [pk, not null, note: 'Segment id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(20) [not null, note: 'User created record']

@@ -30,7 +30,7 @@ enum debit_credit {
 
 // Group Common - Common tables and data structures 
 
-table "common"."Country" {
+table "Country" {
   "Country Id" varchar(3) [pk, not null, note: 'Country Id']
   "Name" varchar(100) [not null, note: 'Name']
   "Country Key" varchar(3) [note: 'Country Key']
@@ -44,10 +44,10 @@ table "common"."Country" {
 }
 
 // Reference to language
-Ref countries_language_id: "common"."Country"."Language Id" > "common"."Language"."Language Id"
+Ref countries_language_id: "Country"."Language Id" > "Language"."Language Id"
 
 
-table "common"."Language" {
+table "Language" {
   "Language Id" varchar(3) [pk, not null, note: 'Language Id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(20) [not null, note: 'User created record']
@@ -58,7 +58,7 @@ table "common"."Language" {
   note: 'Language'
 }
 
-table "common"."Currency" {
+table "Currency" {
   "Currency Id" varchar(5) [pk, not null, note: 'Currency Id']
   "Name" varchar(100) [not null, note: 'Name']
   "Short name" varchar(20) [not null, note: 'Short name']
@@ -73,7 +73,7 @@ table "common"."Currency" {
   note: 'Currency'
 }
 
-table "common"."Exchange rate type" {
+table "Exchange rate type" {
   "Exchange rate type Id" varchar(4) [pk, not null, note: 'Exchange rate type Id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(20) [not null, note: 'User created record']
@@ -84,7 +84,7 @@ table "common"."Exchange rate type" {
   note: 'Exchange rate type'
 }
 
-table "common"."ExchangeRate" {
+table "ExchangeRate" {
   "Exchange rate type Id" varchar(4) [not null, note: 'Exchange rate type Id']
   "From Currency Id" varchar(5) [not null, note: 'From Currency Id']
   "To Currency Id" varchar(5) [not null, note: 'To Currency Id']
@@ -106,14 +106,14 @@ table "common"."ExchangeRate" {
 }
 
 // Reference to exchange rate type
-Ref exchange_rates_exchange_rate_type_id: "common"."ExchangeRate"."Exchange rate type Id" > "common"."Exchange rate type"."Exchange rate type Id"
+Ref exchange_rates_exchange_rate_type_id: "ExchangeRate"."Exchange rate type Id" > "Exchange rate type"."Exchange rate type Id"
 // Reference (from) to currency 
-Ref exchange_rates_from_currency_id: "common"."ExchangeRate"."From Currency Id" > "common"."Currency"."Currency Id"
+Ref exchange_rates_from_currency_id: "ExchangeRate"."From Currency Id" > "Currency"."Currency Id"
 // Reference (to) to currency 
-Ref exchange_rates_to_currency_id: "common"."ExchangeRate"."To Currency Id" > "common"."Currency"."Currency Id"
+Ref exchange_rates_to_currency_id: "ExchangeRate"."To Currency Id" > "Currency"."Currency Id"
 
 
-table "common"."Unit of measurement" {
+table "Unit of measurement" {
   "Unit of measurement Id" varchar(6) [pk, not null, note: 'Unit of measurement Id']
   "Name" varchar(100) [not null, note: 'Name']
   "Short name" varchar(30) [not null, note: 'Short name']
@@ -126,7 +126,7 @@ table "common"."Unit of measurement" {
   note: 'Unit of measurement'
 }
 
-table "common"."Unit of measurement text" {
+table "Unit of measurement text" {
   "Language Id" varchar(3) [not null, note: 'Language Id']
   "Unit of measurement Id" varchar(6) [not null, note: 'Unit of measurement Id']
   "Name" varchar(100) [not null, note: 'Name']
@@ -146,9 +146,9 @@ table "common"."Unit of measurement text" {
 }
 
 // Reference to language
-Ref uom_texts_language_id: "common"."Unit of measurement text"."Language Id" > "common"."Language"."Language Id"
+Ref uom_texts_language_id: "Unit of measurement text"."Language Id" > "Language"."Language Id"
 // Reference to unit of measurement
-Ref uom_texts_uom_id: "common"."Unit of measurement text"."Unit of measurement Id" > "common"."Unit of measurement"."Unit of measurement Id"
+Ref uom_texts_uom_id: "Unit of measurement text"."Unit of measurement Id" > "Unit of measurement"."Unit of measurement Id"
 
 
 

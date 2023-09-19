@@ -11,7 +11,7 @@ import java.time.Instant
  * Item
  */
 @Entity
-@Table(name = "items")
+@Table(name = "order_items_table")
 data class ItemEntity(
 
     /**

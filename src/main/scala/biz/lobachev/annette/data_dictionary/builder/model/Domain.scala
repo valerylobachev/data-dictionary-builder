@@ -13,14 +13,13 @@ case class Domain(
   entities: ListMap[String, Entity] = ListMap.empty,
   dataElements: ListMap[String, DataElement] = ListMap.empty,
   enums: ListMap[String, EnumData] = ListMap.empty,
-  attributes: Attributes = Seq.empty
+  attributes: Attributes = Map.empty,
 ) extends ModelValidator {
 
   def withGroupSeq(groupSeq: Seq[GroupEntities]): Domain =
     copy(
       groups = groups ++ groupSeq.map(m => m.group.id -> m.group),
-      entities =
-        entities ++ groupSeq.flatMap(g => g.entities.map(e => e.id -> e.copy(schema = g.group.schema)))
+      entities = entities ++ groupSeq.flatMap(g => g.entities.map(e => e.id -> e.copy(schema = g.group.schema))),
     )
 
   def withGroups(groupSeq: GroupEntities*) = withGroupSeq(groupSeq)
@@ -28,14 +27,14 @@ case class Domain(
   def withDataElementSeq(seq: Seq[DataElement]) =
     copy(dataElements = ListMap.from(seq.map(e => e.id -> e)))
 
-  def withDataElements(seq: DataElement*)       = withDataElementSeq(seq)
+  def withDataElements(seq: DataElement*) = withDataElementSeq(seq)
 
   def withEnumSeq(seq: Seq[EnumData]) =
     copy(enums = ListMap.from(seq.map(e => e.id -> e)))
 
-  def withEnums(seq: EnumData*)       = withEnumSeq(seq)
+  def withEnums(seq: EnumData*) = withEnumSeq(seq)
 
-  def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq)
+  def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq.map(a => a.key -> a.value))
 
   def build(): Either[Seq[String], Domain] = {
     val newEntities = entities.values.map { entity =>
@@ -55,8 +54,26 @@ case class Domain(
     }
     val res         = copy(entities = ListMap.from(newEntities.map(e => e.id -> e)))
     val err         = res.validate()
-    if (err.isEmpty) Right(res)
+    if (err.isEmpty) Right(res.replicateAttributes())
     else Left(err)
+  }
+
+  def replicateAttributes(): Domain = {
+    val domainAttributes = attributes
+    val newGroups        = groups.map { case key -> group =>
+      key -> group.copy(attributes = domainAttributes ++ group.attributes)
+    }
+    val newDataElements  = dataElements.map { case key -> dataElement =>
+      key -> dataElement.copy(attributes = domainAttributes ++ dataElement.attributes)
+    }
+    val newEnums         = enums.map { case key -> enum =>
+      key -> enum.copy(attributes = domainAttributes ++ enum.attributes)
+    }
+    val newEntities      = entities.map { case key -> entity =>
+      val groupAttributes = newGroups(entity.groupId).attributes
+      key -> entity.copy(attributes = groupAttributes ++ entity.attributes)
+    }
+    copy(groups = newGroups, entities = newEntities, dataElements = newDataElements, enums = newEnums)
   }
 
   def rolloutEntity(entity: Entity): FieldRelation = {
@@ -72,7 +89,7 @@ case class Domain(
                 if (withPrefix)
                   r.copy(
                     id = field.fieldName + r.id.pascalCase,
-                    fields = r.fields.map { case f1 -> f2 => field.fieldName + f1.pascalCase -> f2 }
+                    fields = r.fields.map { case f1 -> f2 => field.fieldName + f1.pascalCase -> f2 },
                   )
                 else r
               }
@@ -91,7 +108,7 @@ case class Domain(
     }
     FieldRelation(
       r.flatMap(_.fields),
-      r.flatMap(_.relations)
+      r.flatMap(_.relations),
     )
   }
 

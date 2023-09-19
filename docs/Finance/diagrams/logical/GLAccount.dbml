@@ -30,7 +30,7 @@ enum debit_credit {
 
 // Group GLAccount - General Ledger account settings 
 
-table "gl_account"."Chart of accounts" {
+table "Chart of accounts" {
   "Chart of accounts id" varchar(4) [pk, not null, note: 'Chart of accounts id']
   "Name" varchar(100) [not null, note: 'Name']
   "User created record" varchar(20) [not null, note: 'User created record']
@@ -41,7 +41,7 @@ table "gl_account"."Chart of accounts" {
   note: 'Chart of accounts'
 }
 
-table "gl_account"."General ledger account" {
+table "General ledger account" {
   "Chart of accounts id" varchar(4) [not null, note: 'Chart of accounts id']
   "General ledger account id" varchar(10) [not null, note: 'General ledger account id']
   "Short name" varchar(20) [not null, note: 'Short name']
@@ -61,12 +61,12 @@ table "gl_account"."General ledger account" {
 }
 
 // Reference to Chart Of Accounts
-Ref gl_accounts_chart_of_accounts_id: "gl_account"."General ledger account"."Chart of accounts id" > "gl_account"."Chart of accounts"."Chart of accounts id"
+Ref gl_accounts_chart_of_accounts_id: "General ledger account"."Chart of accounts id" > "Chart of accounts"."Chart of accounts id"
 // Reference to GLAccountGroup
-Ref gl_accounts_gl_account_group_id: "gl_account"."General ledger account".("Chart of accounts id", "General ledger account group id") > "gl_account"."General ledger account group".("Chart of accounts id", "General ledger account group id")
+Ref gl_accounts_gl_account_group_id: "General ledger account".("Chart of accounts id", "General ledger account group id") > "General ledger account group".("Chart of accounts id", "General ledger account group id")
 
 
-table "gl_account"."General ledger account group" {
+table "General ledger account group" {
   "Chart of accounts id" varchar(4) [not null, note: 'Chart of accounts id']
   "General ledger account group id" varchar(10) [not null, note: 'General ledger account group id']
   "Name" varchar(100) [not null, note: 'Name']
@@ -86,7 +86,7 @@ table "gl_account"."General ledger account group" {
 }
 
 // Reference to Chart Of Accounts
-Ref gl_account_groups_chart_of_accounts_id: "gl_account"."General ledger account group"."Chart of accounts id" > "gl_account"."Chart of accounts"."Chart of accounts id"
+Ref gl_account_groups_chart_of_accounts_id: "General ledger account group"."Chart of accounts id" > "Chart of accounts"."Chart of accounts id"
 
 
 

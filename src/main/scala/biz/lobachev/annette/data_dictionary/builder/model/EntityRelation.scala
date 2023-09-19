@@ -17,11 +17,11 @@ case class EntityRelation(
   fields: Seq[(String, String)],
   onUpdate: ForeignKeyAction = NoAction,
   onDelete: ForeignKeyAction = NoAction,
-  attributes: Attributes = Seq.empty
+  attributes: Attributes = Map.empty
 ) {
   def withFields(seq: (String, String)*) = copy(fields = seq)
 
-  def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq)
+  def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq.map(a => a.key -> a.value))
 }
 
 sealed trait RelationType

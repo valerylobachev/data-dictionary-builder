@@ -58,7 +58,7 @@ case class ExcelInsertTemplateRenderer(domain: Domain) extends Renderer {
     val sheet           = wb.createSheet(entity.id)
     val headerRow       = sheet.createRow(0)
     headerRow.createCell(0).setCellValue(entity.schema.getOrElse(""))
-    headerRow.createCell(1).setCellValue(entity.tableName)
+    headerRow.createCell(1).setCellValue(entity.fullTableName())
     headerRow.createCell(2).setCellValue(entity.name)
     val descriptionRow  = sheet.createRow(1)
     val nameRow         = sheet.createRow(2)

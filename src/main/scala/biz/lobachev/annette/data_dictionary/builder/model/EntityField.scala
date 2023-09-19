@@ -8,7 +8,7 @@ case class EntityField(
   dataType: DataType,
   notNull: Boolean = true,
   autoIncrement: Boolean = false,
-  attributes: Attributes = Seq.empty
+  attributes: Attributes = Map.empty
 ) {
-  def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq)
+  def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq.map(a => a.key -> a.value))
 }

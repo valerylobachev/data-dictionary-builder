@@ -89,8 +89,16 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
     row.createCell(1).setCellValue(group.name)
     row.createCell(2).setCellValue(group.schema.getOrElse(""))
     row.createCell(3).setCellValue(group.description)
-    row.createCell(4).setCellValue(Attributes.findGroupAttribute(group, domain, JAVA_REPO_PACKAGE).getOrElse(""))
-    row.createCell(5).setCellValue(Attributes.findGroupAttribute(group, domain, JAVA_MODEL_PACKAGE).getOrElse(""))
+    row
+      .createCell(4)
+      .setCellValue(
+        group.attributes.getOrElse(JAVA_REPO_PACKAGE, ""),
+      ) // Attributes.findGroupAttribute(group, domain, JAVA_REPO_PACKAGE).getOrElse(""))
+    row
+      .createCell(5)
+      .setCellValue(
+        group.attributes.getOrElse(JAVA_MODEL_PACKAGE, ""),
+      ) // Attributes.findGroupAttribute(group, domain, JAVA_MODEL_PACKAGE).getOrElse(""))
     domain.entities.values.filter(_.groupId == group.id).foreach(entity => renderEntity(dwb, group, entity))
   }
 
@@ -104,7 +112,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
     row.createCell(2).setCellValue(entity.id)
     row.createCell(3).setCellValue(entity.name)
     row.createCell(4).setCellValue(entity.entityName)
-    row.createCell(5).setCellValue(entity.tableName)
+    row.createCell(5).setCellValue(entity.fullTableName())
     val entityType = entity.entityType.toString
     row.createCell(6).setCellValue(entityType.take(entityType.length - 6))
     row.createCell(7).setCellValue(entity.description)

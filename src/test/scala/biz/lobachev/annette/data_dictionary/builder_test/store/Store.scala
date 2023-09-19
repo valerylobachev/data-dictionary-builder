@@ -1,17 +1,21 @@
 package biz.lobachev.annette.data_dictionary.builder_test.store
 
 import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
+import biz.lobachev.annette.data_dictionary.builder.helper.TablePrefixSuffix.{tableNamePrefix, tableNameSuffix}
 import biz.lobachev.annette.data_dictionary.builder.model._
 
 object Store {
   val storeDomain = domain("Store", "Store example", "Store data model example")
+    .withAttributes(
+      tableNameSuffix("table"),
+    )
     .withEnums(
       enumDef("OrderStatus", "Order Status", 1)
         .withValues(
           "P" -> "Placed",
           "D" -> "Delivered",
-          "C" -> "Canceled"
-        )
+          "C" -> "Canceled",
+        ),
     )
     .withDataElements(
       // format: off
@@ -70,16 +74,19 @@ object Store {
                 "businessAreaId",
                 "Reference to BusinessArea",
                 "BusinessArea",
-                "businessAreaId"                                                                    -> "id"
-              )
-            )
+                "businessAreaId"                                                                    -> "id",
+              ),
+            ),
         ),
       group("Client", "Client tables")
         .withSchema("client")
+        .withAttributes(
+          tableNamePrefix("client"),
+        )
         .withEntities(
           tableEntity("Client", "Client")
             .withPK(
-              "id" :#++ "ClientId"
+              "id" :#++ "ClientId",
             )
             .withFields(
               // format: off
@@ -93,7 +100,7 @@ object Store {
             ),
           tableEntity("ClientAddress", "Client address")
             .withPK(
-              "id" :#++ "AddressId"
+              "id" :#++ "AddressId",
             )
             .withFields(
               // format: off
@@ -105,17 +112,20 @@ object Store {
               // format: on
             )
             .withRelations(
-              manyToOneRelation("clientId", "Reference to client", "Client", "clientId" -> "id")
+              manyToOneRelation("clientId", "Reference to client", "Client", "clientId" -> "id"),
             )
             .withIndexes(
-              uniqueIndex("clientIdId", "Unique clientId & id", "clientId", "id")
-            )
+              uniqueIndex("clientIdId", "Unique clientId & id", "clientId", "id"),
+            ),
         ),
       group("Order", "Order tables")
+        .withAttributes(
+          tableNamePrefix("order"),
+        )
         .withEntities(
           tableEntity("Order", "Order")
             .withPK(
-              "id" :#++ "OrderId"
+              "id" :#++ "OrderId",
             )
             .withFields(
               // format: off
@@ -135,12 +145,12 @@ object Store {
                 "Reference to address",
                 "ClientAddress",
                 "clientId"                                                              -> "clientId",
-                "deliveryAddressId"                                                     -> "id"
-              )
+                "deliveryAddressId"                                                     -> "id",
+              ),
             ),
           tableEntity("OrderLine", "Order line")
             .withPK(
-              "id" :#++ "OrderLineId"
+              "id" :#++ "OrderLineId",
             )
             .withFields(
               // format: off
@@ -154,11 +164,11 @@ object Store {
             )
             .withRelations(
               manyToOneRelation("orderId", "Reference to order", "Order", "orderId" -> "id"),
-              manyToOneRelation("itemId", "Reference to item", "Item", "itemId"     -> "id")
+              manyToOneRelation("itemId", "Reference to item", "Item", "itemId"     -> "id"),
             ),
           tableEntity("Item", "Item")
             .withPK(
-              "id" :#++ "ItemId"
+              "id" :#++ "ItemId",
             )
             .withFields(
               // format: off
@@ -166,35 +176,38 @@ object Store {
               "price"        :# "Amount",
               include("Modification")
               // format: on
-            )
+            ),
         ),
       group("Analytics", "Analytic tables")
         .withSchema("analytics")
+        .withAttributes(
+          tableNamePrefix("analytics"),
+        )
         .withEntities(
           tableEntity("Segment", "Segment")
             .withPK(
-              "id" :# "SegmentId"
+              "id" :# "SegmentId",
             )
             .withFields(
               "name" :# "Name",
-              include("Modification")
+              include("Modification"),
             ),
           tableEntity("BusinessArea", "Business area")
             .withPK(
-              "id" :# "BusinessAreaId"
+              "id" :# "BusinessAreaId",
             )
             .withFields(
               "name" :# "Name",
-              include("Modification")
+              include("Modification"),
             ),
           tableEntity("Promotion", "Promotion", "Promotion")
             .withPK(
-              "id" :# "PromotionId"
+              "id" :# "PromotionId",
             )
             .withFields(
               "name" :# "Name",
-              include("Modification")
-            )
-        )
+              include("Modification"),
+            ),
+        ),
     )
 }
