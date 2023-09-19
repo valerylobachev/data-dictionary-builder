@@ -40,9 +40,10 @@ case class Entity(
 
   def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq)
 
-  def fullTableName(logical: Boolean = false): String =
+  def tableNameWithSchema(logical: Boolean = false): String =
     if (logical && name.trim.nonEmpty)
-      Seq(schema.map(wrapQuotes), Some(wrapQuotes(name))).flatten.mkString(".")
+      wrapQuotes(name)
     else
       Seq(schema.map(wrapQuotes), Some(wrapQuotes(tableName))).flatten.mkString(".")
+
 }

@@ -86,7 +86,7 @@ case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends R
     val fields    = renderFields(entity)
     val indexes   = renderIndexes(entity)
     val relations = renderRelations(entity, group)
-    s"table ${entity.fullTableName(logical)} {\n$fields" +
+    s"table ${entity.tableNameWithSchema(logical)} {\n$fields" +
       (if (indexes.nonEmpty) s"\n$indexes" else "") +
       (if (entity.name.nonEmpty) s"\n  note: '${entity.name}'\n") +
       "}\n" +
@@ -160,16 +160,16 @@ case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends R
         if (relation.fields.size == 1) {
           val f1 = getEntityFieldName(fields, relation.fields.head._1, logical)
           val f2 = getEntityFieldName(relationEntity.fields, relation.fields.head._2, logical)
-          s"${comment}Ref $relationId: ${entity.fullTableName(logical)}.$f1 $relationType ${relationEntity
-              .fullTableName(logical)}.$f2\n"
+          s"${comment}Ref $relationId: ${entity.tableNameWithSchema(logical)}.$f1 $relationType ${relationEntity
+              .tableNameWithSchema(logical)}.$f2\n"
         } else {
           val f1 = relation.fields.map(f => getEntityFieldName(fields, f._1, logical)).mkString("(", ", ", ")")
           val f2 =
             relation.fields
               .map(f => getEntityFieldName(relationEntity.fields, f._2, logical))
               .mkString("(", ", ", ")")
-          s"${comment}Ref $relationId: ${entity.fullTableName(logical)}.$f1 $relationType ${relationEntity
-              .fullTableName(logical)}.$f2\n"
+          s"${comment}Ref $relationId: ${entity.tableNameWithSchema(logical)}.$f1 $relationType ${relationEntity
+              .tableNameWithSchema(logical)}.$f2\n"
         }
       } else ""
     }.mkString

@@ -59,7 +59,7 @@ case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = E
     MdEntity(
       name = entity.name,
       description = if (entity.description.isBlank) "" else entity.description,
-      fullTableName = entity.fullTableName(),
+      fullTableName = entity.tableNameWithSchema(),
       fields = fields.map(renderField(entity, _)),
       indexes = entity.indexes.values.map(renderIndex(_, fields)).toSeq,
       relations = entity.relations.map(renderRelation(_, fields))
@@ -98,7 +98,7 @@ case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = E
     MdRelation(
       f1 = relation.fields.map(f => getEntityField(fields, f._1).dbFieldName).mkString("<br>"),
       relationEntityName = relationEntity.name,
-      relationEntityFullTableName = relationEntity.fullTableName(),
+      relationEntityFullTableName = relationEntity.tableNameWithSchema(),
       f2 = relation.fields.map(f => getEntityField(relationFields, f._2).dbFieldName).mkString("<br>"),
       relationType = relation.relationType match {
         case ManyToOne => "Many-To-One"
