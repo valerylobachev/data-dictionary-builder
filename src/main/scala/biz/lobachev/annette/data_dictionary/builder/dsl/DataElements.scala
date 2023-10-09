@@ -13,10 +13,10 @@ trait DataElements {
                    notNull: Boolean = true
                  ): DataElement =
     DataElement(
-      id = id.pascalCase,
-      name = name,
-      fieldName = fieldName.camelCase,
-      dbFieldName = fieldName.snakeCase,
+      id = id.trim.pascalCase,
+      name = name.trim,
+      fieldName = fieldName.trim.camelCase,
+      dbFieldName = fieldName.trim.snakeCase,
       dataType = dataType,
       notNull = notNull
     )
@@ -30,10 +30,10 @@ trait DataElements {
                      notNull: Boolean = true
                    ): DataElement =
     DataElement(
-      id = id.pascalCase,
-      name = name,
-      fieldName = fieldName.camelCase,
-      dbFieldName = dbFieldName.snakeCase,
+      id = id.trim.pascalCase,
+      name = name.trim,
+      fieldName = fieldName.trim.camelCase,
+      dbFieldName = dbFieldName.trim.snakeCase,
       dataType = dataType,
       notNull = notNull
     )

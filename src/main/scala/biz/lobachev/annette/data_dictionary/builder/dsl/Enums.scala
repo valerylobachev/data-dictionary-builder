@@ -11,9 +11,9 @@ trait Enums {
     description: String = ""
   ) =
     EnumData(
-      id = id,
-      name = name,
-      description = description,
+      id = id.trim,
+      name = name.trim,
+      description = description.trim,
       length = length,
       elements = Seq.empty
     )

@@ -12,9 +12,9 @@ trait Fields {
     autoIncrement: Boolean = false
   ): EntityField =
     EntityField(
-      name = name,
-      fieldName = fieldName.camelCase,
-      dbFieldName = fieldName.snakeCase,
+      name = name.trim,
+      fieldName = fieldName.trim.camelCase,
+      dbFieldName = fieldName.trim.snakeCase,
       dataType = dataType,
       notNull = notNull,
       autoIncrement = autoIncrement
@@ -29,9 +29,9 @@ trait Fields {
     autoIncrement: Boolean = false
   ): EntityField =
     EntityField(
-      name = name,
-      fieldName = fieldName.camelCase,
-      dbFieldName = dbFieldName.snakeCase,
+      name = name.trim,
+      fieldName = fieldName.trim.camelCase,
+      dbFieldName = dbFieldName.trim.snakeCase,
       dataType = dataType,
       notNull = notNull,
       autoIncrement = autoIncrement
@@ -51,33 +51,33 @@ trait Fields {
         case AutoInc => entityField.copy(autoIncrement = false)
       }
 
-    def :>(dbFieldName: String) = entityField.copy(dbFieldName = dbFieldName.snakeCase)
+    def :>(dbFieldName: String) = entityField.copy(dbFieldName = dbFieldName.trim.snakeCase)
 
-    def :@(name: String) = entityField.copy(name = name)
+    def :@(name: String) = entityField.copy(name = name.trim)
 
-    def :@@(description: String) = entityField.copy(description = description)
+    def :@@(description: String) = entityField.copy(description = description.trim)
   }
 
   implicit class DataTypeImplicit(fieldName: String) {
-    def :#(dataElementId: String) = field(fieldName, DataElementType(dataElementId), "")
+    def :#(dataElementId: String) = field(fieldName.trim, DataElementType(dataElementId.trim), "")
 
-    def :#?(dataElementId: String) = field(fieldName, DataElementType(dataElementId), "", false)
+    def :#?(dataElementId: String) = field(fieldName.trim, DataElementType(dataElementId.trim), "", false)
 
-    def :#++(dataElementId: String) = field(fieldName, DataElementType(dataElementId), "", true, true)
+    def :#++(dataElementId: String) = field(fieldName.trim, DataElementType(dataElementId.trim), "", true, true)
 
-    def :#(dataType: DataType) = field(fieldName, dataType, "")
+    def :#(dataType: DataType) = field(fieldName.trim, dataType, "")
 
-    def :#?(dataType: DataType) = field(fieldName, dataType, "", false)
+    def :#?(dataType: DataType) = field(fieldName.trim, dataType, "", false)
 
-    def :#++(dataType: DataType) = field(fieldName, dataType, "", true, true)
+    def :#++(dataType: DataType) = field(fieldName.trim, dataType, "", true, true)
 
   }
 
-  def include(entityId: String)              = field("", EmbeddedEntityType(entityId), "")
-  def includeWithRelations(entityId: String) = field("", EmbeddedEntityType(entityId, withRelations = true), "")
+  def include(entityId: String)              = field("", EmbeddedEntityType(entityId.trim), "")
+  def includeWithRelations(entityId: String) = field("", EmbeddedEntityType(entityId.trim, withRelations = true), "")
 
-  def include(fieldName: String, entityId: String)              = field(fieldName, EmbeddedEntityType(entityId, true), "")
+  def include(fieldName: String, entityId: String)              = field(fieldName.trim, EmbeddedEntityType(entityId.trim, true), "")
   def includeWithRelations(fieldName: String, entityId: String) =
-    field(fieldName, EmbeddedEntityType(entityId, true, true), "")
+    field(fieldName.trim, EmbeddedEntityType(entityId.trim, true, true), "")
 
 }

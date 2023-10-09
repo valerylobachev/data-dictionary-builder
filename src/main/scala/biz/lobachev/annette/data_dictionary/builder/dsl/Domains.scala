@@ -6,9 +6,9 @@ trait Domains {
 
   def domain(id: String, name: String, description: String = ""): Domain =
     Domain(
-      id = id,
-      name = name,
-      description = description
+      id = id.trim,
+      name = name.trim,
+      description = description.trim
     )
 
 }

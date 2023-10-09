@@ -11,10 +11,10 @@ trait Relations {
     fields: (String, String)*,
   ) =
     EntityRelation(
-      id = id,
-      name = name,
+      id = id.trim,
+      name = name.trim,
       relationType = ManyToOne,
-      referenceEntityId = referenceEntityId,
+      referenceEntityId = referenceEntityId.trim,
       onUpdate = Restrict,
       onDelete = Restrict,
       fields = fields,
@@ -27,10 +27,10 @@ trait Relations {
     fields: (String, String)*,
   ) =
     EntityRelation(
-      id = id,
-      name = name,
+      id = id.trim,
+      name = name.trim,
       relationType = OneToOne,
-      referenceEntityId = referenceEntityId,
+      referenceEntityId = referenceEntityId.trim,
       onUpdate = Restrict,
       onDelete = Restrict,
       fields = fields,

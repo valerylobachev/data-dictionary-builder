@@ -7,56 +7,56 @@ trait Entities {
 
   def structEntity(id: String, name: String, entityName: String): Entity =
     Entity(
-      id = id.pascalCase,
-      name = name,
+      id = id.trim.pascalCase,
+      name = name.trim,
       entityType = StructEntity,
-      entityName = entityName.pascalCase,
-      tableName = entityName.pluralize.snakeCase
+      entityName = entityName.trim.pascalCase,
+      tableName = entityName.trim.pluralize.snakeCase
     )
 
   def tableEntity(id: String, name: String, entityName: String): Entity =
     Entity(
-      id = id.pascalCase,
-      name = name,
+      id = id.trim.pascalCase,
+      name = name.trim,
       entityType = TableEntity,
-      entityName = entityName.pascalCase,
-      tableName = entityName.pluralize.snakeCase
+      entityName = entityName.trim.pascalCase,
+      tableName = entityName.trim.pluralize.snakeCase
     )
 
   def embeddedEntity(id: String, name: String, entityName: String): Entity =
     Entity(
-      id = id.pascalCase,
-      name = name,
+      id = id.trim.pascalCase,
+      name = name.trim,
       entityType = EmbeddedEntity,
-      entityName = entityName.pascalCase,
-      tableName = entityName.pluralize.snakeCase
+      entityName = entityName.trim.pascalCase,
+      tableName = entityName.trim.pluralize.snakeCase
     )
 
   def structEntity(id: String, name: String): Entity =
     Entity(
-      id = id.pascalCase,
-      name = name,
+      id = id.trim.pascalCase,
+      name = name.trim,
       entityType = StructEntity,
-      entityName = id.pascalCase,
-      tableName = id.pluralize.snakeCase
+      entityName = id.trim.pascalCase,
+      tableName = id.trim.pluralize.snakeCase
     )
 
   def tableEntity(id: String, name: String): Entity =
     Entity(
-      id = id.pascalCase,
-      name = name,
+      id = id.trim.pascalCase,
+      name = name.trim,
       entityType = TableEntity,
-      entityName = id.pascalCase,
-      tableName = id.pluralize.snakeCase
+      entityName = id.trim.pascalCase,
+      tableName = id.trim.pluralize.snakeCase
     )
 
   def embeddedEntity(id: String, name: String): Entity =
     Entity(
-      id = id.pascalCase,
-      name = name,
+      id = id.trim.pascalCase,
+      name = name.trim,
       entityType = EmbeddedEntity,
-      entityName = id.pascalCase,
-      tableName = id.pluralize.snakeCase
+      entityName = id.trim.pascalCase,
+      tableName = id.trim.pluralize.snakeCase
     )
 
 }

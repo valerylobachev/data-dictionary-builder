@@ -7,9 +7,9 @@ trait Groups {
   def group(id: String, name: String, description: String = ""): GroupEntities =
     GroupEntities(
       group = Group(
-        id = id,
-        name = name,
-        description = description
+        id = id.trim,
+        name = name.trim,
+        description = description.trim
       )
     )
 
