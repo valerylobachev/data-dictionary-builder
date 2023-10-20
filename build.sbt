@@ -46,3 +46,10 @@ libraryDependencies += "org.scalatra.scalate" %% "scalate-core" % "1.9.8"
 libraryDependencies += "org.apache.poi" % "poi"           % "5.2.3"
 libraryDependencies += "org.apache.poi" % "poi-ooxml"     % "5.2.3"
 libraryDependencies += "org.atteo"      % "evo-inflector" % "1.3"
+
+val circeVersion = "0.14.6"
+libraryDependencies ++= Seq(
+  "io.circe" %% "circe-core",
+  "io.circe" %% "circe-generic",
+  "io.circe" %% "circe-parser"
+).map(_ % circeVersion)

@@ -26,7 +26,7 @@ table "Group" {
 }
 
 table "Group member" {
-  " Group member id" integer [pk, not null, increment, note: ' Group member id']
+  "Group member id" integer [pk, not null, increment, note: 'Group member id']
   "Group Id" integer [not null, note: 'Group Id']
   "Person Id" integer [not null, note: 'Person Id']
   "User updated record" varchar(20) [not null, note: 'User updated record']

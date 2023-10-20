@@ -108,9 +108,9 @@ table "ExchangeRate" {
 
 // Reference to exchange rate type
 Ref exchange_rates_exchange_rate_type_id: "ExchangeRate"."Exchange rate type Id" > "Exchange rate type"."Exchange rate type Id"
-// Reference (from) to currency 
+// Reference (from) to currency
 Ref exchange_rates_from_currency_id: "ExchangeRate"."From Currency Id" > "Currency"."Currency Id"
-// Reference (to) to currency 
+// Reference (to) to currency
 Ref exchange_rates_to_currency_id: "ExchangeRate"."To Currency Id" > "Currency"."Currency Id"
 
 

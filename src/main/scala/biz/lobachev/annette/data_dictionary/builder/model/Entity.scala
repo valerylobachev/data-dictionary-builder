@@ -5,7 +5,7 @@ import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax.wrapQuote
 
 import scala.collection.immutable.ListMap
 
-trait EntityType
+sealed trait EntityType
 
 case object TableEntity    extends EntityType
 case object StructEntity   extends EntityType

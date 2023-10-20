@@ -14,7 +14,7 @@ import java.time.Instant
 data class GroupMemberEntity(
 
     /**
-     *  Group member id
+     * Group member id
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

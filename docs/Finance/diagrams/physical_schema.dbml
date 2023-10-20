@@ -108,9 +108,9 @@ table "common"."exchange_rates" {
 
 // Reference to exchange rate type
 Ref exchange_rates_exchange_rate_type_id: "common"."exchange_rates"."exchange_rate_type_id" > "common"."exchange_rate_types"."id"
-// Reference (from) to currency 
+// Reference (from) to currency
 Ref exchange_rates_from_currency_id: "common"."exchange_rates"."from_currency_id" > "common"."currencies"."id"
-// Reference (to) to currency 
+// Reference (to) to currency
 Ref exchange_rates_to_currency_id: "common"."exchange_rates"."to_currency_id" > "common"."currencies"."id"
 
 

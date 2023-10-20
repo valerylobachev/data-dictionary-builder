@@ -105,8 +105,8 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | Поля  | Связанная таблица | Связанные поля | Тип | Описание|
 | ------- | ------- | ------- | ------- | ------- |
 | exchange_rate_type_id | Exchange rate type ("common"."exchange_rate_types") | id | Many-To-One | Reference to exchange rate type |
-| from_currency_id | Currency ("common"."currencies") | id | Many-To-One | Reference (from) to currency  |
-| to_currency_id | Currency ("common"."currencies") | id | Many-To-One | Reference (to) to currency  |
+| from_currency_id | Currency ("common"."currencies") | id | Many-To-One | Reference (from) to currency |
+| to_currency_id | Currency ("common"."currencies") | id | Many-To-One | Reference (to) to currency |
 
 ### Unit of measurement ("common"."units_of_measurement")
 

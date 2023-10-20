@@ -123,7 +123,7 @@ case class KotlinRenderer(domain: Domain) extends Renderer {
       }
       KtClassMember(
         comments = relation.name +: description2Comments(relation.description),
-        annotations = "@JsonIgnore" +: joinAnnotation,
+        annotations = joinAnnotation,
         name = name,
         datatype = datatype,
         defaultValue = Some("null"),
@@ -161,7 +161,7 @@ case class KotlinRenderer(domain: Domain) extends Renderer {
           }
           KtClassMember(
             comments = relation.name +: description2Comments(relation.description),
-            annotations = "@JsonIgnore" +: joinAnnotation,
+            annotations = joinAnnotation,
             name = name,
             datatype = datatype,
             defaultValue = Some("null"),

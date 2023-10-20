@@ -47,7 +47,7 @@ This example provides simple person group data model
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
-| id | serial | X | X |  Group member id |
+| id | serial | X | X | Group member id |
 | group_id | integer |  | X | Group Id |
 | person_id | integer |  | X | Person Id |
 | updated_by | varchar(20) |  | X | User updated record |

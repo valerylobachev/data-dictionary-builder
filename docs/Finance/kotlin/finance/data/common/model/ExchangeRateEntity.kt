@@ -101,7 +101,7 @@ data class ExchangeRateEntity(
     var exchangeRateType: ExchangeRateTypeEntity? = null,
 
     /**
-     * Reference (from) to currency 
+     * Reference (from) to currency
      */
     @JsonIgnore
     @ManyToOne
@@ -109,7 +109,7 @@ data class ExchangeRateEntity(
     var currency: CurrencyEntity? = null,
 
     /**
-     * Reference (to) to currency 
+     * Reference (to) to currency
      */
     @JsonIgnore
     @ManyToOne

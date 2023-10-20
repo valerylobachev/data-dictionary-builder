@@ -2,12 +2,9 @@ package biz.lobachev.annette.data_dictionary.builder_test
 
 import biz.lobachev.annette.data_dictionary.builder.rendering.Generator
 import biz.lobachev.annette.data_dictionary.builder.rendering.dbdiagram.DbDiagramRenderer
+import biz.lobachev.annette.data_dictionary.builder.rendering.json.JsonRenderer
 import biz.lobachev.annette.data_dictionary.builder.rendering.kotlin.KotlinRenderer
-import biz.lobachev.annette.data_dictionary.builder.rendering.markdown.{
-  MarkdownRenderer,
-  PolishTranslaltion,
-  RussianTranslaltion,
-}
+import biz.lobachev.annette.data_dictionary.builder.rendering.markdown.{MarkdownRenderer, PolishTranslaltion, RussianTranslaltion}
 import biz.lobachev.annette.data_dictionary.builder.rendering.xls_domain.{ExcelDomainRenderer, WorkbookTranslation}
 import biz.lobachev.annette.data_dictionary.builder_test.store.Store
 import org.scalatest.wordspec.AnyWordSpec
@@ -59,6 +56,15 @@ class StoreSpec extends AnyWordSpec with BuildValidator {
         Generator.generate(
           ExcelInsertTemplateRenderer(domain),
           s"docs/${domain.id}/template/",
+        )
+      }
+    }
+
+    "export to JSON" in {
+      validateAndProcess(build) { domain =>
+        Generator.generate(
+          JsonRenderer(domain),
+          s"docs/${domain.id}/",
         )
       }
     }

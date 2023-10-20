@@ -77,14 +77,14 @@ data class CurrencyEntity(
     var updatedAt: Instant,
 
     /**
-     * Reference (from) to currency 
+     * Reference (from) to currency
      */
     @JsonIgnore
     @OneToMany(mappedBy = "exchangeRate")
     var exchangeRate: Collection<ExchangeRateEntity>? = null,
 
     /**
-     * Reference (to) to currency 
+     * Reference (to) to currency
      */
     @JsonIgnore
     @OneToMany(mappedBy = "exchangeRate")
