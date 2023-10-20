@@ -1,0 +1,1741 @@
+{
+  "id" : "Store",
+  "name" : "Store example",
+  "description" : "Store data model example",
+  "groups" : [
+    {
+      "id" : "Shared",
+      "name" : "Shared data structures",
+      "description" : "",
+      "schema" : null,
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    },
+    {
+      "id" : "Client",
+      "name" : "Client tables",
+      "description" : "",
+      "schema" : "client",
+      "attributes" : {
+        "tableNameSuffix" : "table",
+        "tableNamePrefix" : "client"
+      }
+    },
+    {
+      "id" : "Order",
+      "name" : "Order tables",
+      "description" : "",
+      "schema" : null,
+      "attributes" : {
+        "tableNameSuffix" : "table",
+        "tableNamePrefix" : "order"
+      }
+    },
+    {
+      "id" : "Analytics",
+      "name" : "Analytic tables",
+      "description" : "",
+      "schema" : "analytics",
+      "attributes" : {
+        "tableNameSuffix" : "table",
+        "tableNamePrefix" : "analytics"
+      }
+    }
+  ],
+  "entities" : [
+    {
+      "id" : "Modification",
+      "groupId" : "Shared",
+      "name" : "Modification data structure",
+      "description" : "",
+      "entityName" : "Modification",
+      "tableName" : "modifications",
+      "entityType" : "TableEntity",
+      "fields" : [
+        {
+          "name" : "User created record",
+          "description" : "",
+          "fieldName" : "createdBy",
+          "dbFieldName" : "created_by",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "UserId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Timestamp of record create",
+          "description" : "",
+          "fieldName" : "createdAt",
+          "dbFieldName" : "created_at",
+          "dataType" : {
+            "InstantTimestamp" : {
+              "defaultValue" : null
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "User updated record",
+          "description" : "",
+          "fieldName" : "updatedBy",
+          "dbFieldName" : "updated_by",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "UserId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Timestamp of record update",
+          "description" : "",
+          "fieldName" : "updatedAt",
+          "dbFieldName" : "updated_at",
+          "dataType" : {
+            "InstantTimestamp" : {
+              "defaultValue" : null
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        }
+      ],
+      "pk" : [
+      ],
+      "indexes" : {
+        
+      },
+      "relations" : [
+      ],
+      "schema" : null,
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    },
+    {
+      "id" : "Address",
+      "groupId" : "Shared",
+      "name" : "Address data structure",
+      "description" : "",
+      "entityName" : "Address",
+      "tableName" : "addresses",
+      "entityType" : "TableEntity",
+      "fields" : [
+        {
+          "name" : "First address line",
+          "description" : "",
+          "fieldName" : "addressLine1",
+          "dbFieldName" : "address_line1",
+          "dataType" : {
+            "StringVarchar" : {
+              "lenght" : 100,
+              "defaultValue" : null
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Second address line",
+          "description" : "",
+          "fieldName" : "addressLine2",
+          "dbFieldName" : "address_line2",
+          "dataType" : {
+            "StringVarchar" : {
+              "lenght" : 100,
+              "defaultValue" : null
+            }
+          },
+          "notNull" : false,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "City",
+          "description" : "",
+          "fieldName" : "city",
+          "dbFieldName" : "city",
+          "dataType" : {
+            "StringVarchar" : {
+              "lenght" : 50,
+              "defaultValue" : null
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "State",
+          "description" : "",
+          "fieldName" : "state",
+          "dbFieldName" : "state",
+          "dataType" : {
+            "StringVarchar" : {
+              "lenght" : 50,
+              "defaultValue" : null
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Country",
+          "description" : "",
+          "fieldName" : "country",
+          "dbFieldName" : "country",
+          "dataType" : {
+            "StringVarchar" : {
+              "lenght" : 50,
+              "defaultValue" : null
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Post code",
+          "description" : "",
+          "fieldName" : "postcode",
+          "dbFieldName" : "postcode",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "Postcode"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        }
+      ],
+      "pk" : [
+      ],
+      "indexes" : {
+        
+      },
+      "relations" : [
+      ],
+      "schema" : null,
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    },
+    {
+      "id" : "Analytics",
+      "groupId" : "Shared",
+      "name" : "Analytics data structure",
+      "description" : "",
+      "entityName" : "Analytics",
+      "tableName" : "analyticses",
+      "entityType" : "TableEntity",
+      "fields" : [
+        {
+          "name" : "Promotion Id",
+          "description" : "",
+          "fieldName" : "promotionId",
+          "dbFieldName" : "promotion_id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "PromotionId"
+            }
+          },
+          "notNull" : false,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Segment Id",
+          "description" : "",
+          "fieldName" : "segmentId",
+          "dbFieldName" : "segment_id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "SegmentId"
+            }
+          },
+          "notNull" : false,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Business Area Id",
+          "description" : "",
+          "fieldName" : "businessAreaId",
+          "dbFieldName" : "business_area_id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "BusinessAreaId"
+            }
+          },
+          "notNull" : false,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        }
+      ],
+      "pk" : [
+      ],
+      "indexes" : {
+        
+      },
+      "relations" : [
+        {
+          "id" : "promotionId",
+          "name" : "Reference to Promotion",
+          "description" : "",
+          "relationType" : {
+            "ManyToOne" : {
+              
+            }
+          },
+          "referenceEntityId" : "Promotion",
+          "fields" : [
+            [
+              "promotionId",
+              "id"
+            ]
+          ],
+          "onUpdate" : {
+            "Restrict" : {
+              
+            }
+          },
+          "onDelete" : {
+            "Restrict" : {
+              
+            }
+          },
+          "attributes" : {
+            
+          }
+        },
+        {
+          "id" : "segmentId",
+          "name" : "Reference to Segment",
+          "description" : "",
+          "relationType" : {
+            "ManyToOne" : {
+              
+            }
+          },
+          "referenceEntityId" : "Segment",
+          "fields" : [
+            [
+              "segmentId",
+              "id"
+            ]
+          ],
+          "onUpdate" : {
+            "Restrict" : {
+              
+            }
+          },
+          "onDelete" : {
+            "Restrict" : {
+              
+            }
+          },
+          "attributes" : {
+            
+          }
+        },
+        {
+          "id" : "businessAreaId",
+          "name" : "Reference to BusinessArea",
+          "description" : "",
+          "relationType" : {
+            "ManyToOne" : {
+              
+            }
+          },
+          "referenceEntityId" : "BusinessArea",
+          "fields" : [
+            [
+              "businessAreaId",
+              "id"
+            ]
+          ],
+          "onUpdate" : {
+            "Restrict" : {
+              
+            }
+          },
+          "onDelete" : {
+            "Restrict" : {
+              
+            }
+          },
+          "attributes" : {
+            
+          }
+        }
+      ],
+      "schema" : null,
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    },
+    {
+      "id" : "Client",
+      "groupId" : "Client",
+      "name" : "Client",
+      "description" : "",
+      "entityName" : "Client",
+      "tableName" : "clients",
+      "entityType" : "TableEntity",
+      "fields" : [
+        {
+          "name" : "Client Id",
+          "description" : "",
+          "fieldName" : "id",
+          "dbFieldName" : "id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "ClientId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : true,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Client name",
+          "description" : "",
+          "fieldName" : "name",
+          "dbFieldName" : "name",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "Name"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Description",
+          "description" : "",
+          "fieldName" : "description",
+          "dbFieldName" : "description",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "Description"
+            }
+          },
+          "notNull" : false,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "",
+          "description" : "",
+          "fieldName" : "billing",
+          "dbFieldName" : "billing",
+          "dataType" : {
+            "EmbeddedEntityType" : {
+              "entityId" : "Address",
+              "withPrefix" : true,
+              "withRelations" : false
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "",
+          "description" : "",
+          "fieldName" : "postal",
+          "dbFieldName" : "postal",
+          "dataType" : {
+            "EmbeddedEntityType" : {
+              "entityId" : "Address",
+              "withPrefix" : true,
+              "withRelations" : false
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "",
+          "description" : "",
+          "fieldName" : "",
+          "dbFieldName" : "",
+          "dataType" : {
+            "EmbeddedEntityType" : {
+              "entityId" : "Analytics",
+              "withPrefix" : false,
+              "withRelations" : true
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "",
+          "description" : "",
+          "fieldName" : "",
+          "dbFieldName" : "",
+          "dataType" : {
+            "EmbeddedEntityType" : {
+              "entityId" : "Modification",
+              "withPrefix" : false,
+              "withRelations" : false
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        }
+      ],
+      "pk" : [
+        "id"
+      ],
+      "indexes" : {
+        
+      },
+      "relations" : [
+      ],
+      "schema" : "client",
+      "attributes" : {
+        "tableNameSuffix" : "table",
+        "tableNamePrefix" : "client"
+      }
+    },
+    {
+      "id" : "ClientAddress",
+      "groupId" : "Client",
+      "name" : "Client address",
+      "description" : "",
+      "entityName" : "ClientAddress",
+      "tableName" : "client_addresses",
+      "entityType" : "TableEntity",
+      "fields" : [
+        {
+          "name" : "Address Id",
+          "description" : "",
+          "fieldName" : "id",
+          "dbFieldName" : "id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "AddressId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : true,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Address name",
+          "description" : "",
+          "fieldName" : "name",
+          "dbFieldName" : "name",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "Name"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Description",
+          "description" : "",
+          "fieldName" : "description",
+          "dbFieldName" : "description",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "Description"
+            }
+          },
+          "notNull" : false,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Client Id",
+          "description" : "",
+          "fieldName" : "clientId",
+          "dbFieldName" : "client_id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "ClientId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "",
+          "description" : "",
+          "fieldName" : "",
+          "dbFieldName" : "",
+          "dataType" : {
+            "EmbeddedEntityType" : {
+              "entityId" : "Address",
+              "withPrefix" : false,
+              "withRelations" : false
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "",
+          "description" : "",
+          "fieldName" : "",
+          "dbFieldName" : "",
+          "dataType" : {
+            "EmbeddedEntityType" : {
+              "entityId" : "Modification",
+              "withPrefix" : false,
+              "withRelations" : false
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        }
+      ],
+      "pk" : [
+        "id"
+      ],
+      "indexes" : {
+        "client_id_id" : {
+          "id" : "client_id_id",
+          "name" : "Unique clientId & id",
+          "description" : "",
+          "unique" : true,
+          "fields" : [
+            "clientId",
+            "id"
+          ],
+          "attributes" : {
+            
+          }
+        }
+      },
+      "relations" : [
+        {
+          "id" : "clientId",
+          "name" : "Reference to client",
+          "description" : "",
+          "relationType" : {
+            "ManyToOne" : {
+              
+            }
+          },
+          "referenceEntityId" : "Client",
+          "fields" : [
+            [
+              "clientId",
+              "id"
+            ]
+          ],
+          "onUpdate" : {
+            "Restrict" : {
+              
+            }
+          },
+          "onDelete" : {
+            "Restrict" : {
+              
+            }
+          },
+          "attributes" : {
+            
+          }
+        }
+      ],
+      "schema" : "client",
+      "attributes" : {
+        "tableNameSuffix" : "table",
+        "tableNamePrefix" : "client"
+      }
+    },
+    {
+      "id" : "Order",
+      "groupId" : "Order",
+      "name" : "Order",
+      "description" : "",
+      "entityName" : "Order",
+      "tableName" : "orders",
+      "entityType" : "TableEntity",
+      "fields" : [
+        {
+          "name" : "Order Id",
+          "description" : "",
+          "fieldName" : "id",
+          "dbFieldName" : "id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "OrderId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : true,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Order name",
+          "description" : "",
+          "fieldName" : "name",
+          "dbFieldName" : "name",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "Name"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Description",
+          "description" : "",
+          "fieldName" : "description",
+          "dbFieldName" : "description",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "Description"
+            }
+          },
+          "notNull" : false,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Client Id",
+          "description" : "",
+          "fieldName" : "clientId",
+          "dbFieldName" : "client_id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "ClientId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Delivery address",
+          "description" : "",
+          "fieldName" : "deliveryAddressId",
+          "dbFieldName" : "delivery_address_id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "AddressId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Order status",
+          "description" : "",
+          "fieldName" : "status",
+          "dbFieldName" : "status",
+          "dataType" : {
+            "EnumString" : {
+              "enumId" : "OrderStatus",
+              "defaultValue" : null
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "",
+          "description" : "",
+          "fieldName" : "",
+          "dbFieldName" : "",
+          "dataType" : {
+            "EmbeddedEntityType" : {
+              "entityId" : "Analytics",
+              "withPrefix" : false,
+              "withRelations" : true
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "",
+          "description" : "",
+          "fieldName" : "",
+          "dbFieldName" : "",
+          "dataType" : {
+            "EmbeddedEntityType" : {
+              "entityId" : "Modification",
+              "withPrefix" : false,
+              "withRelations" : false
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        }
+      ],
+      "pk" : [
+        "id"
+      ],
+      "indexes" : {
+        
+      },
+      "relations" : [
+        {
+          "id" : "clientId",
+          "name" : "Reference to client",
+          "description" : "",
+          "relationType" : {
+            "ManyToOne" : {
+              
+            }
+          },
+          "referenceEntityId" : "Client",
+          "fields" : [
+            [
+              "clientId",
+              "id"
+            ]
+          ],
+          "onUpdate" : {
+            "Restrict" : {
+              
+            }
+          },
+          "onDelete" : {
+            "Restrict" : {
+              
+            }
+          },
+          "attributes" : {
+            
+          }
+        },
+        {
+          "id" : "deliveryAddressId",
+          "name" : "Reference to address",
+          "description" : "",
+          "relationType" : {
+            "ManyToOne" : {
+              
+            }
+          },
+          "referenceEntityId" : "ClientAddress",
+          "fields" : [
+            [
+              "clientId",
+              "clientId"
+            ],
+            [
+              "deliveryAddressId",
+              "id"
+            ]
+          ],
+          "onUpdate" : {
+            "Restrict" : {
+              
+            }
+          },
+          "onDelete" : {
+            "Restrict" : {
+              
+            }
+          },
+          "attributes" : {
+            
+          }
+        }
+      ],
+      "schema" : null,
+      "attributes" : {
+        "tableNameSuffix" : "table",
+        "tableNamePrefix" : "order"
+      }
+    },
+    {
+      "id" : "OrderLine",
+      "groupId" : "Order",
+      "name" : "Order line",
+      "description" : "",
+      "entityName" : "OrderLine",
+      "tableName" : "order_lines",
+      "entityType" : "TableEntity",
+      "fields" : [
+        {
+          "name" : "OrderLine Id",
+          "description" : "",
+          "fieldName" : "id",
+          "dbFieldName" : "id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "OrderLineId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : true,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Order Id",
+          "description" : "",
+          "fieldName" : "orderId",
+          "dbFieldName" : "order_id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "OrderId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Item Id",
+          "description" : "",
+          "fieldName" : "itemId",
+          "dbFieldName" : "item_id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "ItemId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "",
+          "description" : "",
+          "fieldName" : "",
+          "dbFieldName" : "",
+          "dataType" : {
+            "EmbeddedEntityType" : {
+              "entityId" : "Analytics",
+              "withPrefix" : false,
+              "withRelations" : true
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Amount",
+          "description" : "",
+          "fieldName" : "price",
+          "dbFieldName" : "price",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "Amount"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Quantity",
+          "description" : "",
+          "fieldName" : "quantity",
+          "dbFieldName" : "quantity",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "Quantity"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "",
+          "description" : "",
+          "fieldName" : "",
+          "dbFieldName" : "",
+          "dataType" : {
+            "EmbeddedEntityType" : {
+              "entityId" : "Modification",
+              "withPrefix" : false,
+              "withRelations" : false
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        }
+      ],
+      "pk" : [
+        "id"
+      ],
+      "indexes" : {
+        
+      },
+      "relations" : [
+        {
+          "id" : "orderId",
+          "name" : "Reference to order",
+          "description" : "",
+          "relationType" : {
+            "ManyToOne" : {
+              
+            }
+          },
+          "referenceEntityId" : "Order",
+          "fields" : [
+            [
+              "orderId",
+              "id"
+            ]
+          ],
+          "onUpdate" : {
+            "Restrict" : {
+              
+            }
+          },
+          "onDelete" : {
+            "Restrict" : {
+              
+            }
+          },
+          "attributes" : {
+            
+          }
+        },
+        {
+          "id" : "itemId",
+          "name" : "Reference to item",
+          "description" : "",
+          "relationType" : {
+            "ManyToOne" : {
+              
+            }
+          },
+          "referenceEntityId" : "Item",
+          "fields" : [
+            [
+              "itemId",
+              "id"
+            ]
+          ],
+          "onUpdate" : {
+            "Restrict" : {
+              
+            }
+          },
+          "onDelete" : {
+            "Restrict" : {
+              
+            }
+          },
+          "attributes" : {
+            
+          }
+        }
+      ],
+      "schema" : null,
+      "attributes" : {
+        "tableNameSuffix" : "table",
+        "tableNamePrefix" : "order"
+      }
+    },
+    {
+      "id" : "Item",
+      "groupId" : "Order",
+      "name" : "Item",
+      "description" : "",
+      "entityName" : "Item",
+      "tableName" : "items",
+      "entityType" : "TableEntity",
+      "fields" : [
+        {
+          "name" : "Item Id",
+          "description" : "",
+          "fieldName" : "id",
+          "dbFieldName" : "id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "ItemId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : true,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Item Id",
+          "description" : "",
+          "fieldName" : "itemId",
+          "dbFieldName" : "item_id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "ItemId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Amount",
+          "description" : "",
+          "fieldName" : "price",
+          "dbFieldName" : "price",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "Amount"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "",
+          "description" : "",
+          "fieldName" : "",
+          "dbFieldName" : "",
+          "dataType" : {
+            "EmbeddedEntityType" : {
+              "entityId" : "Modification",
+              "withPrefix" : false,
+              "withRelations" : false
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        }
+      ],
+      "pk" : [
+        "id"
+      ],
+      "indexes" : {
+        
+      },
+      "relations" : [
+      ],
+      "schema" : null,
+      "attributes" : {
+        "tableNameSuffix" : "table",
+        "tableNamePrefix" : "order"
+      }
+    },
+    {
+      "id" : "Segment",
+      "groupId" : "Analytics",
+      "name" : "Segment",
+      "description" : "",
+      "entityName" : "Segment",
+      "tableName" : "segments",
+      "entityType" : "TableEntity",
+      "fields" : [
+        {
+          "name" : "Segment Id",
+          "description" : "",
+          "fieldName" : "id",
+          "dbFieldName" : "id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "SegmentId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Name",
+          "description" : "",
+          "fieldName" : "name",
+          "dbFieldName" : "name",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "Name"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "",
+          "description" : "",
+          "fieldName" : "",
+          "dbFieldName" : "",
+          "dataType" : {
+            "EmbeddedEntityType" : {
+              "entityId" : "Modification",
+              "withPrefix" : false,
+              "withRelations" : false
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        }
+      ],
+      "pk" : [
+        "id"
+      ],
+      "indexes" : {
+        
+      },
+      "relations" : [
+      ],
+      "schema" : "analytics",
+      "attributes" : {
+        "tableNameSuffix" : "table",
+        "tableNamePrefix" : "analytics"
+      }
+    },
+    {
+      "id" : "BusinessArea",
+      "groupId" : "Analytics",
+      "name" : "Business area",
+      "description" : "",
+      "entityName" : "BusinessArea",
+      "tableName" : "business_areas",
+      "entityType" : "TableEntity",
+      "fields" : [
+        {
+          "name" : "Business Area Id",
+          "description" : "",
+          "fieldName" : "id",
+          "dbFieldName" : "id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "BusinessAreaId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Name",
+          "description" : "",
+          "fieldName" : "name",
+          "dbFieldName" : "name",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "Name"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "",
+          "description" : "",
+          "fieldName" : "",
+          "dbFieldName" : "",
+          "dataType" : {
+            "EmbeddedEntityType" : {
+              "entityId" : "Modification",
+              "withPrefix" : false,
+              "withRelations" : false
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        }
+      ],
+      "pk" : [
+        "id"
+      ],
+      "indexes" : {
+        
+      },
+      "relations" : [
+      ],
+      "schema" : "analytics",
+      "attributes" : {
+        "tableNameSuffix" : "table",
+        "tableNamePrefix" : "analytics"
+      }
+    },
+    {
+      "id" : "Promotion",
+      "groupId" : "Analytics",
+      "name" : "Promotion",
+      "description" : "",
+      "entityName" : "Promotion",
+      "tableName" : "promotions",
+      "entityType" : "TableEntity",
+      "fields" : [
+        {
+          "name" : "Promotion Id",
+          "description" : "",
+          "fieldName" : "id",
+          "dbFieldName" : "id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "PromotionId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "Name",
+          "description" : "",
+          "fieldName" : "name",
+          "dbFieldName" : "name",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "Name"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        },
+        {
+          "name" : "",
+          "description" : "",
+          "fieldName" : "",
+          "dbFieldName" : "",
+          "dataType" : {
+            "EmbeddedEntityType" : {
+              "entityId" : "Modification",
+              "withPrefix" : false,
+              "withRelations" : false
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "attributes" : {
+            
+          }
+        }
+      ],
+      "pk" : [
+        "id"
+      ],
+      "indexes" : {
+        
+      },
+      "relations" : [
+      ],
+      "schema" : "analytics",
+      "attributes" : {
+        "tableNameSuffix" : "table",
+        "tableNamePrefix" : "analytics"
+      }
+    }
+  ],
+  "dataElements" : [
+    {
+      "id" : "UserId",
+      "name" : "User Id",
+      "description" : "",
+      "fieldName" : "userId",
+      "dbFieldName" : "user_id",
+      "dataType" : {
+        "StringVarchar" : {
+          "lenght" : 10,
+          "defaultValue" : null
+        }
+      },
+      "notNull" : true,
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    },
+    {
+      "id" : "ClientId",
+      "name" : "Client Id",
+      "description" : "",
+      "fieldName" : "clientId",
+      "dbFieldName" : "client_id",
+      "dataType" : {
+        "IntInt" : {
+          "defaultValue" : null
+        }
+      },
+      "notNull" : true,
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    },
+    {
+      "id" : "AddressId",
+      "name" : "Address Id",
+      "description" : "",
+      "fieldName" : "addressId",
+      "dbFieldName" : "address_id",
+      "dataType" : {
+        "IntInt" : {
+          "defaultValue" : null
+        }
+      },
+      "notNull" : true,
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    },
+    {
+      "id" : "OrderId",
+      "name" : "Order Id",
+      "description" : "",
+      "fieldName" : "orderId",
+      "dbFieldName" : "order_id",
+      "dataType" : {
+        "IntInt" : {
+          "defaultValue" : null
+        }
+      },
+      "notNull" : true,
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    },
+    {
+      "id" : "OrderLineId",
+      "name" : "OrderLine Id",
+      "description" : "",
+      "fieldName" : "orderLineId",
+      "dbFieldName" : "order_line_id",
+      "dataType" : {
+        "IntInt" : {
+          "defaultValue" : null
+        }
+      },
+      "notNull" : true,
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    },
+    {
+      "id" : "ItemId",
+      "name" : "Item Id",
+      "description" : "",
+      "fieldName" : "itemId",
+      "dbFieldName" : "item_id",
+      "dataType" : {
+        "IntInt" : {
+          "defaultValue" : null
+        }
+      },
+      "notNull" : true,
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    },
+    {
+      "id" : "ItemCode",
+      "name" : "Item Code",
+      "description" : "",
+      "fieldName" : "itemCode",
+      "dbFieldName" : "item_code",
+      "dataType" : {
+        "StringVarchar" : {
+          "lenght" : 20,
+          "defaultValue" : null
+        }
+      },
+      "notNull" : true,
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    },
+    {
+      "id" : "Amount",
+      "name" : "Amount",
+      "description" : "",
+      "fieldName" : "amount",
+      "dbFieldName" : "amount",
+      "dataType" : {
+        "BigDecimalNumeric" : {
+          "precision" : 10,
+          "scale" : 2,
+          "defaultValue" : null
+        }
+      },
+      "notNull" : true,
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    },
+    {
+      "id" : "Quantity",
+      "name" : "Quantity",
+      "description" : "",
+      "fieldName" : "quantity",
+      "dbFieldName" : "quantity",
+      "dataType" : {
+        "BigDecimalNumeric" : {
+          "precision" : 10,
+          "scale" : 2,
+          "defaultValue" : null
+        }
+      },
+      "notNull" : true,
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    },
+    {
+      "id" : "Postcode",
+      "name" : "Post code",
+      "description" : "",
+      "fieldName" : "postcode",
+      "dbFieldName" : "postcode",
+      "dataType" : {
+        "StringVarchar" : {
+          "lenght" : 10,
+          "defaultValue" : null
+        }
+      },
+      "notNull" : true,
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    },
+    {
+      "id" : "Name",
+      "name" : "Name",
+      "description" : "",
+      "fieldName" : "name",
+      "dbFieldName" : "name",
+      "dataType" : {
+        "StringVarchar" : {
+          "lenght" : 100,
+          "defaultValue" : null
+        }
+      },
+      "notNull" : true,
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    },
+    {
+      "id" : "Description",
+      "name" : "Description",
+      "description" : "",
+      "fieldName" : "description",
+      "dbFieldName" : "description",
+      "dataType" : {
+        "StringText" : {
+          "defaultValue" : null
+        }
+      },
+      "notNull" : true,
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    },
+    {
+      "id" : "PromotionId",
+      "name" : "Promotion Id",
+      "description" : "",
+      "fieldName" : "promotionId",
+      "dbFieldName" : "promotion_id",
+      "dataType" : {
+        "StringVarchar" : {
+          "lenght" : 10,
+          "defaultValue" : null
+        }
+      },
+      "notNull" : true,
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    },
+    {
+      "id" : "SegmentId",
+      "name" : "Segment Id",
+      "description" : "",
+      "fieldName" : "segmentId",
+      "dbFieldName" : "segment_id",
+      "dataType" : {
+        "StringVarchar" : {
+          "lenght" : 10,
+          "defaultValue" : null
+        }
+      },
+      "notNull" : true,
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    },
+    {
+      "id" : "BusinessAreaId",
+      "name" : "Business Area Id",
+      "description" : "",
+      "fieldName" : "businessAreaId",
+      "dbFieldName" : "business_area_id",
+      "dataType" : {
+        "StringVarchar" : {
+          "lenght" : 10,
+          "defaultValue" : null
+        }
+      },
+      "notNull" : true,
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    }
+  ],
+  "enums" : [
+    {
+      "id" : "OrderStatus",
+      "name" : "Order Status",
+      "description" : "",
+      "length" : 1,
+      "elements" : [
+        [
+          "P",
+          "Placed"
+        ],
+        [
+          "D",
+          "Delivered"
+        ],
+        [
+          "C",
+          "Canceled"
+        ]
+      ],
+      "attributes" : {
+        "tableNameSuffix" : "table"
+      }
+    }
+  ],
+  "attributes" : {
+    "tableNameSuffix" : "table"
+  }
+}
