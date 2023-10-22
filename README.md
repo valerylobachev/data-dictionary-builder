@@ -24,7 +24,7 @@ visualize model tables and generate SQL DDL scripts for PostgreSQL & MySQL
 Create new Scala project and add Data Dictionary builder library to `build.sbt`:
 
 ```sbt
-libraryDependencies += "biz.lobachev.annette" %% "data-dictionary-builder" % "0.2.0"
+libraryDependencies += "biz.lobachev.annette" %% "data-dictionary-builder" % "0.3.2"
 ```
 
 Create model definition `Simple.scala`: 
