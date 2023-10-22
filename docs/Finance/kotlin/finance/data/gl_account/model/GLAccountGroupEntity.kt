@@ -79,7 +79,6 @@ data class GLAccountGroupEntity(
     /**
      * Reference to Chart Of Accounts
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "chart_of_accounts_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var chartOfAccounts: ChartOfAccountsEntity? = null,
@@ -87,7 +86,6 @@ data class GLAccountGroupEntity(
     /**
      * Reference to GLAccountGroup
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "gLAccount")
     var gLAccount: Collection<GLAccountEntity>? = null,
 ) 

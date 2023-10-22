@@ -79,35 +79,30 @@ data class CurrencyEntity(
     /**
      * Reference (from) to currency
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "exchangeRate")
     var exchangeRate: Collection<ExchangeRateEntity>? = null,
 
     /**
      * Reference (to) to currency
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "exchangeRate")
     var exchangeRate1: Collection<ExchangeRateEntity>? = null,
 
     /**
      * Reference to Currency
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "companyCode")
     var companyCode: Collection<CompanyCodeEntity>? = null,
 
     /**
      * Reference to Currency
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "ledgerEntry")
     var ledgerEntry: Collection<LedgerEntryEntity>? = null,
 
     /**
      * Reference to Currency
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "ledgerEntry")
     var ledgerEntry1: Collection<LedgerEntryEntity>? = null,
 ) 

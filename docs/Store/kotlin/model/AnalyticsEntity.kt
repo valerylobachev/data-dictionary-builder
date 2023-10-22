@@ -33,7 +33,6 @@ data class AnalyticsEntity(
     /**
      * Reference to Promotion
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "promotion_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var promotion: PromotionEntity? = null,
@@ -41,7 +40,6 @@ data class AnalyticsEntity(
     /**
      * Reference to Segment
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "segment_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var segment: SegmentEntity? = null,
@@ -49,7 +47,6 @@ data class AnalyticsEntity(
     /**
      * Reference to BusinessArea
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "business_area_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var businessArea: BusinessAreaEntity? = null,

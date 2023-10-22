@@ -13,6 +13,7 @@ import org.scalatest.wordspec.AnyWordSpec
 class SimpleSpec extends AnyWordSpec with BuildValidator {
 
   val build = Simple.simpleDomain.build()
+  val buildWoAttrs = Simple.simpleDomain.build(false)
 
   "Simple model" should {
     "generate physical DB Diagram" in {
@@ -61,7 +62,7 @@ class SimpleSpec extends AnyWordSpec with BuildValidator {
     }
 
     "export to JSON" in {
-      validateAndProcess(build) { domain =>
+      validateAndProcess(buildWoAttrs) { domain =>
         Generator.generate(
           JsonRenderer(domain),
           s"docs/${domain.id}/",

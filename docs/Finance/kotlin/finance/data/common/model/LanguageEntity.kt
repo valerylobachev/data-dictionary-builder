@@ -54,21 +54,18 @@ data class LanguageEntity(
     /**
      * Reference to language
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "country")
     var country: Collection<CountryEntity>? = null,
 
     /**
      * Reference to language
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "unitOfMeasurementText")
     var unitOfMeasurementText: Collection<UnitOfMeasurementTextEntity>? = null,
 
     /**
      * Reference to Language
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "companyCode")
     var companyCode: Collection<CompanyCodeEntity>? = null,
 ) 

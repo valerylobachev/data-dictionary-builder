@@ -66,7 +66,6 @@ data class CountryEntity(
     /**
      * Reference to language
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "language_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var language: LanguageEntity? = null,
@@ -74,7 +73,6 @@ data class CountryEntity(
     /**
      * Reference to Country
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "companyCode")
     var companyCode: Collection<CompanyCodeEntity>? = null,
 ) 

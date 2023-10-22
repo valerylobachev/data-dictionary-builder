@@ -79,7 +79,6 @@ data class UnitOfMeasurementTextEntity(
     /**
      * Reference to language
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "language_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var language: LanguageEntity? = null,
@@ -87,7 +86,6 @@ data class UnitOfMeasurementTextEntity(
     /**
      * Reference to unit of measurement
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "uom_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var unitOfMeasurement: UnitOfMeasurementEntity? = null,

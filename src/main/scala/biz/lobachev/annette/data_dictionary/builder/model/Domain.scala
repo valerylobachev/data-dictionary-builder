@@ -36,7 +36,7 @@ case class Domain(
 
   def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq.map(a => a.key -> a.value))
 
-  def build(): Either[Seq[String], Domain] = {
+  def build(replicateAttr: Boolean = true): Either[Seq[String], Domain] = {
     val newEntities = entities.values.map { entity =>
       val newFields = entity.fields.map { field =>
         field.dataType match {
@@ -54,7 +54,10 @@ case class Domain(
     }
     val res         = copy(entities = ListMap.from(newEntities.map(e => e.id -> e)))
     val err         = res.validate()
-    if (err.isEmpty) Right(res.replicateAttributes())
+    if (err.isEmpty ) {
+      if (replicateAttr) Right(res.replicateAttributes())
+      else Right(res)
+    }
     else Left(err)
   }
 

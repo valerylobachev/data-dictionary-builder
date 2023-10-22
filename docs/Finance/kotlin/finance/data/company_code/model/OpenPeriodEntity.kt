@@ -115,7 +115,6 @@ data class OpenPeriodEntity(
     /**
      * Reference to PostingPeriodVariant
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "posting_period_variant_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var postingPeriodVariant: PostingPeriodVariantEntity? = null,

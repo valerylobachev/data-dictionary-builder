@@ -245,7 +245,6 @@ data class LedgerEntryEntity(
     /**
      * Reference to Ledger
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ledger_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var ledger: LedgerEntity? = null,
@@ -253,7 +252,6 @@ data class LedgerEntryEntity(
     /**
      * Reference to CompanyCode
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "company_code_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var companyCode: CompanyCodeEntity? = null,
@@ -261,7 +259,6 @@ data class LedgerEntryEntity(
     /**
      * Reference to GLAccount
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn([
       @JoinColumn(name = "chart_of_accounts_id", referencedColumnName = "chart_of_accounts_id", nullable = false, updatable = false, insertable = false),
@@ -272,7 +269,6 @@ data class LedgerEntryEntity(
     /**
      * Reference to Creditor
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "creditor_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var creditor: CreditorEntity? = null,
@@ -280,7 +276,6 @@ data class LedgerEntryEntity(
     /**
      * Reference to Debtor
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "debtor_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var debtor: DebtorEntity? = null,
@@ -288,7 +283,6 @@ data class LedgerEntryEntity(
     /**
      * Reference to BusinessPartner
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "business_partner_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var businessPartner: BusinessPartnerEntity? = null,
@@ -296,7 +290,6 @@ data class LedgerEntryEntity(
     /**
      * Reference to BusinessArea
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "business_area_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var businessArea: BusinessAreaEntity? = null,
@@ -304,7 +297,6 @@ data class LedgerEntryEntity(
     /**
      * Reference to FunctionalArea
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "functional_area_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var functionalArea: FunctionalAreaEntity? = null,
@@ -312,7 +304,6 @@ data class LedgerEntryEntity(
     /**
      * Reference to Segment
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "segment_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var segment: SegmentEntity? = null,
@@ -320,7 +311,6 @@ data class LedgerEntryEntity(
     /**
      * Reference to ValuationArea
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "valuation_area_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var valuationArea: ValuationAreaEntity? = null,
@@ -328,7 +318,6 @@ data class LedgerEntryEntity(
     /**
      * Reference to Plant
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "plant_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var plant: PlantEntity? = null,
@@ -336,7 +325,6 @@ data class LedgerEntryEntity(
     /**
      * Reference to Location
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn([
       @JoinColumn(name = "plant_id", referencedColumnName = "plant_id", nullable = false, updatable = false, insertable = false),
@@ -347,7 +335,6 @@ data class LedgerEntryEntity(
     /**
      * Reference to Material
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "material_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var material: MaterialEntity? = null,
@@ -355,7 +342,6 @@ data class LedgerEntryEntity(
     /**
      * Reference to Currency
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "document_currency_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var currency: CurrencyEntity? = null,
@@ -363,7 +349,6 @@ data class LedgerEntryEntity(
     /**
      * Reference to Currency
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "company_code_currency_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var currency1: CurrencyEntity? = null,
@@ -371,7 +356,6 @@ data class LedgerEntryEntity(
     /**
      * Reference to UnitOfMeasurement
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "uom_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var uom: UnitOfMeasurementEntity? = null,
@@ -379,7 +363,6 @@ data class LedgerEntryEntity(
     /**
      * Reference to UnitOfMeasurement
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "basic_uom_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var basicUom: UnitOfMeasurementEntity? = null,
@@ -387,7 +370,6 @@ data class LedgerEntryEntity(
     /**
      * Reference to LedgerEntry
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "ledgerEntryAttribute")
     var ledgerEntryAttribute: Collection<LedgerEntryAttributeEntity>? = null,
 ) 

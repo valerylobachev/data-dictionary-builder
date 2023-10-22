@@ -67,7 +67,6 @@ data class ValuationAreaEntity(
     /**
      * Reference to CompanyCode
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "company_code_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var companyCode: CompanyCodeEntity? = null,
@@ -75,7 +74,6 @@ data class ValuationAreaEntity(
     /**
      * Reference to ValuationArea
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "valuationArea")
     var ledgerEntry: Collection<LedgerEntryEntity>? = null,
 ) 

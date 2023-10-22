@@ -60,14 +60,12 @@ data class PlantEntity(
     /**
      * Reference to Plant
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "location")
     var location: Collection<LocationEntity>? = null,
 
     /**
      * Reference to Plant
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "plant")
     var ledgerEntry: Collection<LedgerEntryEntity>? = null,
 ) 

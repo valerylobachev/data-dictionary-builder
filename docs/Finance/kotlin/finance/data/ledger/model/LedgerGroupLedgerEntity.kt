@@ -61,7 +61,6 @@ data class LedgerGroupLedgerEntity(
     /**
      * Reference to ledger
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ledger_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var ledger: LedgerEntity? = null,
@@ -69,7 +68,6 @@ data class LedgerGroupLedgerEntity(
     /**
      * Reference to ledger group
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ledger_group_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var ledgerGroup: LedgerGroupEntity? = null,

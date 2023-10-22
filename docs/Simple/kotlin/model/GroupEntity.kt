@@ -42,7 +42,6 @@ data class GroupEntity(
     /**
      * Relation to groups
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "groupMember")
     var groupMember: Collection<GroupMemberEntity>? = null,
 ) 

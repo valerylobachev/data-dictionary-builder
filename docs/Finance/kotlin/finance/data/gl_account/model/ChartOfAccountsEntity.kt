@@ -54,21 +54,18 @@ data class ChartOfAccountsEntity(
     /**
      * Reference to Chart Of Accounts
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "gLAccount")
     var gLAccount: Collection<GLAccountEntity>? = null,
 
     /**
      * Reference to Chart Of Accounts
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "gLAccountGroup")
     var gLAccountGroup: Collection<GLAccountGroupEntity>? = null,
 
     /**
      * Reference to ChartOfAccounts
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "companyCode")
     var companyCode: Collection<CompanyCodeEntity>? = null,
 ) 

@@ -54,7 +54,6 @@ data class BusinessAreaEntity(
     /**
      * Reference to BusinessArea
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "businessArea")
     var ledgerEntry: Collection<LedgerEntryEntity>? = null,
 ) 

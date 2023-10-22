@@ -53,7 +53,6 @@ data class LedgerGroupEntity(
     /**
      * Reference to ledger group
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "ledgerGroupLedger")
     var ledgerGroupLedger: Collection<LedgerGroupLedgerEntity>? = null,
 ) 

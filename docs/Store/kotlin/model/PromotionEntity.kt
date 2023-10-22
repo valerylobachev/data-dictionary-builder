@@ -53,7 +53,6 @@ data class PromotionEntity(
     /**
      * Reference to Promotion
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "analytics")
     var analytics: Collection<AnalyticsEntity>? = null,
 ) 

@@ -95,7 +95,6 @@ data class CompanyCodeEntity(
     /**
      * Reference to Country
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var country: CountryEntity? = null,
@@ -103,7 +102,6 @@ data class CompanyCodeEntity(
     /**
      * Reference to Language
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "language_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var language: LanguageEntity? = null,
@@ -111,7 +109,6 @@ data class CompanyCodeEntity(
     /**
      * Reference to Currency
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "currency_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var currency: CurrencyEntity? = null,
@@ -119,7 +116,6 @@ data class CompanyCodeEntity(
     /**
      * Reference to ChartOfAccounts
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "chart_of_accounts_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var chartOfAccounts: ChartOfAccountsEntity? = null,
@@ -127,7 +123,6 @@ data class CompanyCodeEntity(
     /**
      * Reference to FYVariant
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "fy_variant_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var fYVariant: FYVariantEntity? = null,
@@ -135,7 +130,6 @@ data class CompanyCodeEntity(
     /**
      * Reference to PostingPeriodVariant
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "posting_period_variant_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var postingPeriodVariant: PostingPeriodVariantEntity? = null,
@@ -143,21 +137,18 @@ data class CompanyCodeEntity(
     /**
      * Reference to CompanyCode
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "valuationArea")
     var valuationArea: Collection<ValuationAreaEntity>? = null,
 
     /**
      * Reference to CompanyCode
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "companyCodeLedger")
     var companyCodeLedger: Collection<CompanyCodeLedgerEntity>? = null,
 
     /**
      * Reference to CompanyCode
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "companyCode")
     var ledgerEntry: Collection<LedgerEntryEntity>? = null,
 ) 

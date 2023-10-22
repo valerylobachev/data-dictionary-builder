@@ -96,7 +96,6 @@ data class OrderEntity(
     /**
      * Reference to client
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var client: ClientEntity? = null,
@@ -104,7 +103,6 @@ data class OrderEntity(
     /**
      * Reference to address
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn([
       @JoinColumn(name = "client_id", referencedColumnName = "client_id", nullable = false, updatable = false, insertable = false),
@@ -115,7 +113,6 @@ data class OrderEntity(
     /**
      * Reference to order
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "orderLine")
     var orderLine: Collection<OrderLineEntity>? = null,
 ) 

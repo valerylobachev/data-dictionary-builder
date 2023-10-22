@@ -95,7 +95,6 @@ data class ExchangeRateEntity(
     /**
      * Reference to exchange rate type
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "exchange_rate_type_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var exchangeRateType: ExchangeRateTypeEntity? = null,
@@ -103,7 +102,6 @@ data class ExchangeRateEntity(
     /**
      * Reference (from) to currency
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "from_currency_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var currency: CurrencyEntity? = null,
@@ -111,7 +109,6 @@ data class ExchangeRateEntity(
     /**
      * Reference (to) to currency
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "to_currency_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var currency1: CurrencyEntity? = null,

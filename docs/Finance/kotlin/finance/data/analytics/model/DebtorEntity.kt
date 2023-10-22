@@ -54,14 +54,12 @@ data class DebtorEntity(
     /**
      * Reference to Debtor
      */
-    @JsonIgnore
     @OneToOne(mappedBy = "businessPartner")
     var businessPartner: BusinessPartnerEntity? = null,
 
     /**
      * Reference to Debtor
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "debtor")
     var ledgerEntry: Collection<LedgerEntryEntity>? = null,
 ) 

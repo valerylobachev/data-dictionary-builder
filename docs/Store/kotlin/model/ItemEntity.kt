@@ -61,7 +61,6 @@ data class ItemEntity(
     /**
      * Reference to item
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "orderLine")
     var orderLine: Collection<OrderLineEntity>? = null,
 ) 

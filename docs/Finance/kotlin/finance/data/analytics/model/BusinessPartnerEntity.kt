@@ -66,7 +66,6 @@ data class BusinessPartnerEntity(
     /**
      * Reference to Creditor
      */
-    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "creditor_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var creditor: CreditorEntity? = null,
@@ -74,7 +73,6 @@ data class BusinessPartnerEntity(
     /**
      * Reference to Debtor
      */
-    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "debtor_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var debtor: DebtorEntity? = null,
@@ -82,7 +80,6 @@ data class BusinessPartnerEntity(
     /**
      * Reference to BusinessPartner
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "businessPartner")
     var ledgerEntry: Collection<LedgerEntryEntity>? = null,
 ) 

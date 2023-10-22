@@ -54,7 +54,6 @@ data class FunctionalAreaEntity(
     /**
      * Reference to FunctionalArea
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "functionalArea")
     var ledgerEntry: Collection<LedgerEntryEntity>? = null,
 ) 

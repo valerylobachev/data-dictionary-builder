@@ -53,7 +53,6 @@ data class SegmentEntity(
     /**
      * Reference to Segment
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "analytics")
     var analytics: Collection<AnalyticsEntity>? = null,
 ) 

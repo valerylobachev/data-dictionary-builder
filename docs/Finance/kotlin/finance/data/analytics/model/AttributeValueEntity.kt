@@ -62,7 +62,6 @@ data class AttributeValueEntity(
     /**
      * Relation to Attribute
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "attribute_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var attribute: AttributeEntity? = null,
@@ -70,7 +69,6 @@ data class AttributeValueEntity(
     /**
      * Reference to AttributeValue
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "ledgerEntryAttribute")
     var ledgerEntryAttribute: Collection<LedgerEntryAttributeEntity>? = null,
 ) 

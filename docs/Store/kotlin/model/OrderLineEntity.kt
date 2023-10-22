@@ -91,7 +91,6 @@ data class OrderLineEntity(
     /**
      * Reference to order
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var order: OrderEntity? = null,
@@ -99,7 +98,6 @@ data class OrderLineEntity(
     /**
      * Reference to item
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "item_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var item: ItemEntity? = null,

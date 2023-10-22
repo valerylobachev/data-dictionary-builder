@@ -68,7 +68,6 @@ data class LocationEntity(
     /**
      * Reference to Plant
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "plant_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var plant: PlantEntity? = null,
@@ -76,7 +75,6 @@ data class LocationEntity(
     /**
      * Reference to Location
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "location")
     var ledgerEntry: Collection<LedgerEntryEntity>? = null,
 ) 

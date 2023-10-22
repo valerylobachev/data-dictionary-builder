@@ -73,7 +73,6 @@ data class LedgerEntity(
     /**
      * Reference to ledger
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "underlying_ledger", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var ledger: LedgerEntity? = null,
@@ -81,28 +80,24 @@ data class LedgerEntity(
     /**
      * Reference to ledger
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "ledger")
     var ledger1: Collection<LedgerEntity>? = null,
 
     /**
      * Reference to ledger
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "ledgerGroupLedger")
     var ledgerGroupLedger: Collection<LedgerGroupLedgerEntity>? = null,
 
     /**
      * Reference to Ledger
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "companyCodeLedger")
     var companyCodeLedger: Collection<CompanyCodeLedgerEntity>? = null,
 
     /**
      * Reference to Ledger
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "ledger")
     var ledgerEntry: Collection<LedgerEntryEntity>? = null,
 ) 

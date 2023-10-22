@@ -291,8 +291,7 @@
       ],
       "schema" : "common",
       "attributes" : {
-        "javaModelPackage" : "finance.data.common.model",
-        "javaRepoPackage" : "finance.data.common"
+        
       }
     },
     {
@@ -365,8 +364,7 @@
       ],
       "schema" : "common",
       "attributes" : {
-        "javaModelPackage" : "finance.data.common.model",
-        "javaRepoPackage" : "finance.data.common"
+        
       }
     },
     {
@@ -505,8 +503,7 @@
       ],
       "schema" : "common",
       "attributes" : {
-        "javaModelPackage" : "finance.data.common.model",
-        "javaRepoPackage" : "finance.data.common"
+        
       }
     },
     {
@@ -579,8 +576,7 @@
       ],
       "schema" : "common",
       "attributes" : {
-        "javaModelPackage" : "finance.data.common.model",
-        "javaRepoPackage" : "finance.data.common"
+        
       }
     },
     {
@@ -806,8 +802,7 @@
       ],
       "schema" : "common",
       "attributes" : {
-        "javaModelPackage" : "finance.data.common.model",
-        "javaRepoPackage" : "finance.data.common"
+        
       }
     },
     {
@@ -914,8 +909,7 @@
       ],
       "schema" : "common",
       "attributes" : {
-        "javaModelPackage" : "finance.data.common.model",
-        "javaRepoPackage" : "finance.data.common"
+        
       }
     },
     {
@@ -1091,8 +1085,7 @@
       ],
       "schema" : "common",
       "attributes" : {
-        "javaModelPackage" : "finance.data.common.model",
-        "javaRepoPackage" : "finance.data.common"
+        
       }
     },
     {
@@ -1231,8 +1224,7 @@
       ],
       "schema" : "ledger",
       "attributes" : {
-        "javaModelPackage" : "finance.data.ledger.model",
-        "javaRepoPackage" : "finance.data.ledger"
+        
       }
     },
     {
@@ -1305,8 +1297,7 @@
       ],
       "schema" : "ledger",
       "attributes" : {
-        "javaModelPackage" : "finance.data.ledger.model",
-        "javaRepoPackage" : "finance.data.ledger"
+        
       }
     },
     {
@@ -1432,8 +1423,7 @@
       ],
       "schema" : "ledger",
       "attributes" : {
-        "javaModelPackage" : "finance.data.ledger.model",
-        "javaRepoPackage" : "finance.data.ledger"
+        
       }
     },
     {
@@ -1506,8 +1496,7 @@
       ],
       "schema" : "gl_account",
       "attributes" : {
-        "javaModelPackage" : "finance.data.gl_account.model",
-        "javaRepoPackage" : "finance.data.gl_account"
+        
       }
     },
     {
@@ -1685,8 +1674,7 @@
       ],
       "schema" : "gl_account",
       "attributes" : {
-        "javaModelPackage" : "finance.data.gl_account.model",
-        "javaRepoPackage" : "finance.data.gl_account"
+        
       }
     },
     {
@@ -1842,8 +1830,7 @@
       ],
       "schema" : "gl_account",
       "attributes" : {
-        "javaModelPackage" : "finance.data.gl_account.model",
-        "javaRepoPackage" : "finance.data.gl_account"
+        
       }
     },
     {
@@ -1916,8 +1903,7 @@
       ],
       "schema" : "analytics",
       "attributes" : {
-        "javaModelPackage" : "finance.data.analytics.model",
-        "javaRepoPackage" : "finance.data.analytics"
+        
       }
     },
     {
@@ -1990,8 +1976,7 @@
       ],
       "schema" : "analytics",
       "attributes" : {
-        "javaModelPackage" : "finance.data.analytics.model",
-        "javaRepoPackage" : "finance.data.analytics"
+        
       }
     },
     {
@@ -2155,8 +2140,7 @@
       ],
       "schema" : "analytics",
       "attributes" : {
-        "javaModelPackage" : "finance.data.analytics.model",
-        "javaRepoPackage" : "finance.data.analytics"
+        
       }
     },
     {
@@ -2229,8 +2213,7 @@
       ],
       "schema" : "analytics",
       "attributes" : {
-        "javaModelPackage" : "finance.data.analytics.model",
-        "javaRepoPackage" : "finance.data.analytics"
+        
       }
     },
     {
@@ -2303,8 +2286,7 @@
       ],
       "schema" : "analytics",
       "attributes" : {
-        "javaModelPackage" : "finance.data.analytics.model",
-        "javaRepoPackage" : "finance.data.analytics"
+        
       }
     },
     {
@@ -2377,8 +2359,7 @@
       ],
       "schema" : "analytics",
       "attributes" : {
-        "javaModelPackage" : "finance.data.analytics.model",
-        "javaRepoPackage" : "finance.data.analytics"
+        
       }
     },
     {
@@ -2451,8 +2432,7 @@
       ],
       "schema" : "analytics",
       "attributes" : {
-        "javaModelPackage" : "finance.data.analytics.model",
-        "javaRepoPackage" : "finance.data.analytics"
+        
       }
     },
     {
@@ -2560,8 +2540,7 @@
       ],
       "schema" : "analytics",
       "attributes" : {
-        "javaModelPackage" : "finance.data.analytics.model",
-        "javaRepoPackage" : "finance.data.analytics"
+        
       }
     },
     {
@@ -2684,8 +2663,7 @@
       ],
       "schema" : "logistic",
       "attributes" : {
-        "javaModelPackage" : "finance.data.logistic.model",
-        "javaRepoPackage" : "finance.data.logistic"
+        
       }
     },
     {
@@ -2774,8 +2752,7 @@
       ],
       "schema" : "logistic",
       "attributes" : {
-        "javaModelPackage" : "finance.data.logistic.model",
-        "javaRepoPackage" : "finance.data.logistic"
+        
       }
     },
     {
@@ -2899,8 +2876,7 @@
       ],
       "schema" : "logistic",
       "attributes" : {
-        "javaModelPackage" : "finance.data.logistic.model",
-        "javaRepoPackage" : "finance.data.logistic"
+        
       }
     },
     {
@@ -3023,8 +2999,7 @@
       ],
       "schema" : "logistic",
       "attributes" : {
-        "javaModelPackage" : "finance.data.logistic.model",
-        "javaRepoPackage" : "finance.data.logistic"
+        
       }
     },
     {
@@ -3301,8 +3276,7 @@
       ],
       "schema" : "company_code",
       "attributes" : {
-        "javaModelPackage" : "finance.data.company_code.model",
-        "javaRepoPackage" : "finance.data.company_code"
+        
       }
     },
     {
@@ -3412,8 +3386,7 @@
       ],
       "schema" : "company_code",
       "attributes" : {
-        "javaModelPackage" : "finance.data.company_code.model",
-        "javaRepoPackage" : "finance.data.company_code"
+        
       }
     },
     {
@@ -3486,8 +3459,7 @@
       ],
       "schema" : "company_code",
       "attributes" : {
-        "javaModelPackage" : "finance.data.company_code.model",
-        "javaRepoPackage" : "finance.data.company_code"
+        
       }
     },
     {
@@ -3560,8 +3532,7 @@
       ],
       "schema" : "company_code",
       "attributes" : {
-        "javaModelPackage" : "finance.data.company_code.model",
-        "javaRepoPackage" : "finance.data.company_code"
+        
       }
     },
     {
@@ -3860,8 +3831,7 @@
       ],
       "schema" : "company_code",
       "attributes" : {
-        "javaModelPackage" : "finance.data.company_code.model",
-        "javaRepoPackage" : "finance.data.company_code"
+        
       }
     },
     {
@@ -4727,8 +4697,7 @@
       ],
       "schema" : "ledger_entry",
       "attributes" : {
-        "javaModelPackage" : "finance.data.ledger_entry.model",
-        "javaRepoPackage" : "finance.data.ledger_entry"
+        
       }
     },
     {
@@ -4841,8 +4810,7 @@
       ],
       "schema" : "ledger_entry",
       "attributes" : {
-        "javaModelPackage" : "finance.data.ledger_entry.model",
-        "javaRepoPackage" : "finance.data.ledger_entry"
+        
       }
     }
   ],

@@ -56,7 +56,6 @@ data class CompanyCodeLedgerEntity(
     /**
      * Reference to CompanyCode
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "company_code_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var companyCode: CompanyCodeEntity? = null,
@@ -64,7 +63,6 @@ data class CompanyCodeLedgerEntity(
     /**
      * Reference to Ledger
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ledger_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var ledger: LedgerEntity? = null,

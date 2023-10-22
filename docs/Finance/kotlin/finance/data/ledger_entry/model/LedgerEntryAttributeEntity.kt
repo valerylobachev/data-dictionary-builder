@@ -39,7 +39,6 @@ data class LedgerEntryAttributeEntity(
     /**
      * Reference to LedgerEntry
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "entry_no", referencedColumnName = "entry_no", nullable = false, updatable = false, insertable = false)
     var ledgerEntry: LedgerEntryEntity? = null,
@@ -47,7 +46,6 @@ data class LedgerEntryAttributeEntity(
     /**
      * Reference to AttributeValue
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn([
       @JoinColumn(name = "attribute_id", referencedColumnName = "attribute_id", nullable = false, updatable = false, insertable = false),

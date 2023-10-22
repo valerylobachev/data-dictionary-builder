@@ -53,14 +53,12 @@ data class PostingPeriodVariantEntity(
     /**
      * Reference to PostingPeriodVariant
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "companyCode")
     var companyCode: Collection<CompanyCodeEntity>? = null,
 
     /**
      * Reference to PostingPeriodVariant
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "openPeriod")
     var openPeriod: Collection<OpenPeriodEntity>? = null,
 ) 

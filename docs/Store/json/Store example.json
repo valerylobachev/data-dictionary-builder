@@ -9,7 +9,7 @@
       "description" : "",
       "schema" : null,
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     },
     {
@@ -18,7 +18,6 @@
       "description" : "",
       "schema" : "client",
       "attributes" : {
-        "tableNameSuffix" : "table",
         "tableNamePrefix" : "client"
       }
     },
@@ -28,7 +27,6 @@
       "description" : "",
       "schema" : null,
       "attributes" : {
-        "tableNameSuffix" : "table",
         "tableNamePrefix" : "order"
       }
     },
@@ -38,7 +36,6 @@
       "description" : "",
       "schema" : "analytics",
       "attributes" : {
-        "tableNameSuffix" : "table",
         "tableNamePrefix" : "analytics"
       }
     }
@@ -51,7 +48,7 @@
       "description" : "",
       "entityName" : "Modification",
       "tableName" : "modifications",
-      "entityType" : "TableEntity",
+      "entityType" : "embedded",
       "fields" : [
         {
           "name" : "User created record",
@@ -127,7 +124,7 @@
       ],
       "schema" : null,
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     },
     {
@@ -137,7 +134,7 @@
       "description" : "",
       "entityName" : "Address",
       "tableName" : "addresses",
-      "entityType" : "TableEntity",
+      "entityType" : "embedded",
       "fields" : [
         {
           "name" : "First address line",
@@ -250,7 +247,7 @@
       ],
       "schema" : null,
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     },
     {
@@ -260,7 +257,7 @@
       "description" : "",
       "entityName" : "Analytics",
       "tableName" : "analyticses",
-      "entityType" : "TableEntity",
+      "entityType" : "embedded",
       "fields" : [
         {
           "name" : "Promotion Id",
@@ -321,11 +318,7 @@
           "id" : "promotionId",
           "name" : "Reference to Promotion",
           "description" : "",
-          "relationType" : {
-            "ManyToOne" : {
-              
-            }
-          },
+          "relationType" : "ManyToOne",
           "referenceEntityId" : "Promotion",
           "fields" : [
             [
@@ -333,16 +326,8 @@
               "id"
             ]
           ],
-          "onUpdate" : {
-            "Restrict" : {
-              
-            }
-          },
-          "onDelete" : {
-            "Restrict" : {
-              
-            }
-          },
+          "onUpdate" : "Restrict",
+          "onDelete" : "Restrict",
           "attributes" : {
             
           }
@@ -351,11 +336,7 @@
           "id" : "segmentId",
           "name" : "Reference to Segment",
           "description" : "",
-          "relationType" : {
-            "ManyToOne" : {
-              
-            }
-          },
+          "relationType" : "ManyToOne",
           "referenceEntityId" : "Segment",
           "fields" : [
             [
@@ -363,16 +344,8 @@
               "id"
             ]
           ],
-          "onUpdate" : {
-            "Restrict" : {
-              
-            }
-          },
-          "onDelete" : {
-            "Restrict" : {
-              
-            }
-          },
+          "onUpdate" : "Restrict",
+          "onDelete" : "Restrict",
           "attributes" : {
             
           }
@@ -381,11 +354,7 @@
           "id" : "businessAreaId",
           "name" : "Reference to BusinessArea",
           "description" : "",
-          "relationType" : {
-            "ManyToOne" : {
-              
-            }
-          },
+          "relationType" : "ManyToOne",
           "referenceEntityId" : "BusinessArea",
           "fields" : [
             [
@@ -393,16 +362,8 @@
               "id"
             ]
           ],
-          "onUpdate" : {
-            "Restrict" : {
-              
-            }
-          },
-          "onDelete" : {
-            "Restrict" : {
-              
-            }
-          },
+          "onUpdate" : "Restrict",
+          "onDelete" : "Restrict",
           "attributes" : {
             
           }
@@ -410,7 +371,7 @@
       ],
       "schema" : null,
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     },
     {
@@ -420,7 +381,7 @@
       "description" : "",
       "entityName" : "Client",
       "tableName" : "clients",
-      "entityType" : "TableEntity",
+      "entityType" : "table",
       "fields" : [
         {
           "name" : "Client Id",
@@ -553,8 +514,7 @@
       ],
       "schema" : "client",
       "attributes" : {
-        "tableNameSuffix" : "table",
-        "tableNamePrefix" : "client"
+        
       }
     },
     {
@@ -564,7 +524,7 @@
       "description" : "",
       "entityName" : "ClientAddress",
       "tableName" : "client_addresses",
-      "entityType" : "TableEntity",
+      "entityType" : "table",
       "fields" : [
         {
           "name" : "Address Id",
@@ -690,11 +650,7 @@
           "id" : "clientId",
           "name" : "Reference to client",
           "description" : "",
-          "relationType" : {
-            "ManyToOne" : {
-              
-            }
-          },
+          "relationType" : "ManyToOne",
           "referenceEntityId" : "Client",
           "fields" : [
             [
@@ -702,16 +658,8 @@
               "id"
             ]
           ],
-          "onUpdate" : {
-            "Restrict" : {
-              
-            }
-          },
-          "onDelete" : {
-            "Restrict" : {
-              
-            }
-          },
+          "onUpdate" : "Restrict",
+          "onDelete" : "Restrict",
           "attributes" : {
             
           }
@@ -719,8 +667,7 @@
       ],
       "schema" : "client",
       "attributes" : {
-        "tableNameSuffix" : "table",
-        "tableNamePrefix" : "client"
+        
       }
     },
     {
@@ -730,7 +677,7 @@
       "description" : "",
       "entityName" : "Order",
       "tableName" : "orders",
-      "entityType" : "TableEntity",
+      "entityType" : "table",
       "fields" : [
         {
           "name" : "Order Id",
@@ -877,11 +824,7 @@
           "id" : "clientId",
           "name" : "Reference to client",
           "description" : "",
-          "relationType" : {
-            "ManyToOne" : {
-              
-            }
-          },
+          "relationType" : "ManyToOne",
           "referenceEntityId" : "Client",
           "fields" : [
             [
@@ -889,16 +832,8 @@
               "id"
             ]
           ],
-          "onUpdate" : {
-            "Restrict" : {
-              
-            }
-          },
-          "onDelete" : {
-            "Restrict" : {
-              
-            }
-          },
+          "onUpdate" : "Restrict",
+          "onDelete" : "Restrict",
           "attributes" : {
             
           }
@@ -907,11 +842,7 @@
           "id" : "deliveryAddressId",
           "name" : "Reference to address",
           "description" : "",
-          "relationType" : {
-            "ManyToOne" : {
-              
-            }
-          },
+          "relationType" : "ManyToOne",
           "referenceEntityId" : "ClientAddress",
           "fields" : [
             [
@@ -923,16 +854,8 @@
               "id"
             ]
           ],
-          "onUpdate" : {
-            "Restrict" : {
-              
-            }
-          },
-          "onDelete" : {
-            "Restrict" : {
-              
-            }
-          },
+          "onUpdate" : "Restrict",
+          "onDelete" : "Restrict",
           "attributes" : {
             
           }
@@ -940,8 +863,7 @@
       ],
       "schema" : null,
       "attributes" : {
-        "tableNameSuffix" : "table",
-        "tableNamePrefix" : "order"
+        
       }
     },
     {
@@ -951,7 +873,7 @@
       "description" : "",
       "entityName" : "OrderLine",
       "tableName" : "order_lines",
-      "entityType" : "TableEntity",
+      "entityType" : "table",
       "fields" : [
         {
           "name" : "OrderLine Id",
@@ -1081,11 +1003,7 @@
           "id" : "orderId",
           "name" : "Reference to order",
           "description" : "",
-          "relationType" : {
-            "ManyToOne" : {
-              
-            }
-          },
+          "relationType" : "ManyToOne",
           "referenceEntityId" : "Order",
           "fields" : [
             [
@@ -1093,16 +1011,8 @@
               "id"
             ]
           ],
-          "onUpdate" : {
-            "Restrict" : {
-              
-            }
-          },
-          "onDelete" : {
-            "Restrict" : {
-              
-            }
-          },
+          "onUpdate" : "Restrict",
+          "onDelete" : "Restrict",
           "attributes" : {
             
           }
@@ -1111,11 +1021,7 @@
           "id" : "itemId",
           "name" : "Reference to item",
           "description" : "",
-          "relationType" : {
-            "ManyToOne" : {
-              
-            }
-          },
+          "relationType" : "ManyToOne",
           "referenceEntityId" : "Item",
           "fields" : [
             [
@@ -1123,16 +1029,8 @@
               "id"
             ]
           ],
-          "onUpdate" : {
-            "Restrict" : {
-              
-            }
-          },
-          "onDelete" : {
-            "Restrict" : {
-              
-            }
-          },
+          "onUpdate" : "Restrict",
+          "onDelete" : "Restrict",
           "attributes" : {
             
           }
@@ -1140,8 +1038,7 @@
       ],
       "schema" : null,
       "attributes" : {
-        "tableNameSuffix" : "table",
-        "tableNamePrefix" : "order"
+        
       }
     },
     {
@@ -1151,7 +1048,7 @@
       "description" : "",
       "entityName" : "Item",
       "tableName" : "items",
-      "entityType" : "TableEntity",
+      "entityType" : "table",
       "fields" : [
         {
           "name" : "Item Id",
@@ -1230,8 +1127,7 @@
       ],
       "schema" : null,
       "attributes" : {
-        "tableNameSuffix" : "table",
-        "tableNamePrefix" : "order"
+        
       }
     },
     {
@@ -1241,7 +1137,7 @@
       "description" : "",
       "entityName" : "Segment",
       "tableName" : "segments",
-      "entityType" : "TableEntity",
+      "entityType" : "table",
       "fields" : [
         {
           "name" : "Segment Id",
@@ -1304,8 +1200,7 @@
       ],
       "schema" : "analytics",
       "attributes" : {
-        "tableNameSuffix" : "table",
-        "tableNamePrefix" : "analytics"
+        
       }
     },
     {
@@ -1315,7 +1210,7 @@
       "description" : "",
       "entityName" : "BusinessArea",
       "tableName" : "business_areas",
-      "entityType" : "TableEntity",
+      "entityType" : "table",
       "fields" : [
         {
           "name" : "Business Area Id",
@@ -1378,8 +1273,7 @@
       ],
       "schema" : "analytics",
       "attributes" : {
-        "tableNameSuffix" : "table",
-        "tableNamePrefix" : "analytics"
+        
       }
     },
     {
@@ -1389,7 +1283,7 @@
       "description" : "",
       "entityName" : "Promotion",
       "tableName" : "promotions",
-      "entityType" : "TableEntity",
+      "entityType" : "table",
       "fields" : [
         {
           "name" : "Promotion Id",
@@ -1452,8 +1346,7 @@
       ],
       "schema" : "analytics",
       "attributes" : {
-        "tableNameSuffix" : "table",
-        "tableNamePrefix" : "analytics"
+        
       }
     }
   ],
@@ -1472,7 +1365,7 @@
       },
       "notNull" : true,
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     },
     {
@@ -1488,7 +1381,7 @@
       },
       "notNull" : true,
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     },
     {
@@ -1504,7 +1397,7 @@
       },
       "notNull" : true,
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     },
     {
@@ -1520,7 +1413,7 @@
       },
       "notNull" : true,
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     },
     {
@@ -1536,7 +1429,7 @@
       },
       "notNull" : true,
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     },
     {
@@ -1552,7 +1445,7 @@
       },
       "notNull" : true,
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     },
     {
@@ -1569,7 +1462,7 @@
       },
       "notNull" : true,
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     },
     {
@@ -1587,7 +1480,7 @@
       },
       "notNull" : true,
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     },
     {
@@ -1605,7 +1498,7 @@
       },
       "notNull" : true,
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     },
     {
@@ -1622,7 +1515,7 @@
       },
       "notNull" : true,
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     },
     {
@@ -1639,7 +1532,7 @@
       },
       "notNull" : true,
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     },
     {
@@ -1655,7 +1548,7 @@
       },
       "notNull" : true,
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     },
     {
@@ -1672,7 +1565,7 @@
       },
       "notNull" : true,
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     },
     {
@@ -1689,7 +1582,7 @@
       },
       "notNull" : true,
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     },
     {
@@ -1706,7 +1599,7 @@
       },
       "notNull" : true,
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     }
   ],
@@ -1731,7 +1624,7 @@
         ]
       ],
       "attributes" : {
-        "tableNameSuffix" : "table"
+        
       }
     }
   ],

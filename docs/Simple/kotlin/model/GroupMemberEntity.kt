@@ -48,7 +48,6 @@ data class GroupMemberEntity(
     /**
      * Relation to groups
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "group_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var group: GroupEntity? = null,
@@ -56,7 +55,6 @@ data class GroupMemberEntity(
     /**
      * Relation to persons
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "person_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var person: PersonEntity? = null,

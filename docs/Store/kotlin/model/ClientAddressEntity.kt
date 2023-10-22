@@ -102,7 +102,6 @@ data class ClientAddressEntity(
     /**
      * Reference to client
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var client: ClientEntity? = null,
@@ -110,7 +109,6 @@ data class ClientAddressEntity(
     /**
      * Reference to address
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "order")
     var order: Collection<OrderEntity>? = null,
 ) 

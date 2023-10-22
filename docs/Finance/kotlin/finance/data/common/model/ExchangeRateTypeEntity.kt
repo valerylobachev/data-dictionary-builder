@@ -53,7 +53,6 @@ data class ExchangeRateTypeEntity(
     /**
      * Reference to exchange rate type
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "exchangeRate")
     var exchangeRate: Collection<ExchangeRateEntity>? = null,
 ) 

@@ -53,7 +53,6 @@ data class FYVariantEntity(
     /**
      * Reference to FYVariant
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "companyCode")
     var companyCode: Collection<CompanyCodeEntity>? = null,
 ) 

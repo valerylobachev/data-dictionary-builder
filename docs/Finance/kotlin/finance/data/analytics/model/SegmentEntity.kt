@@ -54,7 +54,6 @@ data class SegmentEntity(
     /**
      * Reference to Segment
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "segment")
     var ledgerEntry: Collection<LedgerEntryEntity>? = null,
 ) 

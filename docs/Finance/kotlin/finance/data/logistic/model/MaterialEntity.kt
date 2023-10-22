@@ -67,7 +67,6 @@ data class MaterialEntity(
     /**
      * Reference to Unit Of Measurement
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "basic_uom_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var unitOfMeasurement: UnitOfMeasurementEntity? = null,
@@ -75,7 +74,6 @@ data class MaterialEntity(
     /**
      * Reference to Material
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "material")
     var ledgerEntry: Collection<LedgerEntryEntity>? = null,
 ) 

@@ -30,7 +30,7 @@
       "description" : "",
       "entityName" : "Modification",
       "tableName" : "modifications",
-      "entityType" : "TableEntity",
+      "entityType" : "embedded",
       "fields" : [
         {
           "name" : "User updated record",
@@ -85,7 +85,7 @@
       "description" : "",
       "entityName" : "Person",
       "tableName" : "persons",
-      "entityType" : "TableEntity",
+      "entityType" : "table",
       "fields" : [
         {
           "name" : "Person Id",
@@ -188,7 +188,7 @@
       "description" : "",
       "entityName" : "Group",
       "tableName" : "groups",
-      "entityType" : "TableEntity",
+      "entityType" : "table",
       "fields" : [
         {
           "name" : "Group Id",
@@ -262,7 +262,7 @@
       "description" : "",
       "entityName" : "GroupMember",
       "tableName" : "group_members",
-      "entityType" : "TableEntity",
+      "entityType" : "table",
       "fields" : [
         {
           "name" : "Group member id",
@@ -354,11 +354,7 @@
           "id" : "groupId",
           "name" : "Relation to groups",
           "description" : "",
-          "relationType" : {
-            "ManyToOne" : {
-              
-            }
-          },
+          "relationType" : "ManyToOne",
           "referenceEntityId" : "Group",
           "fields" : [
             [
@@ -366,16 +362,8 @@
               "id"
             ]
           ],
-          "onUpdate" : {
-            "Restrict" : {
-              
-            }
-          },
-          "onDelete" : {
-            "Restrict" : {
-              
-            }
-          },
+          "onUpdate" : "Restrict",
+          "onDelete" : "Restrict",
           "attributes" : {
             
           }
@@ -384,11 +372,7 @@
           "id" : "personId",
           "name" : "Relation to persons",
           "description" : "",
-          "relationType" : {
-            "ManyToOne" : {
-              
-            }
-          },
+          "relationType" : "ManyToOne",
           "referenceEntityId" : "Person",
           "fields" : [
             [
@@ -396,16 +380,8 @@
               "id"
             ]
           ],
-          "onUpdate" : {
-            "Restrict" : {
-              
-            }
-          },
-          "onDelete" : {
-            "Restrict" : {
-              
-            }
-          },
+          "onUpdate" : "Restrict",
+          "onDelete" : "Restrict",
           "attributes" : {
             
           }

@@ -17,6 +17,8 @@ import org.scalatest.wordspec.AnyWordSpec
 class FinanceSpec extends AnyWordSpec with BuildValidator {
 
   val build = Finance.financeDomain.build()
+  val buildWoAttrs = Finance.financeDomain.build(false)
+
 
   "Finance model" should {
     "generate physical DB Diagram" in {
@@ -65,7 +67,7 @@ class FinanceSpec extends AnyWordSpec with BuildValidator {
     }
 
     "export to JSON" in {
-      validateAndProcess(build) { domain =>
+      validateAndProcess(buildWoAttrs) { domain =>
         Generator.generate(
           JsonRenderer(domain),
           s"docs/${domain.id}/",

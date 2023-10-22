@@ -53,7 +53,6 @@ data class BusinessAreaEntity(
     /**
      * Reference to BusinessArea
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "analytics")
     var analytics: Collection<AnalyticsEntity>? = null,
 ) 

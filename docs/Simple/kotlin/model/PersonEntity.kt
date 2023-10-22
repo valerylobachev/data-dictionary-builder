@@ -48,7 +48,6 @@ data class PersonEntity(
     /**
      * Relation to persons
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "groupMember")
     var groupMember: Collection<GroupMemberEntity>? = null,
 ) 

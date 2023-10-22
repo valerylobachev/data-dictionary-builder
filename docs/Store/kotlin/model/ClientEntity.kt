@@ -150,14 +150,12 @@ data class ClientEntity(
     /**
      * Reference to client
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "clientAddress")
     var clientAddress: Collection<ClientAddressEntity>? = null,
 
     /**
      * Reference to client
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "order")
     var order: Collection<OrderEntity>? = null,
 ) 

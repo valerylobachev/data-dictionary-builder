@@ -67,28 +67,24 @@ data class UnitOfMeasurementEntity(
     /**
      * Reference to unit of measurement
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "unitOfMeasurementText")
     var unitOfMeasurementText: Collection<UnitOfMeasurementTextEntity>? = null,
 
     /**
      * Reference to Unit Of Measurement
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "material")
     var material: Collection<MaterialEntity>? = null,
 
     /**
      * Reference to UnitOfMeasurement
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "uom")
     var ledgerEntry: Collection<LedgerEntryEntity>? = null,
 
     /**
      * Reference to UnitOfMeasurement
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "basicUom")
     var ledgerEntry1: Collection<LedgerEntryEntity>? = null,
 ) 

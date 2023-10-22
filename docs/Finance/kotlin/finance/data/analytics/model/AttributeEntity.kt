@@ -53,7 +53,6 @@ data class AttributeEntity(
     /**
      * Relation to Attribute
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "attributeValue")
     var attributeValue: Collection<AttributeValueEntity>? = null,
 ) 

@@ -80,7 +80,6 @@ data class GLAccountEntity(
     /**
      * Reference to Chart Of Accounts
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "chart_of_accounts_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     var chartOfAccounts: ChartOfAccountsEntity? = null,
@@ -88,7 +87,6 @@ data class GLAccountEntity(
     /**
      * Reference to GLAccountGroup
      */
-    @JsonIgnore
     @ManyToOne
     @JoinColumn([
       @JoinColumn(name = "chart_of_accounts_id", referencedColumnName = "chart_of_accounts_id", nullable = false, updatable = false, insertable = false),
@@ -99,7 +97,6 @@ data class GLAccountEntity(
     /**
      * Reference to GLAccount
      */
-    @JsonIgnore
     @OneToMany(mappedBy = "glAccount")
     var ledgerEntry: Collection<LedgerEntryEntity>? = null,
 ) 
