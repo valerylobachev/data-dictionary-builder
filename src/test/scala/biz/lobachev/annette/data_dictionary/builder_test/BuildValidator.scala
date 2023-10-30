@@ -8,6 +8,8 @@ trait BuildValidator {
     res match {
       case Left(err)     =>
         err.foreach(println)
+        println()
+        println(s"Total errors: ${err.length}")
         throw new IllegalArgumentException(err.mkString("\n"))
       case Right(domain) => process(domain)
     }

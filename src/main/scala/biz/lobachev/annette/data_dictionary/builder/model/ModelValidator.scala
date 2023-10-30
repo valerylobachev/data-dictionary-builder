@@ -39,7 +39,7 @@ trait ModelValidator {
 
   def validateDataType(dataType: DataType, source: String): Seq[String] =
     dataType match {
-      case EmbeddedEntityType(entityId, _, _) if entities.get(entityId).isEmpty         =>
+      case EmbeddedEntityType(entityId, _, _) if entities.get(entityId).isEmpty      =>
         Seq(s"$source: embedded entity $entityId not found")
       case ObjectType(entityId) if entities.get(entityId).isEmpty                    =>
         Seq(s"$source: object entity $entityId not found")
@@ -71,37 +71,52 @@ trait ModelValidator {
     res.toSeq
   }
 
+  def isDatatypesEqual(f: EntityField, rf: EntityField): Boolean = f.dataType == rf.dataType
+
   def validateRelations(): Seq[String] =
     entities.values.flatMap { entity =>
       entity.relations.flatMap(relation =>
         entities
           .get(relation.referenceEntityId)
           .map { referenceEntity =>
-            relation.fields.flatMap {
-              case f1 -> f2 =>
-                entity.fields
-                  .find(f => f.fieldName == f1)
+            relation.fields.flatMap { case f1 -> f2 =>
+              val field          = entity.fields
+                .find(f => f.fieldName == f1)
+              val referenceField = referenceEntity.fields
+                .find(f => f.fieldName == f2)
+
+              val incompatibleTypes = (for {
+                f  <- field
+                rf <- referenceField
+              } yield
+                if (isDatatypesEqual(f, rf)) Seq.empty
+                else
+                  Seq(
+                    s"Entity ${entity.id}, relation ${relation.id}, mapping $f1 -> $f2: incompatible datatypes (${f.dataType} != ${rf.dataType})",
+                  )).getOrElse(Seq.empty)
+
+              field
+                .map(_ => Seq.empty)
+                .getOrElse(
+                  Seq(
+                    s"Entity ${entity.id}, relation ${relation.id}, mapping $f1 -> $f2: field $f1 not found in entity ${entity.id}",
+                  ),
+                ) ++
+                referenceField
                   .map(_ => Seq.empty)
                   .getOrElse(
                     Seq(
-                      s"Entity ${entity.id}, relation ${relation.id}, mapping $f1 -> $f2: field $f1 not found in entity ${entity.id}"
-                    )
-                  ) ++
-                  referenceEntity.fields
-                    .find(f => f.fieldName == f2)
-                    .map(_ => Seq.empty)
-                    .getOrElse(
-                      Seq(
-                        s"Entity ${referenceEntity.id}, relation ${relation.id}, mapping $f1 -> $f2: field $f2 not found in entity ${referenceEntity.id}"
-                      )
-                    )
+                      s"Entity ${referenceEntity.id}, relation ${relation.id}, mapping $f1 -> $f2: field $f2 not found in entity ${referenceEntity.id}",
+                    ),
+                  ) ++ incompatibleTypes
+
             }
           }
           .getOrElse(
             Seq(
-              s"Entity ${entity.id}, relation ${relation.id}: reference entity ${relation.referenceEntityId} not found"
-            )
-          )
+              s"Entity ${entity.id}, relation ${relation.id}: reference entity ${relation.referenceEntityId} not found",
+            ),
+          ),
       )
     }.toSeq
 
