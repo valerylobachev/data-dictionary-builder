@@ -62,8 +62,9 @@ case class ExcelInsertTemplateRenderer(domain: Domain) extends Renderer {
     headerRow.createCell(2).setCellValue(entity.name)
     val descriptionRow  = sheet.createRow(1)
     val nameRow         = sheet.createRow(2)
-    val typeRow         = sheet.createRow(3)
-    val formulaRow      = sheet.createRow(4)
+    val fieldRow        = sheet.createRow(3)
+    val typeRow         = sheet.createRow(4)
+    val formulaRow      = sheet.createRow(5)
     val fields          = domain.rolloutEntityFields(entity)
     val N               = fields.length
     fields.zipWithIndex.foreach { case field -> index =>
@@ -75,26 +76,25 @@ case class ExcelInsertTemplateRenderer(domain: Domain) extends Renderer {
       ).flatten
       val typeStr         = if (typeSeq.nonEmpty) typeSeq.mkString(", ") else ""
       descriptionRow.createCell(index).setCellValue(field.description)
-      nameRow.createCell(index).setCellValue(field.dbFieldName)
+      nameRow.createCell(index).setCellValue(field.name)
+      fieldRow.createCell(index).setCellValue(field.dbFieldName)
       typeRow.createCell(index).setCellValue(typeStr)
       val originColumn    = CellReference.convertNumToColString(index)
-//        val fieldColumn      = CellReference.convertNumToColString(N + index + 1)
       val prevFieldColumn = CellReference.convertNumToColString(N + index)
       val fieldFormula    =
         if (index == 0)
-          s"""IF(A5<>"",$Q4&A$$3&$Q4,"")"""
+          s"""IF(A6<>"",$Q4&A$$4&$Q4,"")"""
         else
-          s"""  ${prevFieldColumn}5&IF(AND(${prevFieldColumn}5<>"",${originColumn}5<>""),", ","")&IF(${originColumn}5<>"",$Q4&${originColumn}$$3&$Q4,"") """
+          s"""  ${prevFieldColumn}6&IF(AND(${prevFieldColumn}6<>"",${originColumn}6<>""),", ","")&IF(${originColumn}6<>"",$Q4&${originColumn}$$4&$Q4,"") """
       formulaRow.createCell(N + index + 1).setCellFormula(fieldFormula)
-//        val valColumn       = CellReference.convertNumToColString(N + N + index + 1)
       val prevValColumn   = CellReference.convertNumToColString(N + N + index)
-      val originCell      = s"""${originColumn}5"""
+      val originCell      = s"""${originColumn}6"""
       val originValue     = getOriginValue(field.dataType, originCell)
       val valFormula      =
         if (index == 0)
-          s"""IF(A5<>"",${originValue},"")"""
+          s"""IF(A6<>"",${originValue},"")"""
         else
-          s"""  ${prevValColumn}5&IF(AND(${prevValColumn}5<>"",${originColumn}5<>""),", ","")&IF(${originColumn}5<>"",${originValue},"") """
+          s"""  ${prevValColumn}6&IF(AND(${prevValColumn}6<>"",${originColumn}6<>""),", ","")&IF(${originColumn}6<>"",${originValue},"") """
       formulaRow.createCell(N + N + index + 1).setCellFormula(valFormula)
     }
     descriptionRow.createCell(fields.length).setCellValue("Insert Statement")
@@ -103,7 +103,7 @@ case class ExcelInsertTemplateRenderer(domain: Domain) extends Renderer {
     val table           = entity.schema.map(_ => s"""$Q3&A$$1&$Q3.$Q3&B$$1&$Q3""").getOrElse(s"$Q3&B$$1&$Q3")
     formulaRow
       .createCell(fields.length)
-      .setCellFormula(s""""INSERT INTO $table ("&${lastFieldColumn}5&") VALUES ("&${lastValColumn}5&");" """)
+      .setCellFormula(s""""INSERT INTO $table ("&${lastFieldColumn}6&") VALUES ("&${lastValColumn}6&");" """)
   }
 
 }
