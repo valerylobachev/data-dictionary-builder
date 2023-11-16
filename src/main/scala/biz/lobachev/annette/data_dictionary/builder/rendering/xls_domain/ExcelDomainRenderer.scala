@@ -74,7 +74,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
       enumElementRowIndex += 1
       val row = dwb.enumItems.sheet.createRow(enumElementRowIndex)
       row.createCell(0).setCellValue(e.id)
-      row.createCell(1).setCellFormula(s"VLOOKUP(A${enumElementRowIndex + 1},${dwb.enums.name}!A:B,2,0)")
+      row.createCell(1).setCellFormula(s"VLOOKUP(A${enumElementRowIndex + 1},'${dwb.enums.name}'!A:B,2,0)")
       row.createCell(2).setCellValue(key)
       row.createCell(3).setCellValue(value)
     }
@@ -108,7 +108,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
     entityRowIndex += 1
     val row        = dwb.entities.sheet.createRow(entityRowIndex)
     row.createCell(0).setCellValue(group.id)
-    row.createCell(1).setCellFormula(s"VLOOKUP(A${entityRowIndex + 1},${dwb.groups.name}!A:B,2,0)")
+    row.createCell(1).setCellFormula(s"VLOOKUP(A${entityRowIndex + 1},'${dwb.groups.name}'!A:B,2,0)")
     row.createCell(2).setCellValue(entity.id)
     row.createCell(3).setCellValue(entity.name)
     row.createCell(4).setCellValue(entity.entityName)
@@ -129,7 +129,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
 
     row.createCell(0).setCellFormula(s"""B${entityFieldRowIndex + 1}&"."&E${entityFieldRowIndex + 1}""")
     row.createCell(1).setCellValue(entity.id)
-    row.createCell(2).setCellFormula(s"VLOOKUP(B${entityFieldRowIndex + 1},${dwb.entities.name}!C:D,2,0)")
+    row.createCell(2).setCellFormula(s"VLOOKUP(B${entityFieldRowIndex + 1},'${dwb.entities.name}'!C:D,2,0)")
     field.dataType match {
       case EmbeddedEntityType(entityId, withPrefix, withRelations) =>
         val p = if (withPrefix) "P" else ""
@@ -171,7 +171,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
     val row = dwb.indexes.sheet.createRow(entityIndexIndex)
     row.createCell(0).setCellFormula(s"""B${entityIndexIndex + 1}&"_"&D${entityIndexIndex + 1}""")
     row.createCell(1).setCellValue(entity.id)
-    row.createCell(2).setCellFormula(s"VLOOKUP(B${entityIndexIndex + 1},${dwb.entities.name}!C:D,2,0)")
+    row.createCell(2).setCellFormula(s"VLOOKUP(B${entityIndexIndex + 1},'${dwb.entities.name}'!C:D,2,0)")
     row.createCell(3).setCellValue(index.id)
     row.createCell(4).setCellValue(index.name)
     if (index.unique) row.createCell(5).setCellValue("X")
@@ -180,15 +180,15 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
       entityIndexFieldIndex += 1
       val row = dwb.indexFields.sheet.createRow(entityIndexFieldIndex)
       row.createCell(0).setCellValue(s"${entity.id}_${index.id}")
-      row.createCell(1).setCellFormula(s"VLOOKUP(A${entityIndexFieldIndex + 1},${dwb.indexes.name}!A:E,2,0)")
-      row.createCell(2).setCellFormula(s"VLOOKUP(A${entityIndexFieldIndex + 1},${dwb.indexes.name}!A:E,3,0)")
-      row.createCell(3).setCellFormula(s"VLOOKUP(A${entityIndexFieldIndex + 1},${dwb.indexes.name}!A:E,4,0)")
-      row.createCell(4).setCellFormula(s"VLOOKUP(A${entityIndexFieldIndex + 1},${dwb.indexes.name}!A:E,5,0)")
+      row.createCell(1).setCellFormula(s"VLOOKUP(A${entityIndexFieldIndex + 1},'${dwb.indexes.name}'!A:E,2,0)")
+      row.createCell(2).setCellFormula(s"VLOOKUP(A${entityIndexFieldIndex + 1},'${dwb.indexes.name}'!A:E,3,0)")
+      row.createCell(3).setCellFormula(s"VLOOKUP(A${entityIndexFieldIndex + 1},'${dwb.indexes.name}'!A:E,4,0)")
+      row.createCell(4).setCellFormula(s"VLOOKUP(A${entityIndexFieldIndex + 1},'${dwb.indexes.name}'!A:E,5,0)")
       row.createCell(5).setCellValue(field)
       row
         .createCell(6)
         .setCellFormula(
-          s"""VLOOKUP(B${entityIndexFieldIndex + 1}&"."&F${entityIndexFieldIndex + 1},${dwb.fields.name}!A:G,7,0)""",
+          s"""VLOOKUP(B${entityIndexFieldIndex + 1}&"."&F${entityIndexFieldIndex + 1},'${dwb.fields.name}'!A:G,7,0)""",
         )
     }
   }
@@ -201,14 +201,14 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
     val row = dwb.relations.sheet.createRow(entityRelationIndex)
     row.createCell(0).setCellFormula(s"""B${entityRelationIndex + 1}&"_"&D${entityRelationIndex + 1}""")
     row.createCell(1).setCellValue(entity.id)
-    row.createCell(2).setCellFormula(s"VLOOKUP(B${entityRelationIndex + 1},${dwb.entities.name}!C:D,2,0)")
+    row.createCell(2).setCellFormula(s"VLOOKUP(B${entityRelationIndex + 1},'${dwb.entities.name}'!C:D,2,0)")
 
     row.createCell(3).setCellValue(relation.id)
     row.createCell(4).setCellValue(relation.name)
 
     row.createCell(5).setCellValue(relation.relationType.toString)
     row.createCell(6).setCellValue(relation.referenceEntityId)
-    row.createCell(7).setCellFormula(s"VLOOKUP(G${entityRelationIndex + 1},${dwb.entities.name}!C:D,2,0)")
+    row.createCell(7).setCellFormula(s"VLOOKUP(G${entityRelationIndex + 1},'${dwb.entities.name}'!C:D,2,0)")
     row.createCell(8).setCellValue(relation.onUpdate.toString)
     row.createCell(9).setCellValue(relation.onDelete.toString)
     row.createCell(10).setCellValue(relation.description.replaceBR)
@@ -216,23 +216,23 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
       entityRelationFieldIndex += 1
       val row = dwb.relationFields.sheet.createRow(entityRelationFieldIndex)
       row.createCell(0).setCellValue(s"${entity.id}_${relation.id}")
-      row.createCell(1).setCellFormula(s"VLOOKUP(A${entityRelationFieldIndex + 1},${dwb.relations.name}!A:E,2,0)")
-      row.createCell(2).setCellFormula(s"VLOOKUP(A${entityRelationFieldIndex + 1},${dwb.relations.name}!A:E,3,0)")
+      row.createCell(1).setCellFormula(s"VLOOKUP(A${entityRelationFieldIndex + 1},'${dwb.relations.name}'!A:E,2,0)")
+      row.createCell(2).setCellFormula(s"VLOOKUP(A${entityRelationFieldIndex + 1},'${dwb.relations.name}'!A:E,3,0)")
       row.createCell(3).setCellValue(relation.referenceEntityId)
-      row.createCell(4).setCellFormula(s"VLOOKUP(D${entityRelationFieldIndex + 1},${dwb.entities.name}!C:D,2,0)")
-      row.createCell(5).setCellFormula(s"VLOOKUP(A${entityRelationFieldIndex + 1},${dwb.relations.name}!A:E,4,0)")
-      row.createCell(6).setCellFormula(s"VLOOKUP(A${entityRelationFieldIndex + 1},${dwb.relations.name}!A:E,5,0)")
+      row.createCell(4).setCellFormula(s"VLOOKUP(D${entityRelationFieldIndex + 1},'${dwb.entities.name}'!C:D,2,0)")
+      row.createCell(5).setCellFormula(s"VLOOKUP(A${entityRelationFieldIndex + 1},'${dwb.relations.name}'!A:E,4,0)")
+      row.createCell(6).setCellFormula(s"VLOOKUP(A${entityRelationFieldIndex + 1},'${dwb.relations.name}'!A:E,5,0)")
       row.createCell(7).setCellValue(field._1)
       row
         .createCell(8)
         .setCellFormula(
-          s"""VLOOKUP(B${entityRelationFieldIndex + 1}&"."&H${entityRelationFieldIndex + 1},${dwb.fields.name}!A:G,7,0)""",
+          s"""VLOOKUP(B${entityRelationFieldIndex + 1}&"."&H${entityRelationFieldIndex + 1},'${dwb.fields.name}'!A:G,7,0)""",
         )
       row.createCell(9).setCellValue(field._2)
       row
         .createCell(10)
         .setCellFormula(
-          s"""VLOOKUP(D${entityRelationFieldIndex + 1}&"."&J${entityRelationFieldIndex + 1},${dwb.fields.name}!A:G,7,0)""",
+          s"""VLOOKUP(D${entityRelationFieldIndex + 1}&"."&J${entityRelationFieldIndex + 1},'${dwb.fields.name}'!A:G,7,0)""",
         )
     }
   }
