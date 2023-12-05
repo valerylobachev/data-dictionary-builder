@@ -9,12 +9,18 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook
 
 import java.io.FileOutputStream
 
-case class ExcelInsertTemplateRenderer(domain: Domain) extends Renderer {
+case class ExcelInsertTemplateRenderer(
+  domain: Domain,
+  translation: ExcelInsertTemplateTranslation = ExcelInsertTemplateTranslation.EN,
+) extends Renderer {
   val Q3 = "\"\"\""
   val Q4 = "\"\"\"\""
 
+  val dateFormat = translation.dateFormat
+  val timeFormat = translation.timeFormat
+
   override def render(): Seq[RenderResult] = {
-    val path = s"docs/${domain.id.snakeCase}/templates"
+    val path = s"docs/${domain.id.snakeCase}/template_${translation.language}"
     new java.io.File(path).mkdirs
 
     domain.groups.values.foreach { group =>
@@ -36,18 +42,18 @@ case class ExcelInsertTemplateRenderer(domain: Domain) extends Renderer {
       case _: StringText | _: StringVarchar | _: StringChar | _: StringChar | _: EnumString | _: UuidUuid =>
         s""" "'"&$originCell&"'" """
       case _: LocalDateDate                                                                               =>
-        s""" "'"&TEXT($originCell,"YYYY-MM-DD")&"'" """
+        s""" "'"&TEXT($originCell,"$dateFormat")&"'" """
       case _: LocalTimeTime                                                                               =>
-        s""" "'"&TEXT($originCell,"HH:mm:ss")&"'" """
+        s""" "'"&TEXT($originCell,"$timeFormat")&"'" """
       case _: LocalDateTimeTimestamp                                                                      =>
-        s""" "'"&TEXT($originCell,"YYYY-MM-DD")&" """" +
-          s"""&TEXT($originCell,"HH:mm:ss")&"'" """
+        s""" "'"&TEXT($originCell,"$dateFormat")&" """" +
+          s"""&TEXT($originCell,"$timeFormat")&"'" """
       case _: InstantTimestamp                                                                            =>
-        s""" "'"&TEXT($originCell,"YYYY-MM-DD")&" """" +
-          s"""&TEXT($originCell,"HH:mm:ss")&"'" """
+        s""" "'"&TEXT($originCell,"$dateFormat")&" """" +
+          s"""&TEXT($originCell,"$timeFormat")&"'" """
       case _: OffsetDateTimeTimestamp                                                                     =>
-        s""" "'"&TEXT($originCell,"YYYY-MM-DD")&" """" +
-          s"""&TEXT($originCell,"HH:mm:ss")&"'" """
+        s""" "'"&TEXT($originCell,"$dateFormat")&" """" +
+          s"""&TEXT($originCell,"$timeFormat")&"'" """
       case DataElementType(dataElementId)                                                                 =>
         getOriginValue(domain.dataElements(dataElementId).dataType, originCell)
       case _                                                                                              =>
@@ -55,18 +61,18 @@ case class ExcelInsertTemplateRenderer(domain: Domain) extends Renderer {
     }
 
   def renderEntity(entity: Entity, wb: XSSFWorkbook) = {
-    val sheet           = wb.createSheet(entity.id)
-    val headerRow       = sheet.createRow(0)
+    val sheet          = wb.createSheet(entity.id)
+    val headerRow      = sheet.createRow(0)
     headerRow.createCell(0).setCellValue(entity.schema.getOrElse(""))
     headerRow.createCell(1).setCellValue(entity.fullTableName())
     headerRow.createCell(2).setCellValue(entity.name)
-    val descriptionRow  = sheet.createRow(1)
-    val nameRow         = sheet.createRow(2)
-    val fieldRow        = sheet.createRow(3)
-    val typeRow         = sheet.createRow(4)
-    val formulaRow      = sheet.createRow(5)
-    val fields          = domain.rolloutEntityFields(entity)
-    val N               = fields.length
+    val descriptionRow = sheet.createRow(1)
+    val nameRow        = sheet.createRow(2)
+    val fieldRow       = sheet.createRow(3)
+    val typeRow        = sheet.createRow(4)
+    val formulaRow     = sheet.createRow(5)
+    val fields         = domain.rolloutEntityFields(entity)
+    val N              = fields.length
     fields.zipWithIndex.foreach { case field -> index =>
       val typeSeq         = Seq(
         Some(domain.getTargetDataType(field.dataType, POSTGRESQL)),
@@ -87,6 +93,7 @@ case class ExcelInsertTemplateRenderer(domain: Domain) extends Renderer {
         else
           s"""  ${prevFieldColumn}6&IF(AND(${prevFieldColumn}6<>"",${originColumn}6<>""),", ","")&IF(${originColumn}6<>"",$Q4&${originColumn}$$4&$Q4,"") """
       formulaRow.createCell(N + index + 1).setCellFormula(fieldFormula)
+      typeRow.createCell(N + index + 1).setCellValue(s"F ${field.dbFieldName}")
       val prevValColumn   = CellReference.convertNumToColString(N + N + index)
       val originCell      = s"""${originColumn}6"""
       val originValue     = getOriginValue(field.dataType, originCell)
@@ -96,8 +103,10 @@ case class ExcelInsertTemplateRenderer(domain: Domain) extends Renderer {
         else
           s"""  ${prevValColumn}6&IF(AND(${prevValColumn}6<>"",${originColumn}6<>""),", ","")&IF(${originColumn}6<>"",${originValue},"") """
       formulaRow.createCell(N + N + index + 1).setCellFormula(valFormula)
+      typeRow.createCell(N + N + index + 1).setCellValue(s"V ${field.dbFieldName}")
+
     }
-    descriptionRow.createCell(fields.length).setCellValue("Insert Statement")
+    typeRow.createCell(fields.length).setCellValue("Insert Statement")
     val lastFieldColumn = CellReference.convertNumToColString(N + N)
     val lastValColumn   = CellReference.convertNumToColString(N + N + N)
     val table           = entity.schema.map(_ => s"""$Q3&A$$1&$Q3.$Q3&B$$1&$Q3""").getOrElse(s"$Q3&B$$1&$Q3")
