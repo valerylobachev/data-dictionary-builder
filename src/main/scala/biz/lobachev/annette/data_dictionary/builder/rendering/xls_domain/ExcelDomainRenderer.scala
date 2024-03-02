@@ -3,7 +3,7 @@ package biz.lobachev.annette.data_dictionary.builder.rendering.xls_domain
 import biz.lobachev.annette.data_dictionary.builder.helper.JavaPackage.{JAVA_MODEL_PACKAGE, JAVA_REPO_PACKAGE}
 import biz.lobachev.annette.data_dictionary.builder.model._
 import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, Renderer}
-import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax.{RemoveBR, SnakeCase}
+import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax.{RemoveBR}
 import org.apache.poi.ss.usermodel.{HorizontalAlignment, VerticalAlignment}
 import org.apache.poi.xssf.usermodel._
 
@@ -16,7 +16,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
 
     renderDomain(dwb)
 
-    val path     = s"docs/${domain.id.snakeCase}"
+    val path     = s"docs/${domain.id}"
     new java.io.File(path).mkdirs
     val filename = s"$path/${domain.name}.xlsx"
     val fileOut  = new FileOutputStream(filename)

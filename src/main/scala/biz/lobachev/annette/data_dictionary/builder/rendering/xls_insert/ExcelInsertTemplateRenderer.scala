@@ -3,7 +3,6 @@ package biz.lobachev.annette.data_dictionary.builder.rendering.xls_insert
 import biz.lobachev.annette.data_dictionary.builder.POSTGRESQL
 import biz.lobachev.annette.data_dictionary.builder.model._
 import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, Renderer}
-import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
 import org.apache.poi.ss.util.CellReference
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 
@@ -20,7 +19,7 @@ case class ExcelInsertTemplateRenderer(
   val timeFormat = translation.timeFormat
 
   override def render(): Seq[RenderResult] = {
-    val path = s"docs/${domain.id.snakeCase}/template_${translation.language}"
+    val path = s"docs/${domain.id}/template_${translation.language}"
     new java.io.File(path).mkdirs
 
     domain.groups.values.foreach { group =>

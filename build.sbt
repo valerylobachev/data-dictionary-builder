@@ -1,5 +1,5 @@
-ThisBuild / version      := "0.3.6"
-ThisBuild / scalaVersion := "2.13.11"
+ThisBuild / version      := "0.3.7"
+ThisBuild / scalaVersion := "2.13.13"
 
 ThisBuild / organization         := "biz.lobachev.annette"
 ThisBuild / organizationName     := "Valery Lobachev"
@@ -51,5 +51,5 @@ val circeVersion = "0.14.6"
 libraryDependencies ++= Seq(
   "io.circe" %% "circe-core",
   "io.circe" %% "circe-generic",
-  "io.circe" %% "circe-parser"
+  "io.circe" %% "circe-parser",
 ).map(_ % circeVersion)
