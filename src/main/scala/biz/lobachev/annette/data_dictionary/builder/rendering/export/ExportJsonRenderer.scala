@@ -22,7 +22,7 @@ case class ExportJsonRenderer(domain: Domain) extends Renderer {
   }
   implicit val encoder5: Encoder[Entity]            = deriveEncoder[Entity]
   implicit val encoder4: Encoder[DataElement]       = deriveEncoder[DataElement]
-  implicit val encoder3: Encoder[Group]             = deriveEncoder[Group]
+  implicit val encoder3: Encoder[Component]             = deriveEncoder[Component]
   implicit val encoder2: Encoder[EnumData]          = deriveEncoder[EnumData]
   implicit val encoder1: Encoder[DomainExport]      = deriveEncoder[DomainExport]
 

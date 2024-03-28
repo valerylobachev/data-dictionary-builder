@@ -5,7 +5,7 @@ import biz.lobachev.annette.data_dictionary.builder.helper.JavaPackage.{javaMode
 
 trait Analytics {
 
-  val analyticsGroup = group("Analytics", "Analytic tables")
+  val analyticsGroup = component("Analytics", "Analytic tables")
     .withSchema("analytics")
     .withLabels(
       javaModelPackage("finance.data.analytics.model"),

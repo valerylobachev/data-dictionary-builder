@@ -1,11 +1,13 @@
 package biz.lobachev.annette.data_dictionary.builder.model
 
-case class Group(
-                  id: String,
-                  name: String,
-                  description: String = "",
-                  schema: Option[String] = None,
-                  labels: Labels = Map.empty
+case class Component(
+  id: String,
+  name: String,
+  description: String = "",
+  parent: Option[String] = None,
+  children: Seq[String] = Seq.empty,
+  schema: Option[String] = None,
+  labels: Labels = Map.empty,
 ) {
   def withSchema(schema: String) = copy(schema = Some(schema))
 

@@ -6,7 +6,7 @@ import biz.lobachev.annette.data_dictionary.builder.model._
 
 trait Common {
 
-  val commonGroup = group("Common", "Common tables and data structures")
+  val commonGroup = component("Common", "Common tables and data structures")
     .withSchema("common")
     .withLabels(
       javaModelPackage("finance.data.common.model"),

@@ -30,7 +30,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
     row.createCell(0).setCellValue(domain.id)
     row.createCell(1).setCellValue(domain.name)
     row.createCell(2).setCellValue(domain.description)
-    domain.groups.values.foreach(group => renderGroup(dwb, group))
+    domain.components.values.foreach(group => renderGroup(dwb, group))
     domain.dataElements.values.foreach(de => renderDataElement(dwb, de))
     domain.enums.values.foreach(e => renderEnum(dwb, e))
   }
@@ -82,7 +82,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
 
   private var groupRowIndex = 0
 
-  private def renderGroup(dwb: DomainWorkbook, group: Group) = {
+  private def renderGroup(dwb: DomainWorkbook, group: Component) = {
     groupRowIndex += 1
     val row = dwb.groups.sheet.createRow(groupRowIndex)
     row.createCell(0).setCellValue(group.id)
@@ -99,12 +99,12 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
       .setCellValue(
         group.labels.getOrElse(JAVA_MODEL_PACKAGE, ""),
       ) // Attributes.findGroupAttribute(group, domain, JAVA_MODEL_PACKAGE).getOrElse(""))
-    domain.entities.values.filter(_.groupId == group.id).foreach(entity => renderEntity(dwb, group, entity))
+    domain.entities.values.filter(_.componentId == group.id).foreach(entity => renderEntity(dwb, group, entity))
   }
 
   private var entityRowIndex = 0
 
-  private def renderEntity(dwb: DomainWorkbook, group: Group, entity: Entity) = {
+  private def renderEntity(dwb: DomainWorkbook, group: Component, entity: Entity) = {
     entityRowIndex += 1
     val row        = dwb.entities.sheet.createRow(entityRowIndex)
     row.createCell(0).setCellValue(group.id)

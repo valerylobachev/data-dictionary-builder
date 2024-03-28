@@ -2,11 +2,18 @@
   "id" : "Simple",
   "name" : "Simple Example",
   "description" : "This example provides simple person group data model",
-  "groups" : [
+  "rootComponents" : [
+    "Shared",
+    "PersonGroup"
+  ],
+  "components" : [
     {
       "id" : "Shared",
       "name" : "Shared data structures",
       "description" : "",
+      "parent" : null,
+      "children" : [
+      ],
       "schema" : null,
       "labels" : {
         
@@ -16,6 +23,9 @@
       "id" : "PersonGroup",
       "name" : "Person Group Model",
       "description" : "",
+      "parent" : null,
+      "children" : [
+      ],
       "schema" : null,
       "labels" : {
         
@@ -25,7 +35,7 @@
   "entities" : [
     {
       "id" : "Modification",
-      "groupId" : "Shared",
+      "componentId" : "Shared",
       "name" : "Modification data structure",
       "description" : "",
       "entityName" : "Modification",
@@ -80,7 +90,7 @@
     },
     {
       "id" : "Person",
-      "groupId" : "PersonGroup",
+      "componentId" : "PersonGroup",
       "name" : "Person",
       "description" : "",
       "entityName" : "Person",
@@ -183,7 +193,7 @@
     },
     {
       "id" : "Group",
-      "groupId" : "PersonGroup",
+      "componentId" : "PersonGroup",
       "name" : "Group",
       "description" : "",
       "entityName" : "Group",
@@ -257,7 +267,7 @@
     },
     {
       "id" : "GroupMember",
-      "groupId" : "PersonGroup",
+      "componentId" : "PersonGroup",
       "name" : "Group member",
       "description" : "",
       "entityName" : "GroupMember",
@@ -408,7 +418,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "GroupId",
@@ -424,7 +435,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     }
   ],
   "enums" : [

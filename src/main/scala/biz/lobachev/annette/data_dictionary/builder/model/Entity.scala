@@ -12,19 +12,19 @@ case object StructEntity   extends EntityType
 case object EmbeddedEntity extends EntityType
 
 case class Entity(
-                   id: String,
-                   groupId: String = "",
-                   name: String,
-                   description: String = "",
-                   entityName: String,
-                   tableName: String,
-                   entityType: EntityType,
-                   fields: Seq[EntityField] = Seq.empty,
-                   pk: Seq[String] = Seq.empty,
-                   indexes: ListMap[String, EntityIndex] = ListMap.empty,
-                   relations: Seq[EntityRelation] = Seq.empty,
-                   schema: Option[String] = None,
-                   labels: Labels = Map.empty,
+  id: String,
+  componentId: String = "",
+  name: String,
+  description: String = "",
+  entityName: String,
+  tableName: String,
+  entityType: EntityType,
+  fields: Seq[EntityField] = Seq.empty,
+  pk: Seq[String] = Seq.empty,
+  indexes: ListMap[String, EntityIndex] = ListMap.empty,
+  relations: Seq[EntityRelation] = Seq.empty,
+  schema: Option[String] = None,
+  labels: Labels = Map.empty,
 ) {
 
   def withTableName(tableName: String) = copy(tableName = tableName)

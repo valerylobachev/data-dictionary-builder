@@ -22,9 +22,9 @@ case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends R
 
   def renderAll(): Seq[RenderResult] = {
     val enums   = renderEnums()
-    val content = domain.groups.values.map { group =>
+    val content = domain.components.values.map { group =>
       val groupContent = domain.entities.values
-        .filter(entity => entity.groupId == group.id && entity.entityType == TableEntity)
+        .filter(entity => entity.componentId == group.id && entity.entityType == TableEntity)
         .toSeq
         .map(entity => renderEntity(entity))
         .mkString("\n")
@@ -42,16 +42,16 @@ case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends R
 
   def renderByGroup(): Seq[RenderResult] = {
     val enums = renderEnums()
-    domain.groups.values.map { group =>
+    domain.components.values.map { group =>
       val groupContent = domain.entities.values
-        .filter(entity => entity.groupId == group.id && entity.entityType == TableEntity)
+        .filter(entity => entity.componentId == group.id && entity.entityType == TableEntity)
         .map(entity => renderEntity(entity))
         .mkString("\n")
       val otherContent = domain.entities.values
-        .filter(entity => entity.groupId == group.id && entity.entityType == TableEntity)
+        .filter(entity => entity.componentId == group.id && entity.entityType == TableEntity)
         .flatMap { entity =>
           (entity.relations ++ domain.rolloutEntity(entity).relations)
-            .filter(r => domain.entities(r.referenceEntityId).groupId != group.id)
+            .filter(r => domain.entities(r.referenceEntityId).componentId != group.id)
             .map(_.referenceEntityId)
         }
         .toSet
@@ -149,7 +149,7 @@ case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends R
     val relations = entity.relations ++ fr.relations
     relations.map { relation =>
       val relationEntity = domain.entities(relation.referenceEntityId)
-      val shouldRender   = group.map(groupId => relationEntity.groupId == groupId).getOrElse(true)
+      val shouldRender   = group.map(groupId => relationEntity.componentId == groupId).getOrElse(true)
       if (shouldRender) {
         val relationType = relation.relationType match {
           case ManyToOne => ">"

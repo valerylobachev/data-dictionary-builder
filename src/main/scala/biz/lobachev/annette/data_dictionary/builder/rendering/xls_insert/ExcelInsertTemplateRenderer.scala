@@ -22,11 +22,11 @@ case class ExcelInsertTemplateRenderer(
     val path = s"docs/${domain.id}/template_${translation.language}"
     new java.io.File(path).mkdirs
 
-    domain.groups.values.foreach { group =>
+    domain.components.values.foreach { group =>
       val filename = s"$path/${group.id}.xlsx"
       val wb       = new XSSFWorkbook()
       domain.entities.values
-        .filter(entity => entity.groupId == group.id)
+        .filter(entity => entity.componentId == group.id)
         .toSeq
         .foreach(entity => renderEntity(entity, wb))
       val fileOut  = new FileOutputStream(filename)

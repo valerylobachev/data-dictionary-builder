@@ -12,8 +12,8 @@ object Simple {
       dataElement("GroupId", "groupId", IntInt(), "Group Id")
       // format: on
     )
-    .withGroups(
-      group("Shared", "Shared data structures")
+    .withComponents(
+      component("Shared", "Shared data structures")
         .withEntities(
           embeddedEntity("Modification", "Modification data structure")
             .withFields(
@@ -23,7 +23,7 @@ object Simple {
               // format: on
             )
         ),
-      group("PersonGroup", "Person Group Model")
+      component("PersonGroup", "Person Group Model")
         withEntities (
           tableEntity("Person", "Person")
             .withPK(

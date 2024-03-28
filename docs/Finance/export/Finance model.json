@@ -2,11 +2,24 @@
   "id" : "Finance",
   "name" : "Finance model",
   "description" : "Finance model provides tables and data structures similar to SAP ERP Finance.",
-  "groups" : [
+  "rootComponents" : [
+    "Shared",
+    "Common",
+    "Ledger",
+    "GLAccount",
+    "Analytics",
+    "Logistic",
+    "CompanyCode",
+    "LedgerEntry"
+  ],
+  "components" : [
     {
       "id" : "Shared",
       "name" : "Shared data structures",
       "description" : "",
+      "parent" : null,
+      "children" : [
+      ],
       "schema" : null,
       "labels" : {
         
@@ -16,6 +29,9 @@
       "id" : "Common",
       "name" : "Common tables and data structures",
       "description" : "",
+      "parent" : null,
+      "children" : [
+      ],
       "schema" : "common",
       "labels" : {
         "javaModelPackage" : "finance.data.common.model",
@@ -26,6 +42,9 @@
       "id" : "Ledger",
       "name" : "Ledger settings",
       "description" : "",
+      "parent" : null,
+      "children" : [
+      ],
       "schema" : "ledger",
       "labels" : {
         "javaModelPackage" : "finance.data.ledger.model",
@@ -36,6 +55,9 @@
       "id" : "GLAccount",
       "name" : "General Ledger account settings",
       "description" : "",
+      "parent" : null,
+      "children" : [
+      ],
       "schema" : "gl_account",
       "labels" : {
         "javaModelPackage" : "finance.data.gl_account.model",
@@ -46,6 +68,9 @@
       "id" : "Analytics",
       "name" : "Analytic tables",
       "description" : "",
+      "parent" : null,
+      "children" : [
+      ],
       "schema" : "analytics",
       "labels" : {
         "javaModelPackage" : "finance.data.analytics.model",
@@ -56,6 +81,9 @@
       "id" : "Logistic",
       "name" : "Logistic tables",
       "description" : "",
+      "parent" : null,
+      "children" : [
+      ],
       "schema" : "logistic",
       "labels" : {
         "javaModelPackage" : "finance.data.logistic.model",
@@ -66,6 +94,9 @@
       "id" : "CompanyCode",
       "name" : "Company code tables",
       "description" : "",
+      "parent" : null,
+      "children" : [
+      ],
       "schema" : "company_code",
       "labels" : {
         "javaModelPackage" : "finance.data.company_code.model",
@@ -76,6 +107,9 @@
       "id" : "LedgerEntry",
       "name" : "Ledger entry tables",
       "description" : "",
+      "parent" : null,
+      "children" : [
+      ],
       "schema" : "ledger_entry",
       "labels" : {
         "javaModelPackage" : "finance.data.ledger_entry.model",
@@ -86,7 +120,7 @@
   "entities" : [
     {
       "id" : "Modification",
-      "groupId" : "Shared",
+      "componentId" : "Shared",
       "name" : "Modification data structure",
       "description" : "",
       "entityName" : "Modification",
@@ -172,7 +206,7 @@
     },
     {
       "id" : "Country",
-      "groupId" : "Common",
+      "componentId" : "Common",
       "name" : "Country",
       "description" : "",
       "entityName" : "Country",
@@ -296,7 +330,7 @@
     },
     {
       "id" : "Language",
-      "groupId" : "Common",
+      "componentId" : "Common",
       "name" : "Language",
       "description" : "",
       "entityName" : "Language",
@@ -369,7 +403,7 @@
     },
     {
       "id" : "Currency",
-      "groupId" : "Common",
+      "componentId" : "Common",
       "name" : "Currency",
       "description" : "",
       "entityName" : "Currency",
@@ -508,7 +542,7 @@
     },
     {
       "id" : "ExchangeRateType",
-      "groupId" : "Common",
+      "componentId" : "Common",
       "name" : "Exchange rate type",
       "description" : "",
       "entityName" : "ExchangeRateType",
@@ -581,7 +615,7 @@
     },
     {
       "id" : "ExchangeRate",
-      "groupId" : "Common",
+      "componentId" : "Common",
       "name" : "ExchangeRate",
       "description" : "",
       "entityName" : "ExchangeRate",
@@ -807,7 +841,7 @@
     },
     {
       "id" : "UnitOfMeasurement",
-      "groupId" : "Common",
+      "componentId" : "Common",
       "name" : "Unit of measurement",
       "description" : "",
       "entityName" : "UnitOfMeasurement",
@@ -914,7 +948,7 @@
     },
     {
       "id" : "UoMText",
-      "groupId" : "Common",
+      "componentId" : "Common",
       "name" : "Unit of measurement text",
       "description" : "",
       "entityName" : "UnitOfMeasurementText",
@@ -1090,7 +1124,7 @@
     },
     {
       "id" : "Ledger",
-      "groupId" : "Ledger",
+      "componentId" : "Ledger",
       "name" : "Ledger",
       "description" : "",
       "entityName" : "Ledger",
@@ -1229,7 +1263,7 @@
     },
     {
       "id" : "LedgerGroup",
-      "groupId" : "Ledger",
+      "componentId" : "Ledger",
       "name" : "Ledger Group",
       "description" : "",
       "entityName" : "LedgerGroup",
@@ -1302,7 +1336,7 @@
     },
     {
       "id" : "LedgerGroupLedger",
-      "groupId" : "Ledger",
+      "componentId" : "Ledger",
       "name" : "Ledger assignments to ledger group",
       "description" : "",
       "entityName" : "LedgerGroupLedger",
@@ -1428,7 +1462,7 @@
     },
     {
       "id" : "ChartOfAccounts",
-      "groupId" : "GLAccount",
+      "componentId" : "GLAccount",
       "name" : "Chart of accounts",
       "description" : "",
       "entityName" : "ChartOfAccounts",
@@ -1501,7 +1535,7 @@
     },
     {
       "id" : "GLAccount",
-      "groupId" : "GLAccount",
+      "componentId" : "GLAccount",
       "name" : "General ledger account",
       "description" : "",
       "entityName" : "GLAccount",
@@ -1679,7 +1713,7 @@
     },
     {
       "id" : "GLAccountGroup",
-      "groupId" : "GLAccount",
+      "componentId" : "GLAccount",
       "name" : "General ledger account group",
       "description" : "",
       "entityName" : "GLAccountGroup",
@@ -1835,7 +1869,7 @@
     },
     {
       "id" : "Creditor",
-      "groupId" : "Analytics",
+      "componentId" : "Analytics",
       "name" : "Creditor",
       "description" : "",
       "entityName" : "Creditor",
@@ -1908,7 +1942,7 @@
     },
     {
       "id" : "Debtor",
-      "groupId" : "Analytics",
+      "componentId" : "Analytics",
       "name" : "Debtor",
       "description" : "",
       "entityName" : "Debtor",
@@ -1981,7 +2015,7 @@
     },
     {
       "id" : "BusinessPartner",
-      "groupId" : "Analytics",
+      "componentId" : "Analytics",
       "name" : "Business partner",
       "description" : "",
       "entityName" : "BusinessPartner",
@@ -2145,7 +2179,7 @@
     },
     {
       "id" : "BusinessArea",
-      "groupId" : "Analytics",
+      "componentId" : "Analytics",
       "name" : "Business area",
       "description" : "",
       "entityName" : "BusinessArea",
@@ -2218,7 +2252,7 @@
     },
     {
       "id" : "FunctionalArea",
-      "groupId" : "Analytics",
+      "componentId" : "Analytics",
       "name" : "Functional area",
       "description" : "",
       "entityName" : "FunctionalArea",
@@ -2291,7 +2325,7 @@
     },
     {
       "id" : "Segment",
-      "groupId" : "Analytics",
+      "componentId" : "Analytics",
       "name" : "Segment",
       "description" : "",
       "entityName" : "Segment",
@@ -2364,7 +2398,7 @@
     },
     {
       "id" : "Attribute",
-      "groupId" : "Analytics",
+      "componentId" : "Analytics",
       "name" : "Attribute",
       "description" : "",
       "entityName" : "Attribute",
@@ -2437,7 +2471,7 @@
     },
     {
       "id" : "AttributeValue",
-      "groupId" : "Analytics",
+      "componentId" : "Analytics",
       "name" : "Attribute value",
       "description" : "",
       "entityName" : "AttributeValue",
@@ -2545,7 +2579,7 @@
     },
     {
       "id" : "Material",
-      "groupId" : "Logistic",
+      "componentId" : "Logistic",
       "name" : "Material",
       "description" : "",
       "entityName" : "Material",
@@ -2668,7 +2702,7 @@
     },
     {
       "id" : "Plant",
-      "groupId" : "Logistic",
+      "componentId" : "Logistic",
       "name" : "Plant",
       "description" : "",
       "entityName" : "Plant",
@@ -2757,7 +2791,7 @@
     },
     {
       "id" : "Location",
-      "groupId" : "Logistic",
+      "componentId" : "Logistic",
       "name" : "Location",
       "description" : "",
       "entityName" : "Location",
@@ -2881,7 +2915,7 @@
     },
     {
       "id" : "ValuationArea",
-      "groupId" : "Logistic",
+      "componentId" : "Logistic",
       "name" : "Valuation area",
       "description" : "",
       "entityName" : "ValuationArea",
@@ -3004,7 +3038,7 @@
     },
     {
       "id" : "CompanyCode",
-      "groupId" : "CompanyCode",
+      "componentId" : "CompanyCode",
       "name" : "Company code",
       "description" : "",
       "entityName" : "CompanyCode",
@@ -3281,7 +3315,7 @@
     },
     {
       "id" : "CompanyCodeLedger",
-      "groupId" : "CompanyCode",
+      "componentId" : "CompanyCode",
       "name" : "Company code ledger",
       "description" : "",
       "entityName" : "CompanyCodeLedger",
@@ -3391,7 +3425,7 @@
     },
     {
       "id" : "FYVariant",
-      "groupId" : "CompanyCode",
+      "componentId" : "CompanyCode",
       "name" : "Fiscal year variant",
       "description" : "",
       "entityName" : "FYVariant",
@@ -3464,7 +3498,7 @@
     },
     {
       "id" : "PostingPeriodVariant",
-      "groupId" : "CompanyCode",
+      "componentId" : "CompanyCode",
       "name" : "Posting period variant",
       "description" : "",
       "entityName" : "PostingPeriodVariant",
@@ -3537,7 +3571,7 @@
     },
     {
       "id" : "OpenPeriod",
-      "groupId" : "CompanyCode",
+      "componentId" : "CompanyCode",
       "name" : "Open period",
       "description" : "",
       "entityName" : "OpenPeriod",
@@ -3836,7 +3870,7 @@
     },
     {
       "id" : "LedgerEntry",
-      "groupId" : "LedgerEntry",
+      "componentId" : "LedgerEntry",
       "name" : "Ledger Entry",
       "description" : "",
       "entityName" : "LedgerEntry",
@@ -4702,7 +4736,7 @@
     },
     {
       "id" : "LedgerEntryAttribute",
-      "groupId" : "LedgerEntry",
+      "componentId" : "LedgerEntry",
       "name" : "Ledger entry attribute",
       "description" : "",
       "entityName" : "LedgerEntryAttribute",
@@ -4830,7 +4864,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "Name",
@@ -4847,7 +4882,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "ShortName",
@@ -4864,7 +4900,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "CountryId",
@@ -4881,7 +4918,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "LanguageId",
@@ -4898,7 +4936,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "CurrencyId",
@@ -4915,7 +4954,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "ExchangeRateTypeId",
@@ -4932,7 +4972,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "ExchangeRate",
@@ -4950,7 +4991,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "UoMId",
@@ -4967,7 +5009,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "LedgerId",
@@ -4984,7 +5027,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "LedgerGroupId",
@@ -5001,7 +5045,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "LedgerType",
@@ -5018,7 +5063,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "ChartOfAccountsId",
@@ -5035,7 +5081,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "GLAccountId",
@@ -5052,7 +5099,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "GLAccountGroupId",
@@ -5069,7 +5117,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "GLAccountType",
@@ -5086,7 +5135,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "CreditorId",
@@ -5103,7 +5153,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "DebtorId",
@@ -5120,7 +5171,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "BusinessPartnerId",
@@ -5137,7 +5189,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "BusinessAreaId",
@@ -5154,7 +5207,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "FunctionalAreaId",
@@ -5171,7 +5225,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "SegmentId",
@@ -5188,7 +5243,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "AttributeId",
@@ -5205,7 +5261,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "AttributeValueId",
@@ -5222,7 +5279,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "PlantId",
@@ -5239,7 +5297,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "MaterialId",
@@ -5256,7 +5315,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "LocationId",
@@ -5273,7 +5333,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "ValuationAreaId",
@@ -5290,7 +5351,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "CompanyCodeId",
@@ -5307,7 +5369,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "FYVariantId",
@@ -5324,7 +5387,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "PostingPeriodVariantId",
@@ -5341,7 +5405,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "FiscalYear",
@@ -5357,7 +5422,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "Period",
@@ -5373,7 +5439,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "AccountId",
@@ -5390,7 +5457,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "AccountType",
@@ -5407,7 +5475,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "EntryNo",
@@ -5423,7 +5492,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "DocumentNumber",
@@ -5440,7 +5510,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "LineItemNo",
@@ -5457,7 +5528,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "FYPeriod",
@@ -5473,7 +5545,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "Amount",
@@ -5491,7 +5564,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "Quantity",
@@ -5509,7 +5583,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "DebitCredit",
@@ -5526,7 +5601,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     }
   ],
   "enums" : [

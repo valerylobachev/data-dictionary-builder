@@ -6,7 +6,7 @@ import biz.lobachev.annette.data_dictionary.builder.model._
 
 trait GLAccount {
 
-  val glAccountGroup = group("GLAccount", "General Ledger account settings")
+  val glAccountGroup = component("GLAccount", "General Ledger account settings")
     .withSchema("gl_account")
     .withLabels(
       javaModelPackage("finance.data.gl_account.model"),

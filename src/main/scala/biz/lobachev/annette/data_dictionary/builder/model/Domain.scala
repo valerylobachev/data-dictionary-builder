@@ -2,30 +2,54 @@ package biz.lobachev.annette.data_dictionary.builder.model
 
 import biz.lobachev.annette.data_dictionary.builder.{POSTGRESQL, SCALA}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
+import biz.lobachev.annette.data_dictionary.builder.utils.Utils
 
 import scala.collection.immutable.ListMap
 
 case class Domain(
-                   id: String,
-                   name: String,
-                   description: String = "",
-                   groups: ListMap[String, Group] = ListMap.empty,
-                   entities: ListMap[String, Entity] = ListMap.empty,
-                   dataElements: ListMap[String, DataElement] = ListMap.empty,
-                   enums: ListMap[String, EnumData] = ListMap.empty,
-                   labels: Labels = Map.empty,
+  id: String,
+  name: String,
+  description: String = "",
+  rootComponents: Seq[String] = Seq.empty,
+  components: ListMap[String, Component] = ListMap.empty,
+  entities: ListMap[String, Entity] = ListMap.empty,
+  dataElements: ListMap[String, DataElement] = ListMap.empty,
+  enums: ListMap[String, EnumData] = ListMap.empty,
+  labels: Labels = Map.empty,
 ) extends ModelValidator {
 
-  def withGroupSeq(groupSeq: Seq[GroupEntities]): Domain =
+  def withComponentSeq(componentSeq: Seq[ComponentData]): Domain = {
+    val newRootComponentIds   = componentSeq.map(_.component.id)
+    val newComponents         = componentSeq.flatMap(_.expandComponents())
+    val newEntities           = componentSeq.flatMap(_.expandEntities())
+    val newDataElements       = componentSeq.flatMap(_.expandDataElements())
+    val componentDuplicates   = Utils.findDuplicates(components.keys.toSeq ++ newComponents.map(_.id))
+    val entityDuplicates      = Utils.findDuplicates(entities.keys.toSeq ++ newEntities.map(_.id))
+    val dataElementDuplicates = Utils.findDuplicates(dataElements.keys.toSeq ++ newDataElements.map(_.id))
+    if (componentDuplicates.nonEmpty) println("Duplicated components: " + componentDuplicates.mkString(", "))
+    if (entityDuplicates.nonEmpty) println("Duplicated entities: " + entityDuplicates.mkString(", "))
+    if (dataElementDuplicates.nonEmpty) println("Duplicated data elements: " + dataElementDuplicates.mkString(", "))
+    if (
+      componentDuplicates.nonEmpty ||
+      entityDuplicates.nonEmpty ||
+      dataElementDuplicates.nonEmpty
+    ) throw new IllegalArgumentException("Duplicated items")
     copy(
-      groups = groups ++ groupSeq.map(m => m.group.id -> m.group),
-      entities = entities ++ groupSeq.flatMap(g => g.entities.map(e => e.id -> e.copy(schema = g.group.schema))),
+      rootComponents = rootComponents ++ newRootComponentIds,
+      components = components ++ newComponents.map(c => c.id -> c),
+      entities = entities ++ newEntities.map(e => e.id -> e),
+      dataElements = dataElements ++ newDataElements.map(e => e.id -> e),
     )
+  }
 
-  def withGroups(groupSeq: GroupEntities*) = withGroupSeq(groupSeq)
+  def withComponents(componentSeq: ComponentData*) = withComponentSeq(componentSeq)
 
-  def withDataElementSeq(seq: Seq[DataElement]) =
+  def withDataElementSeq(seq: Seq[DataElement]) = {
+    val dataElementDuplicates = Utils.findDuplicates(seq.map(_.id))
+    if (dataElementDuplicates.nonEmpty) println("Duplicated data elements: " + dataElementDuplicates.mkString(", "))
+    if (dataElementDuplicates.nonEmpty) throw new IllegalArgumentException("Duplicated items")
     copy(dataElements = ListMap.from(seq.map(e => e.id -> e)))
+  }
 
   def withDataElements(seq: DataElement*) = withDataElementSeq(seq)
 
@@ -54,29 +78,28 @@ case class Domain(
     }
     val res         = copy(entities = ListMap.from(newEntities.map(e => e.id -> e)))
     val err         = res.validate()
-    if (err.isEmpty ) {
+    if (err.isEmpty) {
       if (replicateAttr) Right(res.replicateLabels())
       else Right(res)
-    }
-    else Left(err)
+    } else Left(err)
   }
 
   def replicateLabels(): Domain = {
-    val domainLabels = labels
-    val newGroups        = groups.map { case key -> group =>
-      key -> group.copy(labels = domainLabels ++ group.labels)
+    val domainLabels    = labels
+    val newComponents   = components.map { case key -> component =>
+      key -> component.copy(labels = domainLabels ++ component.labels)
     }
-    val newDataElements  = dataElements.map { case key -> dataElement =>
+    val newDataElements = dataElements.map { case key -> dataElement =>
       key -> dataElement.copy(labels = domainLabels ++ dataElement.labels)
     }
-    val newEnums         = enums.map { case key -> enum =>
+    val newEnums        = enums.map { case key -> enum =>
       key -> enum.copy(labels = domainLabels ++ enum.labels)
     }
-    val newEntities      = entities.map { case key -> entity =>
-      val groupLabels = newGroups(entity.groupId).labels
-      key -> entity.copy(labels = groupLabels ++ entity.labels)
+    val newEntities     = entities.map { case key -> entity =>
+      val componentLabels = newComponents(entity.componentId).labels
+      key -> entity.copy(labels = componentLabels ++ entity.labels)
     }
-    copy(groups = newGroups, entities = newEntities, dataElements = newDataElements, enums = newEnums)
+    copy(components = newComponents, entities = newEntities, dataElements = newDataElements, enums = newEnums)
   }
 
   def rolloutEntity(entity: Entity): FieldRelation = {

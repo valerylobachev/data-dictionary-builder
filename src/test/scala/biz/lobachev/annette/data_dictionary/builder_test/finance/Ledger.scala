@@ -6,7 +6,7 @@ import biz.lobachev.annette.data_dictionary.builder.model._
 
 trait Ledger {
 
-  val ledgerGroup = group("Ledger", "Ledger settings")
+  val ledgerGroup = component("Ledger", "Ledger settings")
     .withSchema("ledger")
     .withLabels(
       javaModelPackage("finance.data.ledger.model"),

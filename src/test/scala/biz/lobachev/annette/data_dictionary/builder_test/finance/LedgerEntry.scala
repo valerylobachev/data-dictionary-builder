@@ -7,7 +7,7 @@ import biz.lobachev.annette.data_dictionary.builder.model.LocalDateDate
 
 trait LedgerEntry {
 
-  val ledgerEntryGroup = group("LedgerEntry", "Ledger entry tables")
+  val ledgerEntryGroup = component("LedgerEntry", "Ledger entry tables")
     .withSchema("ledger_entry")
     .withLabels(
       javaModelPackage("finance.data.ledger_entry.model"),

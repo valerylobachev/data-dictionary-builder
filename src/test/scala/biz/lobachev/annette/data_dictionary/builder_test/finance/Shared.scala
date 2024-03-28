@@ -5,7 +5,7 @@ import biz.lobachev.annette.data_dictionary.builder.model._
 
 trait Shared {
 
-  val sharedGroup = group("Shared", "Shared data structures")
+  val sharedGroup = component("Shared", "Shared data structures")
     .withEntities(
       embeddedEntity("Modification", "Modification data structure")
         .withFields(

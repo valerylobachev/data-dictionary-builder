@@ -2,11 +2,20 @@
   "id" : "Store",
   "name" : "Store example",
   "description" : "Store data model example",
-  "groups" : [
+  "rootComponents" : [
+    "Shared",
+    "Client",
+    "Order",
+    "Analytics"
+  ],
+  "components" : [
     {
       "id" : "Shared",
       "name" : "Shared data structures",
       "description" : "",
+      "parent" : null,
+      "children" : [
+      ],
       "schema" : null,
       "labels" : {
         
@@ -16,6 +25,9 @@
       "id" : "Client",
       "name" : "Client tables",
       "description" : "",
+      "parent" : null,
+      "children" : [
+      ],
       "schema" : "client",
       "labels" : {
         "tableNamePrefix" : "client"
@@ -25,6 +37,9 @@
       "id" : "Order",
       "name" : "Order tables",
       "description" : "",
+      "parent" : null,
+      "children" : [
+      ],
       "schema" : null,
       "labels" : {
         "tableNamePrefix" : "order"
@@ -34,6 +49,9 @@
       "id" : "Analytics",
       "name" : "Analytic tables",
       "description" : "",
+      "parent" : null,
+      "children" : [
+      ],
       "schema" : "analytics",
       "labels" : {
         "tableNamePrefix" : "analytics"
@@ -43,7 +61,7 @@
   "entities" : [
     {
       "id" : "Modification",
-      "groupId" : "Shared",
+      "componentId" : "Shared",
       "name" : "Modification data structure",
       "description" : "",
       "entityName" : "Modification",
@@ -129,7 +147,7 @@
     },
     {
       "id" : "Address",
-      "groupId" : "Shared",
+      "componentId" : "Shared",
       "name" : "Address data structure",
       "description" : "",
       "entityName" : "Address",
@@ -252,7 +270,7 @@
     },
     {
       "id" : "Analytics",
-      "groupId" : "Shared",
+      "componentId" : "Shared",
       "name" : "Analytics data structure",
       "description" : "",
       "entityName" : "Analytics",
@@ -376,7 +394,7 @@
     },
     {
       "id" : "Client",
-      "groupId" : "Client",
+      "componentId" : "Client",
       "name" : "Client",
       "description" : "",
       "entityName" : "Client",
@@ -519,7 +537,7 @@
     },
     {
       "id" : "ClientAddress",
-      "groupId" : "Client",
+      "componentId" : "Client",
       "name" : "Client address",
       "description" : "",
       "entityName" : "ClientAddress",
@@ -672,7 +690,7 @@
     },
     {
       "id" : "Order",
-      "groupId" : "Order",
+      "componentId" : "Order",
       "name" : "Order",
       "description" : "",
       "entityName" : "Order",
@@ -868,7 +886,7 @@
     },
     {
       "id" : "OrderLine",
-      "groupId" : "Order",
+      "componentId" : "Order",
       "name" : "Order line",
       "description" : "",
       "entityName" : "OrderLine",
@@ -1043,7 +1061,7 @@
     },
     {
       "id" : "Item",
-      "groupId" : "Order",
+      "componentId" : "Order",
       "name" : "Item",
       "description" : "",
       "entityName" : "Item",
@@ -1132,7 +1150,7 @@
     },
     {
       "id" : "Segment",
-      "groupId" : "Analytics",
+      "componentId" : "Analytics",
       "name" : "Segment",
       "description" : "",
       "entityName" : "Segment",
@@ -1205,7 +1223,7 @@
     },
     {
       "id" : "BusinessArea",
-      "groupId" : "Analytics",
+      "componentId" : "Analytics",
       "name" : "Business area",
       "description" : "",
       "entityName" : "BusinessArea",
@@ -1278,7 +1296,7 @@
     },
     {
       "id" : "Promotion",
-      "groupId" : "Analytics",
+      "componentId" : "Analytics",
       "name" : "Promotion",
       "description" : "",
       "entityName" : "Promotion",
@@ -1366,7 +1384,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "ClientId",
@@ -1382,7 +1401,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "AddressId",
@@ -1398,7 +1418,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "OrderId",
@@ -1414,7 +1435,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "OrderLineId",
@@ -1430,7 +1452,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "ItemId",
@@ -1446,7 +1469,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "ItemCode",
@@ -1463,7 +1487,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "Amount",
@@ -1481,7 +1506,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "Quantity",
@@ -1499,7 +1525,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "Postcode",
@@ -1516,7 +1543,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "Name",
@@ -1533,7 +1561,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "Description",
@@ -1549,7 +1578,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "PromotionId",
@@ -1566,7 +1596,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "SegmentId",
@@ -1583,7 +1614,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "BusinessAreaId",
@@ -1600,7 +1632,8 @@
       "notNull" : true,
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     }
   ],
   "enums" : [

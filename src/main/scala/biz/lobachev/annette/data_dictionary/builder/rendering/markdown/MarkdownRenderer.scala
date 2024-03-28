@@ -4,7 +4,7 @@ import biz.lobachev.annette.data_dictionary.builder.POSTGRESQL
 import biz.lobachev.annette.data_dictionary.builder.model._
 import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, Renderer}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
-import biz.lobachev.annette.data_dictionary.builder.model.{Domain, Group}
+import biz.lobachev.annette.data_dictionary.builder.model.{Domain, Component}
 import org.fusesource.scalate.TemplateEngine
 
 import scala.io.Source
@@ -41,15 +41,15 @@ case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = E
     MdDomain(
       domain.name,
       description = if (domain.description.isBlank) "" else domain.description,
-      groups = domain.groups.values.map(renderGroup).toSeq
+      groups = domain.components.values.map(renderGroup).toSeq
     )
 
-  private def renderGroup(group: Group) =
+  private def renderGroup(group: Component) =
     MdGroup(
       name = group.name,
       description = if (group.description.isBlank) "" else group.description,
       entities = domain.entities.values
-        .filter(entity => entity.groupId == group.id)
+        .filter(entity => entity.componentId == group.id)
         .map(renderEntity)
         .toSeq
     )

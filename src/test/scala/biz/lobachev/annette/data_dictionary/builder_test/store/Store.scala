@@ -36,8 +36,8 @@ object Store {
         dataElement("BusinessAreaId",     "businessAreaId", StringVarchar(10), "Business Area Id"),
         // format: on
     )
-    .withGroups(
-      group("Shared", "Shared data structures")
+    .withComponents(
+      component("Shared", "Shared data structures")
         .withEntities(
           embeddedEntity("Modification", "Modification data structure")
             .withFields(
@@ -78,7 +78,7 @@ object Store {
               ),
             ),
         ),
-      group("Client", "Client tables")
+      component("Client", "Client tables")
         .withSchema("client")
         .withLabels(
           tableNamePrefix("client"),
@@ -118,7 +118,7 @@ object Store {
               uniqueIndex("clientIdId", "Unique clientId & id", "clientId", "id"),
             ),
         ),
-      group("Order", "Order tables")
+      component("Order", "Order tables")
         .withLabels(
           tableNamePrefix("order"),
         )
@@ -178,7 +178,7 @@ object Store {
               // format: on
             ),
         ),
-      group("Analytics", "Analytic tables")
+      component("Analytics", "Analytic tables")
         .withSchema("analytics")
         .withLabels(
           tableNamePrefix("analytics"),

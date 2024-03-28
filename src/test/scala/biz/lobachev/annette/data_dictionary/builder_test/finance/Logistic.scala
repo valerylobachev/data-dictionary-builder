@@ -5,7 +5,7 @@ import biz.lobachev.annette.data_dictionary.builder.helper.JavaPackage.{javaMode
 
 trait Logistic {
 
-  val logisticGroup = group("Logistic", "Logistic tables")
+  val logisticGroup = component("Logistic", "Logistic tables")
     .withSchema("logistic")
     .withLabels(
       javaModelPackage("finance.data.logistic.model"),

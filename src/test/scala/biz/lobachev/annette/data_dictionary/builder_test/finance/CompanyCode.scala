@@ -1,20 +1,20 @@
 package biz.lobachev.annette.data_dictionary.builder_test.finance
 
-import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
+import biz.lobachev.annette.data_dictionary.builder.dsl.DSL.{component, _}
 import biz.lobachev.annette.data_dictionary.builder.helper.JavaPackage.{javaModelPackage, javaRepoPackage}
 
 trait CompanyCode {
 
-  val companyCodeGroup = group("CompanyCode", "Company code tables")
+  val companyCodeGroup = component("CompanyCode", "Company code tables")
     .withSchema("company_code")
     .withLabels(
       javaModelPackage("finance.data.company_code.model"),
-      javaRepoPackage("finance.data.company_code")
+      javaRepoPackage("finance.data.company_code"),
     )
     .withEntities(
       tableEntity("CompanyCode", "Company code", "CompanyCode")
         .withPK(
-          "id" :# "CompanyCodeId"
+          "id" :# "CompanyCodeId",
         )
         .withFields(
           // format: off
@@ -36,15 +36,15 @@ trait CompanyCode {
             "chartOfAccountsId",
             "Reference to ChartOfAccounts",
             "ChartOfAccounts",
-            "chartOfAccountsId"                                                                 -> "id"
+            "chartOfAccountsId"                                                                 -> "id",
           ),
           manyToOneRelation("fyVariantId", "Reference to FYVariant", "FYVariant", "fyVariantId" -> "id"),
           manyToOneRelation(
             "postingPeriodVariantId",
             "Reference to PostingPeriodVariant",
             "PostingPeriodVariant",
-            "postingPeriodVariantId"                                                            -> "id"
-          )
+            "postingPeriodVariantId"                                                            -> "id",
+          ),
         ),
       tableEntity("CompanyCodeLedger", "Company code ledger", "CompanyCodeLedger")
         .withPK(
@@ -54,28 +54,28 @@ trait CompanyCode {
           // format: on
         )
         .withFields(
-          include("Modification")
+          include("Modification"),
         )
         .withRelations(
           manyToOneRelation("companyCodeId", "Reference to CompanyCode", "CompanyCode", "companyCodeId" -> "id"),
-          manyToOneRelation("ledgerId", "Reference to Ledger", "Ledger", "ledgerId"                     -> "id")
+          manyToOneRelation("ledgerId", "Reference to Ledger", "Ledger", "ledgerId"                     -> "id"),
         ),
       tableEntity("FYVariant", "Fiscal year variant", "FYVariant")
         .withTableName("fy_variants")
         .withPK(
-          "id" :# "FYVariantId"
+          "id" :# "FYVariantId",
         )
         .withFields(
-          "name"       :# "Name",
-          include("Modification")
+          "name" :# "Name",
+          include("Modification"),
         ),
       tableEntity("PostingPeriodVariant", "Posting period variant", "PostingPeriodVariant")
         .withPK(
-          "id" :# "PostingPeriodVariantId"
+          "id" :# "PostingPeriodVariantId",
         )
         .withFields(
-          "name"       :# "Name",
-          include("Modification")
+          "name" :# "Name",
+          include("Modification"),
         ),
       tableEntity("OpenPeriod", "Open period", "OpenPeriod")
         .withPK(

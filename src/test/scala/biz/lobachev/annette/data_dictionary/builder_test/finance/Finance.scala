@@ -23,7 +23,7 @@ object Finance
     .withEnumSeq(
       enums
     )
-    .withGroups(
+    .withComponents(
       sharedGroup,
       commonGroup,
       ledgerGroup,

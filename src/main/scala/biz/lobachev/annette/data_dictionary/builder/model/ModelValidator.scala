@@ -5,15 +5,15 @@ trait ModelValidator {
   self: Domain =>
 
   def validate(): Seq[String] =
-    validateGroups() ++ validateFields() ++ validateIndexes() ++ validateRelations() ++ validateDataElements()
+    validateComponents() ++ validateFields() ++ validateIndexes() ++ validateRelations() ++ validateDataElements()
 
-  def validateGroups(): Seq[String] = {
+  def validateComponents(): Seq[String] = {
     val res = for {
       entity <- entities.values
-      err    <- groups
-                  .get(entity.groupId)
+      err    <- components
+                  .get(entity.componentId)
                   .map(_ => Seq.empty)
-                  .getOrElse(Seq(s"Entity ${entity.id}: group ${entity.groupId} not found"))
+                  .getOrElse(Seq(s"Entity ${entity.id}: group ${entity.componentId} not found"))
     } yield err
     res.toSeq
   }
