@@ -2,7 +2,7 @@ package biz.lobachev.annette.data_dictionary.builder_test
 
 import biz.lobachev.annette.data_dictionary.builder.rendering.Generator
 import biz.lobachev.annette.data_dictionary.builder.rendering.dbdiagram.DbDiagramRenderer
-import biz.lobachev.annette.data_dictionary.builder.rendering.json.JsonRenderer
+import biz.lobachev.annette.data_dictionary.builder.rendering.`export`.ExportJsonRenderer
 import biz.lobachev.annette.data_dictionary.builder.rendering.kotlin.KotlinRenderer
 import biz.lobachev.annette.data_dictionary.builder.rendering.xls_insert.{ExcelInsertTemplateRenderer, ExcelInsertTemplateTranslation}
 import biz.lobachev.annette.data_dictionary.builder.rendering.markdown.{MarkdownRenderer, PolishTranslaltion, RussianTranslaltion}
@@ -73,7 +73,7 @@ class SimpleSpec extends AnyWordSpec with BuildValidator {
     "export to JSON" in {
       validateAndProcess(buildWoAttrs) { domain =>
         Generator.generate(
-          JsonRenderer(domain),
+          ExportJsonRenderer(domain),
           s"docs/${domain.id}/",
         )
       }

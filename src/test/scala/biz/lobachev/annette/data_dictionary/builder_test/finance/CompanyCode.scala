@@ -7,7 +7,7 @@ trait CompanyCode {
 
   val companyCodeGroup = group("CompanyCode", "Company code tables")
     .withSchema("company_code")
-    .withAttributes(
+    .withLabels(
       javaModelPackage("finance.data.company_code.model"),
       javaRepoPackage("finance.data.company_code")
     )

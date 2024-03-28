@@ -7,7 +7,7 @@ trait Analytics {
 
   val analyticsGroup = group("Analytics", "Analytic tables")
     .withSchema("analytics")
-    .withAttributes(
+    .withLabels(
       javaModelPackage("finance.data.analytics.model"),
       javaRepoPackage("finance.data.analytics")
     )

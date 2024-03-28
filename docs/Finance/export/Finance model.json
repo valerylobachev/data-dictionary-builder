@@ -8,7 +8,7 @@
       "name" : "Shared data structures",
       "description" : "",
       "schema" : null,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -17,7 +17,7 @@
       "name" : "Common tables and data structures",
       "description" : "",
       "schema" : "common",
-      "attributes" : {
+      "labels" : {
         "javaModelPackage" : "finance.data.common.model",
         "javaRepoPackage" : "finance.data.common"
       }
@@ -27,7 +27,7 @@
       "name" : "Ledger settings",
       "description" : "",
       "schema" : "ledger",
-      "attributes" : {
+      "labels" : {
         "javaModelPackage" : "finance.data.ledger.model",
         "javaRepoPackage" : "finance.data.ledger"
       }
@@ -37,7 +37,7 @@
       "name" : "General Ledger account settings",
       "description" : "",
       "schema" : "gl_account",
-      "attributes" : {
+      "labels" : {
         "javaModelPackage" : "finance.data.gl_account.model",
         "javaRepoPackage" : "finance.data.gl_account"
       }
@@ -47,7 +47,7 @@
       "name" : "Analytic tables",
       "description" : "",
       "schema" : "analytics",
-      "attributes" : {
+      "labels" : {
         "javaModelPackage" : "finance.data.analytics.model",
         "javaRepoPackage" : "finance.data.analytics"
       }
@@ -57,7 +57,7 @@
       "name" : "Logistic tables",
       "description" : "",
       "schema" : "logistic",
-      "attributes" : {
+      "labels" : {
         "javaModelPackage" : "finance.data.logistic.model",
         "javaRepoPackage" : "finance.data.logistic"
       }
@@ -67,7 +67,7 @@
       "name" : "Company code tables",
       "description" : "",
       "schema" : "company_code",
-      "attributes" : {
+      "labels" : {
         "javaModelPackage" : "finance.data.company_code.model",
         "javaRepoPackage" : "finance.data.company_code"
       }
@@ -77,7 +77,7 @@
       "name" : "Ledger entry tables",
       "description" : "",
       "schema" : "ledger_entry",
-      "attributes" : {
+      "labels" : {
         "javaModelPackage" : "finance.data.ledger_entry.model",
         "javaRepoPackage" : "finance.data.ledger_entry"
       }
@@ -105,7 +105,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -121,7 +121,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -137,7 +137,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -153,7 +153,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -166,7 +166,7 @@
       "relations" : [
       ],
       "schema" : null,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -191,7 +191,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -207,7 +207,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -224,7 +224,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -240,7 +240,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -258,7 +258,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -284,13 +284,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : "common",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -315,7 +315,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -331,7 +331,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -349,7 +349,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -363,7 +363,7 @@
       "relations" : [
       ],
       "schema" : "common",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -388,7 +388,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -404,7 +404,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -420,7 +420,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -437,7 +437,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -454,7 +454,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -470,7 +470,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -488,7 +488,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -502,7 +502,7 @@
       "relations" : [
       ],
       "schema" : "common",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -527,7 +527,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -543,7 +543,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -561,7 +561,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -575,7 +575,7 @@
       "relations" : [
       ],
       "schema" : "common",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -600,7 +600,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -616,7 +616,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -632,7 +632,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -648,7 +648,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -664,7 +664,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -680,7 +680,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -696,7 +696,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -712,7 +712,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -730,7 +730,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -759,7 +759,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -777,7 +777,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -795,13 +795,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : "common",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -826,7 +826,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -842,7 +842,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -859,7 +859,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -876,7 +876,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -894,7 +894,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -908,7 +908,7 @@
       "relations" : [
       ],
       "schema" : "common",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -933,7 +933,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -949,7 +949,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -965,7 +965,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -981,7 +981,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -998,7 +998,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1015,7 +1015,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1033,7 +1033,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -1060,7 +1060,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1078,13 +1078,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : "common",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1109,7 +1109,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1125,7 +1125,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1141,7 +1141,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1157,7 +1157,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1173,7 +1173,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1191,7 +1191,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -1217,13 +1217,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : "ledger",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1248,7 +1248,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1264,7 +1264,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1282,7 +1282,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -1296,7 +1296,7 @@
       "relations" : [
       ],
       "schema" : "ledger",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1321,7 +1321,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1337,7 +1337,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1353,7 +1353,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1371,7 +1371,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -1398,7 +1398,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1416,13 +1416,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : "ledger",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1447,7 +1447,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1463,7 +1463,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1481,7 +1481,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -1495,7 +1495,7 @@
       "relations" : [
       ],
       "schema" : "gl_account",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1520,7 +1520,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1536,7 +1536,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1552,7 +1552,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1568,7 +1568,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1584,7 +1584,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1600,7 +1600,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1618,7 +1618,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -1645,7 +1645,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1667,13 +1667,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : "gl_account",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1698,7 +1698,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1714,7 +1714,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1730,7 +1730,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1746,7 +1746,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1762,7 +1762,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1778,7 +1778,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1796,7 +1796,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -1823,13 +1823,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : "gl_account",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1854,7 +1854,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1870,7 +1870,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1888,7 +1888,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -1902,7 +1902,7 @@
       "relations" : [
       ],
       "schema" : "analytics",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1927,7 +1927,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1943,7 +1943,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1961,7 +1961,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -1975,7 +1975,7 @@
       "relations" : [
       ],
       "schema" : "analytics",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -2000,7 +2000,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2016,7 +2016,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2032,7 +2032,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2048,7 +2048,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2066,7 +2066,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -2083,7 +2083,7 @@
           "fields" : [
             "creditorId"
           ],
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2095,7 +2095,7 @@
           "fields" : [
             "debtorId"
           ],
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -2115,7 +2115,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2133,13 +2133,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : "analytics",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -2164,7 +2164,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2180,7 +2180,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2198,7 +2198,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -2212,7 +2212,7 @@
       "relations" : [
       ],
       "schema" : "analytics",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -2237,7 +2237,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2253,7 +2253,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2271,7 +2271,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -2285,7 +2285,7 @@
       "relations" : [
       ],
       "schema" : "analytics",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -2310,7 +2310,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2326,7 +2326,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2344,7 +2344,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -2358,7 +2358,7 @@
       "relations" : [
       ],
       "schema" : "analytics",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -2383,7 +2383,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2399,7 +2399,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2417,7 +2417,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -2431,7 +2431,7 @@
       "relations" : [
       ],
       "schema" : "analytics",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -2456,7 +2456,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2472,7 +2472,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2488,7 +2488,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2506,7 +2506,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -2533,13 +2533,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : "analytics",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -2564,7 +2564,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2580,7 +2580,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2596,7 +2596,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2612,7 +2612,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2630,7 +2630,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -2656,13 +2656,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : "logistic",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -2687,7 +2687,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2703,7 +2703,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2719,7 +2719,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2737,7 +2737,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -2751,7 +2751,7 @@
       "relations" : [
       ],
       "schema" : "logistic",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -2776,7 +2776,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2792,7 +2792,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2808,7 +2808,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2824,7 +2824,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2842,7 +2842,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -2869,13 +2869,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : "logistic",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -2900,7 +2900,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2916,7 +2916,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2932,7 +2932,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2948,7 +2948,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -2966,7 +2966,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -2992,13 +2992,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : "logistic",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -3023,7 +3023,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3039,7 +3039,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3055,7 +3055,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3071,7 +3071,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3087,7 +3087,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3103,7 +3103,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3119,7 +3119,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3135,7 +3135,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3153,7 +3153,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -3179,7 +3179,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3197,7 +3197,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3215,7 +3215,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3233,7 +3233,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3251,7 +3251,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3269,13 +3269,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : "company_code",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -3300,7 +3300,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3316,7 +3316,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3334,7 +3334,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -3361,7 +3361,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3379,13 +3379,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : "company_code",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -3410,7 +3410,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3426,7 +3426,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3444,7 +3444,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -3458,7 +3458,7 @@
       "relations" : [
       ],
       "schema" : "company_code",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -3483,7 +3483,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3499,7 +3499,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3517,7 +3517,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -3531,7 +3531,7 @@
       "relations" : [
       ],
       "schema" : "company_code",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -3556,7 +3556,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3572,7 +3572,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3588,7 +3588,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3604,7 +3604,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3620,7 +3620,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3636,7 +3636,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3652,7 +3652,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3668,7 +3668,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3684,7 +3684,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3700,7 +3700,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3716,7 +3716,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3732,7 +3732,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3748,7 +3748,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3764,7 +3764,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3780,7 +3780,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3796,7 +3796,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -3824,13 +3824,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : "company_code",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -3855,7 +3855,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3871,7 +3871,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3887,7 +3887,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3903,7 +3903,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3919,7 +3919,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3935,7 +3935,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3951,7 +3951,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3967,7 +3967,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3983,7 +3983,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -3999,7 +3999,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4015,7 +4015,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4031,7 +4031,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4047,7 +4047,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4063,7 +4063,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4079,7 +4079,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4095,7 +4095,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4111,7 +4111,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4127,7 +4127,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4143,7 +4143,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4159,7 +4159,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4175,7 +4175,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4191,7 +4191,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4207,7 +4207,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4223,7 +4223,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4239,7 +4239,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4255,7 +4255,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4271,7 +4271,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4287,7 +4287,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4303,7 +4303,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4319,7 +4319,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4335,7 +4335,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4353,7 +4353,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -4374,7 +4374,7 @@
             "documentNumber",
             "lineItemNo"
           ],
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -4394,7 +4394,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             "relationFieldName" : "ledger"
           }
         },
@@ -4412,7 +4412,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             "relationFieldName" : "companyCode"
           }
         },
@@ -4434,7 +4434,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             "relationFieldName" : "glAccount"
           }
         },
@@ -4452,7 +4452,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             "relationFieldName" : "creditor"
           }
         },
@@ -4470,7 +4470,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             "relationFieldName" : "debtor"
           }
         },
@@ -4488,7 +4488,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             "relationFieldName" : "businessPartner"
           }
         },
@@ -4506,7 +4506,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             "relationFieldName" : "businessArea"
           }
         },
@@ -4524,7 +4524,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             "relationFieldName" : "functionalArea"
           }
         },
@@ -4542,7 +4542,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             "relationFieldName" : "segment"
           }
         },
@@ -4560,7 +4560,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             "relationFieldName" : "valuationArea"
           }
         },
@@ -4578,7 +4578,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             "relationFieldName" : "plant"
           }
         },
@@ -4600,7 +4600,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             "relationFieldName" : "location"
           }
         },
@@ -4618,7 +4618,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             "relationFieldName" : "material"
           }
         },
@@ -4636,7 +4636,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4654,7 +4654,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4672,7 +4672,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             "relationFieldName" : "uom"
           }
         },
@@ -4690,13 +4690,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             "relationFieldName" : "basicUom"
           }
         }
       ],
       "schema" : "ledger_entry",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -4721,7 +4721,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4737,7 +4737,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4753,7 +4753,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -4781,7 +4781,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -4803,13 +4803,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : "ledger_entry",
-      "attributes" : {
+      "labels" : {
         
       }
     }
@@ -4828,7 +4828,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -4845,7 +4845,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -4862,7 +4862,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -4879,7 +4879,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -4896,7 +4896,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -4913,7 +4913,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -4930,7 +4930,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -4948,7 +4948,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -4965,7 +4965,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -4982,7 +4982,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -4999,7 +4999,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5016,7 +5016,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5033,7 +5033,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5050,7 +5050,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5067,7 +5067,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5084,7 +5084,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5101,7 +5101,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5118,7 +5118,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5135,7 +5135,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5152,7 +5152,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5169,7 +5169,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5186,7 +5186,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5203,7 +5203,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5220,7 +5220,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5237,7 +5237,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5254,7 +5254,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5271,7 +5271,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5288,7 +5288,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5305,7 +5305,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5322,7 +5322,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5339,7 +5339,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5355,7 +5355,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5371,7 +5371,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5388,7 +5388,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5405,7 +5405,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5421,7 +5421,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5438,7 +5438,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5455,7 +5455,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5471,7 +5471,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5489,7 +5489,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5507,7 +5507,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5524,7 +5524,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     }
@@ -5545,7 +5545,7 @@
           "Extension ledger"
         ]
       ],
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5576,7 +5576,7 @@
           "Cash Account"
         ]
       ],
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5607,7 +5607,7 @@
           "General Ledger"
         ]
       ],
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -5626,12 +5626,12 @@
           "Credit"
         ]
       ],
-      "attributes" : {
+      "labels" : {
         
       }
     }
   ],
-  "attributes" : {
+  "labels" : {
     
   }
 }

@@ -6,7 +6,7 @@ import biz.lobachev.annette.data_dictionary.builder.model._
 
 object Store {
   val storeDomain = domain("Store", "Store example", "Store data model example")
-    .withAttributes(
+    .withLabels(
       tableNameSuffix("table"),
     )
     .withEnums(
@@ -80,7 +80,7 @@ object Store {
         ),
       group("Client", "Client tables")
         .withSchema("client")
-        .withAttributes(
+        .withLabels(
           tableNamePrefix("client"),
         )
         .withEntities(
@@ -119,7 +119,7 @@ object Store {
             ),
         ),
       group("Order", "Order tables")
-        .withAttributes(
+        .withLabels(
           tableNamePrefix("order"),
         )
         .withEntities(
@@ -180,7 +180,7 @@ object Store {
         ),
       group("Analytics", "Analytic tables")
         .withSchema("analytics")
-        .withAttributes(
+        .withLabels(
           tableNamePrefix("analytics"),
         )
         .withEntities(

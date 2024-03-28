@@ -8,7 +8,7 @@ trait GLAccount {
 
   val glAccountGroup = group("GLAccount", "General Ledger account settings")
     .withSchema("gl_account")
-    .withAttributes(
+    .withLabels(
       javaModelPackage("finance.data.gl_account.model"),
       javaRepoPackage("finance.data.gl_account")
     )

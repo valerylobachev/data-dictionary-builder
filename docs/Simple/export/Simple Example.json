@@ -8,7 +8,7 @@
       "name" : "Shared data structures",
       "description" : "",
       "schema" : null,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -17,7 +17,7 @@
       "name" : "Person Group Model",
       "description" : "",
       "schema" : null,
-      "attributes" : {
+      "labels" : {
         
       }
     }
@@ -45,7 +45,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -61,7 +61,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -74,7 +74,7 @@
       "relations" : [
       ],
       "schema" : null,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -99,7 +99,7 @@
           },
           "notNull" : true,
           "autoIncrement" : true,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -116,7 +116,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -133,7 +133,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -151,7 +151,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -169,7 +169,7 @@
             "lastname",
             "firstname"
           ],
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -177,7 +177,7 @@
       "relations" : [
       ],
       "schema" : null,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -202,7 +202,7 @@
           },
           "notNull" : true,
           "autoIncrement" : true,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -219,7 +219,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -237,7 +237,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -251,7 +251,7 @@
       "relations" : [
       ],
       "schema" : null,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -276,7 +276,7 @@
           },
           "notNull" : true,
           "autoIncrement" : true,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -292,7 +292,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -308,7 +308,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -326,7 +326,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -344,7 +344,7 @@
             "groupId",
             "personId"
           ],
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -364,7 +364,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -382,13 +382,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : null,
-      "attributes" : {
+      "labels" : {
         
       }
     }
@@ -406,7 +406,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -422,14 +422,14 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     }
   ],
   "enums" : [
   ],
-  "attributes" : {
+  "labels" : {
     
   }
 }

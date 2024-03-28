@@ -41,7 +41,7 @@ case class KotlinRenderer(domain: Domain) extends Renderer {
   }
 
   private def renderEntity(entity: Entity): Seq[KtClass] = {
-    val pkg                                = entity.attributes.getOrElse(JAVA_MODEL_PACKAGE, "model")
+    val pkg                                = entity.labels.getOrElse(JAVA_MODEL_PACKAGE, "model")
     val schema                             = entity.schema.map(s => s""", schema = "$s"""").getOrElse("")
     val comments                           = entity.name +: description2Comments(entity.description)
     val members                            = domain.rolloutEntityFields(entity) map (m => renderMember(entity, m))
@@ -94,7 +94,7 @@ case class KotlinRenderer(domain: Domain) extends Renderer {
     val relationMembers = entity.relations.map { relation =>
       val relatedEntity       = domain.entities(relation.referenceEntityId)
       val relatedEntityFields = domain.rolloutEntityFields(relatedEntity)
-      val relatedPkg          = relatedEntity.attributes.getOrElse(
+      val relatedPkg          = relatedEntity.labels.getOrElse(
         JAVA_MODEL_PACKAGE,
         "model",
       ) // Attributes.findEntityAttribute(relatedEntity, domain, JAVA_MODEL_PACKAGE).getOrElse("model")
@@ -103,7 +103,7 @@ case class KotlinRenderer(domain: Domain) extends Renderer {
       var datatype             = ""
       datatype = s"$relatedClass?"
       val name                 = {
-        val n     = relation.attributes.getOrElse(RELATION_FIELD_NAME, relatedEntity.entityName.camelCase)
+        val n     = relation.labels.getOrElse(RELATION_FIELD_NAME, relatedEntity.entityName.camelCase)
         // Attributes.findRelationAttribute(relation, RELATION_FIELD_NAME).getOrElse(relatedEntity.entityName.camelCase)
         val count = names.getOrElse(n, 0)
         names = names + (n -> (count + 1))
@@ -134,11 +134,11 @@ case class KotlinRenderer(domain: Domain) extends Renderer {
     val refRelationMembers =
       domain.entities.values.flatMap(e => e.relations.filter(_.referenceEntityId == entity.id).map(r => e -> r)).map {
         case relatedEntity -> relation =>
-          val relatedPkg           = relatedEntity.attributes.getOrElse(JAVA_MODEL_PACKAGE, "model")
+          val relatedPkg           = relatedEntity.labels.getOrElse(JAVA_MODEL_PACKAGE, "model")
           val relatedClass: String = s"${relatedEntity.entityName}Entity"
           if (relatedPkg != pkg) imports = imports + s"$relatedPkg.$relatedClass"
           val name                 = {
-            val n     = relation.attributes.getOrElse(RELATION_REL_FIELD_NAME, relatedEntity.entityName.camelCase)
+            val n     = relation.labels.getOrElse(RELATION_REL_FIELD_NAME, relatedEntity.entityName.camelCase)
 //              Attributes
 //                .findRelationAttribute(relation, RELATION_REL_FIELD_NAME)
 //                .getOrElse(relatedEntity.entityName.camelCase)
@@ -146,7 +146,7 @@ case class KotlinRenderer(domain: Domain) extends Renderer {
             names = names + (n -> (count + 1))
             if (count == 0) n else s"$n$count"
           }
-          val relField             = relation.attributes.getOrElse(RELATION_FIELD_NAME, relatedEntity.entityName.camelCase)
+          val relField             = relation.labels.getOrElse(RELATION_FIELD_NAME, relatedEntity.entityName.camelCase)
 //            Attributes
 //            .findRelationAttribute(relation, RELATION_FIELD_NAME)
 //            .getOrElse(relatedEntity.entityName.camelCase)

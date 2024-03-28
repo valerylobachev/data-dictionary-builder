@@ -92,12 +92,12 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
     row
       .createCell(4)
       .setCellValue(
-        group.attributes.getOrElse(JAVA_REPO_PACKAGE, ""),
+        group.labels.getOrElse(JAVA_REPO_PACKAGE, ""),
       ) // Attributes.findGroupAttribute(group, domain, JAVA_REPO_PACKAGE).getOrElse(""))
     row
       .createCell(5)
       .setCellValue(
-        group.attributes.getOrElse(JAVA_MODEL_PACKAGE, ""),
+        group.labels.getOrElse(JAVA_MODEL_PACKAGE, ""),
       ) // Attributes.findGroupAttribute(group, domain, JAVA_MODEL_PACKAGE).getOrElse(""))
     domain.entities.values.filter(_.groupId == group.id).foreach(entity => renderEntity(dwb, group, entity))
   }

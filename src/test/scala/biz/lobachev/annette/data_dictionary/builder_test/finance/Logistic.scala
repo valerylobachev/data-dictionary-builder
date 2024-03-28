@@ -7,7 +7,7 @@ trait Logistic {
 
   val logisticGroup = group("Logistic", "Logistic tables")
     .withSchema("logistic")
-    .withAttributes(
+    .withLabels(
       javaModelPackage("finance.data.logistic.model"),
       javaRepoPackage("finance.data.logistic"),
     )

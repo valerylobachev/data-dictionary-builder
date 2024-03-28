@@ -9,7 +9,7 @@ trait LedgerEntry {
 
   val ledgerEntryGroup = group("LedgerEntry", "Ledger entry tables")
     .withSchema("ledger_entry")
-    .withAttributes(
+    .withLabels(
       javaModelPackage("finance.data.ledger_entry.model"),
       javaRepoPackage("finance.data.ledger_entry"),
     )
@@ -77,7 +77,7 @@ trait LedgerEntry {
             "Reference to Ledger",
             "Ledger",
             "ledgerId" -> "id",
-          ).withAttributes(
+          ).withLabels(
             RelationName.fieldName("ledger"),
           ),
           manyToOneRelation(
@@ -85,7 +85,7 @@ trait LedgerEntry {
             "Reference to CompanyCode",
             "CompanyCode",
             "companyCodeId" -> "id",
-          ).withAttributes(
+          ).withLabels(
             RelationName.fieldName("companyCode"),
           ),
           manyToOneRelation(
@@ -94,7 +94,7 @@ trait LedgerEntry {
             "GLAccount",
             "chartOfAccountsId" -> "chartOfAccountsId",
             "glAccountId"       -> "glAccountId",
-          ).withAttributes(
+          ).withLabels(
             RelationName.fieldName("glAccount"),
           ),
           manyToOneRelation(
@@ -102,7 +102,7 @@ trait LedgerEntry {
             "Reference to Creditor",
             "Creditor",
             "creditorId" -> "id",
-          ).withAttributes(
+          ).withLabels(
             RelationName.fieldName("creditor"),
           ),
           manyToOneRelation(
@@ -110,7 +110,7 @@ trait LedgerEntry {
             "Reference to Debtor",
             "Debtor",
             "debtorId" -> "id",
-          ).withAttributes(
+          ).withLabels(
             RelationName.fieldName("debtor"),
           ),
           manyToOneRelation(
@@ -118,7 +118,7 @@ trait LedgerEntry {
             "Reference to BusinessPartner",
             "BusinessPartner",
             "businessPartnerId" -> "id",
-          ).withAttributes(
+          ).withLabels(
             RelationName.fieldName("businessPartner"),
           ),
           manyToOneRelation(
@@ -126,7 +126,7 @@ trait LedgerEntry {
             "Reference to BusinessArea",
             "BusinessArea",
             "businessAreaId" -> "id",
-          ).withAttributes(
+          ).withLabels(
             RelationName.fieldName("businessArea"),
           ),
           manyToOneRelation(
@@ -134,7 +134,7 @@ trait LedgerEntry {
             "Reference to FunctionalArea",
             "FunctionalArea",
             "functionalAreaId" -> "id",
-          ).withAttributes(
+          ).withLabels(
             RelationName.fieldName("functionalArea"),
           ),
           manyToOneRelation(
@@ -142,7 +142,7 @@ trait LedgerEntry {
             "Reference to Segment",
             "Segment",
             "segmentId" -> "id",
-          ).withAttributes(
+          ).withLabels(
             RelationName.fieldName("segment"),
           ),
           manyToOneRelation(
@@ -150,7 +150,7 @@ trait LedgerEntry {
             "Reference to ValuationArea",
             "ValuationArea",
             "valuationAreaId" -> "id",
-          ).withAttributes(
+          ).withLabels(
             RelationName.fieldName("valuationArea"),
           ),
           manyToOneRelation(
@@ -158,7 +158,7 @@ trait LedgerEntry {
             "Reference to Plant",
             "Plant",
             "plantId" -> "id",
-          ).withAttributes(
+          ).withLabels(
             RelationName.fieldName("plant"),
           ),
           manyToOneRelation(
@@ -167,7 +167,7 @@ trait LedgerEntry {
             "Location",
             "plantId"    -> "plantId",
             "locationId" -> "locationId",
-          ).withAttributes(
+          ).withLabels(
             RelationName.fieldName("location"),
           ),
           manyToOneRelation(
@@ -175,7 +175,7 @@ trait LedgerEntry {
             "Reference to Material",
             "Material",
             "materialId" -> "id",
-          ).withAttributes(
+          ).withLabels(
             RelationName.fieldName("material"),
           ),
           manyToOneRelation(
@@ -183,7 +183,7 @@ trait LedgerEntry {
             "Reference to Currency",
             "Currency",
             "documentCurrencyId" -> "id",
-          ).withAttributes(
+          ).withLabels(
 //            RelationName.fieldName("documentCurrency"),
           ),
           manyToOneRelation(
@@ -191,7 +191,7 @@ trait LedgerEntry {
             "Reference to Currency",
             "Currency",
             "companyCodeCurrencyId" -> "id",
-          ).withAttributes(
+          ).withLabels(
 //            RelationName.fieldName("companyCodeCurrency"),
           ),
           manyToOneRelation(
@@ -199,7 +199,7 @@ trait LedgerEntry {
             "Reference to UnitOfMeasurement",
             "UnitOfMeasurement",
             "uomId" -> "id",
-          ).withAttributes(
+          ).withLabels(
             RelationName.fieldName("uom"),
           ),
           manyToOneRelation(
@@ -207,7 +207,7 @@ trait LedgerEntry {
             "Reference to UnitOfMeasurement",
             "UnitOfMeasurement",
             "basicUomId" -> "id",
-          ).withAttributes(
+          ).withLabels(
             RelationName.fieldName("basicUom"),
           ),
         ),

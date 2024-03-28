@@ -1,6 +1,6 @@
-package biz.lobachev.annette.data_dictionary.builder.rendering.json
+package biz.lobachev.annette.data_dictionary.builder.rendering.`export`
 
-import biz.lobachev.annette.data_dictionary.builder.model.{Attributes, DataElement, Domain, Entity, EnumData, Group}
+import biz.lobachev.annette.data_dictionary.builder.model.{DataElement, Domain, Entity, EnumData, Group, Labels}
 
 case class DomainExport(
   id: String,
@@ -10,7 +10,7 @@ case class DomainExport(
   entities: Seq[Entity],
   dataElements: Seq[DataElement],
   enums: Seq[EnumData],
-  attributes: Attributes,
+  labels: Labels,
 )
 
 object DomainExport {
@@ -23,6 +23,6 @@ object DomainExport {
       domain.entities.values.toSeq,
       domain.dataElements.values.toSeq,
       domain.enums.values.toSeq,
-      domain.attributes,
+      domain.labels,
     )
 }

@@ -12,19 +12,19 @@ case object StructEntity   extends EntityType
 case object EmbeddedEntity extends EntityType
 
 case class Entity(
-  id: String,
-  groupId: String = "",
-  name: String,
-  description: String = "",
-  entityName: String,
-  tableName: String,
-  entityType: EntityType,
-  fields: Seq[EntityField] = Seq.empty,
-  pk: Seq[String] = Seq.empty,
-  indexes: ListMap[String, EntityIndex] = ListMap.empty,
-  relations: Seq[EntityRelation] = Seq.empty,
-  schema: Option[String] = None,
-  attributes: Attributes = Map.empty,
+                   id: String,
+                   groupId: String = "",
+                   name: String,
+                   description: String = "",
+                   entityName: String,
+                   tableName: String,
+                   entityType: EntityType,
+                   fields: Seq[EntityField] = Seq.empty,
+                   pk: Seq[String] = Seq.empty,
+                   indexes: ListMap[String, EntityIndex] = ListMap.empty,
+                   relations: Seq[EntityRelation] = Seq.empty,
+                   schema: Option[String] = None,
+                   labels: Labels = Map.empty,
 ) {
 
   def withTableName(tableName: String) = copy(tableName = tableName)
@@ -39,10 +39,10 @@ case class Entity(
 
   def withRelations(seq: EntityRelation*) = copy(relations = seq)
 
-  def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq.map(a => a.key -> a.value))
+  def withLabels(seq: Label*) = copy(labels = labels ++ seq.map(a => a.key -> a.value))
 
   def fullTableName(): String =
-    Seq(attributes.get(TABLE_NAME_PREFIX), Some(tableName), attributes.get(TABLE_NAME_SUFFIX)).flatten.mkString("_")
+    Seq(labels.get(TABLE_NAME_PREFIX), Some(tableName), labels.get(TABLE_NAME_SUFFIX)).flatten.mkString("_")
 
   def tableNameWithSchema(logical: Boolean = false): String =
     if (logical && name.trim.nonEmpty)

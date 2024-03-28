@@ -11,6 +11,6 @@ case class GroupEntities(
 
   def withEntities(entitySeq: Entity*): GroupEntities = withEntitySeq(entitySeq)
 
-  def withAttributes(seq: Attribute*) = copy(group = group.copy(attributes = group.attributes ++ seq.map(a => a.key -> a.value)))
+  def withLabels(seq: Label*) = copy(group = group.copy(labels = group.labels ++ seq.map(a => a.key -> a.value)))
 
 }

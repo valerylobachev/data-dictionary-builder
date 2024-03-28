@@ -6,14 +6,14 @@ import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
 import scala.collection.immutable.ListMap
 
 case class Domain(
-  id: String,
-  name: String,
-  description: String = "",
-  groups: ListMap[String, Group] = ListMap.empty,
-  entities: ListMap[String, Entity] = ListMap.empty,
-  dataElements: ListMap[String, DataElement] = ListMap.empty,
-  enums: ListMap[String, EnumData] = ListMap.empty,
-  attributes: Attributes = Map.empty,
+                   id: String,
+                   name: String,
+                   description: String = "",
+                   groups: ListMap[String, Group] = ListMap.empty,
+                   entities: ListMap[String, Entity] = ListMap.empty,
+                   dataElements: ListMap[String, DataElement] = ListMap.empty,
+                   enums: ListMap[String, EnumData] = ListMap.empty,
+                   labels: Labels = Map.empty,
 ) extends ModelValidator {
 
   def withGroupSeq(groupSeq: Seq[GroupEntities]): Domain =
@@ -34,7 +34,7 @@ case class Domain(
 
   def withEnums(seq: EnumData*) = withEnumSeq(seq)
 
-  def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq.map(a => a.key -> a.value))
+  def withLabels(seq: Label*) = copy(labels = labels ++ seq.map(a => a.key -> a.value))
 
   def build(replicateAttr: Boolean = true): Either[Seq[String], Domain] = {
     val newEntities = entities.values.map { entity =>
@@ -55,26 +55,26 @@ case class Domain(
     val res         = copy(entities = ListMap.from(newEntities.map(e => e.id -> e)))
     val err         = res.validate()
     if (err.isEmpty ) {
-      if (replicateAttr) Right(res.replicateAttributes())
+      if (replicateAttr) Right(res.replicateLabels())
       else Right(res)
     }
     else Left(err)
   }
 
-  def replicateAttributes(): Domain = {
-    val domainAttributes = attributes
+  def replicateLabels(): Domain = {
+    val domainLabels = labels
     val newGroups        = groups.map { case key -> group =>
-      key -> group.copy(attributes = domainAttributes ++ group.attributes)
+      key -> group.copy(labels = domainLabels ++ group.labels)
     }
     val newDataElements  = dataElements.map { case key -> dataElement =>
-      key -> dataElement.copy(attributes = domainAttributes ++ dataElement.attributes)
+      key -> dataElement.copy(labels = domainLabels ++ dataElement.labels)
     }
     val newEnums         = enums.map { case key -> enum =>
-      key -> enum.copy(attributes = domainAttributes ++ enum.attributes)
+      key -> enum.copy(labels = domainLabels ++ enum.labels)
     }
     val newEntities      = entities.map { case key -> entity =>
-      val groupAttributes = newGroups(entity.groupId).attributes
-      key -> entity.copy(attributes = groupAttributes ++ entity.attributes)
+      val groupLabels = newGroups(entity.groupId).labels
+      key -> entity.copy(labels = groupLabels ++ entity.labels)
     }
     copy(groups = newGroups, entities = newEntities, dataElements = newDataElements, enums = newEnums)
   }

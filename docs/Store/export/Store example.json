@@ -8,7 +8,7 @@
       "name" : "Shared data structures",
       "description" : "",
       "schema" : null,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -17,7 +17,7 @@
       "name" : "Client tables",
       "description" : "",
       "schema" : "client",
-      "attributes" : {
+      "labels" : {
         "tableNamePrefix" : "client"
       }
     },
@@ -26,7 +26,7 @@
       "name" : "Order tables",
       "description" : "",
       "schema" : null,
-      "attributes" : {
+      "labels" : {
         "tableNamePrefix" : "order"
       }
     },
@@ -35,7 +35,7 @@
       "name" : "Analytic tables",
       "description" : "",
       "schema" : "analytics",
-      "attributes" : {
+      "labels" : {
         "tableNamePrefix" : "analytics"
       }
     }
@@ -62,7 +62,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -78,7 +78,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -94,7 +94,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -110,7 +110,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -123,7 +123,7 @@
       "relations" : [
       ],
       "schema" : null,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -149,7 +149,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -166,7 +166,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -183,7 +183,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -200,7 +200,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -217,7 +217,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -233,7 +233,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -246,7 +246,7 @@
       "relations" : [
       ],
       "schema" : null,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -271,7 +271,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -287,7 +287,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -303,7 +303,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -328,7 +328,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -346,7 +346,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -364,13 +364,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : null,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -395,7 +395,7 @@
           },
           "notNull" : true,
           "autoIncrement" : true,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -411,7 +411,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -427,7 +427,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -445,7 +445,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -463,7 +463,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -481,7 +481,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -499,7 +499,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -513,7 +513,7 @@
       "relations" : [
       ],
       "schema" : "client",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -538,7 +538,7 @@
           },
           "notNull" : true,
           "autoIncrement" : true,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -554,7 +554,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -570,7 +570,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -586,7 +586,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -604,7 +604,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -622,7 +622,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -640,7 +640,7 @@
             "clientId",
             "id"
           ],
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -660,13 +660,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : "client",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -691,7 +691,7 @@
           },
           "notNull" : true,
           "autoIncrement" : true,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -707,7 +707,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -723,7 +723,7 @@
           },
           "notNull" : false,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -739,7 +739,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -755,7 +755,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -772,7 +772,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -790,7 +790,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -808,7 +808,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -834,7 +834,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -856,13 +856,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : null,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -887,7 +887,7 @@
           },
           "notNull" : true,
           "autoIncrement" : true,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -903,7 +903,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -919,7 +919,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -937,7 +937,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -953,7 +953,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -969,7 +969,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -987,7 +987,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -1013,7 +1013,7 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1031,13 +1031,13 @@
           ],
           "onUpdate" : "Restrict",
           "onDelete" : "Restrict",
-          "attributes" : {
+          "labels" : {
             
           }
         }
       ],
       "schema" : null,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1062,7 +1062,7 @@
           },
           "notNull" : true,
           "autoIncrement" : true,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1078,7 +1078,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1094,7 +1094,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1112,7 +1112,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -1126,7 +1126,7 @@
       "relations" : [
       ],
       "schema" : null,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1151,7 +1151,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1167,7 +1167,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1185,7 +1185,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -1199,7 +1199,7 @@
       "relations" : [
       ],
       "schema" : "analytics",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1224,7 +1224,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1240,7 +1240,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1258,7 +1258,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -1272,7 +1272,7 @@
       "relations" : [
       ],
       "schema" : "analytics",
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1297,7 +1297,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1313,7 +1313,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         },
@@ -1331,7 +1331,7 @@
           },
           "notNull" : true,
           "autoIncrement" : false,
-          "attributes" : {
+          "labels" : {
             
           }
         }
@@ -1345,7 +1345,7 @@
       "relations" : [
       ],
       "schema" : "analytics",
-      "attributes" : {
+      "labels" : {
         
       }
     }
@@ -1364,7 +1364,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1380,7 +1380,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1396,7 +1396,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1412,7 +1412,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1428,7 +1428,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1444,7 +1444,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1461,7 +1461,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1479,7 +1479,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1497,7 +1497,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1514,7 +1514,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1531,7 +1531,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1547,7 +1547,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1564,7 +1564,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1581,7 +1581,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     },
@@ -1598,7 +1598,7 @@
         }
       },
       "notNull" : true,
-      "attributes" : {
+      "labels" : {
         
       }
     }
@@ -1623,12 +1623,12 @@
           "Canceled"
         ]
       ],
-      "attributes" : {
+      "labels" : {
         
       }
     }
   ],
-  "attributes" : {
+  "labels" : {
     "tableNameSuffix" : "table"
   }
 }

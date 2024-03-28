@@ -8,7 +8,7 @@ trait Common {
 
   val commonGroup = group("Common", "Common tables and data structures")
     .withSchema("common")
-    .withAttributes(
+    .withLabels(
       javaModelPackage("finance.data.common.model"),
       javaRepoPackage("finance.data.common"),
     )

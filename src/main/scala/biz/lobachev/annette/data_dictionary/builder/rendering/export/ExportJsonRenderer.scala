@@ -1,4 +1,4 @@
-package biz.lobachev.annette.data_dictionary.builder.rendering.json
+package biz.lobachev.annette.data_dictionary.builder.rendering.`export`
 
 import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, Renderer}
 import biz.lobachev.annette.data_dictionary.builder.model._
@@ -6,8 +6,8 @@ import io.circe._
 import io.circe.syntax._
 import io.circe.generic.semiauto._
 
-case class JsonRenderer(domain: Domain) extends Renderer {
-  val path = "json"
+case class ExportJsonRenderer(domain: Domain) extends Renderer {
+  val path = "export"
 
   implicit val encoder12: Encoder[EntityIndex]      = deriveEncoder[EntityIndex]
   implicit val encoder11: Encoder[RelationType]     = Encoder.instance(a => Json.fromString(a.toString))

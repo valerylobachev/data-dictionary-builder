@@ -8,7 +8,7 @@ trait Ledger {
 
   val ledgerGroup = group("Ledger", "Ledger settings")
     .withSchema("ledger")
-    .withAttributes(
+    .withLabels(
       javaModelPackage("finance.data.ledger.model"),
       javaRepoPackage("finance.data.ledger"),
     )
