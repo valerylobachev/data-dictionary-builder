@@ -2,19 +2,24 @@
 
 * [Shared data structures](#Shared data structures)
 * [Common tables and data structures](#Common tables and data structures)
-* [Ledger settings](#Ledger settings)
+* [Countries & Languages](#Countries & Languages)
+* [Currency](#Currency)
+* [Unit of measurement](#Unit of measurement)
+* [Finance](#Finance)
+* [Company code tables](#Company code tables)
 * [General Ledger account settings](#General Ledger account settings)
+* [General Ledger settings](#General Ledger settings)
+* [Ledger entry tables](#Ledger entry tables)
+* [Business Partners](#Business Partners)
 * [Analytic tables](#Analytic tables)
 * [Logistic tables](#Logistic tables)
-* [Company code tables](#Company code tables)
-* [Ledger entry tables](#Ledger entry tables)
 
 
 Finance model provides tables and data structures similar to SAP ERP Finance.
 
 ## Shared data structures
 
-### Modification data structure ("modifications")
+### Modification data structure ("bc"."modifications")
 
 | Kolumna | Typ danych | KG | Wymagane | Opis |
 | ------- | ------- | ------- | ------- | ------- |
@@ -25,7 +30,9 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 ## Common tables and data structures
 
-### Country ("common"."countries")
+## Countries & Languages
+
+### Country ("countries")
 
 | Kolumna | Typ danych | KG | Wymagane | Opis |
 | ------- | ------- | ------- | ------- | ------- |
@@ -43,9 +50,9 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
 | ------- | ------- | ------- | ------- | ------- |
-| language_id | Language ("common"."languages") | id | Many-To-One | Reference to language |
+| language_id | Language ("languages") | id | Many-To-One | Reference to language |
 
-### Language ("common"."languages")
+### Language ("languages")
 
 | Kolumna | Typ danych | KG | Wymagane | Opis |
 | ------- | ------- | ------- | ------- | ------- |
@@ -56,7 +63,9 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Currency ("common"."currencies")
+## Currency
+
+### Currency ("currencies")
 
 | Kolumna | Typ danych | KG | Wymagane | Opis |
 | ------- | ------- | ------- | ------- | ------- |
@@ -71,7 +80,7 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Exchange rate type ("common"."exchange_rate_types")
+### Exchange rate type ("exchange_rate_types")
 
 | Kolumna | Typ danych | KG | Wymagane | Opis |
 | ------- | ------- | ------- | ------- | ------- |
@@ -82,7 +91,7 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### ExchangeRate ("common"."exchange_rates")
+### ExchangeRate ("exchange_rates")
 
 | Kolumna | Typ danych | KG | Wymagane | Opis |
 | ------- | ------- | ------- | ------- | ------- |
@@ -104,11 +113,13 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
 | ------- | ------- | ------- | ------- | ------- |
-| exchange_rate_type_id | Exchange rate type ("common"."exchange_rate_types") | id | Many-To-One | Reference to exchange rate type |
-| from_currency_id | Currency ("common"."currencies") | id | Many-To-One | Reference (from) to currency |
-| to_currency_id | Currency ("common"."currencies") | id | Many-To-One | Reference (to) to currency |
+| exchange_rate_type_id | Exchange rate type ("exchange_rate_types") | id | Many-To-One | Reference to exchange rate type |
+| from_currency_id | Currency ("currencies") | id | Many-To-One | Reference (from) to currency |
+| to_currency_id | Currency ("currencies") | id | Many-To-One | Reference (to) to currency |
 
-### Unit of measurement ("common"."units_of_measurement")
+## Unit of measurement
+
+### Unit of measurement ("units_of_measurement")
 
 | Kolumna | Typ danych | KG | Wymagane | Opis |
 | ------- | ------- | ------- | ------- | ------- |
@@ -121,7 +132,7 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Unit of measurement text ("common"."uom_texts")
+### Unit of measurement text ("uom_texts")
 
 | Kolumna | Typ danych | KG | Wymagane | Opis |
 | ------- | ------- | ------- | ------- | ------- |
@@ -141,310 +152,10 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
 | ------- | ------- | ------- | ------- | ------- |
-| language_id | Language ("common"."languages") | id | Many-To-One | Reference to language |
-| uom_id | Unit of measurement ("common"."units_of_measurement") | id | Many-To-One | Reference to unit of measurement |
+| language_id | Language ("languages") | id | Many-To-One | Reference to language |
+| uom_id | Unit of measurement ("units_of_measurement") | id | Many-To-One | Reference to unit of measurement |
 
-## Ledger settings
-
-### Ledger ("ledger"."ledgers")
-
-| Kolumna | Typ danych | KG | Wymagane | Opis |
-| ------- | ------- | ------- | ------- | ------- |
-| id | varchar(4) | X | X | Ledger Id |
-| name | varchar(100) |  | X | Name |
-| leading | boolean |  | X | Leading ledger indicator |
-| ledger_type | ledger_type |  | X | Ledger Type |
-| underlying_ledger | varchar(4) |  |  | Underlying ledger |
-| created_by | varchar(20) |  | X | User created record |
-| created_at | timestamptz |  | X | Timestamp of record create |
-| updated_by | varchar(20) |  | X | User updated record |
-| updated_at | timestamptz |  | X | Timestamp of record update |
-
-
-**Relacji**
-
-| Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
-| ------- | ------- | ------- | ------- | ------- |
-| underlying_ledger | Ledger ("ledger"."ledgers") | id | Many-To-One | Reference to ledger |
-
-### Ledger Group ("ledger"."ledger_groups")
-
-| Kolumna | Typ danych | KG | Wymagane | Opis |
-| ------- | ------- | ------- | ------- | ------- |
-| id | varchar(2) | X | X | Ledger Group Id |
-| name | varchar(100) |  | X | Name |
-| created_by | varchar(20) |  | X | User created record |
-| created_at | timestamptz |  | X | Timestamp of record create |
-| updated_by | varchar(20) |  | X | User updated record |
-| updated_at | timestamptz |  | X | Timestamp of record update |
-
-### Ledger assignments to ledger group ("ledger"."ledger_group_ledgers")
-
-| Kolumna | Typ danych | KG | Wymagane | Opis |
-| ------- | ------- | ------- | ------- | ------- |
-| ledger_group_id | varchar(2) | X | X | Ledger Group Id |
-| ledger_id | varchar(4) | X | X | Ledger Id |
-| representative | boolean |  | X | Representative ledger indicator |
-| created_by | varchar(20) |  | X | User created record |
-| created_at | timestamptz |  | X | Timestamp of record create |
-| updated_by | varchar(20) |  | X | User updated record |
-| updated_at | timestamptz |  | X | Timestamp of record update |
-
-
-**Relacji**
-
-| Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
-| ------- | ------- | ------- | ------- | ------- |
-| ledger_id | Ledger ("ledger"."ledgers") | id | Many-To-One | Reference to ledger |
-| ledger_group_id | Ledger Group ("ledger"."ledger_groups") | id | Many-To-One | Reference to ledger group |
-
-## General Ledger account settings
-
-### Chart of accounts ("gl_account"."charts_of_accounts")
-
-| Kolumna | Typ danych | KG | Wymagane | Opis |
-| ------- | ------- | ------- | ------- | ------- |
-| id | varchar(4) | X | X | Chart of accounts id |
-| name | varchar(100) |  | X | Name |
-| created_by | varchar(20) |  | X | User created record |
-| created_at | timestamptz |  | X | Timestamp of record create |
-| updated_by | varchar(20) |  | X | User updated record |
-| updated_at | timestamptz |  | X | Timestamp of record update |
-
-### General ledger account ("gl_account"."gl_accounts")
-
-| Kolumna | Typ danych | KG | Wymagane | Opis |
-| ------- | ------- | ------- | ------- | ------- |
-| chart_of_accounts_id | varchar(4) | X | X | Chart of accounts id |
-| gl_account_id | varchar(10) | X | X | General ledger account id |
-| short_name | varchar(20) |  | X | Short name |
-| name | varchar(100) |  | X | Name |
-| gl_account_type | g_l_account_type |  | X | General ledger account type |
-| gl_account_group_id | varchar(10) |  | X | General ledger account group id |
-| created_by | varchar(20) |  | X | User created record |
-| created_at | timestamptz |  | X | Timestamp of record create |
-| updated_by | varchar(20) |  | X | User updated record |
-| updated_at | timestamptz |  | X | Timestamp of record update |
-
-
-**Relacji**
-
-| Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
-| ------- | ------- | ------- | ------- | ------- |
-| chart_of_accounts_id | Chart of accounts ("gl_account"."charts_of_accounts") | id | Many-To-One | Reference to Chart Of Accounts |
-| chart_of_accounts_id<br>gl_account_group_id | General ledger account group ("gl_account"."gl_account_groups") | chart_of_accounts_id<br>gl_account_group_id | Many-To-One | Reference to GLAccountGroup |
-
-### General ledger account group ("gl_account"."gl_account_groups")
-
-| Kolumna | Typ danych | KG | Wymagane | Opis |
-| ------- | ------- | ------- | ------- | ------- |
-| chart_of_accounts_id | varchar(4) | X | X | Chart of accounts id |
-| gl_account_group_id | varchar(10) | X | X | General ledger account group id |
-| name | varchar(100) |  | X | Name |
-| gl_account_id | varchar(10) |  | X | General ledger account id |
-| from_gl_account_id | varchar(10) |  | X | From GL account |
-| to_gl_account_id | varchar(10) |  | X | To GL account |
-| created_by | varchar(20) |  | X | User created record |
-| created_at | timestamptz |  | X | Timestamp of record create |
-| updated_by | varchar(20) |  | X | User updated record |
-| updated_at | timestamptz |  | X | Timestamp of record update |
-
-
-**Relacji**
-
-| Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
-| ------- | ------- | ------- | ------- | ------- |
-| chart_of_accounts_id | Chart of accounts ("gl_account"."charts_of_accounts") | id | Many-To-One | Reference to Chart Of Accounts |
-
-## Analytic tables
-
-### Creditor ("analytics"."creditors")
-
-| Kolumna | Typ danych | KG | Wymagane | Opis |
-| ------- | ------- | ------- | ------- | ------- |
-| id | varchar(10) | X | X | Creditor id |
-| name | varchar(100) |  | X | Name |
-| created_by | varchar(20) |  | X | User created record |
-| created_at | timestamptz |  | X | Timestamp of record create |
-| updated_by | varchar(20) |  | X | User updated record |
-| updated_at | timestamptz |  | X | Timestamp of record update |
-
-### Debtor ("analytics"."debtors")
-
-| Kolumna | Typ danych | KG | Wymagane | Opis |
-| ------- | ------- | ------- | ------- | ------- |
-| id | varchar(10) | X | X | Debtor id |
-| name | varchar(100) |  | X | Name |
-| created_by | varchar(20) |  | X | User created record |
-| created_at | timestamptz |  | X | Timestamp of record create |
-| updated_by | varchar(20) |  | X | User updated record |
-| updated_at | timestamptz |  | X | Timestamp of record update |
-
-### Business partner ("analytics"."business_partners")
-
-| Kolumna | Typ danych | KG | Wymagane | Opis |
-| ------- | ------- | ------- | ------- | ------- |
-| id | varchar(10) | X | X | Business partner id |
-| name | varchar(100) |  | X | Name |
-| creditor_id | varchar(10) |  |  | Creditor id |
-| debtor_id | varchar(10) |  |  | Debtor id |
-| created_by | varchar(20) |  | X | User created record |
-| created_at | timestamptz |  | X | Timestamp of record create |
-| updated_by | varchar(20) |  | X | User updated record |
-| updated_at | timestamptz |  | X | Timestamp of record update |
-
-
-**Indeksy**
-
-| Kolumny | Уникальный | Opis|
-| ------- | ------- | ------- |
-| creditor_id | X | Unique creditorId |
-| debtor_id | X | Unique debtorId |
-
-
-**Relacji**
-
-| Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
-| ------- | ------- | ------- | ------- | ------- |
-| creditor_id | Creditor ("analytics"."creditors") | id | One-To-One | Reference to Creditor |
-| debtor_id | Debtor ("analytics"."debtors") | id | One-To-One | Reference to Debtor |
-
-### Business area ("analytics"."business_areas")
-
-| Kolumna | Typ danych | KG | Wymagane | Opis |
-| ------- | ------- | ------- | ------- | ------- |
-| id | varchar(4) | X | X | Business area id |
-| name | varchar(100) |  | X | Name |
-| created_by | varchar(20) |  | X | User created record |
-| created_at | timestamptz |  | X | Timestamp of record create |
-| updated_by | varchar(20) |  | X | User updated record |
-| updated_at | timestamptz |  | X | Timestamp of record update |
-
-### Functional area ("analytics"."functional_areas")
-
-| Kolumna | Typ danych | KG | Wymagane | Opis |
-| ------- | ------- | ------- | ------- | ------- |
-| id | varchar(20) | X | X | Functional area id |
-| name | varchar(100) |  | X | Name |
-| created_by | varchar(20) |  | X | User created record |
-| created_at | timestamptz |  | X | Timestamp of record create |
-| updated_by | varchar(20) |  | X | User updated record |
-| updated_at | timestamptz |  | X | Timestamp of record update |
-
-### Segment ("analytics"."segments")
-
-| Kolumna | Typ danych | KG | Wymagane | Opis |
-| ------- | ------- | ------- | ------- | ------- |
-| id | varchar(10) | X | X | Segment id |
-| name | varchar(100) |  | X | Name |
-| created_by | varchar(20) |  | X | User created record |
-| created_at | timestamptz |  | X | Timestamp of record create |
-| updated_by | varchar(20) |  | X | User updated record |
-| updated_at | timestamptz |  | X | Timestamp of record update |
-
-### Attribute ("analytics"."attributes")
-
-| Kolumna | Typ danych | KG | Wymagane | Opis |
-| ------- | ------- | ------- | ------- | ------- |
-| id | varchar(10) | X | X | Attribute id |
-| name | varchar(100) |  | X | Name |
-| created_by | varchar(20) |  | X | User created record |
-| created_at | timestamptz |  | X | Timestamp of record create |
-| updated_by | varchar(20) |  | X | User updated record |
-| updated_at | timestamptz |  | X | Timestamp of record update |
-
-### Attribute value ("analytics"."attribute_values")
-
-| Kolumna | Typ danych | KG | Wymagane | Opis |
-| ------- | ------- | ------- | ------- | ------- |
-| attribute_id | varchar(10) | X | X | Attribute id |
-| attribute_value_id | varchar(20) | X | X | Attribute value id |
-| name | varchar(100) |  | X | Name |
-| created_by | varchar(20) |  | X | User created record |
-| created_at | timestamptz |  | X | Timestamp of record create |
-| updated_by | varchar(20) |  | X | User updated record |
-| updated_at | timestamptz |  | X | Timestamp of record update |
-
-
-**Relacji**
-
-| Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
-| ------- | ------- | ------- | ------- | ------- |
-| attribute_id | Attribute ("analytics"."attributes") | id | Many-To-One | Relation to Attribute |
-
-## Logistic tables
-
-### Material ("logistic"."materials")
-
-| Kolumna | Typ danych | KG | Wymagane | Opis |
-| ------- | ------- | ------- | ------- | ------- |
-| id | varchar(40) | X | X | Material id |
-| name | varchar(100) |  | X | Name |
-| short_name | varchar(20) |  | X | Short name |
-| basic_uom_id | varchar(6) |  | X | Unit of measurement Id |
-| created_by | varchar(20) |  | X | User created record |
-| created_at | timestamptz |  | X | Timestamp of record create |
-| updated_by | varchar(20) |  | X | User updated record |
-| updated_at | timestamptz |  | X | Timestamp of record update |
-
-
-**Relacji**
-
-| Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
-| ------- | ------- | ------- | ------- | ------- |
-| basic_uom_id | Unit of measurement ("common"."units_of_measurement") | id | Many-To-One | Reference to Unit Of Measurement |
-
-### Plant ("logistic"."plants")
-
-| Kolumna | Typ danych | KG | Wymagane | Opis |
-| ------- | ------- | ------- | ------- | ------- |
-| id | varchar(4) | X | X | Plant id |
-| name | varchar(100) |  | X | Name |
-| short_name | varchar(20) |  | X | Short name |
-| created_by | varchar(20) |  | X | User created record |
-| created_at | timestamptz |  | X | Timestamp of record create |
-| updated_by | varchar(20) |  | X | User updated record |
-| updated_at | timestamptz |  | X | Timestamp of record update |
-
-### Location ("logistic"."locations")
-
-| Kolumna | Typ danych | KG | Wymagane | Opis |
-| ------- | ------- | ------- | ------- | ------- |
-| plant_id | varchar(4) | X | X | Plant id |
-| location_id | varchar(10) | X | X | Location id |
-| name | varchar(100) |  | X | Name |
-| short_name | varchar(20) |  | X | Short name |
-| created_by | varchar(20) |  | X | User created record |
-| created_at | timestamptz |  | X | Timestamp of record create |
-| updated_by | varchar(20) |  | X | User updated record |
-| updated_at | timestamptz |  | X | Timestamp of record update |
-
-
-**Relacji**
-
-| Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
-| ------- | ------- | ------- | ------- | ------- |
-| plant_id | Plant ("logistic"."plants") | id | Many-To-One | Reference to Plant |
-
-### Valuation area ("logistic"."valuation_areas")
-
-| Kolumna | Typ danych | KG | Wymagane | Opis |
-| ------- | ------- | ------- | ------- | ------- |
-| id | varchar(20) | X | X | Valuation area id |
-| name | varchar(100) |  | X | Name |
-| short_name | varchar(20) |  | X | Short name |
-| company_code_id | varchar(4) |  | X | Company code |
-| created_by | varchar(20) |  | X | User created record |
-| created_at | timestamptz |  | X | Timestamp of record create |
-| updated_by | varchar(20) |  | X | User updated record |
-| updated_at | timestamptz |  | X | Timestamp of record update |
-
-
-**Relacji**
-
-| Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
-| ------- | ------- | ------- | ------- | ------- |
-| company_code_id | Company code ("company_code"."company_codes") | id | Many-To-One | Reference to CompanyCode |
+## Finance
 
 ## Company code tables
 
@@ -470,9 +181,9 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 
 | Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
 | ------- | ------- | ------- | ------- | ------- |
-| country_id | Country ("common"."countries") | id | Many-To-One | Reference to Country |
-| language_id | Language ("common"."languages") | id | Many-To-One | Reference to Language |
-| currency_id | Currency ("common"."currencies") | id | Many-To-One | Reference to Currency |
+| country_id | Country ("countries") | id | Many-To-One | Reference to Country |
+| language_id | Language ("languages") | id | Many-To-One | Reference to Language |
+| currency_id | Currency ("currencies") | id | Many-To-One | Reference to Currency |
 | chart_of_accounts_id | Chart of accounts ("gl_account"."charts_of_accounts") | id | Many-To-One | Reference to ChartOfAccounts |
 | fy_variant_id | Fiscal year variant ("company_code"."fy_variants") | id | Many-To-One | Reference to FYVariant |
 | posting_period_variant_id | Posting period variant ("company_code"."posting_period_variants") | id | Many-To-One | Reference to PostingPeriodVariant |
@@ -546,6 +257,118 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | ------- | ------- | ------- | ------- | ------- |
 | posting_period_variant_id | Posting period variant ("company_code"."posting_period_variants") | id | Many-To-One | Reference to PostingPeriodVariant |
 
+## General Ledger account settings
+
+### Chart of accounts ("gl_account"."charts_of_accounts")
+
+| Kolumna | Typ danych | KG | Wymagane | Opis |
+| ------- | ------- | ------- | ------- | ------- |
+| id | varchar(4) | X | X | Chart of accounts id |
+| name | varchar(100) |  | X | Name |
+| created_by | varchar(20) |  | X | User created record |
+| created_at | timestamptz |  | X | Timestamp of record create |
+| updated_by | varchar(20) |  | X | User updated record |
+| updated_at | timestamptz |  | X | Timestamp of record update |
+
+### General ledger account ("gl_account"."gl_accounts")
+
+| Kolumna | Typ danych | KG | Wymagane | Opis |
+| ------- | ------- | ------- | ------- | ------- |
+| chart_of_accounts_id | varchar(4) | X | X | Chart of accounts id |
+| gl_account_id | varchar(10) | X | X | General ledger account id |
+| short_name | varchar(20) |  | X | Short name |
+| name | varchar(100) |  | X | Name |
+| gl_account_type | g_l_account_type |  | X | General ledger account type |
+| gl_account_group_id | varchar(10) |  | X | General ledger account group id |
+| created_by | varchar(20) |  | X | User created record |
+| created_at | timestamptz |  | X | Timestamp of record create |
+| updated_by | varchar(20) |  | X | User updated record |
+| updated_at | timestamptz |  | X | Timestamp of record update |
+
+
+**Relacji**
+
+| Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
+| ------- | ------- | ------- | ------- | ------- |
+| chart_of_accounts_id | Chart of accounts ("gl_account"."charts_of_accounts") | id | Many-To-One | Reference to Chart Of Accounts |
+| chart_of_accounts_id<br>gl_account_group_id | General ledger account group ("gl_account"."gl_account_groups") | chart_of_accounts_id<br>gl_account_group_id | Many-To-One | Reference to GLAccountGroup |
+
+### General ledger account group ("gl_account"."gl_account_groups")
+
+| Kolumna | Typ danych | KG | Wymagane | Opis |
+| ------- | ------- | ------- | ------- | ------- |
+| chart_of_accounts_id | varchar(4) | X | X | Chart of accounts id |
+| gl_account_group_id | varchar(10) | X | X | General ledger account group id |
+| name | varchar(100) |  | X | Name |
+| gl_account_id | varchar(10) |  | X | General ledger account id |
+| from_gl_account_id | varchar(10) |  | X | From GL account |
+| to_gl_account_id | varchar(10) |  | X | To GL account |
+| created_by | varchar(20) |  | X | User created record |
+| created_at | timestamptz |  | X | Timestamp of record create |
+| updated_by | varchar(20) |  | X | User updated record |
+| updated_at | timestamptz |  | X | Timestamp of record update |
+
+
+**Relacji**
+
+| Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
+| ------- | ------- | ------- | ------- | ------- |
+| chart_of_accounts_id | Chart of accounts ("gl_account"."charts_of_accounts") | id | Many-To-One | Reference to Chart Of Accounts |
+
+## General Ledger settings
+
+### Ledger ("ledger"."ledgers")
+
+| Kolumna | Typ danych | KG | Wymagane | Opis |
+| ------- | ------- | ------- | ------- | ------- |
+| id | varchar(4) | X | X | Ledger Id |
+| name | varchar(100) |  | X | Name |
+| leading | boolean |  | X | Leading ledger indicator |
+| ledger_type | ledger_type |  | X | Ledger Type |
+| underlying_ledger | varchar(4) |  |  | Underlying ledger |
+| created_by | varchar(20) |  | X | User created record |
+| created_at | timestamptz |  | X | Timestamp of record create |
+| updated_by | varchar(20) |  | X | User updated record |
+| updated_at | timestamptz |  | X | Timestamp of record update |
+
+
+**Relacji**
+
+| Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
+| ------- | ------- | ------- | ------- | ------- |
+| underlying_ledger | Ledger ("ledger"."ledgers") | id | Many-To-One | Reference to ledger |
+
+### Ledger Group ("ledger"."ledger_groups")
+
+| Kolumna | Typ danych | KG | Wymagane | Opis |
+| ------- | ------- | ------- | ------- | ------- |
+| id | varchar(2) | X | X | Ledger Group Id |
+| name | varchar(100) |  | X | Name |
+| created_by | varchar(20) |  | X | User created record |
+| created_at | timestamptz |  | X | Timestamp of record create |
+| updated_by | varchar(20) |  | X | User updated record |
+| updated_at | timestamptz |  | X | Timestamp of record update |
+
+### Ledger assignments to ledger group ("ledger"."ledger_group_ledgers")
+
+| Kolumna | Typ danych | KG | Wymagane | Opis |
+| ------- | ------- | ------- | ------- | ------- |
+| ledger_group_id | varchar(2) | X | X | Ledger Group Id |
+| ledger_id | varchar(4) | X | X | Ledger Id |
+| representative | boolean |  | X | Representative ledger indicator |
+| created_by | varchar(20) |  | X | User created record |
+| created_at | timestamptz |  | X | Timestamp of record create |
+| updated_by | varchar(20) |  | X | User updated record |
+| updated_at | timestamptz |  | X | Timestamp of record update |
+
+
+**Relacji**
+
+| Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
+| ------- | ------- | ------- | ------- | ------- |
+| ledger_id | Ledger ("ledger"."ledgers") | id | Many-To-One | Reference to ledger |
+| ledger_group_id | Ledger Group ("ledger"."ledger_groups") | id | Many-To-One | Reference to ledger group |
+
 ## Ledger entry tables
 
 ### Ledger Entry ("ledger_entry"."ledger_entries")
@@ -603,20 +426,20 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | ledger_id | Ledger ("ledger"."ledgers") | id | Many-To-One | Reference to Ledger |
 | company_code_id | Company code ("company_code"."company_codes") | id | Many-To-One | Reference to CompanyCode |
 | chart_of_accounts_id<br>gl_account_id | General ledger account ("gl_account"."gl_accounts") | chart_of_accounts_id<br>gl_account_id | Many-To-One | Reference to GLAccount |
-| creditor_id | Creditor ("analytics"."creditors") | id | Many-To-One | Reference to Creditor |
-| debtor_id | Debtor ("analytics"."debtors") | id | Many-To-One | Reference to Debtor |
-| business_partner_id | Business partner ("analytics"."business_partners") | id | Many-To-One | Reference to BusinessPartner |
+| creditor_id | Creditor ("bp"."creditors") | id | Many-To-One | Reference to Creditor |
+| debtor_id | Debtor ("bp"."debtors") | id | Many-To-One | Reference to Debtor |
+| business_partner_id | Business partner ("bp"."business_partners") | id | Many-To-One | Reference to BusinessPartner |
 | business_area_id | Business area ("analytics"."business_areas") | id | Many-To-One | Reference to BusinessArea |
 | functional_area_id | Functional area ("analytics"."functional_areas") | id | Many-To-One | Reference to FunctionalArea |
 | segment_id | Segment ("analytics"."segments") | id | Many-To-One | Reference to Segment |
-| valuation_area_id | Valuation area ("logistic"."valuation_areas") | id | Many-To-One | Reference to ValuationArea |
+| valuation_area_id | Valuation area ("analytics"."valuation_areas") | id | Many-To-One | Reference to ValuationArea |
 | plant_id | Plant ("logistic"."plants") | id | Many-To-One | Reference to Plant |
 | plant_id<br>location_id | Location ("logistic"."locations") | plant_id<br>location_id | Many-To-One | Reference to Location |
 | material_id | Material ("logistic"."materials") | id | Many-To-One | Reference to Material |
-| document_currency_id | Currency ("common"."currencies") | id | Many-To-One | Reference to Currency |
-| company_code_currency_id | Currency ("common"."currencies") | id | Many-To-One | Reference to Currency |
-| uom_id | Unit of measurement ("common"."units_of_measurement") | id | Many-To-One | Reference to UnitOfMeasurement |
-| basic_uom_id | Unit of measurement ("common"."units_of_measurement") | id | Many-To-One | Reference to UnitOfMeasurement |
+| document_currency_id | Currency ("currencies") | id | Many-To-One | Reference to Currency |
+| company_code_currency_id | Currency ("currencies") | id | Many-To-One | Reference to Currency |
+| uom_id | Unit of measurement ("units_of_measurement") | id | Many-To-One | Reference to UnitOfMeasurement |
+| basic_uom_id | Unit of measurement ("units_of_measurement") | id | Many-To-One | Reference to UnitOfMeasurement |
 
 ### Ledger entry attribute ("ledger_entry"."ledger_entry_attributes")
 
@@ -633,4 +456,196 @@ Finance model provides tables and data structures similar to SAP ERP Finance.
 | ------- | ------- | ------- | ------- | ------- |
 | entry_no | Ledger Entry ("ledger_entry"."ledger_entries") | entry_no | Many-To-One | Reference to LedgerEntry |
 | attribute_id<br>attribute_value_id | Attribute value ("analytics"."attribute_values") | attribute_id<br>attribute_value_id | Many-To-One | Reference to AttributeValue |
+
+## Business Partners
+
+### Creditor ("bp"."creditors")
+
+| Kolumna | Typ danych | KG | Wymagane | Opis |
+| ------- | ------- | ------- | ------- | ------- |
+| id | varchar(10) | X | X | Creditor id |
+| name | varchar(100) |  | X | Name |
+| created_by | varchar(20) |  | X | User created record |
+| created_at | timestamptz |  | X | Timestamp of record create |
+| updated_by | varchar(20) |  | X | User updated record |
+| updated_at | timestamptz |  | X | Timestamp of record update |
+
+### Debtor ("bp"."debtors")
+
+| Kolumna | Typ danych | KG | Wymagane | Opis |
+| ------- | ------- | ------- | ------- | ------- |
+| id | varchar(10) | X | X | Debtor id |
+| name | varchar(100) |  | X | Name |
+| created_by | varchar(20) |  | X | User created record |
+| created_at | timestamptz |  | X | Timestamp of record create |
+| updated_by | varchar(20) |  | X | User updated record |
+| updated_at | timestamptz |  | X | Timestamp of record update |
+
+### Business partner ("bp"."business_partners")
+
+| Kolumna | Typ danych | KG | Wymagane | Opis |
+| ------- | ------- | ------- | ------- | ------- |
+| id | varchar(10) | X | X | Business partner id |
+| name | varchar(100) |  | X | Name |
+| creditor_id | varchar(10) |  |  | Creditor id |
+| debtor_id | varchar(10) |  |  | Debtor id |
+| created_by | varchar(20) |  | X | User created record |
+| created_at | timestamptz |  | X | Timestamp of record create |
+| updated_by | varchar(20) |  | X | User updated record |
+| updated_at | timestamptz |  | X | Timestamp of record update |
+
+
+**Indeksy**
+
+| Kolumny | Уникальный | Opis|
+| ------- | ------- | ------- |
+| creditor_id | X | Unique creditorId |
+| debtor_id | X | Unique debtorId |
+
+
+**Relacji**
+
+| Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
+| ------- | ------- | ------- | ------- | ------- |
+| creditor_id | Creditor ("bp"."creditors") | id | One-To-One | Reference to Creditor |
+| debtor_id | Debtor ("bp"."debtors") | id | One-To-One | Reference to Debtor |
+
+## Analytic tables
+
+### Business area ("analytics"."business_areas")
+
+| Kolumna | Typ danych | KG | Wymagane | Opis |
+| ------- | ------- | ------- | ------- | ------- |
+| id | varchar(4) | X | X | Business area id |
+| name | varchar(100) |  | X | Name |
+| created_by | varchar(20) |  | X | User created record |
+| created_at | timestamptz |  | X | Timestamp of record create |
+| updated_by | varchar(20) |  | X | User updated record |
+| updated_at | timestamptz |  | X | Timestamp of record update |
+
+### Functional area ("analytics"."functional_areas")
+
+| Kolumna | Typ danych | KG | Wymagane | Opis |
+| ------- | ------- | ------- | ------- | ------- |
+| id | varchar(20) | X | X | Functional area id |
+| name | varchar(100) |  | X | Name |
+| created_by | varchar(20) |  | X | User created record |
+| created_at | timestamptz |  | X | Timestamp of record create |
+| updated_by | varchar(20) |  | X | User updated record |
+| updated_at | timestamptz |  | X | Timestamp of record update |
+
+### Segment ("analytics"."segments")
+
+| Kolumna | Typ danych | KG | Wymagane | Opis |
+| ------- | ------- | ------- | ------- | ------- |
+| id | varchar(10) | X | X | Segment id |
+| name | varchar(100) |  | X | Name |
+| created_by | varchar(20) |  | X | User created record |
+| created_at | timestamptz |  | X | Timestamp of record create |
+| updated_by | varchar(20) |  | X | User updated record |
+| updated_at | timestamptz |  | X | Timestamp of record update |
+
+### Attribute ("analytics"."attributes")
+
+| Kolumna | Typ danych | KG | Wymagane | Opis |
+| ------- | ------- | ------- | ------- | ------- |
+| id | varchar(10) | X | X | Attribute id |
+| name | varchar(100) |  | X | Name |
+| created_by | varchar(20) |  | X | User created record |
+| created_at | timestamptz |  | X | Timestamp of record create |
+| updated_by | varchar(20) |  | X | User updated record |
+| updated_at | timestamptz |  | X | Timestamp of record update |
+
+### Attribute value ("analytics"."attribute_values")
+
+| Kolumna | Typ danych | KG | Wymagane | Opis |
+| ------- | ------- | ------- | ------- | ------- |
+| attribute_id | varchar(10) | X | X | Attribute id |
+| attribute_value_id | varchar(20) | X | X | Attribute value id |
+| name | varchar(100) |  | X | Name |
+| created_by | varchar(20) |  | X | User created record |
+| created_at | timestamptz |  | X | Timestamp of record create |
+| updated_by | varchar(20) |  | X | User updated record |
+| updated_at | timestamptz |  | X | Timestamp of record update |
+
+
+**Relacji**
+
+| Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
+| ------- | ------- | ------- | ------- | ------- |
+| attribute_id | Attribute ("analytics"."attributes") | id | Many-To-One | Relation to Attribute |
+
+### Valuation area ("analytics"."valuation_areas")
+
+| Kolumna | Typ danych | KG | Wymagane | Opis |
+| ------- | ------- | ------- | ------- | ------- |
+| id | varchar(20) | X | X | Valuation area id |
+| name | varchar(100) |  | X | Name |
+| short_name | varchar(20) |  | X | Short name |
+| company_code_id | varchar(4) |  | X | Company code |
+| created_by | varchar(20) |  | X | User created record |
+| created_at | timestamptz |  | X | Timestamp of record create |
+| updated_by | varchar(20) |  | X | User updated record |
+| updated_at | timestamptz |  | X | Timestamp of record update |
+
+
+**Relacji**
+
+| Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
+| ------- | ------- | ------- | ------- | ------- |
+| company_code_id | Company code ("company_code"."company_codes") | id | Many-To-One | Reference to CompanyCode |
+
+## Logistic tables
+
+### Material ("logistic"."materials")
+
+| Kolumna | Typ danych | KG | Wymagane | Opis |
+| ------- | ------- | ------- | ------- | ------- |
+| id | varchar(40) | X | X | Material id |
+| name | varchar(100) |  | X | Name |
+| short_name | varchar(20) |  | X | Short name |
+| basic_uom_id | varchar(6) |  | X | Unit of measurement Id |
+| created_by | varchar(20) |  | X | User created record |
+| created_at | timestamptz |  | X | Timestamp of record create |
+| updated_by | varchar(20) |  | X | User updated record |
+| updated_at | timestamptz |  | X | Timestamp of record update |
+
+
+**Relacji**
+
+| Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
+| ------- | ------- | ------- | ------- | ------- |
+| basic_uom_id | Unit of measurement ("units_of_measurement") | id | Many-To-One | Reference to Unit Of Measurement |
+
+### Plant ("logistic"."plants")
+
+| Kolumna | Typ danych | KG | Wymagane | Opis |
+| ------- | ------- | ------- | ------- | ------- |
+| id | varchar(4) | X | X | Plant id |
+| name | varchar(100) |  | X | Name |
+| short_name | varchar(20) |  | X | Short name |
+| created_by | varchar(20) |  | X | User created record |
+| created_at | timestamptz |  | X | Timestamp of record create |
+| updated_by | varchar(20) |  | X | User updated record |
+| updated_at | timestamptz |  | X | Timestamp of record update |
+
+### Location ("logistic"."locations")
+
+| Kolumna | Typ danych | KG | Wymagane | Opis |
+| ------- | ------- | ------- | ------- | ------- |
+| plant_id | varchar(4) | X | X | Plant id |
+| location_id | varchar(10) | X | X | Location id |
+| name | varchar(100) |  | X | Name |
+| short_name | varchar(20) |  | X | Short name |
+| created_by | varchar(20) |  | X | User created record |
+| created_at | timestamptz |  | X | Timestamp of record create |
+| updated_by | varchar(20) |  | X | User updated record |
+| updated_at | timestamptz |  | X | Timestamp of record update |
+
+
+**Relacji**
+
+| Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
+| ------- | ------- | ------- | ------- | ------- |
+| plant_id | Plant ("logistic"."plants") | id | Many-To-One | Reference to Plant |
 

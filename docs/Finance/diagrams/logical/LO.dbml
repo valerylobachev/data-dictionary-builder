@@ -1,0 +1,98 @@
+// Ledger Type
+enum ledger_type {
+  L [note: 'Leading ledger']
+  X [note: 'Extension ledger']
+}
+
+// General ledger account type
+enum g_l_account_type {
+  X [note: 'Balance Sheet Account']
+  N [note: 'Nonoperating Expense or Income']
+  P [note: 'Primary Costs or Revenue']
+  S [note: 'Secondary Costs']
+  C [note: 'Cash Account']
+}
+
+// Account type
+enum account_type {
+  A [note: 'Assets']
+  D [note: 'Customer']
+  K [note: 'Vendor']
+  M [note: 'Materials']
+  S [note: 'General Ledger']
+}
+
+// Debit/Credit
+enum debit_credit {
+  D [note: 'Debit']
+  C [note: 'Credit']
+}
+
+// Group LO - Logistic tables 
+
+table "Material" {
+  "Material id" varchar(40) [pk, not null, note: 'Material id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "Short name" varchar(20) [not null, note: 'Short name']
+  "Unit of measurement Id" varchar(6) [not null, note: 'Unit of measurement Id']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Material'
+}
+
+// Reference to Unit Of Measurement
+Ref materials_basic_uom_id: "Material"."Unit of measurement Id" > "Unit of measurement"."Unit of measurement Id"
+
+
+table "Plant" {
+  "Plant id" varchar(4) [pk, not null, note: 'Plant id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "Short name" varchar(20) [not null, note: 'Short name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Plant'
+}
+
+table "Location" {
+  "Plant id" varchar(4) [not null, note: 'Plant id']
+  "Location id" varchar(10) [not null, note: 'Location id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "Short name" varchar(20) [not null, note: 'Short name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    ("Plant id", "Location id") [pk]
+  }
+
+  note: 'Location'
+}
+
+// Reference to Plant
+Ref locations_plant_id: "Location"."Plant id" > "Plant"."Plant id"
+
+
+
+// Related entities 
+
+table "Unit of measurement" {
+  "Unit of measurement Id" varchar(6) [pk, not null, note: 'Unit of measurement Id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "Short name" varchar(30) [not null, note: 'Short name']
+  "ISOCode" varchar(3) [note: 'ISOCode']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Unit of measurement'
+}
+

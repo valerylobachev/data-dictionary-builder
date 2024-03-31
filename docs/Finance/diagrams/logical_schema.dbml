@@ -29,7 +29,8 @@ enum debit_credit {
 }
 
 
-// Group Common - Common tables and data structures 
+
+// Group CL - Countries & Languages 
 
 table "Country" {
   "Country Id" varchar(3) [pk, not null, note: 'Country Id']
@@ -58,6 +59,9 @@ table "Language" {
 
   note: 'Language'
 }
+
+
+// Group CUR - Currency 
 
 table "Currency" {
   "Currency Id" varchar(5) [pk, not null, note: 'Currency Id']
@@ -114,6 +118,9 @@ Ref exchange_rates_from_currency_id: "ExchangeRate"."From Currency Id" > "Curren
 Ref exchange_rates_to_currency_id: "ExchangeRate"."To Currency Id" > "Currency"."Currency Id"
 
 
+
+// Group UOM - Unit of measurement 
+
 table "Unit of measurement" {
   "Unit of measurement Id" varchar(6) [pk, not null, note: 'Unit of measurement Id']
   "Name" varchar(100) [not null, note: 'Name']
@@ -153,306 +160,8 @@ Ref uom_texts_uom_id: "Unit of measurement text"."Unit of measurement Id" > "Uni
 
 
 
-// Group Ledger - Ledger settings 
 
-table "Ledger" {
-  "Ledger Id" varchar(4) [pk, not null, note: 'Ledger Id']
-  "Name" varchar(100) [not null, note: 'Name']
-  "Leading ledger indicator" boolean [not null, note: 'Leading ledger indicator']
-  "Ledger Type" ledger_type [not null, note: 'Ledger Type']
-  "Underlying ledger" varchar(4) [note: 'Underlying ledger']
-  "User created record" varchar(20) [not null, note: 'User created record']
-  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
-  "User updated record" varchar(20) [not null, note: 'User updated record']
-  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
-
-  note: 'Ledger'
-}
-
-// Reference to ledger
-Ref ledgers_underlying_ledger: "Ledger"."Underlying ledger" > "Ledger"."Ledger Id"
-
-
-table "Ledger Group" {
-  "Ledger Group Id" varchar(2) [pk, not null, note: 'Ledger Group Id']
-  "Name" varchar(100) [not null, note: 'Name']
-  "User created record" varchar(20) [not null, note: 'User created record']
-  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
-  "User updated record" varchar(20) [not null, note: 'User updated record']
-  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
-
-  note: 'Ledger Group'
-}
-
-table "Ledger assignments to ledger group" {
-  "Ledger Group Id" varchar(2) [not null, note: 'Ledger Group Id']
-  "Ledger Id" varchar(4) [not null, note: 'Ledger Id']
-  "Representative ledger indicator" boolean [not null, note: 'Representative ledger indicator']
-  "User created record" varchar(20) [not null, note: 'User created record']
-  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
-  "User updated record" varchar(20) [not null, note: 'User updated record']
-  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
-
-  indexes {
-    ("Ledger Group Id", "Ledger Id") [pk]
-  }
-
-  note: 'Ledger assignments to ledger group'
-}
-
-// Reference to ledger
-Ref ledger_group_ledgers_ledger_id: "Ledger assignments to ledger group"."Ledger Id" > "Ledger"."Ledger Id"
-// Reference to ledger group
-Ref ledger_group_ledgers_ledger_group_id: "Ledger assignments to ledger group"."Ledger Group Id" > "Ledger Group"."Ledger Group Id"
-
-
-
-// Group GLAccount - General Ledger account settings 
-
-table "Chart of accounts" {
-  "Chart of accounts id" varchar(4) [pk, not null, note: 'Chart of accounts id']
-  "Name" varchar(100) [not null, note: 'Name']
-  "User created record" varchar(20) [not null, note: 'User created record']
-  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
-  "User updated record" varchar(20) [not null, note: 'User updated record']
-  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
-
-  note: 'Chart of accounts'
-}
-
-table "General ledger account" {
-  "Chart of accounts id" varchar(4) [not null, note: 'Chart of accounts id']
-  "General ledger account id" varchar(10) [not null, note: 'General ledger account id']
-  "Short name" varchar(20) [not null, note: 'Short name']
-  "Name" varchar(100) [not null, note: 'Name']
-  "General ledger account type" g_l_account_type [not null, note: 'General ledger account type']
-  "General ledger account group id" varchar(10) [not null, note: 'General ledger account group id']
-  "User created record" varchar(20) [not null, note: 'User created record']
-  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
-  "User updated record" varchar(20) [not null, note: 'User updated record']
-  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
-
-  indexes {
-    ("Chart of accounts id", "General ledger account id") [pk]
-  }
-
-  note: 'General ledger account'
-}
-
-// Reference to Chart Of Accounts
-Ref gl_accounts_chart_of_accounts_id: "General ledger account"."Chart of accounts id" > "Chart of accounts"."Chart of accounts id"
-// Reference to GLAccountGroup
-Ref gl_accounts_gl_account_group_id: "General ledger account".("Chart of accounts id", "General ledger account group id") > "General ledger account group".("Chart of accounts id", "General ledger account group id")
-
-
-table "General ledger account group" {
-  "Chart of accounts id" varchar(4) [not null, note: 'Chart of accounts id']
-  "General ledger account group id" varchar(10) [not null, note: 'General ledger account group id']
-  "Name" varchar(100) [not null, note: 'Name']
-  "General ledger account id" varchar(10) [not null, note: 'General ledger account id']
-  "From GL account" varchar(10) [not null, note: 'From GL account']
-  "To GL account" varchar(10) [not null, note: 'To GL account']
-  "User created record" varchar(20) [not null, note: 'User created record']
-  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
-  "User updated record" varchar(20) [not null, note: 'User updated record']
-  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
-
-  indexes {
-    ("Chart of accounts id", "General ledger account group id") [pk]
-  }
-
-  note: 'General ledger account group'
-}
-
-// Reference to Chart Of Accounts
-Ref gl_account_groups_chart_of_accounts_id: "General ledger account group"."Chart of accounts id" > "Chart of accounts"."Chart of accounts id"
-
-
-
-// Group Analytics - Analytic tables 
-
-table "Creditor" {
-  "Creditor id" varchar(10) [pk, not null, note: 'Creditor id']
-  "Name" varchar(100) [not null, note: 'Name']
-  "User created record" varchar(20) [not null, note: 'User created record']
-  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
-  "User updated record" varchar(20) [not null, note: 'User updated record']
-  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
-
-  note: 'Creditor'
-}
-
-table "Debtor" {
-  "Debtor id" varchar(10) [pk, not null, note: 'Debtor id']
-  "Name" varchar(100) [not null, note: 'Name']
-  "User created record" varchar(20) [not null, note: 'User created record']
-  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
-  "User updated record" varchar(20) [not null, note: 'User updated record']
-  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
-
-  note: 'Debtor'
-}
-
-table "Business partner" {
-  "Business partner id" varchar(10) [pk, not null, note: 'Business partner id']
-  "Name" varchar(100) [not null, note: 'Name']
-  "Creditor id" varchar(10) [note: 'Creditor id']
-  "Debtor id" varchar(10) [note: 'Debtor id']
-  "User created record" varchar(20) [not null, note: 'User created record']
-  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
-  "User updated record" varchar(20) [not null, note: 'User updated record']
-  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
-
-  indexes {
-    ("Creditor id") [unique, name: 'business_partners_creditor_id', note: 'Unique creditorId']
-    ("Debtor id") [unique, name: 'business_partners_debtor_id', note: 'Unique debtorId']
-  }
-
-  note: 'Business partner'
-}
-
-// Reference to Creditor
-Ref business_partners_creditor_id: "Business partner"."Creditor id" - "Creditor"."Creditor id"
-// Reference to Debtor
-Ref business_partners_debtor_id: "Business partner"."Debtor id" - "Debtor"."Debtor id"
-
-
-table "Business area" {
-  "Business area id" varchar(4) [pk, not null, note: 'Business area id']
-  "Name" varchar(100) [not null, note: 'Name']
-  "User created record" varchar(20) [not null, note: 'User created record']
-  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
-  "User updated record" varchar(20) [not null, note: 'User updated record']
-  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
-
-  note: 'Business area'
-}
-
-table "Functional area" {
-  "Functional area id" varchar(20) [pk, not null, note: 'Functional area id']
-  "Name" varchar(100) [not null, note: 'Name']
-  "User created record" varchar(20) [not null, note: 'User created record']
-  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
-  "User updated record" varchar(20) [not null, note: 'User updated record']
-  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
-
-  note: 'Functional area'
-}
-
-table "Segment" {
-  "Segment id" varchar(10) [pk, not null, note: 'Segment id']
-  "Name" varchar(100) [not null, note: 'Name']
-  "User created record" varchar(20) [not null, note: 'User created record']
-  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
-  "User updated record" varchar(20) [not null, note: 'User updated record']
-  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
-
-  note: 'Segment'
-}
-
-table "Attribute" {
-  "Attribute id" varchar(10) [pk, not null, note: 'Attribute id']
-  "Name" varchar(100) [not null, note: 'Name']
-  "User created record" varchar(20) [not null, note: 'User created record']
-  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
-  "User updated record" varchar(20) [not null, note: 'User updated record']
-  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
-
-  note: 'Attribute'
-}
-
-table "Attribute value" {
-  "Attribute id" varchar(10) [not null, note: 'Attribute id']
-  "Attribute value id" varchar(20) [not null, note: 'Attribute value id']
-  "Name" varchar(100) [not null, note: 'Name']
-  "User created record" varchar(20) [not null, note: 'User created record']
-  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
-  "User updated record" varchar(20) [not null, note: 'User updated record']
-  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
-
-  indexes {
-    ("Attribute id", "Attribute value id") [pk]
-  }
-
-  note: 'Attribute value'
-}
-
-// Relation to Attribute
-Ref attribute_values_attribute_id: "Attribute value"."Attribute id" > "Attribute"."Attribute id"
-
-
-
-// Group Logistic - Logistic tables 
-
-table "Material" {
-  "Material id" varchar(40) [pk, not null, note: 'Material id']
-  "Name" varchar(100) [not null, note: 'Name']
-  "Short name" varchar(20) [not null, note: 'Short name']
-  "Unit of measurement Id" varchar(6) [not null, note: 'Unit of measurement Id']
-  "User created record" varchar(20) [not null, note: 'User created record']
-  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
-  "User updated record" varchar(20) [not null, note: 'User updated record']
-  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
-
-  note: 'Material'
-}
-
-// Reference to Unit Of Measurement
-Ref materials_basic_uom_id: "Material"."Unit of measurement Id" > "Unit of measurement"."Unit of measurement Id"
-
-
-table "Plant" {
-  "Plant id" varchar(4) [pk, not null, note: 'Plant id']
-  "Name" varchar(100) [not null, note: 'Name']
-  "Short name" varchar(20) [not null, note: 'Short name']
-  "User created record" varchar(20) [not null, note: 'User created record']
-  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
-  "User updated record" varchar(20) [not null, note: 'User updated record']
-  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
-
-  note: 'Plant'
-}
-
-table "Location" {
-  "Plant id" varchar(4) [not null, note: 'Plant id']
-  "Location id" varchar(10) [not null, note: 'Location id']
-  "Name" varchar(100) [not null, note: 'Name']
-  "Short name" varchar(20) [not null, note: 'Short name']
-  "User created record" varchar(20) [not null, note: 'User created record']
-  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
-  "User updated record" varchar(20) [not null, note: 'User updated record']
-  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
-
-  indexes {
-    ("Plant id", "Location id") [pk]
-  }
-
-  note: 'Location'
-}
-
-// Reference to Plant
-Ref locations_plant_id: "Location"."Plant id" > "Plant"."Plant id"
-
-
-table "Valuation area" {
-  "Valuation area id" varchar(20) [pk, not null, note: 'Valuation area id']
-  "Name" varchar(100) [not null, note: 'Name']
-  "Short name" varchar(20) [not null, note: 'Short name']
-  "Company code" varchar(4) [not null, note: 'Company code']
-  "User created record" varchar(20) [not null, note: 'User created record']
-  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
-  "User updated record" varchar(20) [not null, note: 'User updated record']
-  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
-
-  note: 'Valuation area'
-}
-
-// Reference to CompanyCode
-Ref valuation_areas_company_code_id: "Valuation area"."Company code" > "Company code"."Company code"
-
-
-
-// Group CompanyCode - Company code tables 
+// Group FI-CC - Company code tables 
 
 table "Company code" {
   "Company code" varchar(4) [pk, not null, note: 'Company code']
@@ -558,7 +267,123 @@ Ref open_periods_posting_period_variant_id: "Open period"."Posting period varian
 
 
 
-// Group LedgerEntry - Ledger entry tables 
+// Group FI-GLA - General Ledger account settings 
+
+table "Chart of accounts" {
+  "Chart of accounts id" varchar(4) [pk, not null, note: 'Chart of accounts id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Chart of accounts'
+}
+
+table "General ledger account" {
+  "Chart of accounts id" varchar(4) [not null, note: 'Chart of accounts id']
+  "General ledger account id" varchar(10) [not null, note: 'General ledger account id']
+  "Short name" varchar(20) [not null, note: 'Short name']
+  "Name" varchar(100) [not null, note: 'Name']
+  "General ledger account type" g_l_account_type [not null, note: 'General ledger account type']
+  "General ledger account group id" varchar(10) [not null, note: 'General ledger account group id']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    ("Chart of accounts id", "General ledger account id") [pk]
+  }
+
+  note: 'General ledger account'
+}
+
+// Reference to Chart Of Accounts
+Ref gl_accounts_chart_of_accounts_id: "General ledger account"."Chart of accounts id" > "Chart of accounts"."Chart of accounts id"
+// Reference to GLAccountGroup
+Ref gl_accounts_gl_account_group_id: "General ledger account".("Chart of accounts id", "General ledger account group id") > "General ledger account group".("Chart of accounts id", "General ledger account group id")
+
+
+table "General ledger account group" {
+  "Chart of accounts id" varchar(4) [not null, note: 'Chart of accounts id']
+  "General ledger account group id" varchar(10) [not null, note: 'General ledger account group id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "General ledger account id" varchar(10) [not null, note: 'General ledger account id']
+  "From GL account" varchar(10) [not null, note: 'From GL account']
+  "To GL account" varchar(10) [not null, note: 'To GL account']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    ("Chart of accounts id", "General ledger account group id") [pk]
+  }
+
+  note: 'General ledger account group'
+}
+
+// Reference to Chart Of Accounts
+Ref gl_account_groups_chart_of_accounts_id: "General ledger account group"."Chart of accounts id" > "Chart of accounts"."Chart of accounts id"
+
+
+
+// Group FI-GLS - General Ledger settings 
+
+table "Ledger" {
+  "Ledger Id" varchar(4) [pk, not null, note: 'Ledger Id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "Leading ledger indicator" boolean [not null, note: 'Leading ledger indicator']
+  "Ledger Type" ledger_type [not null, note: 'Ledger Type']
+  "Underlying ledger" varchar(4) [note: 'Underlying ledger']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Ledger'
+}
+
+// Reference to ledger
+Ref ledgers_underlying_ledger: "Ledger"."Underlying ledger" > "Ledger"."Ledger Id"
+
+
+table "Ledger Group" {
+  "Ledger Group Id" varchar(2) [pk, not null, note: 'Ledger Group Id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Ledger Group'
+}
+
+table "Ledger assignments to ledger group" {
+  "Ledger Group Id" varchar(2) [not null, note: 'Ledger Group Id']
+  "Ledger Id" varchar(4) [not null, note: 'Ledger Id']
+  "Representative ledger indicator" boolean [not null, note: 'Representative ledger indicator']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    ("Ledger Group Id", "Ledger Id") [pk]
+  }
+
+  note: 'Ledger assignments to ledger group'
+}
+
+// Reference to ledger
+Ref ledger_group_ledgers_ledger_id: "Ledger assignments to ledger group"."Ledger Id" > "Ledger"."Ledger Id"
+// Reference to ledger group
+Ref ledger_group_ledgers_ledger_group_id: "Ledger assignments to ledger group"."Ledger Group Id" > "Ledger Group"."Ledger Group Id"
+
+
+
+// Group FI-LE - Ledger entry tables 
 
 table "Ledger Entry" {
   "Entry no" uuid [pk, not null, note: 'Entry no']
@@ -656,5 +481,191 @@ table "Ledger entry attribute" {
 Ref ledger_entry_attributes_entry_no: "Ledger entry attribute"."Entry no" > "Ledger Entry"."Entry no"
 // Reference to AttributeValue
 Ref ledger_entry_attributes_attribute_value_id: "Ledger entry attribute".("Attribute id", "Attribute value id") > "Attribute value".("Attribute id", "Attribute value id")
+
+
+
+// Group FI-BP - Business Partners 
+
+table "Creditor" {
+  "Creditor id" varchar(10) [pk, not null, note: 'Creditor id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Creditor'
+}
+
+table "Debtor" {
+  "Debtor id" varchar(10) [pk, not null, note: 'Debtor id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Debtor'
+}
+
+table "Business partner" {
+  "Business partner id" varchar(10) [pk, not null, note: 'Business partner id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "Creditor id" varchar(10) [note: 'Creditor id']
+  "Debtor id" varchar(10) [note: 'Debtor id']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    ("Creditor id") [unique, name: 'business_partners_creditor_id', note: 'Unique creditorId']
+    ("Debtor id") [unique, name: 'business_partners_debtor_id', note: 'Unique debtorId']
+  }
+
+  note: 'Business partner'
+}
+
+// Reference to Creditor
+Ref business_partners_creditor_id: "Business partner"."Creditor id" - "Creditor"."Creditor id"
+// Reference to Debtor
+Ref business_partners_debtor_id: "Business partner"."Debtor id" - "Debtor"."Debtor id"
+
+
+
+// Group FI-ANL - Analytic tables 
+
+table "Business area" {
+  "Business area id" varchar(4) [pk, not null, note: 'Business area id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Business area'
+}
+
+table "Functional area" {
+  "Functional area id" varchar(20) [pk, not null, note: 'Functional area id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Functional area'
+}
+
+table "Segment" {
+  "Segment id" varchar(10) [pk, not null, note: 'Segment id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Segment'
+}
+
+table "Attribute" {
+  "Attribute id" varchar(10) [pk, not null, note: 'Attribute id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Attribute'
+}
+
+table "Attribute value" {
+  "Attribute id" varchar(10) [not null, note: 'Attribute id']
+  "Attribute value id" varchar(20) [not null, note: 'Attribute value id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    ("Attribute id", "Attribute value id") [pk]
+  }
+
+  note: 'Attribute value'
+}
+
+// Relation to Attribute
+Ref attribute_values_attribute_id: "Attribute value"."Attribute id" > "Attribute"."Attribute id"
+
+
+table "Valuation area" {
+  "Valuation area id" varchar(20) [pk, not null, note: 'Valuation area id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "Short name" varchar(20) [not null, note: 'Short name']
+  "Company code" varchar(4) [not null, note: 'Company code']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Valuation area'
+}
+
+// Reference to CompanyCode
+Ref valuation_areas_company_code_id: "Valuation area"."Company code" > "Company code"."Company code"
+
+
+
+// Group LO - Logistic tables 
+
+table "Material" {
+  "Material id" varchar(40) [pk, not null, note: 'Material id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "Short name" varchar(20) [not null, note: 'Short name']
+  "Unit of measurement Id" varchar(6) [not null, note: 'Unit of measurement Id']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Material'
+}
+
+// Reference to Unit Of Measurement
+Ref materials_basic_uom_id: "Material"."Unit of measurement Id" > "Unit of measurement"."Unit of measurement Id"
+
+
+table "Plant" {
+  "Plant id" varchar(4) [pk, not null, note: 'Plant id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "Short name" varchar(20) [not null, note: 'Short name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Plant'
+}
+
+table "Location" {
+  "Plant id" varchar(4) [not null, note: 'Plant id']
+  "Location id" varchar(10) [not null, note: 'Location id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "Short name" varchar(20) [not null, note: 'Short name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    ("Plant id", "Location id") [pk]
+  }
+
+  note: 'Location'
+}
+
+// Reference to Plant
+Ref locations_plant_id: "Location"."Plant id" > "Plant"."Plant id"
 
 
