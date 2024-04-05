@@ -1,7 +1,7 @@
 package biz.lobachev.annette.data_dictionary.builder.rendering.kotlin
 
-import biz.lobachev.annette.data_dictionary.builder.helper.JavaPackage.JAVA_MODEL_PACKAGE
-import biz.lobachev.annette.data_dictionary.builder.helper.RelationName.{RELATION_FIELD_NAME, RELATION_REL_FIELD_NAME}
+import biz.lobachev.annette.data_dictionary.builder.labels.JavaPackage.JAVA_MODEL_PACKAGE
+import biz.lobachev.annette.data_dictionary.builder.labels.RelationName.{RELATION_FIELD_NAME, RELATION_REL_FIELD_NAME}
 import biz.lobachev.annette.data_dictionary.builder.model._
 import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, Renderer}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax.CamelCase
@@ -9,7 +9,7 @@ import org.fusesource.scalate.TemplateEngine
 
 import scala.io.Source
 
-case class KotlinRenderer(domain: Domain) extends Renderer {
+case class KotlinRenderer(domain: RawDomain) extends Renderer {
 
   val engine = new TemplateEngine
   engine.escapeMarkup = false
@@ -40,7 +40,7 @@ case class KotlinRenderer(domain: Domain) extends Renderer {
       .toSeq
   }
 
-  private def renderEntity(entity: Entity): Seq[KtClass] = {
+  private def renderEntity(entity: RawEntity): Seq[KtClass] = {
     val pkg                                = entity.labels.getOrElse(JAVA_MODEL_PACKAGE, "model")
     val schema                             = entity.schema.map(s => s""", schema = "$s"""").getOrElse("")
     val comments                           = entity.name +: description2Comments(entity.description)
@@ -87,7 +87,7 @@ case class KotlinRenderer(domain: Domain) extends Renderer {
     idClass.map(idCl => Seq(entityClass, idCl)).getOrElse(Seq(entityClass))
   }
 
-  def renderRelations(entity: Entity, pkg: String, fields: Seq[EntityField]): (Seq[KtClassMember], Set[String]) = {
+  def renderRelations(entity: RawEntity, pkg: String, fields: Seq[RawEntityField]): (Seq[KtClassMember], Set[String]) = {
     var imports = Set.empty[String]
     var names   = Map.empty[String, Int]
 
@@ -171,7 +171,7 @@ case class KotlinRenderer(domain: Domain) extends Renderer {
     (relationMembers ++ refRelationMembers, imports)
   }
 
-  def renderMember(entity: Entity, field: EntityField): KtClassMember = {
+  def renderMember(entity: RawEntity, field: RawEntityField): KtClassMember = {
     val idAnnotation             = if (entity.pk.contains(field.fieldName)) Seq("@Id") else Seq.empty
     val generatedValueAnnotation =
       if (field.autoIncrement) Seq("@GeneratedValue(strategy = GenerationType.IDENTITY)") else Seq.empty

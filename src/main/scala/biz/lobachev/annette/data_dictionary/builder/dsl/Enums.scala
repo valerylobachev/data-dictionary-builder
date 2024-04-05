@@ -1,6 +1,6 @@
 package biz.lobachev.annette.data_dictionary.builder.dsl
 
-import biz.lobachev.annette.data_dictionary.builder.model.EnumData
+import biz.lobachev.annette.data_dictionary.builder.model.RawEnumData
 
 trait Enums {
 
@@ -10,7 +10,7 @@ trait Enums {
     length: Int,
     description: String = ""
   ) =
-    EnumData(
+    RawEnumData(
       id = id.trim,
       name = name.trim,
       description = description.trim,

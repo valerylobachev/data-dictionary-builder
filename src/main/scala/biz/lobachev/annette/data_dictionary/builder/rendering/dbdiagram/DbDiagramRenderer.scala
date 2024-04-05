@@ -4,7 +4,7 @@ import biz.lobachev.annette.data_dictionary.builder.POSTGRESQL
 import biz.lobachev.annette.data_dictionary.builder.model._
 import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, Renderer}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
-import biz.lobachev.annette.data_dictionary.builder.model.Domain
+import biz.lobachev.annette.data_dictionary.builder.model.RawDomain
 case class DbDiagramOptions(
   physical: Boolean = true,
   path: String = "diagrams",
@@ -12,7 +12,7 @@ case class DbDiagramOptions(
   byGroupDir: String = "physical",
 )
 
-case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends Renderer {
+case class DbDiagramRenderer(domain: RawDomain, logical: Boolean = false) extends Renderer {
   val path                = "diagrams"
   val diagramName: String = if (logical) "logical_schema" else "physical_schema"
   val byGroupDir: String  = if (logical) "logical" else "physical"
@@ -82,7 +82,7 @@ case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends R
 
     }.mkString("\n")
 
-  def renderEntity(entity: Entity, group: Option[String] = None): String = {
+  def renderEntity(entity: RawEntity, group: Option[String] = None): String = {
     val fields    = renderFields(entity)
     val indexes   = renderIndexes(entity)
     val relations = renderRelations(entity, group)
@@ -94,7 +94,7 @@ case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends R
 
   }
 
-  def renderFields(entity: Entity): String =
+  def renderFields(entity: RawEntity): String =
     domain
       .rolloutEntityFields(entity)
       .map { field =>
@@ -112,7 +112,7 @@ case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends R
       }
       .mkString
 
-  def getEntityFieldName(entityFields: Seq[EntityField], fieldName: String, logical: Boolean): String =
+  def getEntityFieldName(entityFields: Seq[RawEntityField], fieldName: String, logical: Boolean): String =
     entityFields
       .find(f => f.fieldName == fieldName)
       .map(f => if (logical && f.name.trim.nonEmpty) wrapQuotes(f.name) else wrapQuotes(f.dbFieldName))
@@ -120,7 +120,7 @@ case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends R
         throw new IllegalArgumentException(s"not found field $fieldName")
       }
 
-  def renderIndexes(entity: Entity): String = {
+  def renderIndexes(entity: RawEntity): String = {
     val pk      = if (entity.pk.length > 1) {
       val pkFields = entity.pk.map(f => getEntityFieldName(entity.fields, f, logical)).mkString("(", ", ", ")")
       Some(s"    $pkFields [pk]\n")
@@ -143,7 +143,7 @@ case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends R
     else ""
   }
 
-  def renderRelations(entity: Entity, group: Option[String] = None): String = {
+  def renderRelations(entity: RawEntity, group: Option[String] = None): String = {
     val fr        = domain.rolloutEntity(entity)
     val fields    = fr.fields
     val relations = entity.relations ++ fr.relations

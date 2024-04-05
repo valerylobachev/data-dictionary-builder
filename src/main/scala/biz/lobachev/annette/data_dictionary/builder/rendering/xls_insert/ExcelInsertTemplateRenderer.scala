@@ -9,8 +9,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.FileOutputStream
 
 case class ExcelInsertTemplateRenderer(
-  domain: Domain,
-  translation: ExcelInsertTemplateTranslation = ExcelInsertTemplateTranslation.EN,
+                                        domain: RawDomain,
+                                        translation: ExcelInsertTemplateTranslation = ExcelInsertTemplateTranslation.EN,
 ) extends Renderer {
   val Q3 = "\"\"\""
   val Q4 = "\"\"\"\""
@@ -59,7 +59,7 @@ case class ExcelInsertTemplateRenderer(
         originCell
     }
 
-  def renderEntity(entity: Entity, wb: XSSFWorkbook) = {
+  def renderEntity(entity: RawEntity, wb: XSSFWorkbook) = {
     val sheet          = wb.createSheet(entity.id)
     val headerRow      = sheet.createRow(0)
     headerRow.createCell(0).setCellValue(entity.schema.getOrElse(""))

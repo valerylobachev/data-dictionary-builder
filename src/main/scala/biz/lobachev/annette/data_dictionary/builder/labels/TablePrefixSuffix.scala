@@ -1,4 +1,4 @@
-package biz.lobachev.annette.data_dictionary.builder.helper
+package biz.lobachev.annette.data_dictionary.builder.labels
 
 object TablePrefixSuffix {
   val TABLE_NAME_PREFIX = "tableNamePrefix"

@@ -1,7 +1,7 @@
 package biz.lobachev.annette.data_dictionary.builder_test.store
 
 import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
-import biz.lobachev.annette.data_dictionary.builder.helper.TablePrefixSuffix.{tableNamePrefix, tableNameSuffix}
+import biz.lobachev.annette.data_dictionary.builder.labels.TablePrefixSuffix.{tableNamePrefix, tableNameSuffix}
 import biz.lobachev.annette.data_dictionary.builder.model._
 
 object Store {

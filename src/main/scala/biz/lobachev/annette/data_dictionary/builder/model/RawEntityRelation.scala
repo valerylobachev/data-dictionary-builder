@@ -1,14 +1,6 @@
 package biz.lobachev.annette.data_dictionary.builder.model
 
-sealed trait ForeignKeyAction
-
-case object Cascade    extends ForeignKeyAction
-case object Restrict   extends ForeignKeyAction
-case object NoAction   extends ForeignKeyAction
-case object SetNull    extends ForeignKeyAction
-case object SetDefault extends ForeignKeyAction
-
-case class EntityRelation(
+case class RawEntityRelation(
   id: String,
   name: String,
   description: String = "",
@@ -24,7 +16,4 @@ case class EntityRelation(
   def withLabels(seq: Label*) = copy(labels = labels ++ seq.map(a => a.key -> a.value))
 }
 
-sealed trait RelationType
 
-case object ManyToOne extends RelationType
-case object OneToOne  extends RelationType

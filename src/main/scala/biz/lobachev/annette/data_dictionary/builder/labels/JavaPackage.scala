@@ -1,4 +1,4 @@
-package biz.lobachev.annette.data_dictionary.builder.helper
+package biz.lobachev.annette.data_dictionary.builder.labels
 
 object JavaPackage {
   val JAVA_MODEL_PACKAGE = "javaModelPackage"

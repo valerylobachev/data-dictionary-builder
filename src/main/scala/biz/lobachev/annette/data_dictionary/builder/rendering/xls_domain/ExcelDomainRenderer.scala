@@ -1,15 +1,15 @@
 package biz.lobachev.annette.data_dictionary.builder.rendering.xls_domain
 
-import biz.lobachev.annette.data_dictionary.builder.helper.JavaPackage.{JAVA_MODEL_PACKAGE, JAVA_REPO_PACKAGE}
+import biz.lobachev.annette.data_dictionary.builder.labels.JavaPackage.{JAVA_MODEL_PACKAGE, JAVA_REPO_PACKAGE}
 import biz.lobachev.annette.data_dictionary.builder.model._
 import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, Renderer}
-import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax.{RemoveBR}
+import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax.RemoveBR
 import org.apache.poi.ss.usermodel.{HorizontalAlignment, VerticalAlignment}
 import org.apache.poi.xssf.usermodel._
 
 import java.io.FileOutputStream
 
-case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation) extends Renderer {
+case class ExcelDomainRenderer(domain: RawDomain, translation: WorkbookTranslation) extends Renderer {
 
   override def render(): Seq[RenderResult] = {
     val dwb = initWorkbook(translation)
@@ -37,7 +37,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
 
   private var dataElementRowIndex = 0
 
-  def renderDataElement(dwb: DomainWorkbook, dataElement: DataElement) = {
+  def renderDataElement(dwb: DomainWorkbook, dataElement: RawDataElement) = {
     dataElementRowIndex += 1
     val row = dwb.dataElements.sheet.createRow(dataElementRowIndex)
 
@@ -63,7 +63,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
   private var enumRowIndex        = 0
   private var enumElementRowIndex = 0
 
-  private def renderEnum(dwb: DomainWorkbook, e: EnumData) = {
+  private def renderEnum(dwb: DomainWorkbook, e: RawEnumData) = {
     enumRowIndex += 1
     val row = dwb.enums.sheet.createRow(enumRowIndex)
     row.createCell(0).setCellValue(e.id)
@@ -82,7 +82,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
 
   private var groupRowIndex = 0
 
-  private def renderGroup(dwb: DomainWorkbook, group: Component) = {
+  private def renderGroup(dwb: DomainWorkbook, group: RawComponent) = {
     groupRowIndex += 1
     val row = dwb.groups.sheet.createRow(groupRowIndex)
     row.createCell(0).setCellValue(group.id)
@@ -104,7 +104,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
 
   private var entityRowIndex = 0
 
-  private def renderEntity(dwb: DomainWorkbook, group: Component, entity: Entity) = {
+  private def renderEntity(dwb: DomainWorkbook, group: RawComponent, entity: RawEntity) = {
     entityRowIndex += 1
     val row        = dwb.entities.sheet.createRow(entityRowIndex)
     row.createCell(0).setCellValue(group.id)
@@ -123,7 +123,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
 
   private var entityFieldRowIndex = 0
 
-  private def renderEntityField(dwb: DomainWorkbook, entity: Entity, field: EntityField) = {
+  private def renderEntityField(dwb: DomainWorkbook, entity: RawEntity, field: RawEntityField) = {
     entityFieldRowIndex += 1
     val row = dwb.fields.sheet.createRow(entityFieldRowIndex)
 
@@ -166,7 +166,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
   private var entityIndexIndex      = 0
   private var entityIndexFieldIndex = 0
 
-  private def renderEntityIndex(dwb: DomainWorkbook, entity: Entity, index: EntityIndex) = {
+  private def renderEntityIndex(dwb: DomainWorkbook, entity: RawEntity, index: RawEntityIndex) = {
     entityIndexIndex += 1
     val row = dwb.indexes.sheet.createRow(entityIndexIndex)
     row.createCell(0).setCellFormula(s"""B${entityIndexIndex + 1}&"_"&D${entityIndexIndex + 1}""")
@@ -196,7 +196,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
   private var entityRelationIndex      = 0
   private var entityRelationFieldIndex = 0
 
-  private def renderEntityRelation(dwb: DomainWorkbook, entity: Entity, relation: EntityRelation) = {
+  private def renderEntityRelation(dwb: DomainWorkbook, entity: RawEntity, relation: RawEntityRelation) = {
     entityRelationIndex += 1
     val row = dwb.relations.sheet.createRow(entityRelationIndex)
     row.createCell(0).setCellFormula(s"""B${entityRelationIndex + 1}&"_"&D${entityRelationIndex + 1}""")

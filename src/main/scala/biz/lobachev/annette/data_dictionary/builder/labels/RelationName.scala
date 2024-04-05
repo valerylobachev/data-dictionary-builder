@@ -1,4 +1,4 @@
-package biz.lobachev.annette.data_dictionary.builder.helper
+package biz.lobachev.annette.data_dictionary.builder.labels
 
 object RelationName {
   val RELATION_FIELD_NAME     = "relationFieldName"

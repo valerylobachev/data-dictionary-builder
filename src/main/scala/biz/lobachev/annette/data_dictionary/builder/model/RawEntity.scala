@@ -1,17 +1,11 @@
 package biz.lobachev.annette.data_dictionary.builder.model
 
-import biz.lobachev.annette.data_dictionary.builder.helper.TablePrefixSuffix.{TABLE_NAME_PREFIX, TABLE_NAME_SUFFIX}
+import biz.lobachev.annette.data_dictionary.builder.labels.TablePrefixSuffix.{TABLE_NAME_PREFIX, TABLE_NAME_SUFFIX}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax.wrapQuotes
 
 import scala.collection.immutable.ListMap
 
-sealed trait EntityType
-
-case object TableEntity    extends EntityType
-case object StructEntity   extends EntityType
-case object EmbeddedEntity extends EntityType
-
-case class Entity(
+case class RawEntity(
   id: String,
   componentId: String = "",
   name: String,
@@ -19,10 +13,10 @@ case class Entity(
   entityName: String,
   tableName: String,
   entityType: EntityType,
-  fields: Seq[EntityField] = Seq.empty,
+  fields: Seq[RawEntityField] = Seq.empty,
   pk: Seq[String] = Seq.empty,
-  indexes: ListMap[String, EntityIndex] = ListMap.empty,
-  relations: Seq[EntityRelation] = Seq.empty,
+  indexes: ListMap[String, RawEntityIndex] = ListMap.empty,
+  relations: Seq[RawEntityRelation] = Seq.empty,
   schema: Option[String] = None,
   labels: Labels = Map.empty,
 ) {
@@ -31,13 +25,13 @@ case class Entity(
 
   def withDescription(description: String) = copy(description = description)
 
-  def withFields(seq: EntityField*) = copy(fields = fields ++ seq)
+  def withFields(seq: RawEntityField*) = copy(fields = fields ++ seq)
 
-  def withPK(seq: EntityField*) = copy(fields = seq, pk = seq.map(_.fieldName))
+  def withPK(seq: RawEntityField*) = copy(fields = seq, pk = seq.map(_.fieldName))
 
-  def withIndexes(seq: EntityIndex*) = copy(indexes = ListMap.from(seq.map(e => e.id -> e)))
+  def withIndexes(seq: RawEntityIndex*) = copy(indexes = ListMap.from(seq.map(e => e.id -> e)))
 
-  def withRelations(seq: EntityRelation*) = copy(relations = seq)
+  def withRelations(seq: RawEntityRelation*) = copy(relations = seq)
 
   def withLabels(seq: Label*) = copy(labels = labels ++ seq.map(a => a.key -> a.value))
 

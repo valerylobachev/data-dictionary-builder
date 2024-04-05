@@ -2,10 +2,15 @@ package biz.lobachev.annette.data_dictionary.builder.model
 
 trait ModelValidator {
 
-  self: Domain =>
+  self: RawDomain =>
 
   def validate(): Seq[String] =
-    validateComponents() ++ validateFields() ++ validateIndexes() ++ validateRelations() ++ validateDataElements()
+    errors ++
+      validateComponents() ++
+      validateFields() ++
+      validateIndexes() ++
+      validateRelations() ++
+      validateDataElements()
 
   def validateComponents(): Seq[String] = {
     val res = for {
@@ -71,7 +76,7 @@ trait ModelValidator {
     res.toSeq
   }
 
-  def isDatatypesEqual(f: EntityField, rf: EntityField): Boolean = f.dataType == rf.dataType
+  def isDatatypesEqual(f: RawEntityField, rf: RawEntityField): Boolean = f.dataType == rf.dataType
 
   def validateRelations(): Seq[String] =
     entities.values.flatMap { entity =>

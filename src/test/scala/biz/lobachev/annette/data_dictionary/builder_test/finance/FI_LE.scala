@@ -1,9 +1,16 @@
 package biz.lobachev.annette.data_dictionary.builder_test.finance
 
 import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
-import biz.lobachev.annette.data_dictionary.builder.helper.JavaPackage.{javaModelPackage, javaRepoPackage}
-import biz.lobachev.annette.data_dictionary.builder.helper.RelationName
-import biz.lobachev.annette.data_dictionary.builder.model.{BigDecimalNumeric, EnumString, IntInt, LocalDateDate, StringVarchar, UuidUuid}
+import biz.lobachev.annette.data_dictionary.builder.labels.JavaPackage.{javaModelPackage, javaRepoPackage}
+import biz.lobachev.annette.data_dictionary.builder.labels.RelationName
+import biz.lobachev.annette.data_dictionary.builder.model.{
+  BigDecimalNumeric,
+  EnumString,
+  IntInt,
+  LocalDateDate,
+  StringVarchar,
+  UuidUuid,
+}
 
 trait FI_LE {
 
@@ -20,7 +27,7 @@ trait FI_LE {
       dataElementDb("FYPeriod", "fyPeriod", "fy_period", IntInt(), "Fiscal year period"),
       dataElement("Amount", "amount", BigDecimalNumeric(25, 2), "Amount"),
       dataElement("Quantity", "quantity", BigDecimalNumeric(25, 3), "Quantity"),
-      dataElement("DebitCredit", "debitCredit", EnumString("DebitCredit"), "Debit/credit indicator")
+      dataElement("DebitCredit", "debitCredit", EnumString("DebitCredit"), "Debit/credit indicator"),
     )
     .withEntities(
       // ***************************** LedgerEntry *****************************

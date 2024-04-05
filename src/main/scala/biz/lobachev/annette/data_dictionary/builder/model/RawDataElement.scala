@@ -1,6 +1,6 @@
 package biz.lobachev.annette.data_dictionary.builder.model
 
-case class DataElement(
+case class RawDataElement(
   id: String,
   name: String,
   description: String = "",

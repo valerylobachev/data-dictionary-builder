@@ -1,12 +1,12 @@
 package biz.lobachev.annette.data_dictionary.builder.dsl
 
-import biz.lobachev.annette.data_dictionary.builder.model.{EmbeddedEntity, Entity, StructEntity, TableEntity}
+import biz.lobachev.annette.data_dictionary.builder.model.{EmbeddedEntity, RawEntity, StructEntity, TableEntity}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
 
 trait Entities {
 
-  def structEntity(id: String, name: String, entityName: String): Entity =
-    Entity(
+  def structEntity(id: String, name: String, entityName: String): RawEntity =
+    RawEntity(
       id = id.trim.pascalCase,
       name = name.trim,
       entityType = StructEntity,
@@ -14,8 +14,8 @@ trait Entities {
       tableName = entityName.trim.pluralize.snakeCase
     )
 
-  def tableEntity(id: String, name: String, entityName: String): Entity =
-    Entity(
+  def tableEntity(id: String, name: String, entityName: String): RawEntity =
+    RawEntity(
       id = id.trim.pascalCase,
       name = name.trim,
       entityType = TableEntity,
@@ -23,8 +23,8 @@ trait Entities {
       tableName = entityName.trim.pluralize.snakeCase
     )
 
-  def embeddedEntity(id: String, name: String, entityName: String): Entity =
-    Entity(
+  def embeddedEntity(id: String, name: String, entityName: String): RawEntity =
+    RawEntity(
       id = id.trim.pascalCase,
       name = name.trim,
       entityType = EmbeddedEntity,
@@ -32,8 +32,8 @@ trait Entities {
       tableName = entityName.trim.pluralize.snakeCase
     )
 
-  def structEntity(id: String, name: String): Entity =
-    Entity(
+  def structEntity(id: String, name: String): RawEntity =
+    RawEntity(
       id = id.trim.pascalCase,
       name = name.trim,
       entityType = StructEntity,
@@ -41,8 +41,8 @@ trait Entities {
       tableName = id.trim.pluralize.snakeCase
     )
 
-  def tableEntity(id: String, name: String): Entity =
-    Entity(
+  def tableEntity(id: String, name: String): RawEntity =
+    RawEntity(
       id = id.trim.pascalCase,
       name = name.trim,
       entityType = TableEntity,
@@ -50,8 +50,8 @@ trait Entities {
       tableName = id.trim.pluralize.snakeCase
     )
 
-  def embeddedEntity(id: String, name: String): Entity =
-    Entity(
+  def embeddedEntity(id: String, name: String): RawEntity =
+    RawEntity(
       id = id.trim.pascalCase,
       name = name.trim,
       entityType = EmbeddedEntity,
