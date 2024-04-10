@@ -5675,7 +5675,8 @@
       ],
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "GLAccountType",
@@ -5706,7 +5707,8 @@
       ],
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "AccountType",
@@ -5737,7 +5739,8 @@
       ],
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     },
     {
       "id" : "DebitCredit",
@@ -5756,7 +5759,8 @@
       ],
       "labels" : {
         
-      }
+      },
+      "componentId" : null
     }
   ],
   "labels" : {

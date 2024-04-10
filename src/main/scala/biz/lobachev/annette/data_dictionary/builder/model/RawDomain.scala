@@ -24,15 +24,19 @@ case class RawDomain(
     val newComponents         = componentSeq.flatMap(_.expandComponents())
     val newEntities           = componentSeq.flatMap(_.expandEntities())
     val newDataElements       = componentSeq.flatMap(_.expandDataElements())
+    val newEnums              = componentSeq.flatMap(_.expandEnums())
     val componentDuplicates   = Utils.findDuplicates(components.keys.toSeq ++ newComponents.map(_.id))
     val entityDuplicates      = Utils.findDuplicates(entities.keys.toSeq ++ newEntities.map(_.id))
     val dataElementDuplicates = Utils.findDuplicates(dataElements.keys.toSeq ++ newDataElements.map(_.id))
+    val enumDuplicates        = Utils.findDuplicates(enums.keys.toSeq ++ newEnums.map(_.id))
     val newErrors             = Seq(
       if (componentDuplicates.nonEmpty) Some("Duplicated components: " + componentDuplicates.mkString(", "))
       else None,
       if (entityDuplicates.nonEmpty) Some("Duplicated entities: " + entityDuplicates.mkString(", "))
       else None,
       if (dataElementDuplicates.nonEmpty) Some("Duplicated data elements: " + dataElementDuplicates.mkString(", "))
+      else None,
+      if (enumDuplicates.nonEmpty) Some("Duplicated enums: " + enumDuplicates.mkString(", "))
       else None,
     ).flatten
 

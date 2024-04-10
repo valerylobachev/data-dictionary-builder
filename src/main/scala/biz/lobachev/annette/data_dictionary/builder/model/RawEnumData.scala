@@ -7,6 +7,7 @@ case class RawEnumData(
   length: Int,
   elements: Seq[(String, String)],
   labels: Labels = Map.empty,
+  componentId: Option[String] = None,
 ) {
   def withValues(seq: (String, String)*) = copy(elements = seq)
 

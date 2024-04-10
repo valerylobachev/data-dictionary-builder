@@ -4,6 +4,7 @@ case class RawComponentData(
   component: RawComponent,
   entities: Seq[RawEntity] = Seq.empty,
   dataElements: Seq[RawDataElement] = Seq.empty,
+  enums: Seq[RawEnumData] = Seq.empty,
   components: Seq[RawComponentData] = Seq.empty,
 ) {
   def withSchema(schema: String) = copy(component = component.copy(schema = Some(schema)))
@@ -22,6 +23,17 @@ case class RawComponentData(
 
   def withDataElementSeq(dataElementSeq: Seq[RawDataElement]): RawComponentData =
     copy(dataElements = dataElements ++ dataElementSeq.map(e => e.copy(componentId = Some(component.id))))
+
+  def withEnumSeq(enumSeq: Seq[RawEnumData]): RawComponentData =
+    copy(enums =
+      enums ++ enumSeq.map(e =>
+        e.copy(
+          componentId = Some(component.id),
+        ),
+      ),
+    )
+
+  def withEnums(enumSeq: RawEnumData*): RawComponentData = withEnumSeq(enumSeq)
 
   def withDataElements(dataElementSeq: RawDataElement*): RawComponentData = withDataElementSeq(dataElementSeq)
 
@@ -45,4 +57,5 @@ case class RawComponentData(
 
   def expandDataElements(): Seq[RawDataElement] = dataElements ++ components.flatMap(_.expandDataElements())
 
+  def expandEnums(): Seq[RawEnumData] = enums ++ components.flatMap(_.expandEnums())
 }
