@@ -12,8 +12,8 @@ import org.scalatest.wordspec.AnyWordSpec
 
 class SimpleSpec extends AnyWordSpec with BuildValidator {
 
-  val build = Simple.simpleDomain.build()
-  val buildWoAttrs = Simple.simpleDomain.build(false)
+  val build = Simple.data.build()
+  val buildWoAttrs = Simple.data.build(false)
 
   "Simple model" should {
     "generate physical DB Diagram" in {

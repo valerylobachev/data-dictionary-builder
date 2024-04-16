@@ -14,7 +14,7 @@ trait CA {
     )
     .withComponents(
       // region ***************************** Countries & Languages *****************************
-      component("CL", "Countries & Languages")
+      component("CA-CL", "Countries & Languages")
         .withLabels(
           javaModelPackage("finance.data.ca.cl.model"),
           javaRepoPackage("finance.data.ca.cl"),
@@ -50,7 +50,7 @@ trait CA {
         ),
       // endregion
       // region ***************************** Currency *****************************
-      component("CUR", "Currency")
+      component("CA-CUR", "Currency")
         .withLabels(
           javaModelPackage("finance.data.ca.cur.model"),
           javaRepoPackage("finance.data.ca.cur"),
@@ -125,7 +125,7 @@ trait CA {
         ),
       // endregion
       // region ***************************** UnitOfMeasurement *****************************
-      component("UOM", "Unit of measurement")
+      component("CA-UOM", "Unit of measurement")
         .withLabels(
           javaModelPackage("finance.data.ca.uom.model"),
           javaRepoPackage("finance.data.ca.uom"),

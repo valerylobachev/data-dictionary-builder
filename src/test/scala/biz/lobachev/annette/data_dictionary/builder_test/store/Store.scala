@@ -5,7 +5,7 @@ import biz.lobachev.annette.data_dictionary.builder.labels.TablePrefixSuffix.{ta
 import biz.lobachev.annette.data_dictionary.builder.model._
 
 object Store {
-  val storeDomain = domain("Store", "Store example", "Store data model example")
+  val data = domain("Store", "Store example", "Store data model example")
     .withLabels(
       tableNameSuffix("table"),
     )

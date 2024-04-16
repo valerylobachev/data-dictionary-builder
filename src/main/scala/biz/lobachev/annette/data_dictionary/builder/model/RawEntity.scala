@@ -3,8 +3,6 @@ package biz.lobachev.annette.data_dictionary.builder.model
 import biz.lobachev.annette.data_dictionary.builder.labels.TablePrefixSuffix.{TABLE_NAME_PREFIX, TABLE_NAME_SUFFIX}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax.wrapQuotes
 
-import scala.collection.immutable.ListMap
-
 case class RawEntity(
   id: String,
   componentId: String = "",
@@ -15,7 +13,7 @@ case class RawEntity(
   entityType: EntityType,
   fields: Seq[RawEntityField] = Seq.empty,
   pk: Seq[String] = Seq.empty,
-  indexes: ListMap[String, RawEntityIndex] = ListMap.empty,
+  indexes: Seq[RawEntityIndex] = Seq.empty,
   relations: Seq[RawEntityRelation] = Seq.empty,
   schema: Option[String] = None,
   labels: Labels = Map.empty,
@@ -29,7 +27,7 @@ case class RawEntity(
 
   def withPK(seq: RawEntityField*) = copy(fields = seq, pk = seq.map(_.fieldName))
 
-  def withIndexes(seq: RawEntityIndex*) = copy(indexes = ListMap.from(seq.map(e => e.id -> e)))
+  def withIndexes(seq: RawEntityIndex*) = copy(indexes = seq)
 
   def withRelations(seq: RawEntityRelation*) = copy(relations = seq)
 

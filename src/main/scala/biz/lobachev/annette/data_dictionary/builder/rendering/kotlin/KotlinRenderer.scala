@@ -44,7 +44,7 @@ case class KotlinRenderer(domain: RawDomain) extends Renderer {
     val pkg                                = entity.labels.getOrElse(JAVA_MODEL_PACKAGE, "model")
     val schema                             = entity.schema.map(s => s""", schema = "$s"""").getOrElse("")
     val comments                           = entity.name +: description2Comments(entity.description)
-    val members                            = domain.rolloutEntityFields(entity) map (m => renderMember(entity, m))
+    val members                            = domain.expandEntityFields(entity) map (m => renderMember(entity, m))
     val (relationMembers, relationImports) = renderRelations(entity, pkg, members.map(_.field))
     val imports                            = datatypeImports(members.map(_.datatype))
     val annotations                        = Seq(
@@ -93,7 +93,7 @@ case class KotlinRenderer(domain: RawDomain) extends Renderer {
 
     val relationMembers = entity.relations.map { relation =>
       val relatedEntity       = domain.entities(relation.referenceEntityId)
-      val relatedEntityFields = domain.rolloutEntityFields(relatedEntity)
+      val relatedEntityFields = domain.expandEntityFields(relatedEntity)
       val relatedPkg          = relatedEntity.labels.getOrElse(
         JAVA_MODEL_PACKAGE,
         "model",

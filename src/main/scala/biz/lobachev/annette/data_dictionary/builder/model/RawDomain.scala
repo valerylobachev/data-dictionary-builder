@@ -10,7 +10,7 @@ case class RawDomain(
   id: String,
   name: String,
   description: String = "",
-  rootComponents: Seq[String] = Seq.empty,
+  rootComponentIds: Seq[String] = Seq.empty,
   components: ListMap[String, RawComponent] = ListMap.empty,
   entities: ListMap[String, RawEntity] = ListMap.empty,
   dataElements: ListMap[String, RawDataElement] = ListMap.empty,
@@ -41,7 +41,7 @@ case class RawDomain(
     ).flatten
 
     copy(
-      rootComponents = rootComponents ++ newRootComponentIds,
+      rootComponentIds = rootComponentIds ++ newRootComponentIds,
       components = components ++ newComponents.map(c => c.id -> c),
       entities = entities ++ newEntities.map(e => e.id -> e),
       dataElements = dataElements ++ newDataElements.map(e => e.id -> e),
@@ -114,13 +114,12 @@ case class RawDomain(
     copy(components = newComponents, entities = newEntities, dataElements = newDataElements, enums = newEnums)
   }
 
-  def rolloutEntity(entity: RawEntity): FieldRelation = {
+  def expandEntity(entity: RawEntity): ExpandedEntity = {
     val r = entity.fields.map { field =>
       field.dataType match {
         case EmbeddedEntityType(entityId, withPrefix, withRelations) =>
           val embeddedEntity = entities(entityId)
-
-          val fr        = rolloutEntity(entities(entityId))
+          val fr        = expandEntity(entities(entityId))
           val relations =
             if (withRelations)
               (embeddedEntity.relations ++ fr.relations).map { r =>
@@ -139,38 +138,21 @@ case class RawDomain(
               if (withPrefix) field.dbFieldName + "_" + f.dbFieldName else f.dbFieldName
             f.copy(fieldName = fieldName, dbFieldName = dbFieldName)
           }
-          FieldRelation(fields, relations)
+          ExpandedEntity(fields, relations)
         case _                                                       =>
-          FieldRelation(Seq(field), Seq.empty)
+          ExpandedEntity(Seq(field), Seq.empty)
       }
     }
-    FieldRelation(
+    ExpandedEntity(
       r.flatMap(_.fields),
       r.flatMap(_.relations),
     )
   }
 
-  def rolloutEntityFields(entity: RawEntity): Seq[RawEntityField]       = rolloutEntity(entity).fields
-  def rolloutEntityRelations(entity: RawEntity): Seq[RawEntityRelation] =
-    entity.relations ++ rolloutEntity(entity).relations
+  def expandEntityFields(entity: RawEntity): Seq[RawEntityField]       = expandEntity(entity).fields
+  def expandEntityRelations(entity: RawEntity): Seq[RawEntityRelation] =
+    entity.relations ++ expandEntity(entity).relations
 
-//  def rolloutEntityFields(fields: Seq[EntityField]): Seq[EntityField] =
-//    fields.flatMap { field =>
-//      field.dataType match {
-//        case EmbeddedEntityType(entityId, withPrefix, _) =>
-//          val rolledOutFields = rolloutEntityFields(entities(entityId).fields)
-//          if (withPrefix)
-//            rolledOutFields.map(f =>
-//              f.copy(
-//                fieldName = field.fieldName + f.fieldName.pascalCase,
-//                dbFieldName = field.dbFieldName + "_" + f.dbFieldName
-//              )
-//            )
-//          else rolledOutFields
-//        case _                                           =>
-//          Seq(field)
-//      }
-//    }
 
   def getFieldName(dataElementId: String): String = {
     val dataElement = dataElements(dataElementId)

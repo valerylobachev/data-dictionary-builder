@@ -117,7 +117,7 @@ case class ExcelDomainRenderer(domain: RawDomain, translation: WorkbookTranslati
     row.createCell(6).setCellValue(entityType.take(entityType.length - 6))
     row.createCell(7).setCellValue(entity.description)
     entity.fields.foreach(field => renderEntityField(dwb, entity, field))
-    entity.indexes.values.foreach(index => renderEntityIndex(dwb, entity, index))
+    entity.indexes.foreach(index => renderEntityIndex(dwb, entity, index))
     entity.relations.foreach(relation => renderEntityRelation(dwb, entity, relation))
   }
 

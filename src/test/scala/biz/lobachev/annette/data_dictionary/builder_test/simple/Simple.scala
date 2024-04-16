@@ -5,7 +5,7 @@ import biz.lobachev.annette.data_dictionary.builder.model._
 
 object Simple {
 
-  val simpleDomain = domain("Simple", "Simple Example", "This example provides simple person group data model")
+  val data = domain("Simple", "Simple Example", "This example provides simple person group data model")
     .withDataElements(
       // format: off
       dataElement("PersonId", "personId", IntInt(), "Person Id"),

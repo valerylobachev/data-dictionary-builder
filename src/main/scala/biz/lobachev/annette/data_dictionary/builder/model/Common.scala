@@ -4,7 +4,7 @@ sealed trait RelationType
 case object ManyToOne extends RelationType
 case object OneToOne  extends RelationType
 
-case class FieldRelation(fields: Seq[RawEntityField], relations: Seq[RawEntityRelation])
+case class ExpandedEntity(fields: Seq[RawEntityField], relations: Seq[RawEntityRelation])
 
 sealed trait EntityType
 case object TableEntity    extends EntityType

@@ -55,13 +55,13 @@ case class MarkdownRenderer(domain: RawDomain, translation: Map[String, String] 
     )
 
   private def renderEntity(entity: RawEntity) = {
-    val fields = domain.rolloutEntityFields(entity)
+    val fields = domain.expandEntityFields(entity)
     MdEntity(
       name = entity.name,
       description = if (entity.description.isBlank) "" else entity.description,
       fullTableName = entity.tableNameWithSchema(),
       fields = fields.map(renderField(entity, _)),
-      indexes = entity.indexes.values.map(renderIndex(_, fields)).toSeq,
+      indexes = entity.indexes.map(renderIndex(_, fields)).toSeq,
       relations = entity.relations.map(renderRelation(_, fields))
     )
   }
@@ -94,7 +94,7 @@ case class MarkdownRenderer(domain: RawDomain, translation: Map[String, String] 
 
   private def renderRelation(relation: RawEntityRelation, fields: Seq[RawEntityField]) = {
     val relationEntity = domain.entities(relation.referenceEntityId)
-    val relationFields = domain.rolloutEntityFields(relationEntity)
+    val relationFields = domain.expandEntityFields(relationEntity)
     MdRelation(
       f1 = relation.fields.map(f => getEntityField(fields, f._1).dbFieldName).mkString("<br>"),
       relationEntityName = relationEntity.name,

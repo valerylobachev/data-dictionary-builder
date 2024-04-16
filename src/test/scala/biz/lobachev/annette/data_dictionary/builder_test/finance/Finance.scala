@@ -14,7 +14,7 @@ object Finance
     with FI_ANL
     with LO {
 
-  val financeDomain = domain(
+  val data = domain(
     "Finance",
     "Finance model",
     "Finance model provides tables and data structures similar to SAP ERP Finance.",

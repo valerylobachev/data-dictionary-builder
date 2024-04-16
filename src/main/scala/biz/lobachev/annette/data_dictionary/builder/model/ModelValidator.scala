@@ -65,7 +65,7 @@ trait ModelValidator {
   def validateIndexes(): Seq[String] = {
     val res = for {
       entity    <- entities.values
-      index     <- entity.indexes.values
+      index     <- entity.indexes
       fieldName <- index.fields
       err       <- entity.fields
                      .find(f => f.fieldName == fieldName)

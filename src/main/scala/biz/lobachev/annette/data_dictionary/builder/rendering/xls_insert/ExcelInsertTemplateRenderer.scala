@@ -70,7 +70,7 @@ case class ExcelInsertTemplateRenderer(
     val fieldRow       = sheet.createRow(3)
     val typeRow        = sheet.createRow(4)
     val formulaRow     = sheet.createRow(5)
-    val fields         = domain.rolloutEntityFields(entity)
+    val fields         = domain.expandEntityFields(entity)
     val N              = fields.length
     fields.zipWithIndex.foreach { case field -> index =>
       val typeSeq         = Seq(

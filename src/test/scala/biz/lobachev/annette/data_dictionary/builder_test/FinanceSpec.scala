@@ -12,8 +12,8 @@ import org.scalatest.wordspec.AnyWordSpec
 
 class FinanceSpec extends AnyWordSpec with BuildValidator {
 
-  val build = Finance.financeDomain.build()
-  val buildWoAttrs = Finance.financeDomain.build(false)
+  val build = Finance.data.build()
+  val buildWoAttrs = Finance.data.build(false)
 
 
   "Finance model" should {

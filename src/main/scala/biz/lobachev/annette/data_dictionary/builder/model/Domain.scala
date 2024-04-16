@@ -6,13 +6,14 @@ case class Domain(
   id: String,
   name: String,
   description: String,
-  rootComponents: Seq[String] = Seq.empty,
+  rootComponentIds: Seq[String] = Seq.empty,
   components: ListMap[String, Component] = ListMap.empty,
   entities: ListMap[String, Entity] = ListMap.empty,
   dataElements: ListMap[String, DataElement] = ListMap.empty,
   enums: ListMap[String, EnumData] = ListMap.empty,
   labels: Labels = Map.empty,
   raw: RawDomain,
+  messages: Seq[Message],
 )
 
 case class Component(
@@ -36,7 +37,7 @@ case class Entity(
   entityType: EntityType,
   fields: Seq[EntityField] = Seq.empty,
   pk: Seq[String] = Seq.empty,
-  indexes: ListMap[String, EntityIndex] = ListMap.empty,
+  indexes: Seq[EntityIndex] = Seq.empty,
   relations: Seq[EntityRelation] = Seq.empty,
   schema: Option[String] = None,
   labels: Labels = Map.empty,

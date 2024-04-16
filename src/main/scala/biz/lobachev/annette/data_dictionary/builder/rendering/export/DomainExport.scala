@@ -20,7 +20,7 @@ object DomainExport {
       id = domain.id,
       name = domain.name,
       description = domain.description,
-      rootComponents = domain.rootComponents,
+      rootComponents = domain.rootComponentIds,
       components = domain.components.values.toSeq,
       entities = domain.entities.values.toSeq,
       dataElements = domain.dataElements.values.toSeq,

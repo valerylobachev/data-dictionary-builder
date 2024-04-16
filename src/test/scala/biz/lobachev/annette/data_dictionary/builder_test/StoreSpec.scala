@@ -12,8 +12,8 @@ import biz.lobachev.annette.data_dictionary.builder.rendering.xls_insert.{ExcelI
 
 class StoreSpec extends AnyWordSpec with BuildValidator {
 
-  val build        = Store.storeDomain.build()
-  val buildWoAttrs = Store.storeDomain.build(false)
+  val build        = Store.data.build()
+  val buildWoAttrs = Store.data.build(false)
 
   "Store model" should {
     "generate physical DB Diagram" in {

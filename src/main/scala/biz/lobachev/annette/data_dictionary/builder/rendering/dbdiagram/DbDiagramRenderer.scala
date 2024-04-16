@@ -50,7 +50,7 @@ case class DbDiagramRenderer(domain: RawDomain, logical: Boolean = false) extend
       val otherContent = domain.entities.values
         .filter(entity => entity.componentId == group.id && entity.entityType == TableEntity)
         .flatMap { entity =>
-          (entity.relations ++ domain.rolloutEntity(entity).relations)
+          (entity.relations ++ domain.expandEntity(entity).relations)
             .filter(r => domain.entities(r.referenceEntityId).componentId != group.id)
             .map(_.referenceEntityId)
         }
@@ -96,7 +96,7 @@ case class DbDiagramRenderer(domain: RawDomain, logical: Boolean = false) extend
 
   def renderFields(entity: RawEntity): String =
     domain
-      .rolloutEntityFields(entity)
+      .expandEntityFields(entity)
       .map { field =>
         val datatype =
           domain.getTargetDataType(field.dataType, POSTGRESQL) // domain.dataElements(field.dataElementId).sqlDataType
@@ -125,7 +125,7 @@ case class DbDiagramRenderer(domain: RawDomain, logical: Boolean = false) extend
       val pkFields = entity.pk.map(f => getEntityFieldName(entity.fields, f, logical)).mkString("(", ", ", ")")
       Some(s"    $pkFields [pk]\n")
     } else None
-    val indexes = entity.indexes.values.map { index =>
+    val indexes = entity.indexes.map { index =>
       val indexId  = entity.fullTableName() + '_' + index.id.snakeCase
       val fields   =
         if (index.fields == 1) index.fields.map(f => getEntityFieldName(entity.fields, f, logical)).head
@@ -144,7 +144,7 @@ case class DbDiagramRenderer(domain: RawDomain, logical: Boolean = false) extend
   }
 
   def renderRelations(entity: RawEntity, group: Option[String] = None): String = {
-    val fr        = domain.rolloutEntity(entity)
+    val fr        = domain.expandEntity(entity)
     val fields    = fr.fields
     val relations = entity.relations ++ fr.relations
     relations.map { relation =>
