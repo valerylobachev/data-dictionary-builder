@@ -78,15 +78,18 @@
       ],
       "pk" : [
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : null,
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Person",
@@ -169,8 +172,8 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        "lastname_firstname" : {
+      "indexes" : [
+        {
           "id" : "lastname_firstname",
           "name" : "Search index by lastname and firstname",
           "description" : "",
@@ -183,13 +186,17 @@
             
           }
         }
-      },
+      ],
       "relations" : [
       ],
       "schema" : null,
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Group",
@@ -255,15 +262,18 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : null,
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "GroupMember",
@@ -344,8 +354,8 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        "person_group_ids" : {
+      "indexes" : [
+        {
           "id" : "person_group_ids",
           "name" : "Person id in each group must be unique",
           "description" : "",
@@ -358,7 +368,7 @@
             
           }
         }
-      },
+      ],
       "relations" : [
         {
           "id" : "groupId",
@@ -400,7 +410,11 @@
       "schema" : null,
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     }
   ],
   "dataElements" : [

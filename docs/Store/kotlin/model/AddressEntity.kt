@@ -9,7 +9,7 @@ import jakarta.persistence.*
  * Address data structure
  */
 @Entity
-@Table(name = "addresses_table")
+@Table(name = "addresses")
 data class AddressEntity(
 
     /**

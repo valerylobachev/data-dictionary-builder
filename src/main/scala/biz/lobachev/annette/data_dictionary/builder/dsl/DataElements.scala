@@ -11,8 +11,8 @@ trait DataElements {
                    dataType: DataType,
                    name: String,
                    notNull: Boolean = true
-                 ): RawDataElement =
-    RawDataElement(
+                 ): DataElement =
+    DataElement(
       id = id.trim.pascalCase,
       name = name.trim,
       fieldName = fieldName.trim.camelCase,
@@ -28,8 +28,8 @@ trait DataElements {
                      dataType: DataType,
                      name: String,
                      notNull: Boolean = true
-                   ): RawDataElement =
-    RawDataElement(
+                   ): DataElement =
+    DataElement(
       id = id.trim.pascalCase,
       name = name.trim,
       fieldName = fieldName.trim.camelCase,

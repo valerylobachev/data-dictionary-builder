@@ -7,7 +7,7 @@ enum order_status {
 
 // Group Client - Client tables 
 
-table "client"."client_clients_table" {
+table "client"."client_clients" {
   "id" integer [pk, not null, increment, note: 'Client Id']
   "name" varchar(100) [not null, note: 'Client name']
   "description" text [note: 'Description']
@@ -35,14 +35,14 @@ table "client"."client_clients_table" {
 }
 
 // Reference to Promotion
-Ref client_clients_table_promotion_id: "client"."client_clients_table"."promotion_id" > "analytics"."analytics_promotions_table"."id"
+Ref client_clients_promotion_id: "client"."client_clients"."promotion_id" > "analytics"."analytics_promotions"."id"
 // Reference to Segment
-Ref client_clients_table_segment_id: "client"."client_clients_table"."segment_id" > "analytics"."analytics_segments_table"."id"
+Ref client_clients_segment_id: "client"."client_clients"."segment_id" > "analytics"."analytics_segments"."id"
 // Reference to BusinessArea
-Ref client_clients_table_business_area_id: "client"."client_clients_table"."business_area_id" > "analytics"."analytics_business_areas_table"."id"
+Ref client_clients_business_area_id: "client"."client_clients"."business_area_id" > "analytics"."analytics_business_areas"."id"
 
 
-table "client"."client_client_addresses_table" {
+table "client"."client_client_addresses" {
   "id" integer [pk, not null, increment, note: 'Address Id']
   "name" varchar(100) [not null, note: 'Address name']
   "description" text [note: 'Description']
@@ -59,20 +59,20 @@ table "client"."client_client_addresses_table" {
   "updated_at" timestamptz [not null, note: 'Timestamp of record update']
 
   indexes {
-    ("client_id", "id") [unique, name: 'client_client_addresses_table_client_id_id', note: 'Unique clientId & id']
+    ("client_id", "id") [unique, name: 'client_client_addresses_client_id_id', note: 'Unique clientId & id']
   }
 
   note: 'Client address'
 }
 
 // Reference to client
-Ref client_client_addresses_table_client_id: "client"."client_client_addresses_table"."client_id" > "client"."client_clients_table"."id"
+Ref client_client_addresses_client_id: "client"."client_client_addresses"."client_id" > "client"."client_clients"."id"
 
 
 
 // Related entities 
 
-table "analytics"."analytics_promotions_table" {
+table "analytics"."analytics_promotions" {
   "id" varchar(10) [pk, not null, note: 'Promotion Id']
   "name" varchar(100) [not null, note: 'Name']
   "created_by" varchar(10) [not null, note: 'User created record']
@@ -83,7 +83,7 @@ table "analytics"."analytics_promotions_table" {
   note: 'Promotion'
 }
 
-table "analytics"."analytics_segments_table" {
+table "analytics"."analytics_segments" {
   "id" varchar(10) [pk, not null, note: 'Segment Id']
   "name" varchar(100) [not null, note: 'Name']
   "created_by" varchar(10) [not null, note: 'User created record']
@@ -94,7 +94,7 @@ table "analytics"."analytics_segments_table" {
   note: 'Segment'
 }
 
-table "analytics"."analytics_business_areas_table" {
+table "analytics"."analytics_business_areas" {
   "id" varchar(10) [pk, not null, note: 'Business Area Id']
   "name" varchar(100) [not null, note: 'Name']
   "created_by" varchar(10) [not null, note: 'User created record']

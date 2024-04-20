@@ -1,6 +1,6 @@
 package biz.lobachev.annette.data_dictionary.builder.dsl
 
-import biz.lobachev.annette.data_dictionary.builder.model.{DataElementType, DataType, EmbeddedEntityType, RawEntityField}
+import biz.lobachev.annette.data_dictionary.builder.model.{DataElementType, DataType, EmbeddedEntityType, EntityField}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
 
 trait Fields {
@@ -10,8 +10,8 @@ trait Fields {
     name: String,
     notNull: Boolean = true,
     autoIncrement: Boolean = false
-  ): RawEntityField =
-    RawEntityField(
+  ): EntityField =
+    EntityField(
       name = name.trim,
       fieldName = fieldName.trim.camelCase,
       dbFieldName = fieldName.trim.snakeCase,
@@ -27,8 +27,8 @@ trait Fields {
     name: String,
     notNull: Boolean = true,
     autoIncrement: Boolean = false
-  ): RawEntityField =
-    RawEntityField(
+  ): EntityField =
+    EntityField(
       name = name.trim,
       fieldName = fieldName.trim.camelCase,
       dbFieldName = dbFieldName.trim.snakeCase,
@@ -43,7 +43,7 @@ trait Fields {
 
   case object AutoInc extends EntityFieldModificator
 
-  implicit class EntityFieldImplicit(entityField: RawEntityField) {
+  implicit class EntityFieldImplicit(entityField: EntityField) {
 
     def :&(modificator: EntityFieldModificator) =
       modificator match {

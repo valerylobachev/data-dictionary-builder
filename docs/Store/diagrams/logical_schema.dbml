@@ -36,11 +36,11 @@ table "Client" {
 }
 
 // Reference to Promotion
-Ref client_clients_table_promotion_id: "Client"."Promotion Id" > "Promotion"."Promotion Id"
+Ref client_clients_promotion_id: "Client"."Promotion Id" > "Promotion"."Promotion Id"
 // Reference to Segment
-Ref client_clients_table_segment_id: "Client"."Segment Id" > "Segment"."Segment Id"
+Ref client_clients_segment_id: "Client"."Segment Id" > "Segment"."Segment Id"
 // Reference to BusinessArea
-Ref client_clients_table_business_area_id: "Client"."Business Area Id" > "Business area"."Business Area Id"
+Ref client_clients_business_area_id: "Client"."Business Area Id" > "Business area"."Business Area Id"
 
 
 table "Client address" {
@@ -60,14 +60,14 @@ table "Client address" {
   "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
 
   indexes {
-    ("Client Id", "Address Id") [unique, name: 'client_client_addresses_table_client_id_id', note: 'Unique clientId & id']
+    ("Client Id", "Address Id") [unique, name: 'client_client_addresses_client_id_id', note: 'Unique clientId & id']
   }
 
   note: 'Client address'
 }
 
 // Reference to client
-Ref client_client_addresses_table_client_id: "Client address"."Client Id" > "Client"."Client Id"
+Ref client_client_addresses_client_id: "Client address"."Client Id" > "Client"."Client Id"
 
 
 
@@ -92,15 +92,15 @@ table "Order" {
 }
 
 // Reference to client
-Ref order_orders_table_client_id: "Order"."Client Id" > "Client"."Client Id"
+Ref order_orders_client_id: "Order"."Client Id" > "Client"."Client Id"
 // Reference to address
-Ref order_orders_table_delivery_address_id: "Order".("Client Id", "Delivery address") > "Client address".("Client Id", "Address Id")
+Ref order_orders_delivery_address_id: "Order".("Client Id", "Delivery address") > "Client address".("Client Id", "Address Id")
 // Reference to Promotion
-Ref order_orders_table_promotion_id: "Order"."Promotion Id" > "Promotion"."Promotion Id"
+Ref order_orders_promotion_id: "Order"."Promotion Id" > "Promotion"."Promotion Id"
 // Reference to Segment
-Ref order_orders_table_segment_id: "Order"."Segment Id" > "Segment"."Segment Id"
+Ref order_orders_segment_id: "Order"."Segment Id" > "Segment"."Segment Id"
 // Reference to BusinessArea
-Ref order_orders_table_business_area_id: "Order"."Business Area Id" > "Business area"."Business Area Id"
+Ref order_orders_business_area_id: "Order"."Business Area Id" > "Business area"."Business Area Id"
 
 
 table "Order line" {
@@ -121,15 +121,15 @@ table "Order line" {
 }
 
 // Reference to order
-Ref order_order_lines_table_order_id: "Order line"."Order Id" > "Order"."Order Id"
+Ref order_order_lines_order_id: "Order line"."Order Id" > "Order"."Order Id"
 // Reference to item
-Ref order_order_lines_table_item_id: "Order line"."Item Id" > "Item"."Item Id"
+Ref order_order_lines_item_id: "Order line"."Item Id" > "Item"."Item Id"
 // Reference to Promotion
-Ref order_order_lines_table_promotion_id: "Order line"."Promotion Id" > "Promotion"."Promotion Id"
+Ref order_order_lines_promotion_id: "Order line"."Promotion Id" > "Promotion"."Promotion Id"
 // Reference to Segment
-Ref order_order_lines_table_segment_id: "Order line"."Segment Id" > "Segment"."Segment Id"
+Ref order_order_lines_segment_id: "Order line"."Segment Id" > "Segment"."Segment Id"
 // Reference to BusinessArea
-Ref order_order_lines_table_business_area_id: "Order line"."Business Area Id" > "Business area"."Business Area Id"
+Ref order_order_lines_business_area_id: "Order line"."Business Area Id" > "Business area"."Business Area Id"
 
 
 table "Item" {

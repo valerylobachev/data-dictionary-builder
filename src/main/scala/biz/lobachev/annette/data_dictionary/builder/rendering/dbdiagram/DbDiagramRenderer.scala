@@ -2,9 +2,9 @@ package biz.lobachev.annette.data_dictionary.builder.rendering.dbdiagram
 
 import biz.lobachev.annette.data_dictionary.builder.POSTGRESQL
 import biz.lobachev.annette.data_dictionary.builder.model._
-import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, Renderer}
+import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, TextRenderer}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
-import biz.lobachev.annette.data_dictionary.builder.model.RawDomain
+import biz.lobachev.annette.data_dictionary.builder.model.Domain
 case class DbDiagramOptions(
   physical: Boolean = true,
   path: String = "diagrams",
@@ -12,7 +12,7 @@ case class DbDiagramOptions(
   byGroupDir: String = "physical",
 )
 
-case class DbDiagramRenderer(domain: RawDomain, logical: Boolean = false) extends Renderer {
+case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends TextRenderer {
   val path                = "diagrams"
   val diagramName: String = if (logical) "logical_schema" else "physical_schema"
   val byGroupDir: String  = if (logical) "logical" else "physical"
@@ -50,7 +50,7 @@ case class DbDiagramRenderer(domain: RawDomain, logical: Boolean = false) extend
       val otherContent = domain.entities.values
         .filter(entity => entity.componentId == group.id && entity.entityType == TableEntity)
         .flatMap { entity =>
-          (entity.relations ++ domain.expandEntity(entity).relations)
+          (entity.expandedRelations)
             .filter(r => domain.entities(r.referenceEntityId).componentId != group.id)
             .map(_.referenceEntityId)
         }
@@ -82,7 +82,7 @@ case class DbDiagramRenderer(domain: RawDomain, logical: Boolean = false) extend
 
     }.mkString("\n")
 
-  def renderEntity(entity: RawEntity, group: Option[String] = None): String = {
+  def renderEntity(entity: Entity, group: Option[String] = None): String = {
     val fields    = renderFields(entity)
     val indexes   = renderIndexes(entity)
     val relations = renderRelations(entity, group)
@@ -94,9 +94,8 @@ case class DbDiagramRenderer(domain: RawDomain, logical: Boolean = false) extend
 
   }
 
-  def renderFields(entity: RawEntity): String =
-    domain
-      .expandEntityFields(entity)
+  def renderFields(entity: Entity): String =
+    entity.expandedFields
       .map { field =>
         val datatype =
           domain.getTargetDataType(field.dataType, POSTGRESQL) // domain.dataElements(field.dataElementId).sqlDataType
@@ -112,7 +111,7 @@ case class DbDiagramRenderer(domain: RawDomain, logical: Boolean = false) extend
       }
       .mkString
 
-  def getEntityFieldName(entityFields: Seq[RawEntityField], fieldName: String, logical: Boolean): String =
+  def getEntityFieldName(entityFields: Seq[EntityField], fieldName: String, logical: Boolean): String =
     entityFields
       .find(f => f.fieldName == fieldName)
       .map(f => if (logical && f.name.trim.nonEmpty) wrapQuotes(f.name) else wrapQuotes(f.dbFieldName))
@@ -120,13 +119,13 @@ case class DbDiagramRenderer(domain: RawDomain, logical: Boolean = false) extend
         throw new IllegalArgumentException(s"not found field $fieldName")
       }
 
-  def renderIndexes(entity: RawEntity): String = {
+  def renderIndexes(entity: Entity): String = {
     val pk      = if (entity.pk.length > 1) {
       val pkFields = entity.pk.map(f => getEntityFieldName(entity.fields, f, logical)).mkString("(", ", ", ")")
       Some(s"    $pkFields [pk]\n")
     } else None
     val indexes = entity.indexes.map { index =>
-      val indexId  = entity.fullTableName() + '_' + index.id.snakeCase
+      val indexId  = entity.tableName + '_' + index.id.snakeCase
       val fields   =
         if (index.fields == 1) index.fields.map(f => getEntityFieldName(entity.fields, f, logical)).head
         else index.fields.map(f => getEntityFieldName(entity.fields, f, logical)).mkString("(", ", ", ")")
@@ -137,16 +136,15 @@ case class DbDiagramRenderer(domain: RawDomain, logical: Boolean = false) extend
       ).flatten
       val paramStr = if (params.nonEmpty) params.mkString("[", ", ", "]") else ""
       Some(s"    $fields $paramStr\n")
-    }.toSeq
+    }
     val res     = (pk +: indexes).flatten
     if (res.nonEmpty) ("  indexes {\n" +: res :+ "  }\n").mkString
     else ""
   }
 
-  def renderRelations(entity: RawEntity, group: Option[String] = None): String = {
-    val fr        = domain.expandEntity(entity)
-    val fields    = fr.fields
-    val relations = entity.relations ++ fr.relations
+  def renderRelations(entity: Entity, group: Option[String] = None): String = {
+    val fields    = entity.expandedFields
+    val relations = entity.expandedRelations
     relations.map { relation =>
       val relationEntity = domain.entities(relation.referenceEntityId)
       val shouldRender   = group.map(groupId => relationEntity.componentId == groupId).getOrElse(true)
@@ -156,7 +154,7 @@ case class DbDiagramRenderer(domain: RawDomain, logical: Boolean = false) extend
           case OneToOne  => "-"
         }
         val comment      = if (relation.name.nonEmpty) s"// ${relation.name}\n" else ""
-        val relationId   = entity.fullTableName() + '_' + relation.id.snakeCase
+        val relationId   = entity.tableName + '_' + relation.id.snakeCase
         if (relation.fields.size == 1) {
           val f1 = getEntityFieldName(fields, relation.fields.head._1, logical)
           val f2 = getEntityFieldName(relationEntity.fields, relation.fields.head._2, logical)

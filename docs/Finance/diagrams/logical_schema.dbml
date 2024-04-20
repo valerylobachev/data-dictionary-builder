@@ -30,7 +30,7 @@ enum debit_credit {
 
 
 
-// Group CL - Countries & Languages 
+// Group CA-CL - Countries & Languages 
 
 table "Country" {
   "Country Id" varchar(3) [pk, not null, note: 'Country Id']
@@ -61,7 +61,7 @@ table "Language" {
 }
 
 
-// Group CUR - Currency 
+// Group CA-CUR - Currency 
 
 table "Currency" {
   "Currency Id" varchar(5) [pk, not null, note: 'Currency Id']
@@ -119,7 +119,7 @@ Ref exchange_rates_to_currency_id: "ExchangeRate"."To Currency Id" > "Currency".
 
 
 
-// Group UOM - Unit of measurement 
+// Group CA-UOM - Unit of measurement 
 
 table "Unit of measurement" {
   "Unit of measurement Id" varchar(6) [pk, not null, note: 'Unit of measurement Id']

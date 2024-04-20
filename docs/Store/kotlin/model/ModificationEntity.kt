@@ -10,7 +10,7 @@ import java.time.Instant
  * Modification data structure
  */
 @Entity
-@Table(name = "modifications_table")
+@Table(name = "modifications")
 data class ModificationEntity(
 
     /**

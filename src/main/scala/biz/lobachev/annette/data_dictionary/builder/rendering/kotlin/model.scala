@@ -1,6 +1,6 @@
 package biz.lobachev.annette.data_dictionary.builder.rendering.kotlin
 
-import biz.lobachev.annette.data_dictionary.builder.model.RawEntityField
+import biz.lobachev.annette.data_dictionary.builder.model.EntityField
 
 case class KtClass(
   pkg: String,
@@ -18,5 +18,5 @@ case class KtClassMember(
                           name: String,
                           datatype: String,
                           defaultValue: Option[String],
-                          field: RawEntityField,
+                          field: EntityField,
 )

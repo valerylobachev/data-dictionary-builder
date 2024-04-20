@@ -28,9 +28,9 @@
       "description" : "",
       "parent" : null,
       "children" : [
-        "CL",
-        "CUR",
-        "UOM"
+        "CA-CL",
+        "CA-CUR",
+        "CA-UOM"
       ],
       "schema" : "ca",
       "labels" : {
@@ -39,7 +39,7 @@
       }
     },
     {
-      "id" : "CL",
+      "id" : "CA-CL",
       "name" : "Countries & Languages",
       "description" : "",
       "parent" : "CA",
@@ -52,7 +52,7 @@
       }
     },
     {
-      "id" : "CUR",
+      "id" : "CA-CUR",
       "name" : "Currency",
       "description" : "",
       "parent" : "CA",
@@ -65,7 +65,7 @@
       }
     },
     {
-      "id" : "UOM",
+      "id" : "CA-UOM",
       "name" : "Unit of measurement",
       "description" : "",
       "parent" : "CA",
@@ -264,19 +264,22 @@
       ],
       "pk" : [
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : "bc",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Country",
-      "componentId" : "CL",
+      "componentId" : "CA-CL",
       "name" : "Country",
       "description" : "",
       "entityName" : "Country",
@@ -370,9 +373,8 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
         {
           "id" : "languageId",
@@ -396,11 +398,15 @@
       "schema" : null,
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Language",
-      "componentId" : "CL",
+      "componentId" : "CA-CL",
       "name" : "Language",
       "description" : "",
       "entityName" : "Language",
@@ -461,19 +467,22 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : null,
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Currency",
-      "componentId" : "CUR",
+      "componentId" : "CA-CUR",
       "name" : "Currency",
       "description" : "",
       "entityName" : "Currency",
@@ -600,19 +609,22 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : null,
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "ExchangeRateType",
-      "componentId" : "CUR",
+      "componentId" : "CA-CUR",
       "name" : "Exchange rate type",
       "description" : "",
       "entityName" : "ExchangeRateType",
@@ -673,19 +685,22 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : null,
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "ExchangeRate",
-      "componentId" : "CUR",
+      "componentId" : "CA-CUR",
       "name" : "ExchangeRate",
       "description" : "",
       "entityName" : "ExchangeRate",
@@ -845,9 +860,8 @@
         "toCurrencyId",
         "effectiveFrom"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
         {
           "id" : "exchangeRateTypeId",
@@ -907,11 +921,15 @@
       "schema" : null,
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "UnitOfMeasurement",
-      "componentId" : "UOM",
+      "componentId" : "CA-UOM",
       "name" : "Unit of measurement",
       "description" : "",
       "entityName" : "UnitOfMeasurement",
@@ -1006,19 +1024,22 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : null,
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "UoMText",
-      "componentId" : "UOM",
+      "componentId" : "CA-UOM",
       "name" : "Unit of measurement text",
       "description" : "",
       "entityName" : "UnitOfMeasurementText",
@@ -1146,9 +1167,8 @@
         "languageId",
         "uomId"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
         {
           "id" : "languageId",
@@ -1190,7 +1210,11 @@
       "schema" : null,
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "CompanyCode",
@@ -1351,9 +1375,8 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
         {
           "id" : "countryId",
@@ -1467,7 +1490,11 @@
       "schema" : "company_code",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "CompanyCodeLedger",
@@ -1533,9 +1560,8 @@
         "companyCodeId",
         "ledgerId"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
         {
           "id" : "companyCodeId",
@@ -1577,7 +1603,11 @@
       "schema" : "company_code",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "FYVariant",
@@ -1642,15 +1672,18 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : "company_code",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "PostingPeriodVariant",
@@ -1715,15 +1748,18 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : "company_code",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "OpenPeriod",
@@ -1996,9 +2032,8 @@
         "accountType",
         "toAccount"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
         {
           "id" : "postingPeriodVariantId",
@@ -2022,7 +2057,11 @@
       "schema" : "company_code",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "ChartOfAccounts",
@@ -2087,15 +2126,18 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : "gl_account",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "GLAccount",
@@ -2225,9 +2267,8 @@
         "chartOfAccountsId",
         "glAccountId"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
         {
           "id" : "chartOfAccountsId",
@@ -2273,7 +2314,11 @@
       "schema" : "gl_account",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "GLAccountGroup",
@@ -2403,9 +2448,8 @@
         "chartOfAccountsId",
         "glAccountGroupId"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
         {
           "id" : "chartOfAccountsId",
@@ -2429,7 +2473,11 @@
       "schema" : "gl_account",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Ledger",
@@ -2542,9 +2590,8 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
         {
           "id" : "underlyingLedger",
@@ -2568,7 +2615,11 @@
       "schema" : "ledger",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "LedgerGroup",
@@ -2633,15 +2684,18 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : "ledger",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "LedgerGroupLedger",
@@ -2723,9 +2777,8 @@
         "ledgerGroupId",
         "ledgerId"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
         {
           "id" : "ledgerId",
@@ -2767,7 +2820,11 @@
       "schema" : "ledger",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "LedgerEntry",
@@ -3296,8 +3353,8 @@
       "pk" : [
         "entryNo"
       ],
-      "indexes" : {
-        "pk" : {
+      "indexes" : [
+        {
           "id" : "pk",
           "name" : "Ledger entry natural key",
           "description" : "",
@@ -3313,7 +3370,7 @@
             
           }
         }
-      },
+      ],
       "relations" : [
         {
           "id" : "ledgerId",
@@ -3633,7 +3690,11 @@
       "schema" : "ledger_entry",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "LedgerEntryAttribute",
@@ -3698,9 +3759,8 @@
         "attributeId",
         "attributeValueId"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
         {
           "id" : "entryNo",
@@ -3746,7 +3806,11 @@
       "schema" : "ledger_entry",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Creditor",
@@ -3811,15 +3875,18 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : "bp",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Debtor",
@@ -3884,15 +3951,18 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : "bp",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "BusinessPartner",
@@ -3989,8 +4059,8 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        "creditor_id" : {
+      "indexes" : [
+        {
           "id" : "creditor_id",
           "name" : "Unique creditorId",
           "description" : "",
@@ -4002,7 +4072,7 @@
             
           }
         },
-        "debtor_id" : {
+        {
           "id" : "debtor_id",
           "name" : "Unique debtorId",
           "description" : "",
@@ -4014,7 +4084,7 @@
             
           }
         }
-      },
+      ],
       "relations" : [
         {
           "id" : "creditorId",
@@ -4056,7 +4126,11 @@
       "schema" : "bp",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "BusinessArea",
@@ -4121,15 +4195,18 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : "analytics",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "FunctionalArea",
@@ -4194,15 +4271,18 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : "analytics",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Segment",
@@ -4267,15 +4347,18 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : "analytics",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Attribute",
@@ -4340,15 +4423,18 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : "analytics",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "AttributeValue",
@@ -4430,9 +4516,8 @@
         "attributeId",
         "attributeValueId"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
         {
           "id" : "attributeId",
@@ -4456,7 +4541,11 @@
       "schema" : "analytics",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "ValuationArea",
@@ -4553,9 +4642,8 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
         {
           "id" : "companyCodeId",
@@ -4579,7 +4667,11 @@
       "schema" : "analytics",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Material",
@@ -4676,9 +4768,8 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
         {
           "id" : "basicUomId",
@@ -4702,7 +4793,11 @@
       "schema" : "logistic",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Plant",
@@ -4783,15 +4878,18 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : "logistic",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Location",
@@ -4889,9 +4987,8 @@
         "plantId",
         "locationId"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
         {
           "id" : "plantId",
@@ -4915,7 +5012,11 @@
       "schema" : "logistic",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     }
   ],
   "dataElements" : [
@@ -4989,7 +5090,7 @@
       "labels" : {
         
       },
-      "componentId" : "CL"
+      "componentId" : "CA-CL"
     },
     {
       "id" : "LanguageId",
@@ -5007,7 +5108,7 @@
       "labels" : {
         
       },
-      "componentId" : "CL"
+      "componentId" : "CA-CL"
     },
     {
       "id" : "CurrencyId",
@@ -5025,7 +5126,7 @@
       "labels" : {
         
       },
-      "componentId" : "CUR"
+      "componentId" : "CA-CUR"
     },
     {
       "id" : "ExchangeRateTypeId",
@@ -5043,7 +5144,7 @@
       "labels" : {
         
       },
-      "componentId" : "CUR"
+      "componentId" : "CA-CUR"
     },
     {
       "id" : "ExchangeRate",
@@ -5062,7 +5163,7 @@
       "labels" : {
         
       },
-      "componentId" : "CUR"
+      "componentId" : "CA-CUR"
     },
     {
       "id" : "UoMId",
@@ -5080,7 +5181,7 @@
       "labels" : {
         
       },
-      "componentId" : "UOM"
+      "componentId" : "CA-UOM"
     },
     {
       "id" : "CompanyCodeId",

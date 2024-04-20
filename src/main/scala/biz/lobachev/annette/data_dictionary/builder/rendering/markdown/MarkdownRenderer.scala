@@ -2,14 +2,14 @@ package biz.lobachev.annette.data_dictionary.builder.rendering.markdown
 
 import biz.lobachev.annette.data_dictionary.builder.POSTGRESQL
 import biz.lobachev.annette.data_dictionary.builder.model._
-import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, Renderer}
+import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, TextRenderer}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
-import biz.lobachev.annette.data_dictionary.builder.model.{RawDomain, RawComponent}
+import biz.lobachev.annette.data_dictionary.builder.model.{Domain, Component}
 import org.fusesource.scalate.TemplateEngine
 
 import scala.io.Source
 
-case class MarkdownRenderer(domain: RawDomain, translation: Map[String, String] = EnglishTranslaltion) extends Renderer {
+case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = EnglishTranslaltion) extends TextRenderer {
 
   val engine = new TemplateEngine
   engine.escapeMarkup = false
@@ -44,7 +44,7 @@ case class MarkdownRenderer(domain: RawDomain, translation: Map[String, String] 
       groups = domain.components.values.map(renderGroup).toSeq
     )
 
-  private def renderGroup(group: RawComponent) =
+  private def renderGroup(group: Component) =
     MdGroup(
       name = group.name,
       description = if (group.description.isBlank) "" else group.description,
@@ -54,8 +54,8 @@ case class MarkdownRenderer(domain: RawDomain, translation: Map[String, String] 
         .toSeq
     )
 
-  private def renderEntity(entity: RawEntity) = {
-    val fields = domain.expandEntityFields(entity)
+  private def renderEntity(entity: Entity) = {
+    val fields = entity.expandedFields
     MdEntity(
       name = entity.name,
       description = if (entity.description.isBlank) "" else entity.description,
@@ -66,7 +66,7 @@ case class MarkdownRenderer(domain: RawDomain, translation: Map[String, String] 
     )
   }
 
-  private def renderField(entity: RawEntity, field: RawEntityField) = {
+  private def renderField(entity: Entity, field: EntityField) = {
     val sqlType  = domain.getTargetDataType(field.dataType, POSTGRESQL)
     val datatype =
       if (sqlType == "integer" && field.autoIncrement) "serial"
@@ -83,7 +83,7 @@ case class MarkdownRenderer(domain: RawDomain, translation: Map[String, String] 
     )
   }
 
-  private def renderIndex(index: RawEntityIndex, fields: Seq[RawEntityField]) =
+  private def renderIndex(index: EntityIndex, fields: Seq[EntityField]) =
     MdIndex(
       fields = index.fields.map(f => getEntityField(fields, f).dbFieldName).mkString("<br>"),
       unique = if (index.unique) "X" else "",
@@ -92,9 +92,9 @@ case class MarkdownRenderer(domain: RawDomain, translation: Map[String, String] 
         else s"${index.name}<br>${index.description.mdReplaceNL}"
     )
 
-  private def renderRelation(relation: RawEntityRelation, fields: Seq[RawEntityField]) = {
+  private def renderRelation(relation: EntityRelation, fields: Seq[EntityField]) = {
     val relationEntity = domain.entities(relation.referenceEntityId)
-    val relationFields = domain.expandEntityFields(relationEntity)
+    val relationFields = relationEntity.expandedFields
     MdRelation(
       f1 = relation.fields.map(f => getEntityField(fields, f._1).dbFieldName).mkString("<br>"),
       relationEntityName = relationEntity.name,
@@ -110,7 +110,7 @@ case class MarkdownRenderer(domain: RawDomain, translation: Map[String, String] 
     )
   }
 
-  def getEntityField(fields: Seq[RawEntityField], fieldName: String): RawEntityField =
+  def getEntityField(fields: Seq[EntityField], fieldName: String): EntityField =
     fields.find(f => f.fieldName == fieldName).get
 
 }

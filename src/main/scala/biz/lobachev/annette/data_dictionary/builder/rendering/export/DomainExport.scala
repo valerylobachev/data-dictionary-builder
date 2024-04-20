@@ -1,21 +1,21 @@
 package biz.lobachev.annette.data_dictionary.builder.rendering.`export`
 
-import biz.lobachev.annette.data_dictionary.builder.model.{RawComponent, RawDataElement, RawDomain, RawEntity, RawEnumData, Labels}
+import biz.lobachev.annette.data_dictionary.builder.model.{Component, DataElement, Domain, Entity, EnumData, Labels}
 
 case class DomainExport(
-                         id: String,
-                         name: String,
-                         description: String,
-                         rootComponents: Seq[String],
-                         components: Seq[RawComponent],
-                         entities: Seq[RawEntity],
-                         dataElements: Seq[RawDataElement],
-                         enums: Seq[RawEnumData],
-                         labels: Labels,
+  id: String,
+  name: String,
+  description: String,
+  rootComponents: Seq[String],
+  components: Seq[Component],
+  entities: Seq[Entity],
+  dataElements: Seq[DataElement],
+  enums: Seq[EnumData],
+  labels: Labels,
 )
 
 object DomainExport {
-  def apply(domain: RawDomain): DomainExport =
+  def apply(domain: Domain): DomainExport =
     DomainExport(
       id = domain.id,
       name = domain.name,

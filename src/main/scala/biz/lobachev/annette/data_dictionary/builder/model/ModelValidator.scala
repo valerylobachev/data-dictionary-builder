@@ -1,8 +1,8 @@
 package biz.lobachev.annette.data_dictionary.builder.model
 
-trait ModelValidator {
+trait ModelValidator111 {
 
-  self: RawDomain =>
+  self: Domain =>
 
   def validate(): Seq[String] =
     errors ++
@@ -76,7 +76,7 @@ trait ModelValidator {
     res.toSeq
   }
 
-  def isDatatypesEqual(f: RawEntityField, rf: RawEntityField): Boolean = f.dataType == rf.dataType
+  def isDatatypesEqual(f: EntityField, rf: EntityField): Boolean = f.dataType == rf.dataType
 
   def validateRelations(): Seq[String] =
     entities.values.flatMap { entity =>

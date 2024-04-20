@@ -6,17 +6,17 @@ case class SheetTranslation(
 )
 
 case class WorkbookTranslation(
-  domain: SheetTranslation,
-  groups: SheetTranslation,
-  entities: SheetTranslation,
-  fields: SheetTranslation,
-  indexes: SheetTranslation,
-  indexFields: SheetTranslation,
-  relations: SheetTranslation,
-  relationFields: SheetTranslation,
-  dataElements: SheetTranslation,
-  enums: SheetTranslation,
-  enumItems: SheetTranslation,
+                                domain: SheetTranslation,
+                                components: SheetTranslation,
+                                entities: SheetTranslation,
+                                fields: SheetTranslation,
+                                indexes: SheetTranslation,
+                                indexFields: SheetTranslation,
+                                relations: SheetTranslation,
+                                relationFields: SheetTranslation,
+                                dataElements: SheetTranslation,
+                                enums: SheetTranslation,
+                                enumItems: SheetTranslation,
 )
 
 object WorkbookTranslation {
@@ -29,15 +29,15 @@ object WorkbookTranslation {
         "Описание",
       ),
     ),
-    groups = SheetTranslation(
-      "Группы",
-      Seq("Ид", "Наименование", "Схема", "Описание", "Пакет репозиториев", "Пакет сущностей"),
+    components = SheetTranslation(
+      "Компоненты",
+      Seq("Ид", "Компонент", "Схема", "Описание"),
     ),
     entities = SheetTranslation(
       "Таблицы",
       Seq(
-        "Группа",
-        "Наименование группы",
+        "Ид. компонента",
+        "Компонент",
         "Ид таблицы",
         "Наименование таблицы",
         "Имя сущности",
@@ -49,24 +49,20 @@ object WorkbookTranslation {
     fields = SheetTranslation(
       "Поля таблиц",
       Seq(
-        "Код поля",
-        "Ид таблицы",
+        "Компонент",
+        "Имя сущности",
+        "Имя таблицы",
         "Наименование таблицы",
-        "Вид поля",
-        "Имя поля",
-        "Имя поля в БД",
         "Наименование поля",
-        "Тип данных",
+        "Имя поля",
         "Тип данных Java",
+        "Имя поля в БД",
         "Тип данных Postgres",
         "Длина/точность",
         "Scale",
-        "Элемент Данных",
-        "Ид сущности include",
-        "Перечисление",
         "ПК/серийный",
         "Обязательно",
-        "Значение по умолчанию",
+        "Элемент Данных",
         "Описание",
       ),
     ),
@@ -129,7 +125,8 @@ object WorkbookTranslation {
     dataElements = SheetTranslation(
       "Элементы данных",
       Seq(
-        "Ид элемента",
+        "Компонент",
+        "Код элемента",
         "Имя поля",
         "Имя поля в БД",
         "Наименование поля",

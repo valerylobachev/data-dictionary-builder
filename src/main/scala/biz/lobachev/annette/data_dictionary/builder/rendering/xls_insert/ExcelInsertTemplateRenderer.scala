@@ -2,28 +2,28 @@ package biz.lobachev.annette.data_dictionary.builder.rendering.xls_insert
 
 import biz.lobachev.annette.data_dictionary.builder.POSTGRESQL
 import biz.lobachev.annette.data_dictionary.builder.model._
-import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, Renderer}
+import biz.lobachev.annette.data_dictionary.builder.rendering.{BinaryRenderer, RenderResult}
 import org.apache.poi.ss.util.CellReference
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 
 import java.io.FileOutputStream
 
 case class ExcelInsertTemplateRenderer(
-                                        domain: RawDomain,
-                                        translation: ExcelInsertTemplateTranslation = ExcelInsertTemplateTranslation.EN,
-) extends Renderer {
+  domain: Domain,
+  translation: ExcelInsertTemplateTranslation = ExcelInsertTemplateTranslation.EN,
+) extends BinaryRenderer {
   val Q3 = "\"\"\""
   val Q4 = "\"\"\"\""
 
   val dateFormat = translation.dateFormat
   val timeFormat = translation.timeFormat
 
-  override def render(): Seq[RenderResult] = {
-    val path = s"docs/${domain.id}/template_${translation.language}"
-    new java.io.File(path).mkdirs
+  override def render(path: String): Seq[RenderResult] = {
+    val fullPath = s"$path/template_${translation.language}"
+    new java.io.File(fullPath).mkdirs
 
     domain.components.values.foreach { group =>
-      val filename = s"$path/${group.id}.xlsx"
+      val filename = s"$fullPath/${group.id}.xlsx"
       val wb       = new XSSFWorkbook()
       domain.entities.values
         .filter(entity => entity.componentId == group.id)
@@ -59,18 +59,18 @@ case class ExcelInsertTemplateRenderer(
         originCell
     }
 
-  def renderEntity(entity: RawEntity, wb: XSSFWorkbook) = {
+  def renderEntity(entity: Entity, wb: XSSFWorkbook) = {
     val sheet          = wb.createSheet(entity.id)
     val headerRow      = sheet.createRow(0)
     headerRow.createCell(0).setCellValue(entity.schema.getOrElse(""))
-    headerRow.createCell(1).setCellValue(entity.fullTableName())
+    headerRow.createCell(1).setCellValue(entity.tableName)
     headerRow.createCell(2).setCellValue(entity.name)
     val descriptionRow = sheet.createRow(1)
     val nameRow        = sheet.createRow(2)
     val fieldRow       = sheet.createRow(3)
     val typeRow        = sheet.createRow(4)
     val formulaRow     = sheet.createRow(5)
-    val fields         = domain.expandEntityFields(entity)
+    val fields         = entity.expandedFields
     val N              = fields.length
     fields.zipWithIndex.foreach { case field -> index =>
       val typeSeq         = Seq(

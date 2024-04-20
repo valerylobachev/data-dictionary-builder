@@ -10,7 +10,7 @@ Store data model example
 
 ## Shared data structures
 
-### Modification data structure ("modifications_table")
+### Modification data structure ("modifications")
 
 | Kolumna | Typ danych | KG | Wymagane | Opis |
 | ------- | ------- | ------- | ------- | ------- |
@@ -19,7 +19,7 @@ Store data model example
 | updated_by | varchar(10) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Address data structure ("addresses_table")
+### Address data structure ("addresses")
 
 | Kolumna | Typ danych | KG | Wymagane | Opis |
 | ------- | ------- | ------- | ------- | ------- |
@@ -30,7 +30,7 @@ Store data model example
 | country | varchar(50) |  | X | Country |
 | postcode | varchar(10) |  | X | Post code |
 
-### Analytics data structure ("analyticses_table")
+### Analytics data structure ("analyticses")
 
 | Kolumna | Typ danych | KG | Wymagane | Opis |
 | ------- | ------- | ------- | ------- | ------- |
@@ -43,13 +43,13 @@ Store data model example
 
 | Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
 | ------- | ------- | ------- | ------- | ------- |
-| promotion_id | Promotion ("analytics"."analytics_promotions_table") | id | Many-To-One | Reference to Promotion |
-| segment_id | Segment ("analytics"."analytics_segments_table") | id | Many-To-One | Reference to Segment |
-| business_area_id | Business area ("analytics"."analytics_business_areas_table") | id | Many-To-One | Reference to BusinessArea |
+| promotion_id | Promotion ("analytics"."analytics_promotions") | id | Many-To-One | Reference to Promotion |
+| segment_id | Segment ("analytics"."analytics_segments") | id | Many-To-One | Reference to Segment |
+| business_area_id | Business area ("analytics"."analytics_business_areas") | id | Many-To-One | Reference to BusinessArea |
 
 ## Client tables
 
-### Client ("client"."client_clients_table")
+### Client ("client"."client_clients")
 
 | Kolumna | Typ danych | KG | Wymagane | Opis |
 | ------- | ------- | ------- | ------- | ------- |
@@ -76,7 +76,7 @@ Store data model example
 | updated_by | varchar(10) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Client address ("client"."client_client_addresses_table")
+### Client address ("client"."client_client_addresses")
 
 | Kolumna | Typ danych | KG | Wymagane | Opis |
 | ------- | ------- | ------- | ------- | ------- |
@@ -107,11 +107,11 @@ Store data model example
 
 | Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
 | ------- | ------- | ------- | ------- | ------- |
-| client_id | Client ("client"."client_clients_table") | id | Many-To-One | Reference to client |
+| client_id | Client ("client"."client_clients") | id | Many-To-One | Reference to client |
 
 ## Order tables
 
-### Order ("order_orders_table")
+### Order ("order_orders")
 
 | Kolumna | Typ danych | KG | Wymagane | Opis |
 | ------- | ------- | ------- | ------- | ------- |
@@ -134,10 +134,10 @@ Store data model example
 
 | Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
 | ------- | ------- | ------- | ------- | ------- |
-| client_id | Client ("client"."client_clients_table") | id | Many-To-One | Reference to client |
-| client_id<br>delivery_address_id | Client address ("client"."client_client_addresses_table") | client_id<br>id | Many-To-One | Reference to address |
+| client_id | Client ("client"."client_clients") | id | Many-To-One | Reference to client |
+| client_id<br>delivery_address_id | Client address ("client"."client_client_addresses") | client_id<br>id | Many-To-One | Reference to address |
 
-### Order line ("order_order_lines_table")
+### Order line ("order_order_lines")
 
 | Kolumna | Typ danych | KG | Wymagane | Opis |
 | ------- | ------- | ------- | ------- | ------- |
@@ -159,10 +159,10 @@ Store data model example
 
 | Kolumny  | Powiązana tabela | Powiązany kolumny | Typ | Opis|
 | ------- | ------- | ------- | ------- | ------- |
-| order_id | Order ("order_orders_table") | id | Many-To-One | Reference to order |
-| item_id | Item ("order_items_table") | id | Many-To-One | Reference to item |
+| order_id | Order ("order_orders") | id | Many-To-One | Reference to order |
+| item_id | Item ("order_items") | id | Many-To-One | Reference to item |
 
-### Item ("order_items_table")
+### Item ("order_items")
 
 | Kolumna | Typ danych | KG | Wymagane | Opis |
 | ------- | ------- | ------- | ------- | ------- |
@@ -176,7 +176,7 @@ Store data model example
 
 ## Analytic tables
 
-### Segment ("analytics"."analytics_segments_table")
+### Segment ("analytics"."analytics_segments")
 
 | Kolumna | Typ danych | KG | Wymagane | Opis |
 | ------- | ------- | ------- | ------- | ------- |
@@ -187,7 +187,7 @@ Store data model example
 | updated_by | varchar(10) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Business area ("analytics"."analytics_business_areas_table")
+### Business area ("analytics"."analytics_business_areas")
 
 | Kolumna | Typ danych | KG | Wymagane | Opis |
 | ------- | ------- | ------- | ------- | ------- |
@@ -198,7 +198,7 @@ Store data model example
 | updated_by | varchar(10) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 
-### Promotion ("analytics"."analytics_promotions_table")
+### Promotion ("analytics"."analytics_promotions")
 
 | Kolumna | Typ danych | KG | Wymagane | Opis |
 | ------- | ------- | ------- | ------- | ------- |

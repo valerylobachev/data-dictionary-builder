@@ -1,6 +1,6 @@
 package biz.lobachev.annette.data_dictionary.builder.dsl
 
-import biz.lobachev.annette.data_dictionary.builder.model.{RawEntityRelation, ManyToOne, OneToOne, Restrict}
+import biz.lobachev.annette.data_dictionary.builder.model.{EntityRelation, ManyToOne, OneToOne, Restrict}
 
 trait Relations {
 
@@ -10,7 +10,7 @@ trait Relations {
     referenceEntityId: String,
     fields: (String, String)*,
   ) =
-    RawEntityRelation(
+    EntityRelation(
       id = id.trim,
       name = name.trim,
       relationType = ManyToOne,
@@ -26,7 +26,7 @@ trait Relations {
     referenceEntityId: String,
     fields: (String, String)*,
   ) =
-    RawEntityRelation(
+    EntityRelation(
       id = id.trim,
       name = name.trim,
       relationType = OneToOne,

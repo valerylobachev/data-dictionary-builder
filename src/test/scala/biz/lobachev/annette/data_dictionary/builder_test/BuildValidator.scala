@@ -1,10 +1,10 @@
 package biz.lobachev.annette.data_dictionary.builder_test
 
-import biz.lobachev.annette.data_dictionary.builder.model.RawDomain
+import biz.lobachev.annette.data_dictionary.builder.model.Domain
 
 trait BuildValidator {
 
-  def validateAndProcess(res: Either[Seq[String], RawDomain])(process: RawDomain => Unit): Unit =
+  def validateAndProcess(res: Either[Seq[String], Domain])(process: Domain => Unit): Unit =
     res match {
       case Left(err)     =>
         err.foreach(println)

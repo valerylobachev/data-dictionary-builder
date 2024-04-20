@@ -135,15 +135,18 @@
       ],
       "pk" : [
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : null,
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Address",
@@ -258,15 +261,18 @@
       ],
       "pk" : [
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : null,
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Analytics",
@@ -328,9 +334,8 @@
       ],
       "pk" : [
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
         {
           "id" : "promotionId",
@@ -390,7 +395,11 @@
       "schema" : null,
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Client",
@@ -525,15 +534,18 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : "client",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "ClientAddress",
@@ -648,8 +660,8 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        "client_id_id" : {
+      "indexes" : [
+        {
           "id" : "client_id_id",
           "name" : "Unique clientId & id",
           "description" : "",
@@ -662,7 +674,7 @@
             
           }
         }
-      },
+      ],
       "relations" : [
         {
           "id" : "clientId",
@@ -686,7 +698,11 @@
       "schema" : "client",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Order",
@@ -834,9 +850,8 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
         {
           "id" : "clientId",
@@ -882,7 +897,11 @@
       "schema" : null,
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "OrderLine",
@@ -1013,9 +1032,8 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
         {
           "id" : "orderId",
@@ -1057,7 +1075,11 @@
       "schema" : null,
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Item",
@@ -1138,15 +1160,18 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : null,
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Segment",
@@ -1211,15 +1236,18 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : "analytics",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "BusinessArea",
@@ -1284,15 +1312,18 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : "analytics",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     },
     {
       "id" : "Promotion",
@@ -1357,15 +1388,18 @@
       "pk" : [
         "id"
       ],
-      "indexes" : {
-        
-      },
+      "indexes" : [
+      ],
       "relations" : [
       ],
       "schema" : "analytics",
       "labels" : {
         
-      }
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
     }
   ],
   "dataElements" : [
