@@ -116,8 +116,11 @@ case class DDLRenderer(domain: Domain, filename: String = "ddl.sql") extends Tex
       val fields2      = relation.fields
         .map(f => getEntityFieldName(refEntity.expandedFields, f._2))
         .mkString("(", ", ", ")")
+      val onDelete     = if (relation.onDelete != NoAction) s" ON DELETE ${relation.onDelete.sqlAction()}" else ""
+      val onUpdate     = if (relation.onDelete != NoAction) s" ON UPDATE ${relation.onUpdate.sqlAction()}" else ""
       s"ALTER TABLE $tableName ADD CONSTRAINT $relationId " +
-        s"FOREIGN KEY $fields1 REFERENCES $refTableName $fields2;\n"
+        s"FOREIGN KEY $fields1 REFERENCES $refTableName $fields2" +
+        s"$onDelete$onUpdate;\n"
     }.mkString("\n")
   }
 

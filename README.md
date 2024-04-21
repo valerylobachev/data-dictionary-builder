@@ -3,9 +3,11 @@
 Annette Data Dictionary builder is the tool to define and generate data models and documentation. It uses DSL to define domain model elements 
 such as data elements, enumerations, tables, data structures, indexes and relations. It has plugins (renderers) to generate:
 
+* [x] SQL DDL script 
 * [x] DbDiagram model definition (see [dbdiagram.io](https://dbdiagram.io/)). You can use DbDiagram to 
 visualize model tables and generate SQL DDL scripts for PostgreSQL & MySQL 
-* [x] Markdown model documentation. English, Polish and Russian localizations are provided. 
+* [x] Data model documentation in Markdown format. English, Polish and Russian localizations are provided. 
+* [x] Data model documentation in Excel file. 
 * [x] Excel file to create SQL INSERT statements
 * [x] Kotlin source code for Spring Boot
 * [ ] Java source code for Spring Boot

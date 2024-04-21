@@ -388,8 +388,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -875,8 +875,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -893,8 +893,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -911,8 +911,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -1182,8 +1182,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -1200,8 +1200,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -1390,8 +1390,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -1408,8 +1408,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -1426,8 +1426,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -1444,8 +1444,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -1462,8 +1462,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -1480,8 +1480,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -1575,8 +1575,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -1593,8 +1593,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -2047,8 +2047,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -2282,8 +2282,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -2304,8 +2304,8 @@
               "glAccountGroupId"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -2463,8 +2463,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -2605,8 +2605,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -2792,8 +2792,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -2810,8 +2810,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -3355,7 +3355,7 @@
       ],
       "indexes" : [
         {
-          "id" : "pk",
+          "id" : "nk",
           "name" : "Ledger entry natural key",
           "description" : "",
           "unique" : true,
@@ -3384,8 +3384,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             "relationFieldName" : "ledger"
           }
@@ -3402,8 +3402,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             "relationFieldName" : "companyCode"
           }
@@ -3424,8 +3424,8 @@
               "glAccountId"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             "relationFieldName" : "glAccount"
           }
@@ -3442,8 +3442,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             "relationFieldName" : "creditor"
           }
@@ -3460,8 +3460,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             "relationFieldName" : "debtor"
           }
@@ -3478,8 +3478,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             "relationFieldName" : "businessPartner"
           }
@@ -3496,8 +3496,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             "relationFieldName" : "businessArea"
           }
@@ -3514,8 +3514,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             "relationFieldName" : "functionalArea"
           }
@@ -3532,8 +3532,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             "relationFieldName" : "segment"
           }
@@ -3550,8 +3550,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             "relationFieldName" : "valuationArea"
           }
@@ -3568,8 +3568,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             "relationFieldName" : "plant"
           }
@@ -3590,8 +3590,8 @@
               "locationId"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             "relationFieldName" : "location"
           }
@@ -3608,8 +3608,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             "relationFieldName" : "material"
           }
@@ -3626,8 +3626,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -3644,8 +3644,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -3662,8 +3662,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             "relationFieldName" : "uom"
           }
@@ -3680,8 +3680,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             "relationFieldName" : "basicUom"
           }
@@ -3774,8 +3774,8 @@
               "entryNo"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -3796,8 +3796,8 @@
               "attributeValueId"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -4098,8 +4098,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -4116,8 +4116,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -4531,8 +4531,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -4657,8 +4657,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -4783,8 +4783,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -5002,8 +5002,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }

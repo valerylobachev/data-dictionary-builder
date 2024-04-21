@@ -6,17 +6,17 @@ case class SheetTranslation(
 )
 
 case class WorkbookTranslation(
-                                domain: SheetTranslation,
-                                components: SheetTranslation,
-                                entities: SheetTranslation,
-                                fields: SheetTranslation,
-                                indexes: SheetTranslation,
-                                indexFields: SheetTranslation,
-                                relations: SheetTranslation,
-                                relationFields: SheetTranslation,
-                                dataElements: SheetTranslation,
-                                enums: SheetTranslation,
-                                enumItems: SheetTranslation,
+  domain: SheetTranslation,
+  components: SheetTranslation,
+  entities: SheetTranslation,
+  fields: SheetTranslation,
+  indexes: SheetTranslation,
+  indexFields: SheetTranslation,
+  relations: SheetTranslation,
+  relationFields: SheetTranslation,
+  dataElements: SheetTranslation,
+  enums: SheetTranslation,
+  enumItems: SheetTranslation,
 )
 
 object WorkbookTranslation {
@@ -69,10 +69,10 @@ object WorkbookTranslation {
     indexes = SheetTranslation(
       "Индексы",
       Seq(
-        "Код индекса",
-        "Ид таблицы",
+        "Компонент",
+        "Имя таблицы",
         "Наименование таблицы",
-        "Ид индекса",
+        "Код индекса",
         "Наименование индекса",
         "Уникальный",
         "Описание",
@@ -81,11 +81,12 @@ object WorkbookTranslation {
     indexFields = SheetTranslation(
       "Поля индексов",
       Seq(
-        "Код индекса",
-        "Ид таблицы",
+        "Компонент",
+        "Имя таблицы",
         "Наименование таблицы",
-        "Ид индекса",
+        "Код индекса",
         "Наименование индекса",
+        "Уникальный",
         "Имя поля",
         "Наименование поля",
       ),
@@ -93,13 +94,13 @@ object WorkbookTranslation {
     relations = SheetTranslation(
       "Отношения",
       Seq(
-        "Код отношения",
-        "Ид таблицы",
+        "Компонент",
+        "Имя таблицы",
         "Наименование таблицы",
-        "Ид отношения",
+        "Код отношения",
         "Наименование отношения",
         "Тип отношения",
-        "Ид ссылочной таблицы",
+        "Имя ссылочной таблицы",
         "Наименование ссылочной таблицы",
         "On update",
         "On delete",
@@ -109,13 +110,13 @@ object WorkbookTranslation {
     relationFields = SheetTranslation(
       "Поля отношений",
       Seq(
-        "Код отношения",
-        "Ид таблицы",
+        "Компонент",
+        "Имя таблицы",
         "Наименование таблицы",
-        "Ид ссылочной таблицы",
-        "Наименование ссылочной таблицы",
-        "Ид отношения",
+        "Код отношения",
         "Наименование отношения",
+        "Имя ссылочной таблицы",
+        "Наименование ссылочной таблицы",
         "Поле таблицы",
         "Наименование поля таблицы",
         "Поле ссылочной таблицы",
@@ -142,11 +143,23 @@ object WorkbookTranslation {
     ),
     enums = SheetTranslation(
       "Перечисления",
-      Seq("Ид перечисления", "Наименование", "Длина кода", "Описание"),
+      Seq(
+        "Компонент",
+        "Ид перечисления",
+        "Наименование",
+        "Длина кода",
+        "Описание",
+      ),
     ),
     enumItems = SheetTranslation(
       "Элементы перечислений",
-      Seq("Ид перечисления", "Наименование", "Код элемента", "Наименование элемента"),
+      Seq(
+        "Компонент",
+        "Ид перечисления",
+        "Наименование",
+        "Код элемента",
+        "Наименование элемента",
+      ),
     ),
   )
 

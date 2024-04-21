@@ -78,7 +78,7 @@ trait FI_LE {
         )
         .withIndexes(
           uniqueIndex(
-            "pk",
+            "nk",
             "Ledger entry natural key",
             "ledgerId",
             "companyCodeId",

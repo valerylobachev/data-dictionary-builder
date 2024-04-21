@@ -423,7 +423,7 @@ table "ledger_entry"."ledger_entries" {
   "updated_at" timestamptz [not null, note: 'Timestamp of record update']
 
   indexes {
-    ("ledger_id", "company_code_id", "fiscal_year", "document_number", "line_item_no") [unique, name: 'ledger_entries_pk', note: 'Ledger entry natural key']
+    ("ledger_id", "company_code_id", "fiscal_year", "document_number", "line_item_no") [unique, name: 'ledger_entries_nk', note: 'Ledger entry natural key']
   }
 
   note: 'Ledger Entry'

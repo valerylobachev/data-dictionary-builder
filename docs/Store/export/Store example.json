@@ -349,8 +349,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -367,8 +367,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -385,8 +385,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -688,8 +688,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -865,8 +865,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -887,8 +887,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -1047,8 +1047,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }
@@ -1065,8 +1065,8 @@
               "id"
             ]
           ],
-          "onUpdate" : "Restrict",
-          "onDelete" : "Restrict",
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
           "labels" : {
             
           }

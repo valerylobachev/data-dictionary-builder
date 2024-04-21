@@ -383,7 +383,7 @@ CREATE TABLE "logistic"."locations" (
 );
 
 
-CREATE UNIQUE INDEX "ledger_entries_pk" ON "ledger_entry"."ledger_entries" ("ledger_id", "company_code_id", "fiscal_year", "document_number", "line_item_no");
+CREATE UNIQUE INDEX "ledger_entries_nk" ON "ledger_entry"."ledger_entries" ("ledger_id", "company_code_id", "fiscal_year", "document_number", "line_item_no");
 
 CREATE UNIQUE INDEX "business_partners_creditor_id" ON "bp"."business_partners" ("creditor_id");
 

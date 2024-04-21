@@ -1,6 +1,6 @@
 package biz.lobachev.annette.data_dictionary.builder.dsl
 
-import biz.lobachev.annette.data_dictionary.builder.model.{EntityRelation, ManyToOne, OneToOne, Restrict}
+import biz.lobachev.annette.data_dictionary.builder.model.{EntityRelation, ManyToOne, NoAction, OneToOne}
 
 trait Relations {
 
@@ -15,8 +15,8 @@ trait Relations {
       name = name.trim,
       relationType = ManyToOne,
       referenceEntityId = referenceEntityId.trim,
-      onUpdate = Restrict,
-      onDelete = Restrict,
+      onUpdate = NoAction,
+      onDelete = NoAction,
       fields = fields,
     )
 
@@ -31,8 +31,8 @@ trait Relations {
       name = name.trim,
       relationType = OneToOne,
       referenceEntityId = referenceEntityId.trim,
-      onUpdate = Restrict,
-      onDelete = Restrict,
+      onUpdate = NoAction,
+      onDelete = NoAction,
       fields = fields,
     )
 

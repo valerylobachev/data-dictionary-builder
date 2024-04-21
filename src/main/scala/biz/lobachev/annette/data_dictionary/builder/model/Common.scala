@@ -11,9 +11,21 @@ case object TableEntity    extends EntityType
 case object StructEntity   extends EntityType
 case object EmbeddedEntity extends EntityType
 
-sealed trait ForeignKeyAction
-case object Cascade    extends ForeignKeyAction
-case object Restrict   extends ForeignKeyAction
-case object NoAction   extends ForeignKeyAction
-case object SetNull    extends ForeignKeyAction
-case object SetDefault extends ForeignKeyAction
+sealed trait ForeignKeyAction {
+  def sqlAction(): String
+}
+case object Cascade    extends ForeignKeyAction {
+  override def sqlAction(): String = "CASCADE"
+}
+case object Restrict   extends ForeignKeyAction {
+  override def sqlAction(): String = "RESTRICT"
+}
+case object NoAction   extends ForeignKeyAction {
+  override def sqlAction(): String = "NO ACTION"
+}
+case object SetNull    extends ForeignKeyAction {
+  override def sqlAction(): String = "SET NULL"
+}
+case object SetDefault extends ForeignKeyAction {
+  override def sqlAction(): String = "SET DEFAULT"
+}

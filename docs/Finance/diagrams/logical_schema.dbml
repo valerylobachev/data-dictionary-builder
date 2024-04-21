@@ -423,7 +423,7 @@ table "Ledger Entry" {
   "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
 
   indexes {
-    ("Ledger Id", "Company code", "Fiscal year", "Document number", "Line item no") [unique, name: 'ledger_entries_pk', note: 'Ledger entry natural key']
+    ("Ledger Id", "Company code", "Fiscal year", "Document number", "Line item no") [unique, name: 'ledger_entries_nk', note: 'Ledger entry natural key']
   }
 
   note: 'Ledger Entry'
