@@ -2,14 +2,14 @@ package biz.lobachev.annette.data_dictionary.builder.rendering.markdown
 
 import biz.lobachev.annette.data_dictionary.builder.POSTGRESQL
 import biz.lobachev.annette.data_dictionary.builder.model._
-import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, Renderer}
+import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, TextRenderer}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
-import biz.lobachev.annette.data_dictionary.builder.model.{Domain, Group}
+import biz.lobachev.annette.data_dictionary.builder.model.{Domain, Component}
 import org.fusesource.scalate.TemplateEngine
 
 import scala.io.Source
 
-case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = EnglishTranslaltion) extends Renderer {
+case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = EnglishTranslaltion) extends TextRenderer {
 
   val engine = new TemplateEngine
   engine.escapeMarkup = false
@@ -41,27 +41,27 @@ case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = E
     MdDomain(
       domain.name,
       description = if (domain.description.isBlank) "" else domain.description,
-      groups = domain.groups.values.map(renderGroup).toSeq
+      groups = domain.components.values.map(renderGroup).toSeq
     )
 
-  private def renderGroup(group: Group) =
+  private def renderGroup(group: Component) =
     MdGroup(
       name = group.name,
       description = if (group.description.isBlank) "" else group.description,
       entities = domain.entities.values
-        .filter(entity => entity.groupId == group.id)
+        .filter(entity => entity.componentId == group.id)
         .map(renderEntity)
         .toSeq
     )
 
   private def renderEntity(entity: Entity) = {
-    val fields = domain.rolloutEntityFields(entity)
+    val fields = entity.expandedFields
     MdEntity(
       name = entity.name,
       description = if (entity.description.isBlank) "" else entity.description,
       fullTableName = entity.tableNameWithSchema(),
       fields = fields.map(renderField(entity, _)),
-      indexes = entity.indexes.values.map(renderIndex(_, fields)).toSeq,
+      indexes = entity.indexes.map(renderIndex(_, fields)).toSeq,
       relations = entity.relations.map(renderRelation(_, fields))
     )
   }
@@ -94,7 +94,7 @@ case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = E
 
   private def renderRelation(relation: EntityRelation, fields: Seq[EntityField]) = {
     val relationEntity = domain.entities(relation.referenceEntityId)
-    val relationFields = domain.rolloutEntityFields(relationEntity)
+    val relationFields = relationEntity.expandedFields
     MdRelation(
       f1 = relation.fields.map(f => getEntityField(fields, f._1).dbFieldName).mkString("<br>"),
       relationEntityName = relationEntity.name,

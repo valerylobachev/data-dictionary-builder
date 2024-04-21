@@ -1,12 +1,12 @@
 package biz.lobachev.annette.data_dictionary.builder_test.store
 
 import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
-import biz.lobachev.annette.data_dictionary.builder.helper.TablePrefixSuffix.{tableNamePrefix, tableNameSuffix}
+import biz.lobachev.annette.data_dictionary.builder.labels.TablePrefixSuffix.{tableNamePrefix, tableNameSuffix}
 import biz.lobachev.annette.data_dictionary.builder.model._
 
 object Store {
-  val storeDomain = domain("Store", "Store example", "Store data model example")
-    .withAttributes(
+  val data = domain("Store", "Store example", "Store data model example")
+    .withLabels(
       tableNameSuffix("table"),
     )
     .withEnums(
@@ -36,8 +36,8 @@ object Store {
         dataElement("BusinessAreaId",     "businessAreaId", StringVarchar(10), "Business Area Id"),
         // format: on
     )
-    .withGroups(
-      group("Shared", "Shared data structures")
+    .withComponents(
+      component("Shared", "Shared data structures")
         .withEntities(
           embeddedEntity("Modification", "Modification data structure")
             .withFields(
@@ -78,9 +78,9 @@ object Store {
               ),
             ),
         ),
-      group("Client", "Client tables")
+      component("Client", "Client tables")
         .withSchema("client")
-        .withAttributes(
+        .withLabels(
           tableNamePrefix("client"),
         )
         .withEntities(
@@ -118,8 +118,8 @@ object Store {
               uniqueIndex("clientIdId", "Unique clientId & id", "clientId", "id"),
             ),
         ),
-      group("Order", "Order tables")
-        .withAttributes(
+      component("Order", "Order tables")
+        .withLabels(
           tableNamePrefix("order"),
         )
         .withEntities(
@@ -178,9 +178,9 @@ object Store {
               // format: on
             ),
         ),
-      group("Analytics", "Analytic tables")
+      component("Analytics", "Analytic tables")
         .withSchema("analytics")
-        .withAttributes(
+        .withLabels(
           tableNamePrefix("analytics"),
         )
         .withEntities(

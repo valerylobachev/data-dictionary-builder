@@ -1,0 +1,461 @@
+{
+  "id" : "Simple",
+  "name" : "Simple Example",
+  "description" : "This example provides simple person group data model",
+  "rootComponents" : [
+    "Shared",
+    "PersonGroup"
+  ],
+  "components" : [
+    {
+      "id" : "Shared",
+      "name" : "Shared data structures",
+      "description" : "",
+      "parent" : null,
+      "children" : [
+      ],
+      "schema" : null,
+      "labels" : {
+        
+      }
+    },
+    {
+      "id" : "PersonGroup",
+      "name" : "Person Group Model",
+      "description" : "",
+      "parent" : null,
+      "children" : [
+      ],
+      "schema" : null,
+      "labels" : {
+        
+      }
+    }
+  ],
+  "entities" : [
+    {
+      "id" : "Modification",
+      "componentId" : "Shared",
+      "name" : "Modification data structure",
+      "description" : "",
+      "entityName" : "Modification",
+      "tableName" : "modifications",
+      "entityType" : "embedded",
+      "fields" : [
+        {
+          "name" : "User updated record",
+          "description" : "",
+          "fieldName" : "updatedBy",
+          "dbFieldName" : "updated_by",
+          "dataType" : {
+            "StringVarchar" : {
+              "lenght" : 20,
+              "defaultValue" : null
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "labels" : {
+            
+          }
+        },
+        {
+          "name" : "Timestamp of record update",
+          "description" : "",
+          "fieldName" : "updatedAt",
+          "dbFieldName" : "updated_at",
+          "dataType" : {
+            "InstantTimestamp" : {
+              "defaultValue" : null
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "labels" : {
+            
+          }
+        }
+      ],
+      "pk" : [
+      ],
+      "indexes" : [
+      ],
+      "relations" : [
+      ],
+      "schema" : null,
+      "labels" : {
+        
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
+    },
+    {
+      "id" : "Person",
+      "componentId" : "PersonGroup",
+      "name" : "Person",
+      "description" : "",
+      "entityName" : "Person",
+      "tableName" : "persons",
+      "entityType" : "table",
+      "fields" : [
+        {
+          "name" : "Person Id",
+          "description" : "",
+          "fieldName" : "id",
+          "dbFieldName" : "id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "PersonId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : true,
+          "labels" : {
+            
+          }
+        },
+        {
+          "name" : "Person first name",
+          "description" : "",
+          "fieldName" : "firstname",
+          "dbFieldName" : "firstname",
+          "dataType" : {
+            "StringVarchar" : {
+              "lenght" : 40,
+              "defaultValue" : null
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "labels" : {
+            
+          }
+        },
+        {
+          "name" : "Person last name",
+          "description" : "",
+          "fieldName" : "lastname",
+          "dbFieldName" : "lastname",
+          "dataType" : {
+            "StringVarchar" : {
+              "lenght" : 40,
+              "defaultValue" : null
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "labels" : {
+            
+          }
+        },
+        {
+          "name" : "",
+          "description" : "",
+          "fieldName" : "",
+          "dbFieldName" : "",
+          "dataType" : {
+            "EmbeddedEntityType" : {
+              "entityId" : "Modification",
+              "withPrefix" : false,
+              "withRelations" : false
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "labels" : {
+            
+          }
+        }
+      ],
+      "pk" : [
+        "id"
+      ],
+      "indexes" : [
+        {
+          "id" : "lastname_firstname",
+          "name" : "Search index by lastname and firstname",
+          "description" : "",
+          "unique" : false,
+          "fields" : [
+            "lastname",
+            "firstname"
+          ],
+          "labels" : {
+            
+          }
+        }
+      ],
+      "relations" : [
+      ],
+      "schema" : null,
+      "labels" : {
+        
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
+    },
+    {
+      "id" : "Group",
+      "componentId" : "PersonGroup",
+      "name" : "Group",
+      "description" : "",
+      "entityName" : "Group",
+      "tableName" : "groups",
+      "entityType" : "table",
+      "fields" : [
+        {
+          "name" : "Group Id",
+          "description" : "",
+          "fieldName" : "id",
+          "dbFieldName" : "id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "GroupId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : true,
+          "labels" : {
+            
+          }
+        },
+        {
+          "name" : "Group name",
+          "description" : "",
+          "fieldName" : "name",
+          "dbFieldName" : "name",
+          "dataType" : {
+            "StringVarchar" : {
+              "lenght" : 100,
+              "defaultValue" : null
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "labels" : {
+            
+          }
+        },
+        {
+          "name" : "",
+          "description" : "",
+          "fieldName" : "",
+          "dbFieldName" : "",
+          "dataType" : {
+            "EmbeddedEntityType" : {
+              "entityId" : "Modification",
+              "withPrefix" : false,
+              "withRelations" : false
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "labels" : {
+            
+          }
+        }
+      ],
+      "pk" : [
+        "id"
+      ],
+      "indexes" : [
+      ],
+      "relations" : [
+      ],
+      "schema" : null,
+      "labels" : {
+        
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
+    },
+    {
+      "id" : "GroupMember",
+      "componentId" : "PersonGroup",
+      "name" : "Group member",
+      "description" : "",
+      "entityName" : "GroupMember",
+      "tableName" : "group_members",
+      "entityType" : "table",
+      "fields" : [
+        {
+          "name" : "Group member id",
+          "description" : "",
+          "fieldName" : "id",
+          "dbFieldName" : "id",
+          "dataType" : {
+            "IntInt" : {
+              "defaultValue" : null
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : true,
+          "labels" : {
+            
+          }
+        },
+        {
+          "name" : "Group Id",
+          "description" : "",
+          "fieldName" : "groupId",
+          "dbFieldName" : "group_id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "GroupId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "labels" : {
+            
+          }
+        },
+        {
+          "name" : "Person Id",
+          "description" : "",
+          "fieldName" : "personId",
+          "dbFieldName" : "person_id",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "PersonId"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "labels" : {
+            
+          }
+        },
+        {
+          "name" : "",
+          "description" : "",
+          "fieldName" : "",
+          "dbFieldName" : "",
+          "dataType" : {
+            "EmbeddedEntityType" : {
+              "entityId" : "Modification",
+              "withPrefix" : false,
+              "withRelations" : false
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "labels" : {
+            
+          }
+        }
+      ],
+      "pk" : [
+        "id"
+      ],
+      "indexes" : [
+        {
+          "id" : "person_group_ids",
+          "name" : "Person id in each group must be unique",
+          "description" : "",
+          "unique" : true,
+          "fields" : [
+            "groupId",
+            "personId"
+          ],
+          "labels" : {
+            
+          }
+        }
+      ],
+      "relations" : [
+        {
+          "id" : "groupId",
+          "name" : "Relation to groups",
+          "description" : "",
+          "relationType" : "ManyToOne",
+          "referenceEntityId" : "Group",
+          "fields" : [
+            [
+              "groupId",
+              "id"
+            ]
+          ],
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
+          "labels" : {
+            
+          }
+        },
+        {
+          "id" : "personId",
+          "name" : "Relation to persons",
+          "description" : "",
+          "relationType" : "ManyToOne",
+          "referenceEntityId" : "Person",
+          "fields" : [
+            [
+              "personId",
+              "id"
+            ]
+          ],
+          "onUpdate" : "NoAction",
+          "onDelete" : "NoAction",
+          "labels" : {
+            
+          }
+        }
+      ],
+      "schema" : null,
+      "labels" : {
+        
+      },
+      "expandedFields" : [
+      ],
+      "expandedRelations" : [
+      ]
+    }
+  ],
+  "dataElements" : [
+    {
+      "id" : "PersonId",
+      "name" : "Person Id",
+      "description" : "",
+      "fieldName" : "personId",
+      "dbFieldName" : "person_id",
+      "dataType" : {
+        "IntInt" : {
+          "defaultValue" : null
+        }
+      },
+      "notNull" : true,
+      "labels" : {
+        
+      },
+      "componentId" : null
+    },
+    {
+      "id" : "GroupId",
+      "name" : "Group Id",
+      "description" : "",
+      "fieldName" : "groupId",
+      "dbFieldName" : "group_id",
+      "dataType" : {
+        "IntInt" : {
+          "defaultValue" : null
+        }
+      },
+      "notNull" : true,
+      "labels" : {
+        
+      },
+      "componentId" : null
+    }
+  ],
+  "enums" : [
+  ],
+  "labels" : {
+    
+  }
+}

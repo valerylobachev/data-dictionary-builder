@@ -1,8 +1,10 @@
 package biz.lobachev.annette.data_dictionary.builder_test
 
+import biz.lobachev.annette.data_dictionary.builder.builder.DomainBuilder
 import biz.lobachev.annette.data_dictionary.builder.rendering.Generator
 import biz.lobachev.annette.data_dictionary.builder.rendering.dbdiagram.DbDiagramRenderer
-import biz.lobachev.annette.data_dictionary.builder.rendering.json.JsonRenderer
+import biz.lobachev.annette.data_dictionary.builder.rendering.`export`.ExportJsonRenderer
+import biz.lobachev.annette.data_dictionary.builder.rendering.ddl.DDLRenderer
 import biz.lobachev.annette.data_dictionary.builder.rendering.kotlin.KotlinRenderer
 import biz.lobachev.annette.data_dictionary.builder.rendering.xls_insert.{ExcelInsertTemplateRenderer, ExcelInsertTemplateTranslation}
 import biz.lobachev.annette.data_dictionary.builder.rendering.markdown.{MarkdownRenderer, PolishTranslaltion, RussianTranslaltion}
@@ -12,10 +14,18 @@ import org.scalatest.wordspec.AnyWordSpec
 
 class SimpleSpec extends AnyWordSpec with BuildValidator {
 
-  val build = Simple.simpleDomain.build()
-  val buildWoAttrs = Simple.simpleDomain.build(false)
+  val build = Simple.data.build()
 
   "Simple model" should {
+    "generate DDL" in {
+      validateAndProcess(build) { domain =>
+        Generator.generate(
+          DDLRenderer(domain),
+          s"docs/${domain.id}/",
+        )
+      }
+    }
+
     "generate physical DB Diagram" in {
       validateAndProcess(build) { domain =>
         Generator.generate(
@@ -71,9 +81,9 @@ class SimpleSpec extends AnyWordSpec with BuildValidator {
     }
 
     "export to JSON" in {
-      validateAndProcess(buildWoAttrs) { domain =>
+      validateAndProcess(DomainBuilder.buildStage1(Simple.data)) { domain =>
         Generator.generate(
-          JsonRenderer(domain),
+          ExportJsonRenderer(domain),
           s"docs/${domain.id}/",
         )
       }

@@ -4,5 +4,6 @@ package object model {
 
   val UNDEFINED_DATA_TYPE = "undefined"
 
-  type Attributes = Map[String, String]
+  type Labels = Map[String, String]
+
 }

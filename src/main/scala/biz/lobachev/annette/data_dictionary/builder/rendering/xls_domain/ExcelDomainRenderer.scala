@@ -1,239 +1,281 @@
 package biz.lobachev.annette.data_dictionary.builder.rendering.xls_domain
 
-import biz.lobachev.annette.data_dictionary.builder.helper.JavaPackage.{JAVA_MODEL_PACKAGE, JAVA_REPO_PACKAGE}
 import biz.lobachev.annette.data_dictionary.builder.model._
-import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, Renderer}
-import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax.{RemoveBR}
+import biz.lobachev.annette.data_dictionary.builder.rendering.{BinaryRenderer, RenderResult}
+import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
 import org.apache.poi.ss.usermodel.{HorizontalAlignment, VerticalAlignment}
 import org.apache.poi.xssf.usermodel._
 
 import java.io.FileOutputStream
 
-case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation) extends Renderer {
+case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation) extends BinaryRenderer {
+  private val depth = getDepth()
+  private val dwb   = initWorkbook(translation)
 
-  override def render(): Seq[RenderResult] = {
-    val dwb = initWorkbook(translation)
-
-    renderDomain(dwb)
-
-    val path     = s"docs/${domain.id}"
+  override def render(path: String): Seq[RenderResult] = {
+    renderDomain()
     new java.io.File(path).mkdirs
     val filename = s"$path/${domain.name}.xlsx"
     val fileOut  = new FileOutputStream(filename)
     try dwb.wb.write(fileOut)
     finally if (fileOut != null) fileOut.close()
-    Seq.empty
+    Seq(
+      RenderResult(
+        s"",
+        s"${domain.name}.xlsx",
+        "Binary content",
+      ),
+    )
   }
 
-  private def renderDomain(dwb: DomainWorkbook) = {
+  private def renderDomain() = {
     val row = dwb.domain.sheet.createRow(1)
     row.createCell(0).setCellValue(domain.id)
     row.createCell(1).setCellValue(domain.name)
     row.createCell(2).setCellValue(domain.description)
-    domain.groups.values.foreach(group => renderGroup(dwb, group))
-    domain.dataElements.values.foreach(de => renderDataElement(dwb, de))
-    domain.enums.values.foreach(e => renderEnum(dwb, e))
+    domain.rootComponentIds.foreach(componentId => renderComponent(componentId, Seq.empty))
+    domain.dataElements.values.filter(_.componentId.isEmpty).foreach(de => renderDataElement(de, Seq.empty))
+    domain.enums.values.filter(_.componentId.isEmpty).foreach(e => renderEnum(e, Seq.empty))
   }
 
   private var dataElementRowIndex = 0
 
-  def renderDataElement(dwb: DomainWorkbook, dataElement: DataElement) = {
+  private def renderDataElement(dataElement: DataElement, components: Seq[String]) = {
     dataElementRowIndex += 1
     val row = dwb.dataElements.sheet.createRow(dataElementRowIndex)
 
-    row.createCell(0).setCellValue(dataElement.id)
-    row.createCell(1).setCellValue(dataElement.fieldName)
-    row.createCell(2).setCellValue(dataElement.dbFieldName)
-    row.createCell(3).setCellValue(dataElement.name)
+    var index = 0
+    components.foreach { c =>
+      row.createCell(index).setCellValue(c)
+      index += 1
+    }
+
+    row.createCell(depth).setCellValue(dataElement.id)
+    row.createCell(depth + 1).setCellValue(dataElement.fieldName)
+    row.createCell(depth + 2).setCellValue(dataElement.dbFieldName)
+    row.createCell(depth + 3).setCellValue(dataElement.name)
     val (datatype, javaDatatype, postgresDatatype, len, scale, default) = getFieldDatatype(dataElement.dataType)
-    row.createCell(4).setCellValue(datatype)
-    row.createCell(5).setCellValue(javaDatatype)
-    row.createCell(6).setCellValue(postgresDatatype)
-    row.createCell(7).setCellValue(len)
-    row.createCell(8).setCellValue(scale)
+    row.createCell(depth + 4).setCellValue(datatype)
+    row.createCell(depth + 5).setCellValue(javaDatatype)
+    row.createCell(depth + 6).setCellValue(postgresDatatype)
+    row.createCell(depth + 7).setCellValue(len)
+    row.createCell(depth + 8).setCellValue(scale)
     dataElement.dataType match {
       case EnumString(enumId, _) =>
-        row.createCell(9).setCellValue(enumId)
+        row.createCell(depth + 9).setCellValue(enumId)
       case _                     =>
     }
-    row.createCell(10).setCellValue(default)
-    row.createCell(11).setCellValue(dataElement.description)
+    row.createCell(depth + 10).setCellValue(default)
+    row.createCell(depth + 11).setCellValue(dataElement.description)
   }
 
   private var enumRowIndex        = 0
   private var enumElementRowIndex = 0
 
-  private def renderEnum(dwb: DomainWorkbook, e: EnumData) = {
+  private def renderEnum(e: EnumData, components: Seq[String]) = {
+
     enumRowIndex += 1
     val row = dwb.enums.sheet.createRow(enumRowIndex)
-    row.createCell(0).setCellValue(e.id)
-    row.createCell(1).setCellValue(e.name)
-    row.createCell(2).setCellValue(e.length.toString)
-    row.createCell(3).setCellValue(e.description)
+
+    var index = 0
+    components.foreach { c =>
+      row.createCell(index).setCellValue(c)
+      index += 1
+    }
+
+    row.createCell(depth).setCellValue(e.id)
+    row.createCell(depth + 1).setCellValue(e.name)
+    row.createCell(depth + 2).setCellValue(e.length.toString)
+    row.createCell(depth + 3).setCellValue(e.description)
     e.elements.map { case key -> value =>
       enumElementRowIndex += 1
       val row = dwb.enumItems.sheet.createRow(enumElementRowIndex)
-      row.createCell(0).setCellValue(e.id)
-      row.createCell(1).setCellFormula(s"VLOOKUP(A${enumElementRowIndex + 1},'${dwb.enums.name}'!A:B,2,0)")
-      row.createCell(2).setCellValue(key)
-      row.createCell(3).setCellValue(value)
+
+      var index = 0
+      components.foreach { c =>
+        row.createCell(index).setCellValue(c)
+        index += 1
+      }
+      row.createCell(depth).setCellValue(e.id)
+      row.createCell(depth + 1).setCellValue(e.name)
+      row.createCell(depth + 2).setCellValue(key)
+      row.createCell(depth + 3).setCellValue(value)
     }
   }
 
   private var groupRowIndex = 0
 
-  private def renderGroup(dwb: DomainWorkbook, group: Group) = {
+  private def renderComponent(componentId: String, components: Seq[String]): Unit = {
+    val component     = domain.components(componentId)
+    val newComponents = components :+ component.name
     groupRowIndex += 1
-    val row = dwb.groups.sheet.createRow(groupRowIndex)
-    row.createCell(0).setCellValue(group.id)
-    row.createCell(1).setCellValue(group.name)
-    row.createCell(2).setCellValue(group.schema.getOrElse(""))
-    row.createCell(3).setCellValue(group.description)
-    row
-      .createCell(4)
-      .setCellValue(
-        group.attributes.getOrElse(JAVA_REPO_PACKAGE, ""),
-      ) // Attributes.findGroupAttribute(group, domain, JAVA_REPO_PACKAGE).getOrElse(""))
-    row
-      .createCell(5)
-      .setCellValue(
-        group.attributes.getOrElse(JAVA_MODEL_PACKAGE, ""),
-      ) // Attributes.findGroupAttribute(group, domain, JAVA_MODEL_PACKAGE).getOrElse(""))
-    domain.entities.values.filter(_.groupId == group.id).foreach(entity => renderEntity(dwb, group, entity))
+    val row           = dwb.components.sheet.createRow(groupRowIndex)
+    row.createCell(0).setCellValue(component.id)
+    var index         = 1
+    newComponents.foreach { c =>
+      row.createCell(index).setCellValue(c)
+      index += 1
+    }
+    row.createCell(depth + 1).setCellValue(component.schema.getOrElse(""))
+    row.createCell(depth + 2).setCellValue(component.description)
+
+    domain.entities.values
+      .filter(_.componentId == component.id)
+      .foreach(entity => renderEntity(component, entity, newComponents))
+    domain.dataElements.values
+      .filter(_.componentId == Some(componentId))
+      .foreach(de => renderDataElement(de, newComponents))
+    domain.enums.values.filter(_.componentId == Some(componentId)).foreach(e => renderEnum(e, newComponents))
+
+    component.children.foreach(id => renderComponent(id, newComponents))
   }
 
   private var entityRowIndex = 0
 
-  private def renderEntity(dwb: DomainWorkbook, group: Group, entity: Entity) = {
+  private def renderEntity(component: Component, entity: Entity, components: Seq[String]) = {
     entityRowIndex += 1
     val row        = dwb.entities.sheet.createRow(entityRowIndex)
-    row.createCell(0).setCellValue(group.id)
-    row.createCell(1).setCellFormula(s"VLOOKUP(A${entityRowIndex + 1},'${dwb.groups.name}'!A:B,2,0)")
-    row.createCell(2).setCellValue(entity.id)
-    row.createCell(3).setCellValue(entity.name)
-    row.createCell(4).setCellValue(entity.entityName)
-    row.createCell(5).setCellValue(entity.fullTableName())
+    row.createCell(0).setCellValue(component.id)
+    var index      = 1
+    components.foreach { c =>
+      row.createCell(index).setCellValue(c)
+      index += 1
+    }
+    row.createCell(depth + 1).setCellValue(entity.id)
+    row.createCell(depth + 2).setCellValue(entity.name)
+    row.createCell(depth + 3).setCellValue(entity.entityName)
+    row.createCell(depth + 4).setCellValue(entity.tableName)
     val entityType = entity.entityType.toString
-    row.createCell(6).setCellValue(entityType.take(entityType.length - 6))
-    row.createCell(7).setCellValue(entity.description)
-    entity.fields.foreach(field => renderEntityField(dwb, entity, field))
-    entity.indexes.values.foreach(index => renderEntityIndex(dwb, entity, index))
-    entity.relations.foreach(relation => renderEntityRelation(dwb, entity, relation))
+    row.createCell(depth + 5).setCellValue(entityType.take(entityType.length - 6))
+    row.createCell(depth + 6).setCellValue(entity.description)
+    entity.expandedFields.foreach(field => renderEntityField(entity, field, components))
+    entity.indexes.foreach(index => renderEntityIndex(entity, index, components))
+    entity.expandedRelations.foreach(relation => renderEntityRelation(entity, relation, components))
   }
 
   private var entityFieldRowIndex = 0
 
-  private def renderEntityField(dwb: DomainWorkbook, entity: Entity, field: EntityField) = {
+  private def renderEntityField(entity: Entity, field: EntityField, components: Seq[String]) = {
     entityFieldRowIndex += 1
     val row = dwb.fields.sheet.createRow(entityFieldRowIndex)
 
-    row.createCell(0).setCellFormula(s"""B${entityFieldRowIndex + 1}&"."&E${entityFieldRowIndex + 1}""")
-    row.createCell(1).setCellValue(entity.id)
-    row.createCell(2).setCellFormula(s"VLOOKUP(B${entityFieldRowIndex + 1},'${dwb.entities.name}'!C:D,2,0)")
+    var index = 0
+    components.foreach { c =>
+      row.createCell(index).setCellValue(c)
+      index += 1
+    }
+
+    row.createCell(depth).setCellValue(entity.entityName)
+    row.createCell(depth + 1).setCellValue(entity.tableName)
+    row.createCell(depth + 2).setCellValue(entity.name)
     field.dataType match {
-      case EmbeddedEntityType(entityId, withPrefix, withRelations) =>
-        val p = if (withPrefix) "P" else ""
-        val r = if (withRelations) "R" else ""
-        row.createCell(3).setCellValue(s"Include$p$r")
-        row.createCell(13).setCellValue(entityId)
-      case EnumString(enumId, _)                                   =>
-        row.createCell(3).setCellValue("Field")
-        row.createCell(15).setCellValue(enumId)
-      case DataElementType(dataElementId)                          =>
-        row.createCell(3).setCellValue("Field")
-        row.createCell(12).setCellValue(dataElementId)
-      case _                                                       =>
-        row.createCell(3).setCellValue("Field")
+      case EnumString(enumId, _)          =>
+        row.createCell(depth + 12).setCellValue(enumId)
+      case DataElementType(dataElementId) =>
+        row.createCell(depth + 12).setCellValue(dataElementId)
+      case _                              =>
     }
-    row.createCell(4).setCellValue(field.fieldName)
-    row.createCell(5).setCellValue(field.dbFieldName)
-    row.createCell(6).setCellValue(field.name)
-    val (datatype, javaDatatype, postgresDatatype, len, scale, default) = getFieldDatatype(field.dataType)
-    row.createCell(7).setCellValue(datatype)
-    row.createCell(8).setCellValue(javaDatatype)
-    row.createCell(9).setCellValue(postgresDatatype)
-    row.createCell(10).setCellValue(len)
-    row.createCell(11).setCellValue(scale)
-    row.createCell(17).setCellValue(default)
+    row.createCell(depth + 3).setCellValue(field.name)
+    row.createCell(depth + 4).setCellValue(field.fieldName)
+    val (_, javaDatatype, postgresDatatype, len, scale, _) = getFieldDatatype(field.dataType)
+    row.createCell(depth + 5).setCellValue(javaDatatype)
+    row.createCell(depth + 6).setCellValue(field.dbFieldName)
+    row.createCell(depth + 7).setCellValue(postgresDatatype)
+    row.createCell(depth + 8).setCellValue(len)
+    row.createCell(depth + 9).setCellValue(scale)
     if (entity.pk.contains(field.fieldName)) {
-      if (field.autoIncrement) row.createCell(15).setCellValue("S")
-      else row.createCell(15).setCellValue("X")
+      if (field.autoIncrement) row.createCell(depth + 10).setCellValue("S")
+      else row.createCell(depth + 10).setCellValue("X")
     }
-    if (field.notNull) row.createCell(16).setCellValue("X")
-    row.createCell(18).setCellValue(field.description.replaceBR)
+    if (field.notNull) row.createCell(depth + 11).setCellValue("X")
+    row.createCell(depth + 13).setCellValue(field.description.replaceBR)
   }
 
   private var entityIndexIndex      = 0
   private var entityIndexFieldIndex = 0
 
-  private def renderEntityIndex(dwb: DomainWorkbook, entity: Entity, index: EntityIndex) = {
+  private def renderEntityIndex(entity: Entity, index: EntityIndex, components: Seq[String]) = {
     entityIndexIndex += 1
     val row = dwb.indexes.sheet.createRow(entityIndexIndex)
-    row.createCell(0).setCellFormula(s"""B${entityIndexIndex + 1}&"_"&D${entityIndexIndex + 1}""")
-    row.createCell(1).setCellValue(entity.id)
-    row.createCell(2).setCellFormula(s"VLOOKUP(B${entityIndexIndex + 1},'${dwb.entities.name}'!C:D,2,0)")
-    row.createCell(3).setCellValue(index.id)
-    row.createCell(4).setCellValue(index.name)
-    if (index.unique) row.createCell(5).setCellValue("X")
-    row.createCell(6).setCellValue(index.description.replaceBR)
+
+    var idx = 0
+    components.foreach { c =>
+      row.createCell(idx).setCellValue(c)
+      idx += 1
+    }
+    row.createCell(depth).setCellValue(entity.tableName)
+    row.createCell(depth + 1).setCellValue(entity.name)
+    row.createCell(depth + 2).setCellValue(entity.tableName + "_" + index.id.snakeCase)
+    row.createCell(depth + 3).setCellValue(index.name)
+    if (index.unique) row.createCell(depth + 4).setCellValue("X")
+    row.createCell(depth + 5).setCellValue(index.description.replaceBR)
     index.fields.foreach { field =>
       entityIndexFieldIndex += 1
-      val row = dwb.indexFields.sheet.createRow(entityIndexFieldIndex)
-      row.createCell(0).setCellValue(s"${entity.id}_${index.id}")
-      row.createCell(1).setCellFormula(s"VLOOKUP(A${entityIndexFieldIndex + 1},'${dwb.indexes.name}'!A:E,2,0)")
-      row.createCell(2).setCellFormula(s"VLOOKUP(A${entityIndexFieldIndex + 1},'${dwb.indexes.name}'!A:E,3,0)")
-      row.createCell(3).setCellFormula(s"VLOOKUP(A${entityIndexFieldIndex + 1},'${dwb.indexes.name}'!A:E,4,0)")
-      row.createCell(4).setCellFormula(s"VLOOKUP(A${entityIndexFieldIndex + 1},'${dwb.indexes.name}'!A:E,5,0)")
-      row.createCell(5).setCellValue(field)
-      row
-        .createCell(6)
-        .setCellFormula(
-          s"""VLOOKUP(B${entityIndexFieldIndex + 1}&"."&F${entityIndexFieldIndex + 1},'${dwb.fields.name}'!A:G,7,0)""",
-        )
+      val row         = dwb.indexFields.sheet.createRow(entityIndexFieldIndex)
+      var idx         = 0
+      components.foreach { c =>
+        row.createCell(idx).setCellValue(c)
+        idx += 1
+      }
+      row.createCell(depth).setCellValue(entity.tableName)
+      row.createCell(depth + 1).setCellValue(entity.name)
+      row.createCell(depth + 2).setCellValue(entity.tableName + "_" + index.id.snakeCase)
+      row.createCell(depth + 3).setCellValue(index.name)
+      if (index.unique) row.createCell(depth + 4).setCellValue("X")
+      val entityField = getEntityField(entity.expandedFields, field)
+      row.createCell(depth + 5).setCellValue(entityField.dbFieldName)
+      row.createCell(depth + 6).setCellValue(entityField.name)
+
     }
   }
 
   private var entityRelationIndex      = 0
   private var entityRelationFieldIndex = 0
 
-  private def renderEntityRelation(dwb: DomainWorkbook, entity: Entity, relation: EntityRelation) = {
+  private def renderEntityRelation(entity: Entity, relation: EntityRelation, components: Seq[String]) = {
     entityRelationIndex += 1
     val row = dwb.relations.sheet.createRow(entityRelationIndex)
-    row.createCell(0).setCellFormula(s"""B${entityRelationIndex + 1}&"_"&D${entityRelationIndex + 1}""")
-    row.createCell(1).setCellValue(entity.id)
-    row.createCell(2).setCellFormula(s"VLOOKUP(B${entityRelationIndex + 1},'${dwb.entities.name}'!C:D,2,0)")
 
-    row.createCell(3).setCellValue(relation.id)
-    row.createCell(4).setCellValue(relation.name)
+    var index = 0
+    components.foreach { c =>
+      row.createCell(index).setCellValue(c)
+      index += 1
+    }
 
-    row.createCell(5).setCellValue(relation.relationType.toString)
-    row.createCell(6).setCellValue(relation.referenceEntityId)
-    row.createCell(7).setCellFormula(s"VLOOKUP(G${entityRelationIndex + 1},'${dwb.entities.name}'!C:D,2,0)")
-    row.createCell(8).setCellValue(relation.onUpdate.toString)
-    row.createCell(9).setCellValue(relation.onDelete.toString)
-    row.createCell(10).setCellValue(relation.description.replaceBR)
+    row.createCell(depth).setCellValue(entity.tableName)
+    row.createCell(depth + 1).setCellValue(entity.name)
+    row.createCell(depth + 2).setCellValue(entity.tableName + "_" + relation.id.snakeCase)
+    row.createCell(depth + 3).setCellValue(relation.name)
+    row.createCell(depth + 4).setCellValue(relation.relationType.toString)
+    val refEntity = domain.entities(relation.referenceEntityId)
+    row.createCell(depth + 5).setCellValue(refEntity.tableName)
+    row.createCell(depth + 6).setCellValue(refEntity.name)
+    row.createCell(depth + 7).setCellValue(relation.onUpdate.toString)
+    row.createCell(depth + 8).setCellValue(relation.onDelete.toString)
+    row.createCell(depth + 9).setCellValue(relation.description.replaceBR)
     relation.fields.foreach { field =>
       entityRelationFieldIndex += 1
       val row = dwb.relationFields.sheet.createRow(entityRelationFieldIndex)
-      row.createCell(0).setCellValue(s"${entity.id}_${relation.id}")
-      row.createCell(1).setCellFormula(s"VLOOKUP(A${entityRelationFieldIndex + 1},'${dwb.relations.name}'!A:E,2,0)")
-      row.createCell(2).setCellFormula(s"VLOOKUP(A${entityRelationFieldIndex + 1},'${dwb.relations.name}'!A:E,3,0)")
-      row.createCell(3).setCellValue(relation.referenceEntityId)
-      row.createCell(4).setCellFormula(s"VLOOKUP(D${entityRelationFieldIndex + 1},'${dwb.entities.name}'!C:D,2,0)")
-      row.createCell(5).setCellFormula(s"VLOOKUP(A${entityRelationFieldIndex + 1},'${dwb.relations.name}'!A:E,4,0)")
-      row.createCell(6).setCellFormula(s"VLOOKUP(A${entityRelationFieldIndex + 1},'${dwb.relations.name}'!A:E,5,0)")
-      row.createCell(7).setCellValue(field._1)
-      row
-        .createCell(8)
-        .setCellFormula(
-          s"""VLOOKUP(B${entityRelationFieldIndex + 1}&"."&H${entityRelationFieldIndex + 1},'${dwb.fields.name}'!A:G,7,0)""",
-        )
-      row.createCell(9).setCellValue(field._2)
-      row
-        .createCell(10)
-        .setCellFormula(
-          s"""VLOOKUP(D${entityRelationFieldIndex + 1}&"."&J${entityRelationFieldIndex + 1},'${dwb.fields.name}'!A:G,7,0)""",
-        )
+
+      val entityField    = getEntityField(entity.expandedFields, field._1)
+      val refEntityField = getEntityField(refEntity.expandedFields, field._2)
+
+      var index = 0
+      components.foreach { c =>
+        row.createCell(index).setCellValue(c)
+        index += 1
+      }
+
+      row.createCell(depth).setCellValue(entity.tableName)
+      row.createCell(depth + 1).setCellValue(entity.name)
+      row.createCell(depth + 2).setCellValue(entity.tableName + "_" + relation.id.snakeCase)
+      row.createCell(depth + 3).setCellValue(relation.name)
+      row.createCell(depth + 4).setCellValue(refEntity.tableName)
+      row.createCell(depth + 5).setCellValue(refEntity.name)
+      row.createCell(depth + 6).setCellValue(entityField.dbFieldName)
+      row.createCell(depth + 7).setCellValue(entityField.name)
+      row.createCell(depth + 8).setCellValue(refEntityField.dbFieldName)
+      row.createCell(depth + 9).setCellValue(refEntityField.name)
     }
   }
 
@@ -385,32 +427,66 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
     DomainWorkbook(
       wb = wb,
       domain = initSheet(wb, translation.domain, captionFont),
-      groups = initSheet(wb, translation.groups, captionFont),
-      entities = initSheet(wb, translation.entities, captionFont),
-      fields = initSheet(wb, translation.fields, captionFont),
-      indexes = initSheet(wb, translation.indexes, captionFont),
-      indexFields = initSheet(wb, translation.indexFields, captionFont),
-      relations = initSheet(wb, translation.relations, captionFont),
-      relationFields = initSheet(wb, translation.relationFields, captionFont),
-      dataElements = initSheet(wb, translation.dataElements, captionFont),
-      enums = initSheet(wb, translation.enums, captionFont),
-      enumItems = initSheet(wb, translation.enumItems, captionFont),
+      components = initSheet(wb, translation.components, captionFont, Some(1)),
+      entities = initSheet(wb, translation.entities, captionFont, Some(1)),
+      fields = initSheet(wb, translation.fields, captionFont, Some(0)),
+      indexes = initSheet(wb, translation.indexes, captionFont, Some(0)),
+      indexFields = initSheet(wb, translation.indexFields, captionFont, Some(0)),
+      relations = initSheet(wb, translation.relations, captionFont, Some(0)),
+      relationFields = initSheet(wb, translation.relationFields, captionFont, Some(0)),
+      dataElements = initSheet(wb, translation.dataElements, captionFont, Some(0)),
+      enums = initSheet(wb, translation.enums, captionFont, Some(0)),
+      enumItems = initSheet(wb, translation.enumItems, captionFont, Some(0)),
     )
   }
 
-  private def initSheet(wb: XSSFWorkbook, translation: SheetTranslation, font: XSSFFont): Sheet = {
+  private def initSheet(
+    wb: XSSFWorkbook,
+    translation: SheetTranslation,
+    font: XSSFFont,
+    mbColumn: Option[Int] = None,
+  ): Sheet = {
     val sheet = wb.createSheet(translation.name)
     val row   = sheet.createRow(0)
     val style = wb.createCellStyle()
     style.setAlignment(HorizontalAlignment.CENTER)
     style.setVerticalAlignment(VerticalAlignment.CENTER)
     style.setFont(font)
-    translation.fields.zipWithIndex.foreach { case caption -> index =>
-      val cell = row.createCell(index)
-      cell.setCellValue(caption)
-      cell.setCellStyle(style)
+    var index = 0
+    translation.fields.foreach { case caption =>
+      mbColumn match {
+        case Some(n) if index == n =>
+          (1 to depth).map { i =>
+            val cell = row.createCell(index)
+            cell.setCellValue(s"$caption $i")
+            cell.setCellStyle(style)
+            index += 1
+          }
+        case _                     =>
+          val cell = row.createCell(index)
+          cell.setCellValue(caption)
+          cell.setCellStyle(style)
+          index += 1
+      }
     }
     Sheet(name = translation.name, sheet = sheet)
   }
+
+  private def getDepth(maybeId: Option[String] = None): Int =
+    maybeId match {
+      case Some(id) if domain.components(id).children.isEmpty =>
+        1
+      case Some(id)                                           =>
+        domain.components(id).children.map(id => getDepth(Some(id))).max + 1
+      case None                                               =>
+        domain.rootComponentIds.map(id => getDepth(Some(id))).max
+    }
+
+  private def getEntityField(entityFields: Seq[EntityField], fieldName: String): EntityField =
+    entityFields
+      .find(f => f.fieldName == fieldName)
+      .getOrElse {
+        throw new IllegalArgumentException(s"not found field $fieldName")
+      }
 
 }

@@ -13,10 +13,10 @@ case class KtClass(
 )
 
 case class KtClassMember(
-  comments: Seq[String],
-  annotations: Seq[String],
-  name: String,
-  datatype: String,
-  defaultValue: Option[String],
-  field: EntityField,
+                          comments: Seq[String],
+                          annotations: Seq[String],
+                          name: String,
+                          datatype: String,
+                          defaultValue: Option[String],
+                          field: EntityField,
 )

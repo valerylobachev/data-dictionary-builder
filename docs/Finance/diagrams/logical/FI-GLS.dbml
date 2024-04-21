@@ -1,0 +1,84 @@
+// Ledger Type
+enum ledger_type {
+  L [note: 'Leading ledger']
+  X [note: 'Extension ledger']
+}
+
+// General ledger account type
+enum g_l_account_type {
+  X [note: 'Balance Sheet Account']
+  N [note: 'Nonoperating Expense or Income']
+  P [note: 'Primary Costs or Revenue']
+  S [note: 'Secondary Costs']
+  C [note: 'Cash Account']
+}
+
+// Account type
+enum account_type {
+  A [note: 'Assets']
+  D [note: 'Customer']
+  K [note: 'Vendor']
+  M [note: 'Materials']
+  S [note: 'General Ledger']
+}
+
+// Debit/Credit
+enum debit_credit {
+  D [note: 'Debit']
+  C [note: 'Credit']
+}
+
+// Group FI-GLS - General Ledger settings 
+
+table "Ledger" {
+  "Ledger Id" varchar(4) [pk, not null, note: 'Ledger Id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "Leading ledger indicator" boolean [not null, note: 'Leading ledger indicator']
+  "Ledger Type" ledger_type [not null, note: 'Ledger Type']
+  "Underlying ledger" varchar(4) [note: 'Underlying ledger']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Ledger'
+}
+
+// Reference to ledger
+Ref ledgers_underlying_ledger: "Ledger"."Underlying ledger" > "Ledger"."Ledger Id"
+
+
+table "Ledger Group" {
+  "Ledger Group Id" varchar(2) [pk, not null, note: 'Ledger Group Id']
+  "Name" varchar(100) [not null, note: 'Name']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  note: 'Ledger Group'
+}
+
+table "Ledger assignments to ledger group" {
+  "Ledger Group Id" varchar(2) [not null, note: 'Ledger Group Id']
+  "Ledger Id" varchar(4) [not null, note: 'Ledger Id']
+  "Representative ledger indicator" boolean [not null, note: 'Representative ledger indicator']
+  "User created record" varchar(20) [not null, note: 'User created record']
+  "Timestamp of record create" timestamptz [not null, note: 'Timestamp of record create']
+  "User updated record" varchar(20) [not null, note: 'User updated record']
+  "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
+
+  indexes {
+    ("Ledger Group Id", "Ledger Id") [pk]
+  }
+
+  note: 'Ledger assignments to ledger group'
+}
+
+// Reference to ledger
+Ref ledger_group_ledgers_ledger_id: "Ledger assignments to ledger group"."Ledger Id" > "Ledger"."Ledger Id"
+// Reference to ledger group
+Ref ledger_group_ledgers_ledger_group_id: "Ledger assignments to ledger group"."Ledger Group Id" > "Ledger Group"."Ledger Group Id"
+
+
+

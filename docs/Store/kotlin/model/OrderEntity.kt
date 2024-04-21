@@ -10,7 +10,7 @@ import java.time.Instant
  * Order
  */
 @Entity
-@Table(name = "order_orders_table")
+@Table(name = "order_orders")
 data class OrderEntity(
 
     /**

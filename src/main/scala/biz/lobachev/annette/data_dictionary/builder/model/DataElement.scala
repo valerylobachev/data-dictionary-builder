@@ -8,8 +8,9 @@ case class DataElement(
   dbFieldName: String,
   dataType: DataType,
   notNull: Boolean = true,
-  attributes: Attributes = Map.empty
+  labels: Labels = Map.empty,
+  componentId: Option[String] = None,
 ) {
   def withDescription(description: String) = copy(description = description)
-  def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq.map(a => a.key -> a.value))
+  def withLabels(seq: Label*)              = copy(labels = labels ++ seq.map(a => a.key -> a.value))
 }

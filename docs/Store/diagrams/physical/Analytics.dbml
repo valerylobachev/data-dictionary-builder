@@ -7,7 +7,7 @@ enum order_status {
 
 // Group Analytics - Analytic tables 
 
-table "analytics"."analytics_segments_table" {
+table "analytics"."analytics_segments" {
   "id" varchar(10) [pk, not null, note: 'Segment Id']
   "name" varchar(100) [not null, note: 'Name']
   "created_by" varchar(10) [not null, note: 'User created record']
@@ -18,7 +18,7 @@ table "analytics"."analytics_segments_table" {
   note: 'Segment'
 }
 
-table "analytics"."analytics_business_areas_table" {
+table "analytics"."analytics_business_areas" {
   "id" varchar(10) [pk, not null, note: 'Business Area Id']
   "name" varchar(100) [not null, note: 'Name']
   "created_by" varchar(10) [not null, note: 'User created record']
@@ -29,7 +29,7 @@ table "analytics"."analytics_business_areas_table" {
   note: 'Business area'
 }
 
-table "analytics"."analytics_promotions_table" {
+table "analytics"."analytics_promotions" {
   "id" varchar(10) [pk, not null, note: 'Promotion Id']
   "name" varchar(100) [not null, note: 'Name']
   "created_by" varchar(10) [not null, note: 'User created record']

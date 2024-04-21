@@ -1,7 +1,9 @@
 package biz.lobachev.annette.data_dictionary.builder.model
 
+import biz.lobachev.annette.data_dictionary.builder.builder.DomainBuilder
 import biz.lobachev.annette.data_dictionary.builder.{POSTGRESQL, SCALA}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
+import biz.lobachev.annette.data_dictionary.builder.utils.Utils
 
 import scala.collection.immutable.ListMap
 
@@ -9,23 +11,61 @@ case class Domain(
   id: String,
   name: String,
   description: String = "",
-  groups: ListMap[String, Group] = ListMap.empty,
+  rootComponentIds: Seq[String] = Seq.empty,
+  components: ListMap[String, Component] = ListMap.empty,
   entities: ListMap[String, Entity] = ListMap.empty,
   dataElements: ListMap[String, DataElement] = ListMap.empty,
   enums: ListMap[String, EnumData] = ListMap.empty,
-  attributes: Attributes = Map.empty,
-) extends ModelValidator {
+  labels: Labels = Map.empty,
+  errors: Seq[String] = Seq.empty,
+) {
 
-  def withGroupSeq(groupSeq: Seq[GroupEntities]): Domain =
+  def withComponentSeq(componentSeq: Seq[ComponentData]): Domain = {
+    val newRootComponentIds   = componentSeq.map(_.component.id)
+    val newComponents         = componentSeq.flatMap(_.expandComponents())
+    val newEntities           = componentSeq.flatMap(_.expandEntities())
+    val newDataElements       = componentSeq.flatMap(_.expandDataElements())
+    val newEnums              = componentSeq.flatMap(_.expandEnums())
+    val componentDuplicates   = Utils.findDuplicates(components.keys.toSeq ++ newComponents.map(_.id))
+    val entityDuplicates      = Utils.findDuplicates(entities.keys.toSeq ++ newEntities.map(_.id))
+    val dataElementDuplicates = Utils.findDuplicates(dataElements.keys.toSeq ++ newDataElements.map(_.id))
+    val enumDuplicates        = Utils.findDuplicates(enums.keys.toSeq ++ newEnums.map(_.id))
+    val newErrors             = Seq(
+      if (componentDuplicates.nonEmpty) Some("Duplicated components: " + componentDuplicates.mkString(", "))
+      else None,
+      if (entityDuplicates.nonEmpty) Some("Duplicated entities: " + entityDuplicates.mkString(", "))
+      else None,
+      if (dataElementDuplicates.nonEmpty) Some("Duplicated data elements: " + dataElementDuplicates.mkString(", "))
+      else None,
+      if (enumDuplicates.nonEmpty) Some("Duplicated enums: " + enumDuplicates.mkString(", "))
+      else None,
+    ).flatten
+
     copy(
-      groups = groups ++ groupSeq.map(m => m.group.id -> m.group),
-      entities = entities ++ groupSeq.flatMap(g => g.entities.map(e => e.id -> e.copy(schema = g.group.schema))),
+      rootComponentIds = rootComponentIds ++ newRootComponentIds,
+      components = components ++ newComponents.map(c => c.id -> c),
+      entities = entities ++ newEntities.map(e => e.id -> e),
+      dataElements = dataElements ++ newDataElements.map(e => e.id -> e),
+      errors = errors ++ newErrors,
     )
+  }
 
-  def withGroups(groupSeq: GroupEntities*) = withGroupSeq(groupSeq)
+  def withComponents(componentSeq: ComponentData*) = withComponentSeq(componentSeq)
 
-  def withDataElementSeq(seq: Seq[DataElement]) =
-    copy(dataElements = ListMap.from(seq.map(e => e.id -> e)))
+  @deprecated("use withComponents", since = "0.4.0")
+  def withGroups(componentSeq: ComponentData*) = withComponentSeq(componentSeq)
+
+  def withDataElementSeq(seq: Seq[DataElement]) = {
+    val dataElementDuplicates = Utils.findDuplicates(seq.map(_.id))
+    val newErrors             =
+      if (dataElementDuplicates.nonEmpty) Seq("Duplicated data elements: " + dataElementDuplicates.mkString(", "))
+      else Seq.empty
+    if (dataElementDuplicates.nonEmpty) throw new IllegalArgumentException("Duplicated items")
+    copy(
+      dataElements = ListMap.from(seq.map(e => e.id -> e)),
+      errors = errors ++ newErrors,
+    )
+  }
 
   def withDataElements(seq: DataElement*) = withDataElementSeq(seq)
 
@@ -34,147 +74,10 @@ case class Domain(
 
   def withEnums(seq: EnumData*) = withEnumSeq(seq)
 
-  def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq.map(a => a.key -> a.value))
+  def withLabels(seq: Label*) = copy(labels = labels ++ seq.map(a => a.key -> a.value))
 
-  def build(replicateAttr: Boolean = true): Either[Seq[String], Domain] = {
-    val newEntities = entities.values.map { entity =>
-      val newFields = entity.fields.map { field =>
-        field.dataType match {
-          case DataElementType(dataElementId) =>
-            val fieldName   = if (field.fieldName.isEmpty) getFieldName(dataElementId) else field.fieldName
-            val dbFieldName = if (field.dbFieldName.isEmpty) getDbFieldName(dataElementId) else field.dbFieldName
-            val name        = if (field.name.isEmpty) getName(dataElementId) else field.name
-            val description = if (field.description.isEmpty) getDescription(dataElementId) else field.description
-            field.copy(fieldName = fieldName, dbFieldName = dbFieldName, name = name, description = description)
-          case _                              =>
-            field
-        }
-      }
-      entity.copy(fields = newFields)
-    }
-    val res         = copy(entities = ListMap.from(newEntities.map(e => e.id -> e)))
-    val err         = res.validate()
-    if (err.isEmpty ) {
-      if (replicateAttr) Right(res.replicateAttributes())
-      else Right(res)
-    }
-    else Left(err)
-  }
-
-  def replicateAttributes(): Domain = {
-    val domainAttributes = attributes
-    val newGroups        = groups.map { case key -> group =>
-      key -> group.copy(attributes = domainAttributes ++ group.attributes)
-    }
-    val newDataElements  = dataElements.map { case key -> dataElement =>
-      key -> dataElement.copy(attributes = domainAttributes ++ dataElement.attributes)
-    }
-    val newEnums         = enums.map { case key -> enum =>
-      key -> enum.copy(attributes = domainAttributes ++ enum.attributes)
-    }
-    val newEntities      = entities.map { case key -> entity =>
-      val groupAttributes = newGroups(entity.groupId).attributes
-      key -> entity.copy(attributes = groupAttributes ++ entity.attributes)
-    }
-    copy(groups = newGroups, entities = newEntities, dataElements = newDataElements, enums = newEnums)
-  }
-
-  def rolloutEntity(entity: Entity): FieldRelation = {
-    val r = entity.fields.map { field =>
-      field.dataType match {
-        case EmbeddedEntityType(entityId, withPrefix, withRelations) =>
-          val embeddedEntity = entities(entityId)
-
-          val fr        = rolloutEntity(entities(entityId))
-          val relations =
-            if (withRelations)
-              (embeddedEntity.relations ++ fr.relations).map { r =>
-                if (withPrefix)
-                  r.copy(
-                    id = field.fieldName + r.id.pascalCase,
-                    fields = r.fields.map { case f1 -> f2 => field.fieldName + f1.pascalCase -> f2 },
-                  )
-                else r
-              }
-            else Seq.empty
-          val fields    = fr.fields.map { f =>
-            val fieldName   =
-              if (withPrefix) field.fieldName + f.fieldName.pascalCase else f.fieldName
-            val dbFieldName =
-              if (withPrefix) field.dbFieldName + "_" + f.dbFieldName else f.dbFieldName
-            f.copy(fieldName = fieldName, dbFieldName = dbFieldName)
-          }
-          FieldRelation(fields, relations)
-        case _                                                       =>
-          FieldRelation(Seq(field), Seq.empty)
-      }
-    }
-    FieldRelation(
-      r.flatMap(_.fields),
-      r.flatMap(_.relations),
-    )
-  }
-
-  def rolloutEntityFields(entity: Entity): Seq[EntityField]       = rolloutEntity(entity).fields
-  def rolloutEntityRelations(entity: Entity): Seq[EntityRelation] = entity.relations ++ rolloutEntity(entity).relations
-
-//  def rolloutEntityFields(fields: Seq[EntityField]): Seq[EntityField] =
-//    fields.flatMap { field =>
-//      field.dataType match {
-//        case EmbeddedEntityType(entityId, withPrefix, _) =>
-//          val rolledOutFields = rolloutEntityFields(entities(entityId).fields)
-//          if (withPrefix)
-//            rolledOutFields.map(f =>
-//              f.copy(
-//                fieldName = field.fieldName + f.fieldName.pascalCase,
-//                dbFieldName = field.dbFieldName + "_" + f.dbFieldName
-//              )
-//            )
-//          else rolledOutFields
-//        case _                                           =>
-//          Seq(field)
-//      }
-//    }
-
-  def getFieldName(dataElementId: String): String = {
-    val dataElement = dataElements(dataElementId)
-    dataElement.dataType match {
-      case DataElementType(dataElementId) if dataElement.fieldName.isEmpty =>
-        getFieldName(dataElementId)
-      case _                                                               =>
-        dataElement.fieldName
-    }
-  }
-
-  def getDbFieldName(dataElementId: String): String = {
-    val dataElement = dataElements(dataElementId)
-    dataElement.dataType match {
-      case DataElementType(dataElementId) if dataElement.dbFieldName.isEmpty =>
-        getDbFieldName(dataElementId)
-      case _                                                                 =>
-        dataElement.dbFieldName
-    }
-  }
-
-  def getName(dataElementId: String): String = {
-    val dataElement = dataElements(dataElementId)
-    dataElement.dataType match {
-      case DataElementType(dataElementId) if dataElement.name.isEmpty =>
-        getName(dataElementId)
-      case _                                                          =>
-        dataElement.name
-    }
-  }
-
-  def getDescription(dataElementId: String): String = {
-    val dataElement = dataElements(dataElementId)
-    dataElement.dataType match {
-      case DataElementType(dataElementId) if dataElement.description.isEmpty =>
-        getDescription(dataElementId)
-      case _                                                                 =>
-        dataElement.description
-    }
-  }
+  def build(): Either[Seq[String], Domain] =
+    DomainBuilder.build(this)
 
   def getTargetDataType(dataType: DataType, target: String): String =
     dataType match {
@@ -328,6 +231,16 @@ case class Domain(
         }
     }
 
-}
+  def getEntityLabel(raw: Entity, labelId: String): Option[String] =
+    raw.labels.get(labelId).orElse(getComponentLabel(raw.componentId, labelId))
 
-case class FieldRelation(fields: Seq[EntityField], relations: Seq[EntityRelation])
+  def getComponentLabel(componentId: String, labelId: String): Option[String] =
+    components
+      .get(componentId)
+      .flatMap(c =>
+        c.labels
+          .get(labelId)
+          .orElse(c.parent.flatMap(p => getComponentLabel(p, labelId))),
+      )
+
+}

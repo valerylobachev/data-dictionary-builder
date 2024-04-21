@@ -6,9 +6,9 @@ case class EntityIndex(
   description: String = "",
   unique: Boolean = false,
   fields: Seq[String],
-  attributes: Attributes = Map.empty,
+  labels: Labels = Map.empty,
 ) {
   def withDescription(description: String) = copy(description = description)
 
-  def withAttributes(seq: Attribute*) = copy(attributes = attributes ++ seq.map(a => a.key -> a.value))
+  def withLabels(seq: Label*) = copy(labels = labels ++ seq.map(a => a.key -> a.value))
 }

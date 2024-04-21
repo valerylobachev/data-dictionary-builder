@@ -1,15 +1,15 @@
 package biz.lobachev.annette.data_dictionary.builder.rendering.kotlin
 
-import biz.lobachev.annette.data_dictionary.builder.helper.JavaPackage.JAVA_MODEL_PACKAGE
-import biz.lobachev.annette.data_dictionary.builder.helper.RelationName.{RELATION_FIELD_NAME, RELATION_REL_FIELD_NAME}
+import biz.lobachev.annette.data_dictionary.builder.labels.JavaPackage.JAVA_MODEL_PACKAGE
+import biz.lobachev.annette.data_dictionary.builder.labels.RelationName.{RELATION_FIELD_NAME, RELATION_REL_FIELD_NAME}
 import biz.lobachev.annette.data_dictionary.builder.model._
-import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, Renderer}
+import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, TextRenderer}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax.CamelCase
 import org.fusesource.scalate.TemplateEngine
 
 import scala.io.Source
 
-case class KotlinRenderer(domain: Domain) extends Renderer {
+case class KotlinRenderer(domain: Domain) extends TextRenderer {
 
   val engine = new TemplateEngine
   engine.escapeMarkup = false
@@ -41,15 +41,17 @@ case class KotlinRenderer(domain: Domain) extends Renderer {
   }
 
   private def renderEntity(entity: Entity): Seq[KtClass] = {
-    val pkg                                = entity.attributes.getOrElse(JAVA_MODEL_PACKAGE, "model")
+    val pkg = domain
+      .getEntityLabel(entity, JAVA_MODEL_PACKAGE)
+      .getOrElse("model") // .entity.labels.getOrElse(JAVA_MODEL_PACKAGE, "model")
     val schema                             = entity.schema.map(s => s""", schema = "$s"""").getOrElse("")
     val comments                           = entity.name +: description2Comments(entity.description)
-    val members                            = domain.rolloutEntityFields(entity) map (m => renderMember(entity, m))
+    val members                            = entity.expandedFields.map(m => renderMember(entity, m))
     val (relationMembers, relationImports) = renderRelations(entity, pkg, members.map(_.field))
     val imports                            = datatypeImports(members.map(_.datatype))
     val annotations                        = Seq(
       "@Entity",
-      s"""@Table(name = "${entity.fullTableName()}"$schema)""",
+      s"""@Table(name = "${entity.tableName}"$schema)""",
     )
     val idClass                            = if (entity.pk.length > 1) {
       val idMembers = members
@@ -92,18 +94,15 @@ case class KotlinRenderer(domain: Domain) extends Renderer {
     var names   = Map.empty[String, Int]
 
     val relationMembers = entity.relations.map { relation =>
-      val relatedEntity       = domain.entities(relation.referenceEntityId)
-      val relatedEntityFields = domain.rolloutEntityFields(relatedEntity)
-      val relatedPkg          = relatedEntity.attributes.getOrElse(
-        JAVA_MODEL_PACKAGE,
-        "model",
-      ) // Attributes.findEntityAttribute(relatedEntity, domain, JAVA_MODEL_PACKAGE).getOrElse("model")
+      val relatedEntity        = domain.entities(relation.referenceEntityId)
+      val relatedEntityFields  = relatedEntity.expandedFields
+      val relatedPkg           = domain.getEntityLabel(relatedEntity, JAVA_MODEL_PACKAGE).getOrElse("model")
       val relatedClass: String = s"${relatedEntity.entityName}Entity"
       if (relatedPkg != pkg) imports = imports + s"$relatedPkg.$relatedClass"
       var datatype             = ""
       datatype = s"$relatedClass?"
       val name                 = {
-        val n     = relation.attributes.getOrElse(RELATION_FIELD_NAME, relatedEntity.entityName.camelCase)
+        val n     = relation.labels.getOrElse(RELATION_FIELD_NAME, relatedEntity.entityName.camelCase)
         // Attributes.findRelationAttribute(relation, RELATION_FIELD_NAME).getOrElse(relatedEntity.entityName.camelCase)
         val count = names.getOrElse(n, 0)
         names = names + (n -> (count + 1))
@@ -134,19 +133,16 @@ case class KotlinRenderer(domain: Domain) extends Renderer {
     val refRelationMembers =
       domain.entities.values.flatMap(e => e.relations.filter(_.referenceEntityId == entity.id).map(r => e -> r)).map {
         case relatedEntity -> relation =>
-          val relatedPkg           = relatedEntity.attributes.getOrElse(JAVA_MODEL_PACKAGE, "model")
+          val relatedPkg           = domain.getEntityLabel(relatedEntity, JAVA_MODEL_PACKAGE).getOrElse("model")
           val relatedClass: String = s"${relatedEntity.entityName}Entity"
           if (relatedPkg != pkg) imports = imports + s"$relatedPkg.$relatedClass"
           val name                 = {
-            val n     = relation.attributes.getOrElse(RELATION_REL_FIELD_NAME, relatedEntity.entityName.camelCase)
-//              Attributes
-//                .findRelationAttribute(relation, RELATION_REL_FIELD_NAME)
-//                .getOrElse(relatedEntity.entityName.camelCase)
+            val n     = relation.labels.getOrElse(RELATION_REL_FIELD_NAME, relatedEntity.entityName.camelCase)
             val count = names.getOrElse(n, 0)
             names = names + (n -> (count + 1))
             if (count == 0) n else s"$n$count"
           }
-          val relField             = relation.attributes.getOrElse(RELATION_FIELD_NAME, relatedEntity.entityName.camelCase)
+          val relField             = relation.labels.getOrElse(RELATION_FIELD_NAME, relatedEntity.entityName.camelCase)
 //            Attributes
 //            .findRelationAttribute(relation, RELATION_FIELD_NAME)
 //            .getOrElse(relatedEntity.entityName.camelCase)

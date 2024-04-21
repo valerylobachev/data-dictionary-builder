@@ -1,19 +1,24 @@
 package biz.lobachev.annette.data_dictionary.builder.model
 
-trait ModelValidator {
+trait ModelValidator111 {
 
   self: Domain =>
 
   def validate(): Seq[String] =
-    validateGroups() ++ validateFields() ++ validateIndexes() ++ validateRelations() ++ validateDataElements()
+    errors ++
+      validateComponents() ++
+      validateFields() ++
+      validateIndexes() ++
+      validateRelations() ++
+      validateDataElements()
 
-  def validateGroups(): Seq[String] = {
+  def validateComponents(): Seq[String] = {
     val res = for {
       entity <- entities.values
-      err    <- groups
-                  .get(entity.groupId)
+      err    <- components
+                  .get(entity.componentId)
                   .map(_ => Seq.empty)
-                  .getOrElse(Seq(s"Entity ${entity.id}: group ${entity.groupId} not found"))
+                  .getOrElse(Seq(s"Entity ${entity.id}: group ${entity.componentId} not found"))
     } yield err
     res.toSeq
   }
@@ -60,7 +65,7 @@ trait ModelValidator {
   def validateIndexes(): Seq[String] = {
     val res = for {
       entity    <- entities.values
-      index     <- entity.indexes.values
+      index     <- entity.indexes
       fieldName <- index.fields
       err       <- entity.fields
                      .find(f => f.fieldName == fieldName)

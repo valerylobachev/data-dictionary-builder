@@ -37,4 +37,6 @@ object StringSyntax {
 //    if (s.matches(".*\\s.*")) s"\"$s\""
 //    else s
 
+  def escapeSingleQuotes(s: String): String = s.replace("'", "''")
+
 }
