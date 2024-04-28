@@ -4,12 +4,13 @@ import biz.lobachev.annette.data_dictionary.builder.POSTGRESQL
 import biz.lobachev.annette.data_dictionary.builder.model._
 import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, TextRenderer}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
-import biz.lobachev.annette.data_dictionary.builder.model.{Domain, Component}
+import biz.lobachev.annette.data_dictionary.builder.model.{Component, Domain}
 import org.fusesource.scalate.TemplateEngine
 
 import scala.io.Source
 
-case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = EnglishTranslaltion) extends TextRenderer {
+case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = EnglishTranslaltion)
+    extends TextRenderer {
 
   val engine = new TemplateEngine
   engine.escapeMarkup = false
@@ -25,15 +26,15 @@ case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = E
         "domain"         -> renderDomain,
         "fieldHeader"    -> translation(FieldHeader),
         "indexHeader"    -> translation(IndexHeader),
-        "relationHeader" -> translation(RelationHeader)
-      )
+        "relationHeader" -> translation(RelationHeader),
+      ),
     )
     Seq(
       RenderResult(
         "",
-        s"${domain.id.snakeCase}_$language.md",
-        output
-      )
+        s"${domain.id}_$language.md",
+        output,
+      ),
     )
   }
 
@@ -41,7 +42,7 @@ case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = E
     MdDomain(
       domain.name,
       description = if (domain.description.isBlank) "" else domain.description,
-      groups = domain.components.values.map(renderGroup).toSeq
+      groups = domain.components.values.map(renderGroup).toSeq,
     )
 
   private def renderGroup(group: Component) =
@@ -51,7 +52,7 @@ case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = E
       entities = domain.entities.values
         .filter(entity => entity.componentId == group.id)
         .map(renderEntity)
-        .toSeq
+        .toSeq,
     )
 
   private def renderEntity(entity: Entity) = {
@@ -62,7 +63,7 @@ case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = E
       fullTableName = entity.tableNameWithSchema(),
       fields = fields.map(renderField(entity, _)),
       indexes = entity.indexes.map(renderIndex(_, fields)).toSeq,
-      relations = entity.relations.map(renderRelation(_, fields))
+      relations = entity.relations.map(renderRelation(_, fields)),
     )
   }
 
@@ -79,7 +80,7 @@ case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = E
         else s"${field.name}<br>${field.description.mdReplaceNL}",
       datatype = datatype,
       pk = if (entity.pk.contains(field.fieldName)) "X" else "",
-      required = if (field.notNull) "X" else ""
+      required = if (field.notNull) "X" else "",
     )
   }
 
@@ -89,7 +90,7 @@ case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = E
       unique = if (index.unique) "X" else "",
       description =
         if (index.description.isBlank) index.name
-        else s"${index.name}<br>${index.description.mdReplaceNL}"
+        else s"${index.name}<br>${index.description.mdReplaceNL}",
     )
 
   private def renderRelation(relation: EntityRelation, fields: Seq[EntityField]) = {
@@ -106,7 +107,7 @@ case class MarkdownRenderer(domain: Domain, translation: Map[String, String] = E
       },
       description =
         if (relation.description.isBlank) relation.name
-        else s"${relation.name}<br>${relation.description.mdReplaceNL}"
+        else s"${relation.name}<br>${relation.description.mdReplaceNL}",
     )
   }
 

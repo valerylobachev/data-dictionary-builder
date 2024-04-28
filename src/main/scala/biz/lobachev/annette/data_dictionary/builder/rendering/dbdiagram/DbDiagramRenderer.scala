@@ -5,12 +5,6 @@ import biz.lobachev.annette.data_dictionary.builder.model._
 import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, TextRenderer}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
 import biz.lobachev.annette.data_dictionary.builder.model.Domain
-case class DbDiagramOptions(
-  physical: Boolean = true,
-  path: String = "diagrams",
-  diagramName: String = "physical_schema",
-  byGroupDir: String = "physical",
-)
 
 case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends TextRenderer {
   val path                = "diagrams"

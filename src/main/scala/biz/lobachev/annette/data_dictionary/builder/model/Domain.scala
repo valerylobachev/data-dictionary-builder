@@ -56,13 +56,13 @@ case class Domain(
   def withGroups(componentSeq: ComponentData*) = withComponentSeq(componentSeq)
 
   def withDataElementSeq(seq: Seq[DataElement]) = {
-    val dataElementDuplicates = Utils.findDuplicates(seq.map(_.id))
+    val dataElementDuplicates = Utils.findDuplicates(dataElements.keys.toSeq ++ seq.map(_.id))
     val newErrors             =
       if (dataElementDuplicates.nonEmpty) Seq("Duplicated data elements: " + dataElementDuplicates.mkString(", "))
       else Seq.empty
     if (dataElementDuplicates.nonEmpty) throw new IllegalArgumentException("Duplicated items")
     copy(
-      dataElements = ListMap.from(seq.map(e => e.id -> e)),
+      dataElements = dataElements ++ ListMap.from(seq.map(e => e.id -> e)),
       errors = errors ++ newErrors,
     )
   }
@@ -242,5 +242,8 @@ case class Domain(
           .get(labelId)
           .orElse(c.parent.flatMap(p => getComponentLabel(p, labelId))),
       )
+      .orElse(getDomainLabel(labelId))
 
+  def getDomainLabel(labelId: String): Option[String] =
+    labels.get(labelId)
 }
