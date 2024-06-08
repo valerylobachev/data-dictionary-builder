@@ -10,7 +10,7 @@ import java.time.Instant
  * Promotion
  */
 @Entity
-@Table(name = "analytics_promotions", schema = "analytics")
+@Table(name = "analytics_promotions_table", schema = "analytics")
 data class PromotionEntity(
 
     /**

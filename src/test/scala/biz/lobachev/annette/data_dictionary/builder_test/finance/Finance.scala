@@ -1,6 +1,7 @@
 package biz.lobachev.annette.data_dictionary.builder_test.finance
 
 import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
+import biz.lobachev.annette.data_dictionary.builder.labels.GolangPackage.goModelPackage
 
 object Finance
     extends Enums
@@ -19,6 +20,9 @@ object Finance
     "Finance model",
     "Finance model provides tables and data structures similar to SAP ERP Finance.",
   )
+    .withLabels(
+      goModelPackage("github.com/valerylobachev/annette-go/service/finance/logic/repository/entity")
+    )
     .withEnumSeq(
       enums,
     )

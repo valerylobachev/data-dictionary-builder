@@ -1697,6 +1697,7 @@
     }
   ],
   "labels" : {
-    "tableNameSuffix" : "table"
+    "tableNameSuffix" : "table",
+    "goModelPackage" : "github.com/valerylobachev/annette-go/service/simple/logic/repository/entity"
   }
 }

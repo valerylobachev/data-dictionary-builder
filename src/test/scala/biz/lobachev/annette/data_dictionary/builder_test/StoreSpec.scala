@@ -5,6 +5,7 @@ import biz.lobachev.annette.data_dictionary.builder.rendering.Generator
 import biz.lobachev.annette.data_dictionary.builder.rendering.dbdiagram.DbDiagramRenderer
 import biz.lobachev.annette.data_dictionary.builder.rendering.`export`.ExportJsonRenderer
 import biz.lobachev.annette.data_dictionary.builder.rendering.ddl.DDLRenderer
+import biz.lobachev.annette.data_dictionary.builder.rendering.golang.{GolangRenderer, Gorm, Sqlx}
 import biz.lobachev.annette.data_dictionary.builder.rendering.kotlin.KotlinRenderer
 import biz.lobachev.annette.data_dictionary.builder.rendering.markdown.{
   MarkdownRenderer,
@@ -51,6 +52,24 @@ class StoreSpec extends AnyWordSpec with BuildValidator {
       }
     }
 
+    "generate Golang (Gorm) entities" in {
+      validateAndProcess(build) { domain =>
+        Generator.generate(
+          GolangRenderer(domain, Gorm),
+          s"docs/${domain.id}/go_gorm/",
+        )
+      }
+    }
+
+    "generate Golang (sqlx) entities" in {
+      validateAndProcess(build) { domain =>
+        Generator.generate(
+          GolangRenderer(domain, Sqlx),
+          s"docs/${domain.id}/go_sqlx/",
+        )
+      }
+    }
+
     "generate Kotlin entities" in {
       validateAndProcess(build) { domain =>
         Generator.generate(
@@ -73,7 +92,7 @@ class StoreSpec extends AnyWordSpec with BuildValidator {
       validateAndProcess(build) { domain =>
         Generator.generate(
           ExcelInsertTemplateRenderer(domain),
-          s"docs/${domain.id}/template_en/",
+          s"docs/${domain.id}/",
         )
       }
     }
@@ -82,7 +101,7 @@ class StoreSpec extends AnyWordSpec with BuildValidator {
       validateAndProcess(build) { domain =>
         Generator.generate(
           ExcelInsertTemplateRenderer(domain, ExcelInsertTemplateTranslation.RU),
-          s"docs/${domain.id}/template_ru/",
+          s"docs/${domain.id}/",
         )
       }
     }

@@ -35,11 +35,11 @@ table "Client" {
 }
 
 // Reference to Promotion
-Ref client_clients_promotion_id: "Client"."Promotion Id" > "Promotion"."Promotion Id"
+Ref client_clients_table_promotion_id: "Client"."Promotion Id" > "Promotion"."Promotion Id"
 // Reference to Segment
-Ref client_clients_segment_id: "Client"."Segment Id" > "Segment"."Segment Id"
+Ref client_clients_table_segment_id: "Client"."Segment Id" > "Segment"."Segment Id"
 // Reference to BusinessArea
-Ref client_clients_business_area_id: "Client"."Business Area Id" > "Business area"."Business Area Id"
+Ref client_clients_table_business_area_id: "Client"."Business Area Id" > "Business area"."Business Area Id"
 
 
 table "Client address" {
@@ -59,14 +59,14 @@ table "Client address" {
   "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
 
   indexes {
-    ("Client Id", "Address Id") [unique, name: 'client_client_addresses_client_id_id', note: 'Unique clientId & id']
+    ("Client Id", "Address Id") [unique, name: 'client_client_addresses_table_client_id_id', note: 'Unique clientId & id']
   }
 
   note: 'Client address'
 }
 
 // Reference to client
-Ref client_client_addresses_client_id: "Client address"."Client Id" > "Client"."Client Id"
+Ref client_client_addresses_table_client_id: "Client address"."Client Id" > "Client"."Client Id"
 
 
 

@@ -10,9 +10,9 @@ visualize model tables and generate SQL DDL scripts for PostgreSQL & MySQL
 * [x] Data model documentation in Excel file. 
 * [x] Excel file to create SQL INSERT statements
 * [x] Kotlin source code for Spring Boot
+* [x] Golang source code for Gorm & sqlx
 * [ ] Java source code for Spring Boot
 * [ ] Scala source code for Slick
-* [ ] Golang source code for Gorm
 
 ## Table of contents
 
@@ -26,7 +26,7 @@ visualize model tables and generate SQL DDL scripts for PostgreSQL & MySQL
 Create new Scala project and add Data Dictionary builder library to `build.sbt`:
 
 ```sbt
-libraryDependencies += "biz.lobachev.annette" %% "data-dictionary-builder" % "0.4.0"
+libraryDependencies += "biz.lobachev.annette" %% "data-dictionary-builder" % "0.4.2"
 ```
 
 Create model definition `Simple.scala`:
@@ -115,6 +115,7 @@ package ddbapp
 import biz.lobachev.annette.data_dictionary.builder.rendering.Generator
 import biz.lobachev.annette.data_dictionary.builder.rendering.dbdiagram.DbDiagramRenderer
 import biz.lobachev.annette.data_dictionary.builder.rendering.kotlin.KotlinRenderer
+import biz.lobachev.annette.data_dictionary.builder.rendering.golang.{GolangRenderer, Gorm, Sqlx}
 import biz.lobachev.annette.data_dictionary.builder.rendering.xls_domain.{ExcelDomainRenderer, WorkbookTranslation}
 import biz.lobachev.annette.data_dictionary.builder.rendering.xls_insert.ExcelInsertTemplateRenderer
 import biz.lobachev.annette.data_dictionary.builder.rendering.markdown.{
@@ -130,6 +131,8 @@ object DataDictionaryBuilderApp extends App {
     case Right(domain) =>
       Generator.generate(DbDiagramRenderer(domain), s"docs/${domain.id}/")
       Generator.generate(KotlinRenderer(domain), s"docs/${domain.id}/kotlin/")
+      Generator.generate(GolangRenderer(domain, Gorm), s"docs/${domain.id}/go_gorm/")
+      Generator.generate(GolangRenderer(domain, Sqlx), s"docs/${domain.id}/go_sqlx/")
       Generator.generate(ExcelDomainRenderer(domain, WorkbookTranslation.ru), s"docs/${domain.id}")
       Generator.generate(ExcelInsertTemplateRenderer(domain), s"docs/${domain.id}/template/")
       Generator.generate(MarkdownRenderer(domain), s"docs/${domain.id}/")
@@ -143,12 +146,19 @@ object DataDictionaryBuilderApp extends App {
 Run code generation `sbt run`. After code generation completes you will have the following files:
 
 ```
-└── docs
-    └── Simple
-        ├── db_diagram.dbml  - DbDiagram definition
-        ├── simple_en.md     - markdown documentation in EN
-        ├── simple_pl.md     - markdown documentation in PL
-        └── simple_ru.md     - markdown documentation in RU
+Simple/
+├── Simple Example.xlsx - table definition in Excel
+├── Simple_en.md        - markdown documentation in EN
+├── Simple_pl.md        - markdown documentation in PL
+├── Simple_ru.md        - markdown documentation in RU
+├── ddl.sql             - SQL DDL script
+├── diagrams            - DbDiagram definition
+├── export              - data model exported to JSON
+├── go_gorm             - Golang source code for Gorm
+├── go_sqlx             - Golang source code for sqlx
+├── kotlin              - Kotlin source code 
+├── template_en         - Excel INSERT statements template in EN
+└── template_ru         - Excel INSERT statements template in EN
 ```
 
 ## Examples

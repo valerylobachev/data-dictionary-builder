@@ -1,11 +1,15 @@
 package biz.lobachev.annette.data_dictionary.builder_test.simple
 
 import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
+import biz.lobachev.annette.data_dictionary.builder.labels.GolangPackage.goModelPackage
 import biz.lobachev.annette.data_dictionary.builder.model._
 
 object Simple {
 
   val data = domain("Simple", "Simple Example", "This example provides simple person group data model")
+    .withLabels(
+      goModelPackage("github.com/valerylobachev/annette-go/service/simple/logic/repository/entity")
+    )
     .withDataElements(
       // format: off
       dataElement("PersonId", "personId", IntInt(), "Person Id"),

@@ -5865,6 +5865,6 @@
     }
   ],
   "labels" : {
-    
+    "goModelPackage" : "github.com/valerylobachev/annette-go/service/finance/logic/repository/entity"
   }
 }
