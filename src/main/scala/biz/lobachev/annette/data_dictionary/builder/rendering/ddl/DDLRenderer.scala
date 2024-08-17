@@ -27,35 +27,46 @@ case class DDLRenderer(
   }
 
   override def render(): Seq[RenderResult] = {
-    val res       = domain.rootComponentIds.map(id => renderComponent(id))
-    val tables    = res.map(_.tables).mkString("\n", "\n", "\n")
-    val indexes   = res.map(_.indexes).filter(_.nonEmpty).mkString("\n")
-    val comments  = res.map(_.comments).filter(_.nonEmpty).mkString("\n", "\n", "\n")
-    val relations = res.map(_.relations).filter(_.nonEmpty).mkString("\n", "\n", "\n")
-    val audit     = postProcessAudit(res.map(_.audit))
+    val res         = domain.rootComponentIds.map(id => renderComponent(id))
+    val tables      = res.map(_.tables).mkString("\n", "\n", "\n")
+    val indexes     = res.map(_.indexes).filter(_.nonEmpty).mkString("\n")
+    val comments    = res.map(_.comments).filter(_.nonEmpty).mkString("\n", "\n", "\n")
+    val relations   = res.map(_.relations).filter(_.nonEmpty).mkString("\n", "\n", "\n")
+    val auditResult = if (enableAudit) {
+      val audit = postProcessAudit(res.map(_.audit))
+      Some(
+        RenderResult(
+          s"",
+          auditFilename,
+          (
+            header ++ Seq(
+              "",
+              audit,
+              "",
+            )
+          ).mkString("\n"),
+        ),
+      )
+    } else None
 
     Seq(
-      RenderResult(
-        s"",
-        filename,
-        (header ++ Seq(
-          tables,
-          indexes,
-          comments,
-          relations,
-          "",
-        )).mkString("\n"),
+      Some(
+        RenderResult(
+          s"",
+          filename,
+          (
+            header ++ Seq(
+              tables,
+              indexes,
+              comments,
+              relations,
+              "",
+            )
+          ).mkString("\n"),
+        ),
       ),
-      RenderResult(
-        s"",
-        auditFilename,
-        (header ++ Seq(
-          "",
-          audit,
-          "",
-        )).mkString("\n"),
-      ),
-    )
+      auditResult,
+    ).flatten
   }
 
   private def postProcessAudit(audits: Seq[Audit]): String =

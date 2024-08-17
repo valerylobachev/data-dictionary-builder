@@ -164,7 +164,7 @@
           "dbFieldName" : "address_line1",
           "dataType" : {
             "StringVarchar" : {
-              "lenght" : 100,
+              "length" : 100,
               "defaultValue" : null
             }
           },
@@ -181,7 +181,7 @@
           "dbFieldName" : "address_line2",
           "dataType" : {
             "StringVarchar" : {
-              "lenght" : 100,
+              "length" : 100,
               "defaultValue" : null
             }
           },
@@ -198,7 +198,7 @@
           "dbFieldName" : "city",
           "dataType" : {
             "StringVarchar" : {
-              "lenght" : 50,
+              "length" : 50,
               "defaultValue" : null
             }
           },
@@ -215,7 +215,7 @@
           "dbFieldName" : "state",
           "dataType" : {
             "StringVarchar" : {
-              "lenght" : 50,
+              "length" : 50,
               "defaultValue" : null
             }
           },
@@ -232,7 +232,7 @@
           "dbFieldName" : "country",
           "dataType" : {
             "StringVarchar" : {
-              "lenght" : 50,
+              "length" : 50,
               "defaultValue" : null
             }
           },
@@ -1411,7 +1411,7 @@
       "dbFieldName" : "user_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 10,
+          "length" : 10,
           "defaultValue" : null
         }
       },
@@ -1514,7 +1514,7 @@
       "dbFieldName" : "item_code",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 20,
+          "length" : 20,
           "defaultValue" : null
         }
       },
@@ -1570,7 +1570,7 @@
       "dbFieldName" : "postcode",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 10,
+          "length" : 10,
           "defaultValue" : null
         }
       },
@@ -1588,7 +1588,7 @@
       "dbFieldName" : "name",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 100,
+          "length" : 100,
           "defaultValue" : null
         }
       },
@@ -1623,7 +1623,7 @@
       "dbFieldName" : "promotion_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 10,
+          "length" : 10,
           "defaultValue" : null
         }
       },
@@ -1641,7 +1641,7 @@
       "dbFieldName" : "segment_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 10,
+          "length" : 10,
           "defaultValue" : null
         }
       },
@@ -1659,7 +1659,7 @@
       "dbFieldName" : "business_area_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 10,
+          "length" : 10,
           "defaultValue" : null
         }
       },
