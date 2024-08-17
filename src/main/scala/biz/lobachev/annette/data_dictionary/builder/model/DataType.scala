@@ -6,9 +6,9 @@ import java.util.UUID
 
 sealed trait DataType
 
-case class StringVarchar(lenght: Int, defaultValue: Option[String] = None) extends DataType
+case class StringVarchar(length: Int, defaultValue: Option[String] = None) extends DataType
 
-case class StringChar(lenght: Int, defaultValue: Option[String] = None) extends DataType
+case class StringChar(length: Int, defaultValue: Option[String] = None) extends DataType
 case class StringText(defaultValue: Option[String] = None)              extends DataType
 case class StringJson(defaultValue: Option[String] = None)              extends DataType
 case class StringJsonB(defaultValue: Option[String] = None)             extends DataType

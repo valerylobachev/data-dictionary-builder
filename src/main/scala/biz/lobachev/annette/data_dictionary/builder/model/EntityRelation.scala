@@ -14,6 +14,14 @@ case class EntityRelation(
   def withFields(seq: (String, String)*) = copy(fields = seq)
 
   def withLabels(seq: Label*) = copy(labels = labels ++ seq.map(a => a.key -> a.value))
+
+  def withOnUpdate(act: ForeignKeyAction) = copy(onUpdate = act)
+  def withOnDelete(act: ForeignKeyAction) = copy(onDelete = act)
+
+  def withCascadeDelete()      = copy(onDelete = Cascade)
+  def withRestrictDelete()     = copy(onDelete = Restrict)
+  def withSetNullOnDelete()    = copy(onDelete = SetNull)
+  def withSetDefaultOnDelete() = copy(onDelete = SetDefault)
 }
 
 

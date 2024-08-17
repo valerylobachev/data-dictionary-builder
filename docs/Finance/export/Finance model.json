@@ -157,7 +157,8 @@
       "schema" : "bp",
       "labels" : {
         "javaModelPackage" : "finance.data.fi.bp.model",
-        "javaRepoPackage" : "finance.data.fi.bp"
+        "javaRepoPackage" : "finance.data.fi.bp",
+        "auditTable" : "bp_audit"
       }
     },
     {
@@ -170,7 +171,8 @@
       "schema" : "analytics",
       "labels" : {
         "javaModelPackage" : "finance.data.fi.anl.model",
-        "javaRepoPackage" : "finance.data.fi.anl"
+        "javaRepoPackage" : "finance.data.fi.anl",
+        "disableAudit" : "true"
       }
     },
     {
@@ -325,7 +327,7 @@
           "dbFieldName" : "key",
           "dataType" : {
             "StringVarchar" : {
-              "lenght" : 3,
+              "length" : 3,
               "defaultValue" : null
             }
           },
@@ -544,7 +546,7 @@
           "dbFieldName" : "iso_code",
           "dataType" : {
             "StringVarchar" : {
-              "lenght" : 3,
+              "length" : 3,
               "defaultValue" : null
             }
           },
@@ -561,7 +563,7 @@
           "dbFieldName" : "key",
           "dataType" : {
             "StringVarchar" : {
-              "lenght" : 3,
+              "length" : 3,
               "defaultValue" : null
             }
           },
@@ -975,7 +977,7 @@
           "dbFieldName" : "short_name",
           "dataType" : {
             "StringVarchar" : {
-              "lenght" : 30,
+              "length" : 30,
               "defaultValue" : null
             }
           },
@@ -992,7 +994,7 @@
           "dbFieldName" : "iso_code",
           "dataType" : {
             "StringVarchar" : {
-              "lenght" : 3,
+              "length" : 3,
               "defaultValue" : null
             }
           },
@@ -1117,7 +1119,7 @@
           "dbFieldName" : "commercial_code",
           "dataType" : {
             "StringVarchar" : {
-              "lenght" : 6,
+              "length" : 6,
               "defaultValue" : null
             }
           },
@@ -1134,7 +1136,7 @@
           "dbFieldName" : "technical_code",
           "dataType" : {
             "StringVarchar" : {
-              "lenght" : 6,
+              "length" : 6,
               "defaultValue" : null
             }
           },
@@ -5028,7 +5030,7 @@
       "dbFieldName" : "user_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 20,
+          "length" : 20,
           "defaultValue" : null
         }
       },
@@ -5046,7 +5048,7 @@
       "dbFieldName" : "name",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 100,
+          "length" : 100,
           "defaultValue" : null
         }
       },
@@ -5064,7 +5066,7 @@
       "dbFieldName" : "short_name",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 20,
+          "length" : 20,
           "defaultValue" : null
         }
       },
@@ -5082,7 +5084,7 @@
       "dbFieldName" : "country_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 3,
+          "length" : 3,
           "defaultValue" : null
         }
       },
@@ -5100,7 +5102,7 @@
       "dbFieldName" : "language_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 3,
+          "length" : 3,
           "defaultValue" : null
         }
       },
@@ -5118,7 +5120,7 @@
       "dbFieldName" : "currency_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 5,
+          "length" : 5,
           "defaultValue" : null
         }
       },
@@ -5136,7 +5138,7 @@
       "dbFieldName" : "exchange_rate_type_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 4,
+          "length" : 4,
           "defaultValue" : null
         }
       },
@@ -5173,7 +5175,7 @@
       "dbFieldName" : "uom_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 6,
+          "length" : 6,
           "defaultValue" : null
         }
       },
@@ -5191,7 +5193,7 @@
       "dbFieldName" : "company_code_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 4,
+          "length" : 4,
           "defaultValue" : null
         }
       },
@@ -5209,7 +5211,7 @@
       "dbFieldName" : "fy_variant_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 2,
+          "length" : 2,
           "defaultValue" : null
         }
       },
@@ -5227,7 +5229,7 @@
       "dbFieldName" : "posting_period_variant_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 4,
+          "length" : 4,
           "defaultValue" : null
         }
       },
@@ -5297,7 +5299,7 @@
       "dbFieldName" : "chart_of_accounts_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 4,
+          "length" : 4,
           "defaultValue" : null
         }
       },
@@ -5315,7 +5317,7 @@
       "dbFieldName" : "gl_account_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 10,
+          "length" : 10,
           "defaultValue" : null
         }
       },
@@ -5333,7 +5335,7 @@
       "dbFieldName" : "gl_account_group_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 10,
+          "length" : 10,
           "defaultValue" : null
         }
       },
@@ -5369,7 +5371,7 @@
       "dbFieldName" : "ledger_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 4,
+          "length" : 4,
           "defaultValue" : null
         }
       },
@@ -5387,7 +5389,7 @@
       "dbFieldName" : "ledger_group_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 2,
+          "length" : 2,
           "defaultValue" : null
         }
       },
@@ -5440,7 +5442,7 @@
       "dbFieldName" : "document_number",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 10,
+          "length" : 10,
           "defaultValue" : null
         }
       },
@@ -5458,7 +5460,7 @@
       "dbFieldName" : "line_item_no",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 6,
+          "length" : 6,
           "defaultValue" : null
         }
       },
@@ -5549,7 +5551,7 @@
       "dbFieldName" : "creditor_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 10,
+          "length" : 10,
           "defaultValue" : null
         }
       },
@@ -5567,7 +5569,7 @@
       "dbFieldName" : "debtor_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 10,
+          "length" : 10,
           "defaultValue" : null
         }
       },
@@ -5585,7 +5587,7 @@
       "dbFieldName" : "business_partner_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 10,
+          "length" : 10,
           "defaultValue" : null
         }
       },
@@ -5603,7 +5605,7 @@
       "dbFieldName" : "business_area_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 4,
+          "length" : 4,
           "defaultValue" : null
         }
       },
@@ -5621,7 +5623,7 @@
       "dbFieldName" : "functional_area_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 20,
+          "length" : 20,
           "defaultValue" : null
         }
       },
@@ -5639,7 +5641,7 @@
       "dbFieldName" : "segment_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 10,
+          "length" : 10,
           "defaultValue" : null
         }
       },
@@ -5657,7 +5659,7 @@
       "dbFieldName" : "attribute_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 10,
+          "length" : 10,
           "defaultValue" : null
         }
       },
@@ -5675,7 +5677,7 @@
       "dbFieldName" : "attribute_value_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 20,
+          "length" : 20,
           "defaultValue" : null
         }
       },
@@ -5693,7 +5695,7 @@
       "dbFieldName" : "valuation_area_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 20,
+          "length" : 20,
           "defaultValue" : null
         }
       },
@@ -5711,7 +5713,7 @@
       "dbFieldName" : "plant_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 4,
+          "length" : 4,
           "defaultValue" : null
         }
       },
@@ -5729,7 +5731,7 @@
       "dbFieldName" : "material_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 40,
+          "length" : 40,
           "defaultValue" : null
         }
       },
@@ -5747,7 +5749,7 @@
       "dbFieldName" : "location_id",
       "dataType" : {
         "StringVarchar" : {
-          "lenght" : 10,
+          "length" : 10,
           "defaultValue" : null
         }
       },
@@ -5865,6 +5867,7 @@
     }
   ],
   "labels" : {
-    "goModelPackage" : "github.com/valerylobachev/annette-go/service/finance/logic/repository/entity"
+    "goModelPackage" : "github.com/valerylobachev/annette-go/service/finance/logic/repository/entity",
+    "auditTable" : "audit"
   }
 }

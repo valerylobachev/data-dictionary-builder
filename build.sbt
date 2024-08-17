@@ -1,4 +1,4 @@
-ThisBuild / version      := "0.4.2"
+ThisBuild / version      := "0.4.3-SNAPSHOT"
 ThisBuild / scalaVersion := "2.13.13"
 
 ThisBuild / organization         := "biz.lobachev.annette"
@@ -21,7 +21,7 @@ ThisBuild / developers := List(
 )
 
 ThisBuild / description := "Annette Data Dictionary builder"
-ThisBuild / licenses    := List("Apache-2.0" -> new URL("http://www.apache.org/licenses/LICENSE-2.0.txt"))
+ThisBuild / licenses    := List("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0.txt"))
 ThisBuild / homepage    := Some(url("https://github.com/valerylobachev/data-dictionary-builder"))
 
 // Remove all additional repository other than Maven Central from POM

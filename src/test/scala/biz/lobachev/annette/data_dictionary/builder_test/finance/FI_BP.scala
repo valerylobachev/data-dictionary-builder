@@ -1,6 +1,7 @@
 package biz.lobachev.annette.data_dictionary.builder_test.finance
 
 import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
+import biz.lobachev.annette.data_dictionary.builder.labels.Audit.audit
 import biz.lobachev.annette.data_dictionary.builder.labels.JavaPackage.{javaModelPackage, javaRepoPackage}
 import biz.lobachev.annette.data_dictionary.builder.model.StringVarchar
 
@@ -11,6 +12,7 @@ trait FI_BP {
     .withLabels(
       javaModelPackage("finance.data.fi.bp.model"),
       javaRepoPackage("finance.data.fi.bp"),
+      audit("bp_audit"),
     )
     .withDataElements(
       dataElement("CreditorId", "creditorId", StringVarchar(10), "Creditor id"),
