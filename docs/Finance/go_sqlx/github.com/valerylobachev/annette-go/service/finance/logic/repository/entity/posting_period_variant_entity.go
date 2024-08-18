@@ -6,6 +6,11 @@ import (
   "time"
 )
 
+const (
+  PostingPeriodVariantTableName = "company_code.posting_period_variants"
+  PostingPeriodVariantPK = "posting_period_variants_pkey"
+)
+
 
 // Posting period variant
 type PostingPeriodVariantEntity struct {

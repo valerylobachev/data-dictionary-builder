@@ -6,7 +6,11 @@ import (
   "time"
 )
 
-const TableNameUnitOfMeasurementEntity = "units_of_measurement"
+const (
+  UnitOfMeasurementTableName = "units_of_measurement"
+  UnitOfMeasurementPK = "units_of_measurement_pkey"
+)
+
 
 // Unit of measurement
 type UnitOfMeasurementEntity struct {
@@ -30,5 +34,5 @@ type UnitOfMeasurementEntity struct {
 
 
 func (*UnitOfMeasurementEntity) TableName() string {
-	return TableNameUnitOfMeasurementEntity
+	return UnitOfMeasurementTableName
 }

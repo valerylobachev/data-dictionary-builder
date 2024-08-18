@@ -6,7 +6,13 @@ import (
   "time"
 )
 
-const TableNameLedgerGroupLedgerEntity = "ledger.ledger_group_ledgers"
+const (
+  LedgerGroupLedgerTableName = "ledger.ledger_group_ledgers"
+  LedgerGroupLedgerPK = "ledger_group_ledgers_pkey"
+  LedgerGroupLedgerFKLedgerId = "ledger_group_ledgers_ledger_id"
+  LedgerGroupLedgerFKLedgerGroupId = "ledger_group_ledgers_ledger_group_id"
+)
+
 
 // Ledger assignments to ledger group
 type LedgerGroupLedgerEntity struct {
@@ -28,5 +34,5 @@ type LedgerGroupLedgerEntity struct {
 
 
 func (*LedgerGroupLedgerEntity) TableName() string {
-	return TableNameLedgerGroupLedgerEntity
+	return LedgerGroupLedgerTableName
 }

@@ -3,7 +3,12 @@
 package entity
 
 
-const TableNameOpenPeriodEntity = "company_code.open_periods"
+const (
+  OpenPeriodTableName = "company_code.open_periods"
+  OpenPeriodPK = "open_periods_pkey"
+  OpenPeriodFKPostingPeriodVariantId = "open_periods_posting_period_variant_id"
+)
+
 
 // Open period
 type OpenPeriodEntity struct {
@@ -43,5 +48,5 @@ type OpenPeriodEntity struct {
 
 
 func (*OpenPeriodEntity) TableName() string {
-	return TableNameOpenPeriodEntity
+	return OpenPeriodTableName
 }

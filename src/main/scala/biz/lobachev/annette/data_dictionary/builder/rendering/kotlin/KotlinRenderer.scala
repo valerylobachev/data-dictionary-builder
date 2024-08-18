@@ -22,6 +22,7 @@ case class KotlinRenderer(domain: Domain) extends TextRenderer {
     val template = engine.compileSsp(source)
 
     domain.entities.values
+      .filter(_.entityType != EmbeddedEntity)
       .flatMap(renderEntity)
       .map { clazz =>
         val output = engine.layout(

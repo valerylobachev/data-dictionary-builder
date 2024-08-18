@@ -6,6 +6,11 @@ import (
   "time"
 )
 
+const (
+  DebtorTableName = "bp.debtors"
+  DebtorPK = "debtors_pkey"
+)
+
 
 // Debtor
 type DebtorEntity struct {

@@ -6,6 +6,11 @@ import (
   "time"
 )
 
+const (
+  ModificationTableName = "bc.modifications"
+  ModificationPK = "modifications_pkey"
+)
+
 
 // Modification data structure
 type ModificationEntity struct {

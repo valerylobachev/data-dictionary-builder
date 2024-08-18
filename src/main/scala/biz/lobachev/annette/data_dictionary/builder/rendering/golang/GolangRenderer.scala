@@ -26,6 +26,7 @@ case class GolangRenderer(domain: Domain, target: GoTarget) extends TextRenderer
     val template = engine.compileSsp(source)
 
     domain.entities.values
+      .filter(_.entityType == TableEntity)
       .flatMap(renderEntity)
       .map { struct =>
         val output = engine.layout(
@@ -56,6 +57,27 @@ case class GolangRenderer(domain: Domain, target: GoTarget) extends TextRenderer
     val members  = entity.expandedFields.map(m => renderMember(entity, m))
 //    val (relationMembers, relationImports) = renderRelations(entity, pkg, members.map(_.field))
     val imports  = datatypeImports(members.map(_.datatype))
+    val pk       = Constant(
+      s"${entity.entityName}PK",
+      entity.tableName + "_pkey",
+    )
+    val fks      = entity.relations
+      .map(r =>
+        Constant(
+          s"${entity.entityName}FK${r.id.pascalCase}",
+          s"${entity.tableName}_${r.id.snakeCase}",
+        )
+      )
+
+    val uqs = entity.indexes.filter(_.unique)
+      .map(r =>
+        Constant(
+          s"${entity.entityName}UQ${r.id.pascalCase}",
+          s"${entity.tableName}_${r.id.snakeCase}",
+        )
+      )
+
+    val constants = Seq(pk) ++ fks ++uqs
 
     val entityClass = GoStruct(
       pkg = pkg,
@@ -63,10 +85,12 @@ case class GolangRenderer(domain: Domain, target: GoTarget) extends TextRenderer
       imports = imports, // ++ relationImports.toSeq,
       comments = comments,
       name = s"${entity.entityName}Entity",
+      entityName = entity.entityName,
       tableName = entity.tableName,
       isGorm = target == Gorm,
       schemaName = entity.schema,
       members = members, // ++ relationMembers,
+      constants = constants,
     )
 
     Seq(entityClass)

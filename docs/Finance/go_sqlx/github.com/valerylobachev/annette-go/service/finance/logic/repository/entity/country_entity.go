@@ -6,6 +6,12 @@ import (
   "time"
 )
 
+const (
+  CountryTableName = "countries"
+  CountryPK = "countries_pkey"
+  CountryFKLanguageId = "countries_language_id"
+)
+
 
 // Country
 type CountryEntity struct {

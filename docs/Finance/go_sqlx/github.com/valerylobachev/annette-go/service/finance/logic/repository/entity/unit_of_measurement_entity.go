@@ -6,6 +6,11 @@ import (
   "time"
 )
 
+const (
+  UnitOfMeasurementTableName = "units_of_measurement"
+  UnitOfMeasurementPK = "units_of_measurement_pkey"
+)
+
 
 // Unit of measurement
 type UnitOfMeasurementEntity struct {

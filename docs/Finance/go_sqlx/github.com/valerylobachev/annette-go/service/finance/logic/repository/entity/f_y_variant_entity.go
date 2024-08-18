@@ -6,6 +6,11 @@ import (
   "time"
 )
 
+const (
+  FYVariantTableName = "company_code.fy_variants"
+  FYVariantPK = "fy_variants_pkey"
+)
+
 
 // Fiscal year variant
 type FYVariantEntity struct {

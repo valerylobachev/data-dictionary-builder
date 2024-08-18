@@ -6,7 +6,12 @@ import (
   "time"
 )
 
-const TableNameCountryEntity = "countries"
+const (
+  CountryTableName = "countries"
+  CountryPK = "countries_pkey"
+  CountryFKLanguageId = "countries_language_id"
+)
+
 
 // Country
 type CountryEntity struct {
@@ -30,5 +35,5 @@ type CountryEntity struct {
 
 
 func (*CountryEntity) TableName() string {
-	return TableNameCountryEntity
+	return CountryTableName
 }

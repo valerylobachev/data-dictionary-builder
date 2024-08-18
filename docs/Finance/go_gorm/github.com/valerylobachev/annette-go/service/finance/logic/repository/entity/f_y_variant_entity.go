@@ -6,7 +6,11 @@ import (
   "time"
 )
 
-const TableNameFYVariantEntity = "company_code.fy_variants"
+const (
+  FYVariantTableName = "company_code.fy_variants"
+  FYVariantPK = "fy_variants_pkey"
+)
+
 
 // Fiscal year variant
 type FYVariantEntity struct {
@@ -26,5 +30,5 @@ type FYVariantEntity struct {
 
 
 func (*FYVariantEntity) TableName() string {
-	return TableNameFYVariantEntity
+	return FYVariantTableName
 }

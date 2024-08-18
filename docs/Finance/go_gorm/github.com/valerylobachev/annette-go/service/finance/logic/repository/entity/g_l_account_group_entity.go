@@ -6,7 +6,12 @@ import (
   "time"
 )
 
-const TableNameGLAccountGroupEntity = "gl_account.gl_account_groups"
+const (
+  GLAccountGroupTableName = "gl_account.gl_account_groups"
+  GLAccountGroupPK = "gl_account_groups_pkey"
+  GLAccountGroupFKChartOfAccountsId = "gl_account_groups_chart_of_accounts_id"
+)
+
 
 // General ledger account group
 type GLAccountGroupEntity struct {
@@ -34,5 +39,5 @@ type GLAccountGroupEntity struct {
 
 
 func (*GLAccountGroupEntity) TableName() string {
-	return TableNameGLAccountGroupEntity
+	return GLAccountGroupTableName
 }

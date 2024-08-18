@@ -6,7 +6,11 @@ import (
   "time"
 )
 
-const TableNameModificationEntity = "bc.modifications"
+const (
+  ModificationTableName = "bc.modifications"
+  ModificationPK = "modifications_pkey"
+)
+
 
 // Modification data structure
 type ModificationEntity struct {
@@ -22,5 +26,5 @@ type ModificationEntity struct {
 
 
 func (*ModificationEntity) TableName() string {
-	return TableNameModificationEntity
+	return ModificationTableName
 }

@@ -6,7 +6,11 @@ import (
   "time"
 )
 
-const TableNamePlantEntity = "logistic.plants"
+const (
+  PlantTableName = "logistic.plants"
+  PlantPK = "plants_pkey"
+)
+
 
 // Plant
 type PlantEntity struct {
@@ -28,5 +32,5 @@ type PlantEntity struct {
 
 
 func (*PlantEntity) TableName() string {
-	return TableNamePlantEntity
+	return PlantTableName
 }

@@ -6,6 +6,13 @@ import (
   "time"
 )
 
+const (
+  CompanyCodeLedgerTableName = "company_code.company_code_ledgers"
+  CompanyCodeLedgerPK = "company_code_ledgers_pkey"
+  CompanyCodeLedgerFKCompanyCodeId = "company_code_ledgers_company_code_id"
+  CompanyCodeLedgerFKLedgerId = "company_code_ledgers_ledger_id"
+)
+
 
 // Company code ledger
 type CompanyCodeLedgerEntity struct {

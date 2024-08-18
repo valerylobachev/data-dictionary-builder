@@ -6,6 +6,11 @@ import (
   "time"
 )
 
+const (
+  PlantTableName = "logistic.plants"
+  PlantPK = "plants_pkey"
+)
+
 
 // Plant
 type PlantEntity struct {

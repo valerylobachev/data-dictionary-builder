@@ -6,6 +6,11 @@ import (
   "time"
 )
 
+const (
+  SegmentTableName = "analytics.segments"
+  SegmentPK = "segments_pkey"
+)
+
 
 // Segment
 type SegmentEntity struct {

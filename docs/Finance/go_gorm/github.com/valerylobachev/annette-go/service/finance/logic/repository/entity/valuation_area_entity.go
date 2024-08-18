@@ -6,7 +6,12 @@ import (
   "time"
 )
 
-const TableNameValuationAreaEntity = "analytics.valuation_areas"
+const (
+  ValuationAreaTableName = "analytics.valuation_areas"
+  ValuationAreaPK = "valuation_areas_pkey"
+  ValuationAreaFKCompanyCodeId = "valuation_areas_company_code_id"
+)
+
 
 // Valuation area
 type ValuationAreaEntity struct {
@@ -30,5 +35,5 @@ type ValuationAreaEntity struct {
 
 
 func (*ValuationAreaEntity) TableName() string {
-	return TableNameValuationAreaEntity
+	return ValuationAreaTableName
 }

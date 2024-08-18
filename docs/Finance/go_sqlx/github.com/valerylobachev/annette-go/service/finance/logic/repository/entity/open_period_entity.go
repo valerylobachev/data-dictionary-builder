@@ -3,6 +3,12 @@
 package entity
 
 
+const (
+  OpenPeriodTableName = "company_code.open_periods"
+  OpenPeriodPK = "open_periods_pkey"
+  OpenPeriodFKPostingPeriodVariantId = "open_periods_posting_period_variant_id"
+)
+
 
 // Open period
 type OpenPeriodEntity struct {

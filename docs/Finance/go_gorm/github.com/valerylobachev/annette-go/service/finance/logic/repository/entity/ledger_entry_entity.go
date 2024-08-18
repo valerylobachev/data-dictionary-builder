@@ -7,7 +7,29 @@ import (
   "time"
 )
 
-const TableNameLedgerEntryEntity = "ledger_entry.ledger_entries"
+const (
+  LedgerEntryTableName = "ledger_entry.ledger_entries"
+  LedgerEntryPK = "ledger_entries_pkey"
+  LedgerEntryFKLedgerId = "ledger_entries_ledger_id"
+  LedgerEntryFKCompanyCodeId = "ledger_entries_company_code_id"
+  LedgerEntryFKGlAccountId = "ledger_entries_gl_account_id"
+  LedgerEntryFKCreditorId = "ledger_entries_creditor_id"
+  LedgerEntryFKDebtorId = "ledger_entries_debtor_id"
+  LedgerEntryFKBusinessPartnerId = "ledger_entries_business_partner_id"
+  LedgerEntryFKBusinessAreaId = "ledger_entries_business_area_id"
+  LedgerEntryFKFunctionalAreaId = "ledger_entries_functional_area_id"
+  LedgerEntryFKSegmentId = "ledger_entries_segment_id"
+  LedgerEntryFKValuationAreaId = "ledger_entries_valuation_area_id"
+  LedgerEntryFKPlantId = "ledger_entries_plant_id"
+  LedgerEntryFKLocationId = "ledger_entries_location_id"
+  LedgerEntryFKMaterialId = "ledger_entries_material_id"
+  LedgerEntryFKDocumentCurrencyId = "ledger_entries_document_currency_id"
+  LedgerEntryFKCompanyCodeCurrencyId = "ledger_entries_company_code_currency_id"
+  LedgerEntryFKUomId = "ledger_entries_uom_id"
+  LedgerEntryFKBasicUomId = "ledger_entries_basic_uom_id"
+  LedgerEntryUQNk = "ledger_entries_nk"
+)
+
 
 // Ledger Entry
 type LedgerEntryEntity struct {
@@ -85,5 +107,5 @@ type LedgerEntryEntity struct {
 
 
 func (*LedgerEntryEntity) TableName() string {
-	return TableNameLedgerEntryEntity
+	return LedgerEntryTableName
 }

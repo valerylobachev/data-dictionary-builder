@@ -6,7 +6,12 @@ import (
   "time"
 )
 
-const TableNameMaterialEntity = "logistic.materials"
+const (
+  MaterialTableName = "logistic.materials"
+  MaterialPK = "materials_pkey"
+  MaterialFKBasicUomId = "materials_basic_uom_id"
+)
+
 
 // Material
 type MaterialEntity struct {
@@ -30,5 +35,5 @@ type MaterialEntity struct {
 
 
 func (*MaterialEntity) TableName() string {
-	return TableNameMaterialEntity
+	return MaterialTableName
 }

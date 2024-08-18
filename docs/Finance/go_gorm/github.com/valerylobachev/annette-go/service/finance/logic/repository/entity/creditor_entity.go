@@ -6,7 +6,11 @@ import (
   "time"
 )
 
-const TableNameCreditorEntity = "bp.creditors"
+const (
+  CreditorTableName = "bp.creditors"
+  CreditorPK = "creditors_pkey"
+)
+
 
 // Creditor
 type CreditorEntity struct {
@@ -26,5 +30,5 @@ type CreditorEntity struct {
 
 
 func (*CreditorEntity) TableName() string {
-	return TableNameCreditorEntity
+	return CreditorTableName
 }

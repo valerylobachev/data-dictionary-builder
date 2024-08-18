@@ -7,7 +7,14 @@ import (
   "time"
 )
 
-const TableNameExchangeRateEntity = "exchange_rates"
+const (
+  ExchangeRateTableName = "exchange_rates"
+  ExchangeRatePK = "exchange_rates_pkey"
+  ExchangeRateFKExchangeRateTypeId = "exchange_rates_exchange_rate_type_id"
+  ExchangeRateFKFromCurrencyId = "exchange_rates_from_currency_id"
+  ExchangeRateFKToCurrencyId = "exchange_rates_to_currency_id"
+)
+
 
 // ExchangeRate
 type ExchangeRateEntity struct {
@@ -39,5 +46,5 @@ type ExchangeRateEntity struct {
 
 
 func (*ExchangeRateEntity) TableName() string {
-	return TableNameExchangeRateEntity
+	return ExchangeRateTableName
 }

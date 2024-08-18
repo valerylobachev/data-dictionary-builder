@@ -6,7 +6,11 @@ import (
   "time"
 )
 
-const TableNameAttributeEntity = "analytics.attributes"
+const (
+  AttributeTableName = "analytics.attributes"
+  AttributePK = "attributes_pkey"
+)
+
 
 // Attribute
 type AttributeEntity struct {
@@ -26,5 +30,5 @@ type AttributeEntity struct {
 
 
 func (*AttributeEntity) TableName() string {
-	return TableNameAttributeEntity
+	return AttributeTableName
 }

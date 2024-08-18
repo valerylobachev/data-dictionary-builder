@@ -6,6 +6,11 @@ import (
   "time"
 )
 
+const (
+  AttributeTableName = "analytics.attributes"
+  AttributePK = "attributes_pkey"
+)
+
 
 // Attribute
 type AttributeEntity struct {

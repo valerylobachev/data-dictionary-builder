@@ -6,7 +6,11 @@ import (
   "time"
 )
 
-const TableNameCurrencyEntity = "currencies"
+const (
+  CurrencyTableName = "currencies"
+  CurrencyPK = "currencies_pkey"
+)
+
 
 // Currency
 type CurrencyEntity struct {
@@ -34,5 +38,5 @@ type CurrencyEntity struct {
 
 
 func (*CurrencyEntity) TableName() string {
-	return TableNameCurrencyEntity
+	return CurrencyTableName
 }

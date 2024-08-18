@@ -6,6 +6,11 @@ import (
   "time"
 )
 
+const (
+  FunctionalAreaTableName = "analytics.functional_areas"
+  FunctionalAreaPK = "functional_areas_pkey"
+)
+
 
 // Functional area
 type FunctionalAreaEntity struct {

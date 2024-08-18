@@ -6,7 +6,11 @@ import (
   "time"
 )
 
-const TableNameLedgerGroupEntity = "ledger.ledger_groups"
+const (
+  LedgerGroupTableName = "ledger.ledger_groups"
+  LedgerGroupPK = "ledger_groups_pkey"
+)
+
 
 // Ledger Group
 type LedgerGroupEntity struct {
@@ -26,5 +30,5 @@ type LedgerGroupEntity struct {
 
 
 func (*LedgerGroupEntity) TableName() string {
-	return TableNameLedgerGroupEntity
+	return LedgerGroupTableName
 }

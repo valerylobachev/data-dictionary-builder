@@ -6,7 +6,11 @@ import (
   "time"
 )
 
-const TableNameBusinessAreaEntity = "analytics.business_areas"
+const (
+  BusinessAreaTableName = "analytics.business_areas"
+  BusinessAreaPK = "business_areas_pkey"
+)
+
 
 // Business area
 type BusinessAreaEntity struct {
@@ -26,5 +30,5 @@ type BusinessAreaEntity struct {
 
 
 func (*BusinessAreaEntity) TableName() string {
-	return TableNameBusinessAreaEntity
+	return BusinessAreaTableName
 }

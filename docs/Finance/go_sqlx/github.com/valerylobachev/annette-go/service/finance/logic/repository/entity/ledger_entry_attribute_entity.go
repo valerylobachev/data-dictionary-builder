@@ -3,6 +3,13 @@
 package entity
 
 
+const (
+  LedgerEntryAttributeTableName = "ledger_entry.ledger_entry_attributes"
+  LedgerEntryAttributePK = "ledger_entry_attributes_pkey"
+  LedgerEntryAttributeFKEntryNo = "ledger_entry_attributes_entry_no"
+  LedgerEntryAttributeFKAttributeValueId = "ledger_entry_attributes_attribute_value_id"
+)
+
 
 // Ledger entry attribute
 type LedgerEntryAttributeEntity struct {

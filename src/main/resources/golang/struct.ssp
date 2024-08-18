@@ -10,8 +10,13 @@ package ${cl.lastPkg}
 )
 #end
 
-#if(cl.isGorm)const TableName${cl.name} = "#if(cl.schemaName.isDefined)${cl.schemaName.get}.#end${cl.tableName}"
+const (
+  ${cl.entityName}TableName = "#if(cl.schemaName.isDefined)${cl.schemaName.get}.#end${cl.tableName}"
+#for (c <- cl.constants)
+  ${c.key} = "${c.value}"
 #end
+)
+
 
 #for (comment <- cl.comments)
 // ${comment}
@@ -27,6 +32,6 @@ type ${cl.name} struct {
 
 
 #if(cl.isGorm)func (*${cl.name}) TableName() string {
-	return TableName${cl.name}
+	return ${cl.entityName}TableName
 }
 #end

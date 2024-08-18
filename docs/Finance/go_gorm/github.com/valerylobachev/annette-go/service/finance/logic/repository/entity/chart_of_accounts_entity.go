@@ -6,7 +6,11 @@ import (
   "time"
 )
 
-const TableNameChartOfAccountsEntity = "gl_account.charts_of_accounts"
+const (
+  ChartOfAccountsTableName = "gl_account.charts_of_accounts"
+  ChartOfAccountsPK = "charts_of_accounts_pkey"
+)
+
 
 // Chart of accounts
 type ChartOfAccountsEntity struct {
@@ -26,5 +30,5 @@ type ChartOfAccountsEntity struct {
 
 
 func (*ChartOfAccountsEntity) TableName() string {
-	return TableNameChartOfAccountsEntity
+	return ChartOfAccountsTableName
 }

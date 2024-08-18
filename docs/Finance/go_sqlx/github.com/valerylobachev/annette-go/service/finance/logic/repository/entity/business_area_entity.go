@@ -6,6 +6,11 @@ import (
   "time"
 )
 
+const (
+  BusinessAreaTableName = "analytics.business_areas"
+  BusinessAreaPK = "business_areas_pkey"
+)
+
 
 // Business area
 type BusinessAreaEntity struct {

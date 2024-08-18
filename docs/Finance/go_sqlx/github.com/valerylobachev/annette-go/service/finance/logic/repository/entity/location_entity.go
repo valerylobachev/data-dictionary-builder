@@ -6,6 +6,12 @@ import (
   "time"
 )
 
+const (
+  LocationTableName = "logistic.locations"
+  LocationPK = "locations_pkey"
+  LocationFKPlantId = "locations_plant_id"
+)
+
 
 // Location
 type LocationEntity struct {

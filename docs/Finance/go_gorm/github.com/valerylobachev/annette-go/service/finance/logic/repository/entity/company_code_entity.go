@@ -6,7 +6,17 @@ import (
   "time"
 )
 
-const TableNameCompanyCodeEntity = "company_code.company_codes"
+const (
+  CompanyCodeTableName = "company_code.company_codes"
+  CompanyCodePK = "company_codes_pkey"
+  CompanyCodeFKCountryId = "company_codes_country_id"
+  CompanyCodeFKLanguageId = "company_codes_language_id"
+  CompanyCodeFKCurrencyId = "company_codes_currency_id"
+  CompanyCodeFKChartOfAccountsId = "company_codes_chart_of_accounts_id"
+  CompanyCodeFKFyVariantId = "company_codes_fy_variant_id"
+  CompanyCodeFKPostingPeriodVariantId = "company_codes_posting_period_variant_id"
+)
+
 
 // Company code
 type CompanyCodeEntity struct {
@@ -38,5 +48,5 @@ type CompanyCodeEntity struct {
 
 
 func (*CompanyCodeEntity) TableName() string {
-	return TableNameCompanyCodeEntity
+	return CompanyCodeTableName
 }

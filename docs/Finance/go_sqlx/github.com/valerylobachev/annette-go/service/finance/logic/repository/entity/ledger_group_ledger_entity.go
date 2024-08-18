@@ -6,6 +6,13 @@ import (
   "time"
 )
 
+const (
+  LedgerGroupLedgerTableName = "ledger.ledger_group_ledgers"
+  LedgerGroupLedgerPK = "ledger_group_ledgers_pkey"
+  LedgerGroupLedgerFKLedgerId = "ledger_group_ledgers_ledger_id"
+  LedgerGroupLedgerFKLedgerGroupId = "ledger_group_ledgers_ledger_group_id"
+)
+
 
 // Ledger assignments to ledger group
 type LedgerGroupLedgerEntity struct {

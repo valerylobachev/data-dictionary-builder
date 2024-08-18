@@ -6,6 +6,12 @@ import (
   "time"
 )
 
+const (
+  MaterialTableName = "logistic.materials"
+  MaterialPK = "materials_pkey"
+  MaterialFKBasicUomId = "materials_basic_uom_id"
+)
+
 
 // Material
 type MaterialEntity struct {

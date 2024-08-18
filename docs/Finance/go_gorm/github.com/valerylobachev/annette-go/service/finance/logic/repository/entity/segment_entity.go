@@ -6,7 +6,11 @@ import (
   "time"
 )
 
-const TableNameSegmentEntity = "analytics.segments"
+const (
+  SegmentTableName = "analytics.segments"
+  SegmentPK = "segments_pkey"
+)
+
 
 // Segment
 type SegmentEntity struct {
@@ -26,5 +30,5 @@ type SegmentEntity struct {
 
 
 func (*SegmentEntity) TableName() string {
-	return TableNameSegmentEntity
+	return SegmentTableName
 }

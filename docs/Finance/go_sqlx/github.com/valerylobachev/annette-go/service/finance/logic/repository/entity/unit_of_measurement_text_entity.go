@@ -6,6 +6,13 @@ import (
   "time"
 )
 
+const (
+  UnitOfMeasurementTextTableName = "uom_texts"
+  UnitOfMeasurementTextPK = "uom_texts_pkey"
+  UnitOfMeasurementTextFKLanguageId = "uom_texts_language_id"
+  UnitOfMeasurementTextFKUomId = "uom_texts_uom_id"
+)
+
 
 // Unit of measurement text
 type UnitOfMeasurementTextEntity struct {

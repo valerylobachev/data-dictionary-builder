@@ -6,6 +6,13 @@ import (
   "time"
 )
 
+const (
+  GLAccountTableName = "gl_account.gl_accounts"
+  GLAccountPK = "gl_accounts_pkey"
+  GLAccountFKChartOfAccountsId = "gl_accounts_chart_of_accounts_id"
+  GLAccountFKGlAccountGroupId = "gl_accounts_gl_account_group_id"
+)
+
 
 // General ledger account
 type GLAccountEntity struct {

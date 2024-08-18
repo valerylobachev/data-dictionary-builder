@@ -6,7 +6,11 @@ import (
   "time"
 )
 
-const TableNameLanguageEntity = "languages"
+const (
+  LanguageTableName = "languages"
+  LanguagePK = "languages_pkey"
+)
+
 
 // Language
 type LanguageEntity struct {
@@ -26,5 +30,5 @@ type LanguageEntity struct {
 
 
 func (*LanguageEntity) TableName() string {
-	return TableNameLanguageEntity
+	return LanguageTableName
 }

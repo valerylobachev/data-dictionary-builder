@@ -6,6 +6,11 @@ import (
   "time"
 )
 
+const (
+  ExchangeRateTypeTableName = "exchange_rate_types"
+  ExchangeRateTypePK = "exchange_rate_types_pkey"
+)
+
 
 // Exchange rate type
 type ExchangeRateTypeEntity struct {

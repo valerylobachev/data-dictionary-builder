@@ -6,6 +6,11 @@ import (
   "time"
 )
 
+const (
+  ChartOfAccountsTableName = "gl_account.charts_of_accounts"
+  ChartOfAccountsPK = "charts_of_accounts_pkey"
+)
+
 
 // Chart of accounts
 type ChartOfAccountsEntity struct {

@@ -6,7 +6,12 @@ import (
   "time"
 )
 
-const TableNameLocationEntity = "logistic.locations"
+const (
+  LocationTableName = "logistic.locations"
+  LocationPK = "locations_pkey"
+  LocationFKPlantId = "locations_plant_id"
+)
+
 
 // Location
 type LocationEntity struct {
@@ -30,5 +35,5 @@ type LocationEntity struct {
 
 
 func (*LocationEntity) TableName() string {
-	return TableNameLocationEntity
+	return LocationTableName
 }

@@ -6,7 +6,11 @@ import (
   "time"
 )
 
-const TableNameFunctionalAreaEntity = "analytics.functional_areas"
+const (
+  FunctionalAreaTableName = "analytics.functional_areas"
+  FunctionalAreaPK = "functional_areas_pkey"
+)
+
 
 // Functional area
 type FunctionalAreaEntity struct {
@@ -26,5 +30,5 @@ type FunctionalAreaEntity struct {
 
 
 func (*FunctionalAreaEntity) TableName() string {
-	return TableNameFunctionalAreaEntity
+	return FunctionalAreaTableName
 }

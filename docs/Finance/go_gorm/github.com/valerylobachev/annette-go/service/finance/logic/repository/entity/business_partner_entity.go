@@ -6,7 +6,15 @@ import (
   "time"
 )
 
-const TableNameBusinessPartnerEntity = "bp.business_partners"
+const (
+  BusinessPartnerTableName = "bp.business_partners"
+  BusinessPartnerPK = "business_partners_pkey"
+  BusinessPartnerFKCreditorId = "business_partners_creditor_id"
+  BusinessPartnerFKDebtorId = "business_partners_debtor_id"
+  BusinessPartnerUQCreditor_id = "business_partners_creditor_id"
+  BusinessPartnerUQDebtor_id = "business_partners_debtor_id"
+)
+
 
 // Business partner
 type BusinessPartnerEntity struct {
@@ -30,5 +38,5 @@ type BusinessPartnerEntity struct {
 
 
 func (*BusinessPartnerEntity) TableName() string {
-	return TableNameBusinessPartnerEntity
+	return BusinessPartnerTableName
 }

@@ -6,6 +6,11 @@ import (
   "time"
 )
 
+const (
+  CurrencyTableName = "currencies"
+  CurrencyPK = "currencies_pkey"
+)
+
 
 // Currency
 type CurrencyEntity struct {

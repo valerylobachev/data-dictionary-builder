@@ -6,6 +6,11 @@ import (
   "time"
 )
 
+const (
+  LanguageTableName = "languages"
+  LanguagePK = "languages_pkey"
+)
+
 
 // Language
 type LanguageEntity struct {

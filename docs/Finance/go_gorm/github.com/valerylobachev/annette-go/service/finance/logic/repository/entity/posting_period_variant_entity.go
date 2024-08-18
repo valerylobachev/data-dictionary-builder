@@ -6,7 +6,11 @@ import (
   "time"
 )
 
-const TableNamePostingPeriodVariantEntity = "company_code.posting_period_variants"
+const (
+  PostingPeriodVariantTableName = "company_code.posting_period_variants"
+  PostingPeriodVariantPK = "posting_period_variants_pkey"
+)
+
 
 // Posting period variant
 type PostingPeriodVariantEntity struct {
@@ -26,5 +30,5 @@ type PostingPeriodVariantEntity struct {
 
 
 func (*PostingPeriodVariantEntity) TableName() string {
-	return TableNamePostingPeriodVariantEntity
+	return PostingPeriodVariantTableName
 }
