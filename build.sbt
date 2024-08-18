@@ -1,4 +1,4 @@
-ThisBuild / version      := "0.4.3"
+ThisBuild / version      := "0.4.4"
 ThisBuild / scalaVersion := "2.13.13"
 
 ThisBuild / organization         := "biz.lobachev.annette"
@@ -32,6 +32,7 @@ ThisBuild / publishTo            := {
   else Some("releases" at nexus + "service/local/staging/deploy/maven2")
 }
 ThisBuild / publishMavenStyle    := true
+
 
 lazy val root = (project in file("."))
   .settings(
