@@ -41,7 +41,7 @@ This example provides simple person group data model
 
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
-| id | serial | X | X | Group Id |
+| id | smallint | X | X | Group Id |
 | name | varchar(100) |  | X | Group name |
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
@@ -51,7 +51,7 @@ This example provides simple person group data model
 | Field  | Data type | PK | Required | Description |
 | ------- | ------- | ------- | ------- | ------- |
 | id | serial | X | X | Group member id |
-| group_id | integer |  | X | Group Id |
+| group_id | smallint |  | X | Group Id |
 | person_id | integer |  | X | Person Id |
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |

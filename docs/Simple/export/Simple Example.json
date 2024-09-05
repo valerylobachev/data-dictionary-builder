@@ -501,7 +501,7 @@
       "fieldName" : "groupId",
       "dbFieldName" : "group_id",
       "dataType" : {
-        "IntInt" : {
+        "ShortSmallint" : {
           "defaultValue" : null
         }
       },

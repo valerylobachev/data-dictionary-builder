@@ -20,7 +20,7 @@ object Simple {
     .withDataElements(
       // format: off
       dataElement("PersonId", "personId", IntInt(), "Person Id"),
-      dataElement("GroupId", "groupId", IntInt(), "Group Id"),
+      dataElement("GroupId", "groupId", ShortSmallint(), "Group Id"),
       dataElement("ExternalIds", "externalIds", StringJsonB(), "External Ids")
         .withLabels(
           kotlinDataType("Map<String, Int>"),

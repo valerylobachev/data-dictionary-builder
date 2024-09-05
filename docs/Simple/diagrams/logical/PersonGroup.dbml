@@ -19,7 +19,7 @@ table "Person" {
 }
 
 table "Group" {
-  "Group Id" integer [pk, not null, increment, note: 'Group Id']
+  "Group Id" smallint [pk, not null, increment, note: 'Group Id']
   "Group name" varchar(100) [not null, note: 'Group name']
   "User updated record" varchar(20) [not null, note: 'User updated record']
   "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
@@ -29,7 +29,7 @@ table "Group" {
 
 table "Group member" {
   "Group member id" integer [pk, not null, increment, note: 'Group member id']
-  "Group Id" integer [not null, note: 'Group Id']
+  "Group Id" smallint [not null, note: 'Group Id']
   "Person Id" integer [not null, note: 'Person Id']
   "User updated record" varchar(20) [not null, note: 'User updated record']
   "Timestamp of record update" timestamptz [not null, note: 'Timestamp of record update']
