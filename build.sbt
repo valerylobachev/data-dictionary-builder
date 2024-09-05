@@ -1,5 +1,5 @@
-ThisBuild / version      := "0.4.4"
-ThisBuild / scalaVersion := "2.13.13"
+ThisBuild / version      := "0.4.5-SNAPSHOT"
+ThisBuild / scalaVersion := "2.13.14"
 
 ThisBuild / organization         := "biz.lobachev.annette"
 ThisBuild / organizationName     := "Valery Lobachev"
@@ -39,16 +39,16 @@ lazy val root = (project in file("."))
     name := "data-dictionary-builder",
   )
 
-libraryDependencies += "org.scalatest"   %% "scalatest" % "3.2.18" % "test"
-libraryDependencies += "com.google.guava" % "guava"     % "32.1.3-jre"
+libraryDependencies += "org.scalatest"   %% "scalatest" % "3.2.19" % "test"
+libraryDependencies += "com.google.guava" % "guava"     % "33.3.0-jre"
 
-libraryDependencies += "org.scalatra.scalate" %% "scalate-core" % "1.9.8"
+libraryDependencies += "org.scalatra.scalate" %% "scalate-core" % "1.10.1"
 
-libraryDependencies += "org.apache.poi" % "poi"           % "5.2.5"
-libraryDependencies += "org.apache.poi" % "poi-ooxml"     % "5.2.5"
+libraryDependencies += "org.apache.poi" % "poi"           % "5.3.0"
+libraryDependencies += "org.apache.poi" % "poi-ooxml"     % "5.3.0"
 libraryDependencies += "org.atteo"      % "evo-inflector" % "1.3"
 
-val circeVersion = "0.14.6"
+val circeVersion = "0.14.9"
 libraryDependencies ++= Seq(
   "io.circe" %% "circe-core",
   "io.circe" %% "circe-generic",

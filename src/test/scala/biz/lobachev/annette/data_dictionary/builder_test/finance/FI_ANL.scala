@@ -68,7 +68,7 @@ trait FI_ANL {
           include("Modification"),
         )
         .withRelations(
-          manyToOneRelation("attributeId", "Relation to Attribute", "Attribute", "attributeId" -> "id"),
+          manyToOne("attributeId", "Relation to Attribute", "Attribute", "attributeId" -> "id"),
         ),
       tableEntity("ValuationArea", "Valuation area", "ValuationArea")
         .withPK(
@@ -83,7 +83,7 @@ trait FI_ANL {
           // format: off
         )
         .withRelations(
-          manyToOneRelation("companyCodeId", "Reference to CompanyCode", "CompanyCode", "companyCodeId" -> "id")
+          manyToOne("companyCodeId", "Reference to CompanyCode", "CompanyCode", "companyCodeId" -> "id")
         )
     )
 

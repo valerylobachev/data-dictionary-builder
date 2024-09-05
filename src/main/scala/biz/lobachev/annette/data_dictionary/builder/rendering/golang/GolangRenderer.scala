@@ -2,6 +2,7 @@ package biz.lobachev.annette.data_dictionary.builder.rendering.golang
 
 import biz.lobachev.annette.data_dictionary.builder.labels.GolangPackage.GO_MODEL_PACKAGE
 import biz.lobachev.annette.data_dictionary.builder.labels.JavaPackage.JAVA_MODEL_PACKAGE
+import biz.lobachev.annette.data_dictionary.builder.labels.OverrideDatatype.GO_DATA_TYPE
 import biz.lobachev.annette.data_dictionary.builder.model._
 import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, TextRenderer}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax.{PascalCase, SnakeCase}
@@ -62,22 +63,24 @@ case class GolangRenderer(domain: Domain, target: GoTarget) extends TextRenderer
       entity.tableName + "_pkey",
     )
     val fks      = entity.relations
+      .filter(!_.logical)
       .map(r =>
         Constant(
           s"${entity.entityName}FK${r.id.pascalCase}",
           s"${entity.tableName}_${r.id.snakeCase}",
-        )
+        ),
       )
 
-    val uqs = entity.indexes.filter(_.unique)
+    val uqs = entity.indexes
+      .filter(_.unique)
       .map(r =>
         Constant(
           s"${entity.entityName}UQ${r.id.pascalCase}",
           s"${entity.tableName}_${r.id.snakeCase}",
-        )
+        ),
       )
 
-    val constants = Seq(pk) ++ fks ++uqs
+    val constants = Seq(pk) ++ fks ++ uqs
 
     val entityClass = GoStruct(
       pkg = pkg,
@@ -182,7 +185,7 @@ case class GolangRenderer(domain: Domain, target: GoTarget) extends TextRenderer
       s"db:\"${field.dbFieldName}\""
     }
 
-    val dt       = fieldDatatype(field.dataType)
+    val dt       = fieldDatatype(field)
     val datatype = if (field.notNull) dt else s"*$dt"
     KtStructMember(
       comments = field.name +: description2Comments(field.description),
@@ -199,6 +202,12 @@ case class GolangRenderer(domain: Domain, target: GoTarget) extends TextRenderer
         datatypes.find(dt => dt.contains("time.Time")).map(_ => "time") ::
         Nil
     ).flatten
+
+  private def fieldDatatype(field: EntityField): String =
+    field.labels.get(GO_DATA_TYPE).getOrElse(fieldDatatype(field.dataType))
+
+  private def fieldDatatype(dataElement: DataElement): String =
+    dataElement.labels.get(GO_DATA_TYPE).getOrElse(fieldDatatype(dataElement.dataType))
 
   private def fieldDatatype(dataType: DataType): String =
     dataType match {
@@ -224,7 +233,7 @@ case class GolangRenderer(domain: Domain, target: GoTarget) extends TextRenderer
       case EnumString(_, _)               => "string"
       case EmbeddedEntityType(_, _, _)    => "Undefined"
       case ObjectType(entityId)           => domain.entities(entityId).entityName
-      case DataElementType(dataElementId) => fieldDatatype(domain.dataElements(dataElementId).dataType)
+      case DataElementType(dataElementId) => fieldDatatype(domain.dataElements(dataElementId))
       case ListCollection(dataType)       => s"[]${fieldDatatype(dataType)}"
       case SetCollection(dataType)        => s"[]${fieldDatatype(dataType)}"
       case StringMapCollection(dataType)  => s"map[string]${fieldDatatype(dataType)}"

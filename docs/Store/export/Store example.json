@@ -353,7 +353,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         },
         {
           "id" : "segmentId",
@@ -371,7 +373,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         },
         {
           "id" : "businessAreaId",
@@ -389,7 +393,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : null,
@@ -662,7 +668,7 @@
       ],
       "indexes" : [
         {
-          "id" : "client_id_id",
+          "id" : "clientIdId",
           "name" : "Unique clientId & id",
           "description" : "",
           "unique" : true,
@@ -692,7 +698,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : "client",
@@ -869,7 +877,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         },
         {
           "id" : "deliveryAddressId",
@@ -891,7 +901,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : null,
@@ -1051,7 +1063,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         },
         {
           "id" : "itemId",
@@ -1069,7 +1083,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : null,
@@ -1698,6 +1714,6 @@
   ],
   "labels" : {
     "tableNameSuffix" : "table",
-    "goModelPackage" : "github.com/valerylobachev/annette-go/service/simple/logic/repository/entity"
+    "goModelPackage" : "github.com/valerylobachev/store/logic/repository/entity"
   }
 }

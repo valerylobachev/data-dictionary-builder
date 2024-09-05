@@ -37,7 +37,7 @@ trait CA {
               // format: on
             )
             .withRelations(
-              manyToOneRelation("languageId", "Reference to language", "Language", "languageId" -> "id"),
+              manyToOne("languageId", "Reference to language", "Language", "languageId" -> "id"),
             ),
           tableEntity("Language", "Language", "Language")
             .withPK(
@@ -103,19 +103,19 @@ trait CA {
               // format: on
             )
             .withRelations(
-              manyToOneRelation(
+              manyToOne(
                 "exchangeRateTypeId",
                 "Reference to exchange rate type",
                 "ExchangeRateType",
                 "exchangeRateTypeId" -> "id",
               ),
-              manyToOneRelation(
+              manyToOne(
                 "fromCurrencyId",
                 "Reference (from) to currency ",
                 "Currency",
                 "fromCurrencyId"     -> "id",
               ),
-              manyToOneRelation(
+              manyToOne(
                 "toCurrencyId",
                 "Reference (to) to currency ",
                 "Currency",
@@ -163,13 +163,13 @@ trait CA {
               // format: on
             )
             .withRelations(
-              manyToOneRelation(
+              manyToOne(
                 "languageId",
                 "Reference to language",
                 "Language",
                 "languageId" -> "id",
               ),
-              manyToOneRelation(
+              manyToOne(
                 "uomId",
                 "Reference to unit of measurement",
                 "UnitOfMeasurement",

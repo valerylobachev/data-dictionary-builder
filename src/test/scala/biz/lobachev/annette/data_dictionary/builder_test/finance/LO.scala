@@ -31,7 +31,7 @@ trait LO {
           // format: on
         )
         .withRelations(
-          manyToOneRelation("basicUomId", "Reference to Unit Of Measurement", "UnitOfMeasurement", "basicUomId" -> "id"),
+          manyToOne("basicUomId", "Reference to Unit Of Measurement", "UnitOfMeasurement", "basicUomId" -> "id"),
         ),
       tableEntity("Plant", "Plant", "Plant")
         .withPK(
@@ -59,7 +59,7 @@ trait LO {
           // format: on
         )
         .withRelations(
-          manyToOneRelation("plantId", "Reference to Plant", "Plant", "plantId" -> "id"),
+          manyToOne("plantId", "Reference to Plant", "Plant", "plantId" -> "id"),
         ),
     )
 

@@ -31,7 +31,7 @@ trait FI_GLS {
           // format: on
         )
         .withRelations(
-          manyToOneRelation("underlyingLedger", "Reference to ledger", "Ledger", "underlyingLedger" -> "id"),
+          manyToOne("underlyingLedger", "Reference to ledger", "Ledger", "underlyingLedger" -> "id"),
         ),
       tableEntity("LedgerGroup", "Ledger Group", "LedgerGroup")
         .withPK(
@@ -53,8 +53,8 @@ trait FI_GLS {
           include("Modification"),
         )
         .withRelations(
-          manyToOneRelation("ledgerId", "Reference to ledger", "Ledger", "ledgerId"                      -> "id"),
-          manyToOneRelation("ledgerGroupId", "Reference to ledger group", "LedgerGroup", "ledgerGroupId" -> "id"),
+          manyToOne("ledgerId", "Reference to ledger", "Ledger", "ledgerId"                      -> "id"),
+          manyToOne("ledgerGroupId", "Reference to ledger group", "LedgerGroup", "ledgerGroupId" -> "id"),
         ),
     )
 

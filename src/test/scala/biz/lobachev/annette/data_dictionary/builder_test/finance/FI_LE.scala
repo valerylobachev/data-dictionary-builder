@@ -2,7 +2,6 @@ package biz.lobachev.annette.data_dictionary.builder_test.finance
 
 import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
 import biz.lobachev.annette.data_dictionary.builder.labels.JavaPackage.{javaModelPackage, javaRepoPackage}
-import biz.lobachev.annette.data_dictionary.builder.labels.RelationName
 import biz.lobachev.annette.data_dictionary.builder.model.{
   BigDecimalNumeric,
   EnumString,
@@ -88,144 +87,110 @@ trait FI_LE {
           ),
         )
         .withRelations(
-          manyToOneRelation(
+          manyToOne(
             "ledgerId",
             "Reference to Ledger",
             "Ledger",
             "ledgerId" -> "id",
-          ).withLabels(
-            RelationName.fieldName("ledger"),
-          ),
-          manyToOneRelation(
+          ).withAssociation("ledger"),
+          manyToOne(
             "companyCodeId",
             "Reference to CompanyCode",
             "CompanyCode",
             "companyCodeId" -> "id",
-          ).withLabels(
-            RelationName.fieldName("companyCode"),
-          ),
-          manyToOneRelation(
+          ).withAssociation("companyCode"),
+          manyToOne(
             "glAccountId",
             "Reference to GLAccount",
             "GLAccount",
             "chartOfAccountsId" -> "chartOfAccountsId",
             "glAccountId"       -> "glAccountId",
-          ).withLabels(
-            RelationName.fieldName("glAccount"),
-          ),
-          manyToOneRelation(
+          ).withAssociation("glAccount"),
+          manyToOne(
             "creditorId",
             "Reference to Creditor",
             "Creditor",
             "creditorId" -> "id",
-          ).withLabels(
-            RelationName.fieldName("creditor"),
-          ),
-          manyToOneRelation(
+          ).withAssociation("creditor"),
+          manyToOne(
             "debtorId",
             "Reference to Debtor",
             "Debtor",
             "debtorId" -> "id",
-          ).withLabels(
-            RelationName.fieldName("debtor"),
-          ),
-          manyToOneRelation(
+          ).withAssociation("debtor"),
+          manyToOne(
             "businessPartnerId",
             "Reference to BusinessPartner",
             "BusinessPartner",
             "businessPartnerId" -> "id",
-          ).withLabels(
-            RelationName.fieldName("businessPartner"),
-          ),
-          manyToOneRelation(
+          ).withAssociation("businessPartner"),
+          manyToOne(
             "businessAreaId",
             "Reference to BusinessArea",
             "BusinessArea",
             "businessAreaId" -> "id",
-          ).withLabels(
-            RelationName.fieldName("businessArea"),
-          ),
-          manyToOneRelation(
+          ).withAssociation("businessArea"),
+          manyToOne(
             "functionalAreaId",
             "Reference to FunctionalArea",
             "FunctionalArea",
             "functionalAreaId" -> "id",
-          ).withLabels(
-            RelationName.fieldName("functionalArea"),
-          ),
-          manyToOneRelation(
+          ).withAssociation("functionalArea"),
+          manyToOne(
             "segmentId",
             "Reference to Segment",
             "Segment",
             "segmentId" -> "id",
-          ).withLabels(
-            RelationName.fieldName("segment"),
-          ),
-          manyToOneRelation(
+          ).withAssociation("segment"),
+          manyToOne(
             "valuationAreaId",
             "Reference to ValuationArea",
             "ValuationArea",
             "valuationAreaId" -> "id",
-          ).withLabels(
-            RelationName.fieldName("valuationArea"),
-          ),
-          manyToOneRelation(
+          ).withAssociation("valuationArea"),
+          manyToOne(
             "plantId",
             "Reference to Plant",
             "Plant",
             "plantId" -> "id",
-          ).withLabels(
-            RelationName.fieldName("plant"),
-          ),
-          manyToOneRelation(
+          ).withAssociation("plant"),
+          manyToOne(
             "locationId",
             "Reference to Location",
             "Location",
             "plantId"    -> "plantId",
             "locationId" -> "locationId",
-          ).withLabels(
-            RelationName.fieldName("location"),
-          ),
-          manyToOneRelation(
+          ).withAssociation("location"),
+          manyToOne(
             "materialId",
             "Reference to Material",
             "Material",
             "materialId" -> "id",
-          ).withLabels(
-            RelationName.fieldName("material"),
-          ),
-          manyToOneRelation(
+          ).withAssociation("material"),
+          manyToOne(
             "documentCurrencyId",
             "Reference to Currency",
             "Currency",
             "documentCurrencyId" -> "id",
-          ).withLabels(
-//            RelationName.fieldName("documentCurrency"),
-          ),
-          manyToOneRelation(
+          ).withAssociation("documentCurrency"),
+          manyToOne(
             "companyCodeCurrencyId",
             "Reference to Currency",
             "Currency",
             "companyCodeCurrencyId" -> "id",
-          ).withLabels(
-//            RelationName.fieldName("companyCodeCurrency"),
-          ),
-          manyToOneRelation(
+          ).withAssociation("companyCodeCurrency"),
+          manyToOne(
             "uomId",
             "Reference to UnitOfMeasurement",
             "UnitOfMeasurement",
             "uomId" -> "id",
-          ).withLabels(
-            RelationName.fieldName("uom"),
-          ),
-          manyToOneRelation(
+          ).withAssociation("uom"),
+          manyToOne(
             "basicUomId",
             "Reference to UnitOfMeasurement",
             "UnitOfMeasurement",
             "basicUomId" -> "id",
-          ).withLabels(
-            RelationName.fieldName("basicUom"),
-          ),
+          ).withAssociation("basicUom"),
         ),
       tableEntity("LedgerEntryAttribute", "Ledger entry attribute", "LedgerEntryAttribute")
         .withPK(
@@ -236,8 +201,8 @@ trait FI_LE {
           // format: on
         )
         .withRelations(
-          manyToOneRelation("entryNo", "Reference to LedgerEntry", "LedgerEntry", "entryNo" -> "entryNo"),
-          manyToOneRelation(
+          manyToOne("entryNo", "Reference to LedgerEntry", "LedgerEntry", "entryNo" -> "entryNo"),
+          manyToOne(
             "attributeValueId",
             "Reference to AttributeValue",
             "AttributeValue",

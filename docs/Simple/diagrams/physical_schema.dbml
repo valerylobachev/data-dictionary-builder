@@ -6,6 +6,9 @@ table "persons" {
   "id" integer [pk, not null, increment, note: 'Person Id']
   "firstname" varchar(40) [not null, note: 'Person first name']
   "lastname" varchar(40) [not null, note: 'Person last name']
+  "search" text [not null, note: 'Search index']
+  "attributes" jsonb [not null, note: 'Person attributes']
+  "external_ids" jsonb [not null, note: 'Person external Ids']
   "updated_by" varchar(20) [not null, note: 'User updated record']
   "updated_at" timestamptz [not null, note: 'Timestamp of record update']
 

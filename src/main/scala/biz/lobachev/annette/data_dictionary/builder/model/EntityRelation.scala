@@ -10,6 +10,8 @@ case class EntityRelation(
   onUpdate: ForeignKeyAction = NoAction,
   onDelete: ForeignKeyAction = NoAction,
   labels: Labels = Map.empty,
+  logical: Boolean = false,
+  association: Option[Association] = None,
 ) {
   def withFields(seq: (String, String)*) = copy(fields = seq)
 
@@ -22,6 +24,12 @@ case class EntityRelation(
   def withRestrictDelete()     = copy(onDelete = Restrict)
   def withSetNullOnDelete()    = copy(onDelete = SetNull)
   def withSetDefaultOnDelete() = copy(onDelete = SetDefault)
+
+  def withAssociation(name: String)            = copy(association = Some(Association(name)))
+  def withAssociation(assoc: (String, String)) = copy(association = Some(Association(assoc._1, Some(assoc._2))))
 }
 
-
+case class Association(
+  name: String,
+  referenceName: Option[String] = None,
+)

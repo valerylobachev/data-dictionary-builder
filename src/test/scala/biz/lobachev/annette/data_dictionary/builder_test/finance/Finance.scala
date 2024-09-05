@@ -22,7 +22,7 @@ object Finance
     "Finance model provides tables and data structures similar to SAP ERP Finance.",
   )
     .withLabels(
-      goModelPackage("github.com/valerylobachev/annette-go/service/finance/logic/repository/entity"),
+      goModelPackage("github.com/valerylobachev/finance/logic/repository/entity"),
       audit("audit")
     )
     .withEnumSeq(

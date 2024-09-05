@@ -52,8 +52,8 @@ trait FI_BP {
           // format: on
         )
         .withRelations(
-          oneToOneRelation("creditorId", "Reference to Creditor", "Creditor", "creditorId" -> "id"),
-          oneToOneRelation("debtorId", "Reference to Debtor", "Debtor", "debtorId"         -> "id"),
+          oneToOne("creditorId", "Reference to Creditor", "Creditor", "creditorId" -> "id"),
+          oneToOne("debtorId", "Reference to Debtor", "Debtor", "debtorId"         -> "id"),
         )
         .withIndexes(
           uniqueIndex("creditorId", "Unique creditorId", "creditorId"),

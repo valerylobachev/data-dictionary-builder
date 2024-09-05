@@ -59,13 +59,13 @@ trait FI_GLA {
           // format: on
         )
         .withRelations(
-          manyToOneRelation(
+          manyToOne(
             "chartOfAccountsId",
             "Reference to Chart Of Accounts",
             "ChartOfAccounts",
             "chartOfAccountsId" -> "id"
           ),
-          manyToOneRelation(
+          manyToOne(
             "glAccountGroupId",
             "Reference to GLAccountGroup",
             "GLAccountGroup",
@@ -91,7 +91,7 @@ trait FI_GLA {
           // format: on
         )
         .withRelations(
-          manyToOneRelation(
+          manyToOne(
             "chartOfAccountsId",
             "Reference to Chart Of Accounts",
             "ChartOfAccounts",

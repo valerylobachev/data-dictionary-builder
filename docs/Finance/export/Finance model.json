@@ -394,7 +394,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : null,
@@ -881,7 +883,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         },
         {
           "id" : "fromCurrencyId",
@@ -899,7 +903,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         },
         {
           "id" : "toCurrencyId",
@@ -917,7 +923,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : null,
@@ -1188,7 +1196,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         },
         {
           "id" : "uomId",
@@ -1206,7 +1216,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : null,
@@ -1396,7 +1408,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         },
         {
           "id" : "languageId",
@@ -1414,7 +1428,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         },
         {
           "id" : "currencyId",
@@ -1432,7 +1448,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         },
         {
           "id" : "chartOfAccountsId",
@@ -1450,7 +1468,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         },
         {
           "id" : "fyVariantId",
@@ -1468,7 +1488,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         },
         {
           "id" : "postingPeriodVariantId",
@@ -1486,7 +1508,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : "company_code",
@@ -1581,7 +1605,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         },
         {
           "id" : "ledgerId",
@@ -1599,7 +1625,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : "company_code",
@@ -2053,7 +2081,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : "company_code",
@@ -2288,7 +2318,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         },
         {
           "id" : "glAccountGroupId",
@@ -2310,7 +2342,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : "gl_account",
@@ -2469,7 +2503,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : "gl_account",
@@ -2611,7 +2647,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : "ledger",
@@ -2798,7 +2836,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         },
         {
           "id" : "ledgerGroupId",
@@ -2816,7 +2856,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : "ledger",
@@ -3389,7 +3431,12 @@
           "onUpdate" : "NoAction",
           "onDelete" : "NoAction",
           "labels" : {
-            "relationFieldName" : "ledger"
+            
+          },
+          "logical" : false,
+          "association" : {
+            "name" : "ledger",
+            "referenceName" : null
           }
         },
         {
@@ -3407,7 +3454,12 @@
           "onUpdate" : "NoAction",
           "onDelete" : "NoAction",
           "labels" : {
-            "relationFieldName" : "companyCode"
+            
+          },
+          "logical" : false,
+          "association" : {
+            "name" : "companyCode",
+            "referenceName" : null
           }
         },
         {
@@ -3429,7 +3481,12 @@
           "onUpdate" : "NoAction",
           "onDelete" : "NoAction",
           "labels" : {
-            "relationFieldName" : "glAccount"
+            
+          },
+          "logical" : false,
+          "association" : {
+            "name" : "glAccount",
+            "referenceName" : null
           }
         },
         {
@@ -3447,7 +3504,12 @@
           "onUpdate" : "NoAction",
           "onDelete" : "NoAction",
           "labels" : {
-            "relationFieldName" : "creditor"
+            
+          },
+          "logical" : false,
+          "association" : {
+            "name" : "creditor",
+            "referenceName" : null
           }
         },
         {
@@ -3465,7 +3527,12 @@
           "onUpdate" : "NoAction",
           "onDelete" : "NoAction",
           "labels" : {
-            "relationFieldName" : "debtor"
+            
+          },
+          "logical" : false,
+          "association" : {
+            "name" : "debtor",
+            "referenceName" : null
           }
         },
         {
@@ -3483,7 +3550,12 @@
           "onUpdate" : "NoAction",
           "onDelete" : "NoAction",
           "labels" : {
-            "relationFieldName" : "businessPartner"
+            
+          },
+          "logical" : false,
+          "association" : {
+            "name" : "businessPartner",
+            "referenceName" : null
           }
         },
         {
@@ -3501,7 +3573,12 @@
           "onUpdate" : "NoAction",
           "onDelete" : "NoAction",
           "labels" : {
-            "relationFieldName" : "businessArea"
+            
+          },
+          "logical" : false,
+          "association" : {
+            "name" : "businessArea",
+            "referenceName" : null
           }
         },
         {
@@ -3519,7 +3596,12 @@
           "onUpdate" : "NoAction",
           "onDelete" : "NoAction",
           "labels" : {
-            "relationFieldName" : "functionalArea"
+            
+          },
+          "logical" : false,
+          "association" : {
+            "name" : "functionalArea",
+            "referenceName" : null
           }
         },
         {
@@ -3537,7 +3619,12 @@
           "onUpdate" : "NoAction",
           "onDelete" : "NoAction",
           "labels" : {
-            "relationFieldName" : "segment"
+            
+          },
+          "logical" : false,
+          "association" : {
+            "name" : "segment",
+            "referenceName" : null
           }
         },
         {
@@ -3555,7 +3642,12 @@
           "onUpdate" : "NoAction",
           "onDelete" : "NoAction",
           "labels" : {
-            "relationFieldName" : "valuationArea"
+            
+          },
+          "logical" : false,
+          "association" : {
+            "name" : "valuationArea",
+            "referenceName" : null
           }
         },
         {
@@ -3573,7 +3665,12 @@
           "onUpdate" : "NoAction",
           "onDelete" : "NoAction",
           "labels" : {
-            "relationFieldName" : "plant"
+            
+          },
+          "logical" : false,
+          "association" : {
+            "name" : "plant",
+            "referenceName" : null
           }
         },
         {
@@ -3595,7 +3692,12 @@
           "onUpdate" : "NoAction",
           "onDelete" : "NoAction",
           "labels" : {
-            "relationFieldName" : "location"
+            
+          },
+          "logical" : false,
+          "association" : {
+            "name" : "location",
+            "referenceName" : null
           }
         },
         {
@@ -3613,7 +3715,12 @@
           "onUpdate" : "NoAction",
           "onDelete" : "NoAction",
           "labels" : {
-            "relationFieldName" : "material"
+            
+          },
+          "logical" : false,
+          "association" : {
+            "name" : "material",
+            "referenceName" : null
           }
         },
         {
@@ -3632,6 +3739,11 @@
           "onDelete" : "NoAction",
           "labels" : {
             
+          },
+          "logical" : false,
+          "association" : {
+            "name" : "documentCurrency",
+            "referenceName" : null
           }
         },
         {
@@ -3650,6 +3762,11 @@
           "onDelete" : "NoAction",
           "labels" : {
             
+          },
+          "logical" : false,
+          "association" : {
+            "name" : "companyCodeCurrency",
+            "referenceName" : null
           }
         },
         {
@@ -3667,7 +3784,12 @@
           "onUpdate" : "NoAction",
           "onDelete" : "NoAction",
           "labels" : {
-            "relationFieldName" : "uom"
+            
+          },
+          "logical" : false,
+          "association" : {
+            "name" : "uom",
+            "referenceName" : null
           }
         },
         {
@@ -3685,7 +3807,12 @@
           "onUpdate" : "NoAction",
           "onDelete" : "NoAction",
           "labels" : {
-            "relationFieldName" : "basicUom"
+            
+          },
+          "logical" : false,
+          "association" : {
+            "name" : "basicUom",
+            "referenceName" : null
           }
         }
       ],
@@ -3780,7 +3907,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         },
         {
           "id" : "attributeValueId",
@@ -3802,7 +3931,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : "ledger_entry",
@@ -4063,7 +4194,7 @@
       ],
       "indexes" : [
         {
-          "id" : "creditor_id",
+          "id" : "creditorId",
           "name" : "Unique creditorId",
           "description" : "",
           "unique" : true,
@@ -4075,7 +4206,7 @@
           }
         },
         {
-          "id" : "debtor_id",
+          "id" : "debtorId",
           "name" : "Unique debtorId",
           "description" : "",
           "unique" : true,
@@ -4104,7 +4235,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         },
         {
           "id" : "debtorId",
@@ -4122,7 +4255,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : "bp",
@@ -4537,7 +4672,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : "analytics",
@@ -4663,7 +4800,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : "analytics",
@@ -4789,7 +4928,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : "logistic",
@@ -5008,7 +5149,9 @@
           "onDelete" : "NoAction",
           "labels" : {
             
-          }
+          },
+          "logical" : false,
+          "association" : null
         }
       ],
       "schema" : "logistic",
@@ -5867,7 +6010,7 @@
     }
   ],
   "labels" : {
-    "goModelPackage" : "github.com/valerylobachev/annette-go/service/finance/logic/repository/entity",
+    "goModelPackage" : "github.com/valerylobachev/finance/logic/repository/entity",
     "auditTable" : "audit"
   }
 }

@@ -9,7 +9,7 @@ object Store {
   val data = domain("Store", "Store example", "Store data model example")
     .withLabels(
       tableNameSuffix("table"),
-      goModelPackage("github.com/valerylobachev/annette-go/service/simple/logic/repository/entity"),
+      goModelPackage("github.com/valerylobachev/store/logic/repository/entity"),
     )
     .withEnums(
       enumDef("OrderStatus", "Order Status", 1)
@@ -70,9 +70,9 @@ object Store {
               // format: on
             )
             .withRelations(
-              manyToOneRelation("promotionId", "Reference to Promotion", "Promotion", "promotionId" -> "id"),
-              manyToOneRelation("segmentId", "Reference to Segment", "Segment", "segmentId"         -> "id"),
-              manyToOneRelation(
+              manyToOne("promotionId", "Reference to Promotion", "Promotion", "promotionId" -> "id"),
+              manyToOne("segmentId", "Reference to Segment", "Segment", "segmentId"         -> "id"),
+              manyToOne(
                 "businessAreaId",
                 "Reference to BusinessArea",
                 "BusinessArea",
@@ -114,7 +114,7 @@ object Store {
               // format: on
             )
             .withRelations(
-              manyToOneRelation("clientId", "Reference to client", "Client", "clientId" -> "id"),
+              manyToOne("clientId", "Reference to client", "Client", "clientId" -> "id"),
             )
             .withIndexes(
               uniqueIndex("clientIdId", "Unique clientId & id", "clientId", "id"),
@@ -141,8 +141,8 @@ object Store {
               // format: on
             )
             .withRelations(
-              manyToOneRelation("clientId", "Reference to client", "Client", "clientId" -> "id"),
-              manyToOneRelation(
+              manyToOne("clientId", "Reference to client", "Client", "clientId" -> "id"),
+              manyToOne(
                 "deliveryAddressId",
                 "Reference to address",
                 "ClientAddress",
@@ -165,8 +165,8 @@ object Store {
               // format: on
             )
             .withRelations(
-              manyToOneRelation("orderId", "Reference to order", "Order", "orderId" -> "id"),
-              manyToOneRelation("itemId", "Reference to item", "Item", "itemId"     -> "id"),
+              manyToOne("orderId", "Reference to order", "Order", "orderId" -> "id"),
+              manyToOne("itemId", "Reference to item", "Item", "itemId"     -> "id"),
             ),
           tableEntity("Item", "Item")
             .withPK(

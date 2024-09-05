@@ -151,6 +151,55 @@
           }
         },
         {
+          "name" : "Search index",
+          "description" : "",
+          "fieldName" : "search",
+          "dbFieldName" : "search",
+          "dataType" : {
+            "StringText" : {
+              "defaultValue" : null
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "labels" : {
+            "postgresDataType" : "tsvector"
+          }
+        },
+        {
+          "name" : "Person attributes",
+          "description" : "Map string: string",
+          "fieldName" : "attributes",
+          "dbFieldName" : "attributes",
+          "dataType" : {
+            "StringJsonB" : {
+              "defaultValue" : null
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "labels" : {
+            "kotlinDataType" : "Map<String, String>",
+            "goDataType" : "map[string]string"
+          }
+        },
+        {
+          "name" : "Person external Ids",
+          "description" : "",
+          "fieldName" : "externalIds",
+          "dbFieldName" : "external_ids",
+          "dataType" : {
+            "DataElementType" : {
+              "dataElementId" : "ExternalIds"
+            }
+          },
+          "notNull" : true,
+          "autoIncrement" : false,
+          "labels" : {
+            
+          }
+        },
+        {
           "name" : "",
           "description" : "",
           "fieldName" : "",
@@ -174,7 +223,7 @@
       ],
       "indexes" : [
         {
-          "id" : "lastname_firstname",
+          "id" : "lastnameFirstname",
           "name" : "Search index by lastname and firstname",
           "description" : "",
           "unique" : false,
@@ -356,7 +405,7 @@
       ],
       "indexes" : [
         {
-          "id" : "person_group_ids",
+          "id" : "personGroupIds",
           "name" : "Person id in each group must be unique",
           "description" : "",
           "unique" : true,
@@ -386,6 +435,11 @@
           "onDelete" : "NoAction",
           "labels" : {
             
+          },
+          "logical" : false,
+          "association" : {
+            "name" : "group",
+            "referenceName" : "members"
           }
         },
         {
@@ -404,6 +458,11 @@
           "onDelete" : "NoAction",
           "labels" : {
             
+          },
+          "logical" : true,
+          "association" : {
+            "name" : "person",
+            "referenceName" : null
           }
         }
       ],
@@ -451,12 +510,30 @@
         
       },
       "componentId" : null
+    },
+    {
+      "id" : "ExternalIds",
+      "name" : "External Ids",
+      "description" : "",
+      "fieldName" : "externalIds",
+      "dbFieldName" : "external_ids",
+      "dataType" : {
+        "StringJsonB" : {
+          "defaultValue" : null
+        }
+      },
+      "notNull" : true,
+      "labels" : {
+        "kotlinDataType" : "Map<String, Int>",
+        "goDataType" : "map[string]int"
+      },
+      "componentId" : null
     }
   ],
   "enums" : [
   ],
   "labels" : {
-    "goModelPackage" : "github.com/valerylobachev/annette-go/service/simple/logic/repository/entity",
+    "goModelPackage" : "github.com/valerylobachev/simple/logic/repository/entity",
     "auditTable" : "audit"
   }
 }

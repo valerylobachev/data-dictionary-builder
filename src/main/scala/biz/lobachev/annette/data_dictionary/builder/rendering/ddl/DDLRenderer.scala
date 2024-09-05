@@ -2,6 +2,7 @@ package biz.lobachev.annette.data_dictionary.builder.rendering.ddl
 
 import biz.lobachev.annette.data_dictionary.builder.POSTGRESQL
 import biz.lobachev.annette.data_dictionary.builder.labels.Audit.{AUDIT_TABLE, DISABLE_AUDIT}
+import biz.lobachev.annette.data_dictionary.builder.labels.OverrideDatatype.{POSTGRESQL_DATA_TYPE}
 import biz.lobachev.annette.data_dictionary.builder.model._
 import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, TextRenderer}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
@@ -137,9 +138,10 @@ case class DDLRenderer(
   private def renderTable(entity: Entity): String = {
     val fields = entity.expandedFields.map { field =>
       val fieldName  = wrapQuotes(field.dbFieldName)
-      var datatype   = domain.getTargetDataType(field.dataType, POSTGRESQL)
+      var datatype   = field.labels.get(POSTGRESQL_DATA_TYPE).getOrElse(domain.getTargetDataType(field.dataType, POSTGRESQL))
       if (field.autoIncrement && datatype == "integer") datatype = "serial"
       else if (field.autoIncrement && datatype == "bigint") datatype = "bigserial"
+      else if (field.autoIncrement && datatype == "smallint") datatype = "smallserial"
       val primaryKey = if (entity.pk.length == 1 && entity.pk.head == field.fieldName) " PRIMARY KEY" else ""
       val notNull    = if (field.notNull) " NOT NULL" else ""
       s"  $fieldName $datatype$primaryKey$notNull"
@@ -182,7 +184,9 @@ case class DDLRenderer(
 
   private def renderRelations(entity: Entity): String = {
     val tableName = entity.tableNameWithSchema()
-    entity.expandedRelations.map { relation =>
+    entity.expandedRelations
+      .filter(!_.logical)
+      .map { relation =>
       val relationId   = wrapQuotes(entity.tableName + "_" + relation.id.snakeCase)
       val refEntity    = domain.entities(relation.referenceEntityId)
       val refTableName = refEntity.tableNameWithSchema()

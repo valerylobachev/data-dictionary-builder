@@ -24,6 +24,9 @@ This example provides simple person group data model
 | id | serial | X | X | Person Id |
 | firstname | varchar(40) |  | X | Person first name |
 | lastname | varchar(40) |  | X | Person last name |
+| search | text |  | X | Search index |
+| attributes | jsonb |  | X | Person attributes<br>Map string: string |
+| external_ids | jsonb |  | X | Person external Ids |
 | updated_by | varchar(20) |  | X | User updated record |
 | updated_at | timestamptz |  | X | Timestamp of record update |
 

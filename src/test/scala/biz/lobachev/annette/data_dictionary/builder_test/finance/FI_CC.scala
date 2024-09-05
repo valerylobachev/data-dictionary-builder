@@ -37,17 +37,17 @@ trait FI_CC {
           // format: on
         )
         .withRelations(
-          manyToOneRelation("countryId", "Reference to Country", "Country", "countryId"         -> "id"),
-          manyToOneRelation("languageId", "Reference to Language", "Language", "languageId"     -> "id"),
-          manyToOneRelation("currencyId", "Reference to Currency", "Currency", "currencyId"     -> "id"),
-          manyToOneRelation(
+          manyToOne("countryId", "Reference to Country", "Country", "countryId"         -> "id"),
+          manyToOne("languageId", "Reference to Language", "Language", "languageId"     -> "id"),
+          manyToOne("currencyId", "Reference to Currency", "Currency", "currencyId"     -> "id"),
+          manyToOne(
             "chartOfAccountsId",
             "Reference to ChartOfAccounts",
             "ChartOfAccounts",
             "chartOfAccountsId"                                                                 -> "id",
           ),
-          manyToOneRelation("fyVariantId", "Reference to FYVariant", "FYVariant", "fyVariantId" -> "id"),
-          manyToOneRelation(
+          manyToOne("fyVariantId", "Reference to FYVariant", "FYVariant", "fyVariantId" -> "id"),
+          manyToOne(
             "postingPeriodVariantId",
             "Reference to PostingPeriodVariant",
             "PostingPeriodVariant",
@@ -65,8 +65,8 @@ trait FI_CC {
           include("Modification"),
         )
         .withRelations(
-          manyToOneRelation("companyCodeId", "Reference to CompanyCode", "CompanyCode", "companyCodeId" -> "id"),
-          manyToOneRelation("ledgerId", "Reference to Ledger", "Ledger", "ledgerId"                     -> "id"),
+          manyToOne("companyCodeId", "Reference to CompanyCode", "CompanyCode", "companyCodeId" -> "id"),
+          manyToOne("ledgerId", "Reference to Ledger", "Ledger", "ledgerId"                     -> "id"),
         ),
       tableEntity("FYVariant", "Fiscal year variant", "FYVariant")
         .withTableName("fy_variants")
@@ -111,7 +111,7 @@ trait FI_CC {
           // format: off
         )
         .withRelations(
-          manyToOneRelation("postingPeriodVariantId", "Reference to PostingPeriodVariant", "PostingPeriodVariant", "postingPeriodVariantId" -> "id")
+          manyToOne("postingPeriodVariantId", "Reference to PostingPeriodVariant", "PostingPeriodVariant", "postingPeriodVariantId" -> "id")
         ),
 
 
