@@ -15,7 +15,6 @@ import biz.lobachev.annette.data_dictionary.builder.rendering.markdown.{
 import biz.lobachev.annette.data_dictionary.builder.rendering.xls_domain.{ExcelDomainRenderer, WorkbookTranslation}
 import biz.lobachev.annette.data_dictionary.builder.rendering.xls_insert.{
   ExcelInsertTemplateRenderer,
-  ExcelInsertTemplateTranslation,
 }
 import biz.lobachev.annette.data_dictionary.builder_test.finance.Finance
 import org.scalatest.wordspec.AnyWordSpec
@@ -91,19 +90,10 @@ class FinanceSpec extends AnyWordSpec with BuildValidator {
       }
     }
 
-    "generate Excel INSERT template EN" in {
+    "generate Excel INSERT template" in {
       validateAndProcess(build) { domain =>
         Generator.generate(
           ExcelInsertTemplateRenderer(domain),
-          s"docs/${domain.id}/",
-        )
-      }
-    }
-
-    "generate Excel INSERT template RU" in {
-      validateAndProcess(build) { domain =>
-        Generator.generate(
-          ExcelInsertTemplateRenderer(domain, ExcelInsertTemplateTranslation.RU),
           s"docs/${domain.id}/",
         )
       }
