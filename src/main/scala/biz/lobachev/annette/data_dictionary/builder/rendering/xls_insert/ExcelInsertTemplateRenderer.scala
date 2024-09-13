@@ -46,7 +46,7 @@ case class ExcelInsertTemplateRenderer(
   def renderEntity(entity: Entity, wb: XSSFWorkbook) = {
     val sheet         = wb.createSheet(entity.id)
     val valueRowIndex = renderHeader(entity, sheet)
-    (0 to 1000).foreach(idx => renderValueRow(entity, sheet, valueRowIndex + idx))
+    renderValueRow(entity, sheet, valueRowIndex)
   }
 
   private def renderHeader(entity: Entity, sheet: XSSFSheet): Int = {
