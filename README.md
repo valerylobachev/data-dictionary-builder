@@ -28,7 +28,7 @@ generate:
 Create new Scala project and add Data Dictionary builder library to `build.sbt`:
 
 ```sbt
-libraryDependencies += "biz.lobachev.annette" %% "data-dictionary-builder" % "0.4.5"
+libraryDependencies += "biz.lobachev.annette" %% "data-dictionary-builder" % "0.4.6"
 ```
 
 Create model definition `Simple.scala`:
