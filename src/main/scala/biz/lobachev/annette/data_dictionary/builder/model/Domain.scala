@@ -81,16 +81,16 @@ case class Domain(
 
   def getTargetDataType(dataType: DataType, target: String): String =
     dataType match {
-      case StringVarchar(lenght, _)               =>
+      case StringVarchar(length, _)               =>
         target match {
           case SCALA      => "String"
-          case POSTGRESQL => s"varchar($lenght)"
+          case POSTGRESQL => s"varchar($length)"
           case _          => UNDEFINED_DATA_TYPE
         }
-      case StringChar(lenght, _)                  =>
+      case StringChar(length, _)                  =>
         target match {
           case SCALA      => "String"
-          case POSTGRESQL => s"char($lenght)"
+          case POSTGRESQL => s"char($length)"
           case _          => UNDEFINED_DATA_TYPE
         }
       case StringText(_)                          =>

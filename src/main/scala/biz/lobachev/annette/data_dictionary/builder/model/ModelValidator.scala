@@ -67,7 +67,7 @@ trait ModelValidator111 {
       entity    <- entities.values
       index     <- entity.indexes
       fieldName <- index.fields
-      err       <- entity.fields
+      err       <- entity.expandedFields
                      .find(f => f.fieldName == fieldName)
                      .map(_ => None)
                      .getOrElse(Some(s"Entity ${entity.id}, index ${index.id}: field ${fieldName} not found"))
@@ -85,9 +85,9 @@ trait ModelValidator111 {
           .get(relation.referenceEntityId)
           .map { referenceEntity =>
             relation.fields.flatMap { case f1 -> f2 =>
-              val field          = entity.fields
+              val field          = entity.expandedFields
                 .find(f => f.fieldName == f1)
-              val referenceField = referenceEntity.fields
+              val referenceField = referenceEntity.expandedFields
                 .find(f => f.fieldName == f2)
 
               val incompatibleTypes = (for {
