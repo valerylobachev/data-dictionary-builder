@@ -4,15 +4,15 @@ import biz.lobachev.annette.data_dictionary.builder.model._
 
 trait ModelValidator {
 
-  def validate(domain: Domain): Either[Seq[String], Domain] = {
+  def validate(domain: Domain): Option[Seq[String]] = {
     val errors = domain.errors ++
       validateComponents(domain) ++
       validateFields(domain) ++
       validateIndexes(domain) ++
       validateRelations(domain) ++
       validateDataElements(domain)
-    if (errors.nonEmpty) Left(errors)
-    else Right(domain)
+    if (errors.nonEmpty) Some(errors)
+    else None
   }
 
   def validateComponents(domain: Domain): Seq[String] = {
@@ -70,7 +70,7 @@ trait ModelValidator {
       entity    <- domain.entities.values
       index     <- entity.indexes
       fieldName <- index.fields
-      err       <- entity.fields
+      err       <- entity.expandedFields
                      .find(f => f.fieldName == fieldName)
                      .map(_ => None)
                      .getOrElse(Some(s"Entity ${entity.id}, index ${index.id}: field ${fieldName} not found"))
@@ -88,9 +88,9 @@ trait ModelValidator {
           .get(relation.referenceEntityId)
           .map { referenceEntity =>
             relation.fields.flatMap { case f1 -> f2 =>
-              val field          = entity.fields
+              val field          = entity.expandedFields
                 .find(f => f.fieldName == f1)
-              val referenceField = referenceEntity.fields
+              val referenceField = referenceEntity.expandedFields
                 .find(f => f.fieldName == f2)
 
               val incompatibleTypes = (for {

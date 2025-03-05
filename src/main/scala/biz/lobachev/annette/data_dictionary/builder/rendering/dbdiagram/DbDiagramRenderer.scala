@@ -89,21 +89,19 @@ case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends T
   }
 
   def renderFields(entity: Entity): String =
-    entity.expandedFields
-      .map { field =>
-        val datatype =
-          domain.getTargetDataType(field.dataType, POSTGRESQL) // domain.dataElements(field.dataElementId).sqlDataType
-        val params    = Seq(
-          if (entity.pk.length == 1 && entity.pk.head == field.fieldName) Some("pk") else None,
-          if (field.notNull) Some("not null") else None,
-          if (field.autoIncrement) Some("increment") else None,
-          if (field.name.nonEmpty) Some(s"note: '${field.name}'") else None,
-        ).flatten
-        val paramStr  = if (params.nonEmpty) params.mkString("[", ", ", "]") else ""
-        val fieldname = if (logical && field.name.trim.nonEmpty) wrapQuotes(field.name) else wrapQuotes(field.dbFieldName)
-        s"  ${fieldname} $datatype $paramStr\n"
-      }
-      .mkString
+    entity.expandedFields.map { field =>
+      val datatype =
+        domain.getTargetDataType(field.dataType, POSTGRESQL) // domain.dataElements(field.dataElementId).sqlDataType
+      val params    = Seq(
+        if (entity.pk.length == 1 && entity.pk.head == field.fieldName) Some("pk") else None,
+        if (field.notNull) Some("not null") else None,
+        if (field.autoIncrement) Some("increment") else None,
+        if (field.name.nonEmpty) Some(s"note: '${field.name}'") else None,
+      ).flatten
+      val paramStr  = if (params.nonEmpty) params.mkString("[", ", ", "]") else ""
+      val fieldname = if (logical && field.name.trim.nonEmpty) wrapQuotes(field.name) else wrapQuotes(field.dbFieldName)
+      s"  ${fieldname} $datatype $paramStr\n"
+    }.mkString
 
   def getEntityFieldName(entityFields: Seq[EntityField], fieldName: String, logical: Boolean): String =
     entityFields
@@ -121,8 +119,8 @@ case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends T
     val indexes = entity.indexes.map { index =>
       val indexId  = entity.tableName + '_' + index.id.snakeCase
       val fields   =
-        if (index.fields == 1) index.fields.map(f => getEntityFieldName(entity.fields, f, logical)).head
-        else index.fields.map(f => getEntityFieldName(entity.fields, f, logical)).mkString("(", ", ", ")")
+        if (index.fields == 1) index.fields.map(f => getEntityFieldName(entity.expandedFields, f, logical)).head
+        else index.fields.map(f => getEntityFieldName(entity.expandedFields, f, logical)).mkString("(", ", ", ")")
       val params   = Seq(
         if (index.unique) Some("unique") else None,
         Some(s"name: '$indexId'"),

@@ -9,6 +9,7 @@ import io.circe.generic.semiauto._
 case class ExportJsonRenderer(domain: Domain) extends TextRenderer {
   val path = "export"
 
+  implicit val encoder13: Encoder[IndexMethod]      = Encoder.instance(a => Json.fromString(a.method))
   implicit val encoder12: Encoder[EntityIndex]      = deriveEncoder[EntityIndex]
   implicit val encoder11: Encoder[RelationType]     = Encoder.instance(a => Json.fromString(a.toString))
   implicit val encoder10: Encoder[ForeignKeyAction] = Encoder.instance(a => Json.fromString(a.toString))

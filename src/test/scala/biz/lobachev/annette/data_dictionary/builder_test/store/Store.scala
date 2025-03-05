@@ -76,7 +76,7 @@ object Store {
                 "businessAreaId",
                 "Reference to BusinessArea",
                 "BusinessArea",
-                "businessAreaId"                                                                    -> "id",
+                "businessAreaId"                                                            -> "id",
               ),
             ),
         ),
@@ -146,9 +146,15 @@ object Store {
                 "deliveryAddressId",
                 "Reference to address",
                 "ClientAddress",
-                "clientId"                                                              -> "clientId",
-                "deliveryAddressId"                                                     -> "id",
+                "clientId"                                                      -> "clientId",
+                "deliveryAddressId"                                             -> "id",
               ),
+            )
+            .withIndexes(
+              index("analytic", "Analytic index", "clientId", "status", "segmentId", "updatedAt")
+                .withMethod(HashMethod)
+                .include("id")
+                .where("status <> 'C'"),
             ),
           tableEntity("OrderLine", "Order line")
             .withPK(

@@ -9,9 +9,7 @@ import scala.collection.immutable.ListMap
 object DomainBuilder extends ModelValidator {
 
   def build(domain: Domain): Either[Seq[String], Domain] =
-    buildStage1(domain).map { d =>
-      buildStage2(d)
-    }
+    buildStage1(domain).map(d => buildStage2(d))
 
   def buildStage2(domain: Domain): Domain = {
     val newEntities = domain.entities.map { case k -> entity =>
@@ -63,7 +61,7 @@ object DomainBuilder extends ModelValidator {
   }
 
   def buildStage1(domain: Domain): Either[Seq[String], Domain] = {
-    val newEntities = domain.entities.values.map { entity =>
+    val newEntities  = domain.entities.values.map { entity =>
       val newFields = entity.fields.map { field =>
         field.dataType match {
           case DataElementType(dataElementId) =>
@@ -80,7 +78,10 @@ object DomainBuilder extends ModelValidator {
       }
       entity.copy(fields = newFields)
     }
-    validate(domain.copy(entities = ListMap.from(newEntities.map(e => e.id -> e))))
+    val domainStage1 = domain.copy(entities = ListMap.from(newEntities.map(e => e.id -> e)))
+    validate(buildStage2(domainStage1))
+      .map(e => Left(e))
+      .getOrElse(Right(domainStage1))
   }
 
   def getFieldName(domain: Domain, dataElementId: String): String = {

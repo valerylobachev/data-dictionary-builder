@@ -2,7 +2,7 @@ package biz.lobachev.annette.data_dictionary.builder.rendering.ddl
 
 import biz.lobachev.annette.data_dictionary.builder.POSTGRESQL
 import biz.lobachev.annette.data_dictionary.builder.labels.Audit.{AUDIT_TABLE, DISABLE_AUDIT}
-import biz.lobachev.annette.data_dictionary.builder.labels.OverrideDatatype.{POSTGRESQL_DATA_TYPE}
+import biz.lobachev.annette.data_dictionary.builder.labels.OverrideDatatype.POSTGRESQL_DATA_TYPE
 import biz.lobachev.annette.data_dictionary.builder.model._
 import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, TextRenderer}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
@@ -138,7 +138,8 @@ case class DDLRenderer(
   private def renderTable(entity: Entity): String = {
     val fields = entity.expandedFields.map { field =>
       val fieldName  = wrapQuotes(field.dbFieldName)
-      var datatype   = field.labels.get(POSTGRESQL_DATA_TYPE).getOrElse(domain.getTargetDataType(field.dataType, POSTGRESQL))
+      var datatype   =
+        field.labels.get(POSTGRESQL_DATA_TYPE).getOrElse(domain.getTargetDataType(field.dataType, POSTGRESQL))
       if (field.autoIncrement && datatype == "integer") datatype = "serial"
       else if (field.autoIncrement && datatype == "bigint") datatype = "bigserial"
       else if (field.autoIncrement && datatype == "smallint") datatype = "smallserial"
@@ -162,10 +163,17 @@ case class DDLRenderer(
   private def renderIndexes(entity: Entity): String =
     if (entity.indexes.nonEmpty) {
       entity.indexes.map { index =>
-        val unique  = if (index.unique) "UNIQUE " else ""
-        val indexId = wrapQuotes(entity.tableName + "_" + index.id.snakeCase)
-        val fields  = index.fields.map(f => getEntityFieldName(entity.expandedFields, f)).mkString("(", ", ", ")")
-        s"CREATE ${unique}INDEX $indexId ON ${entity.tableNameWithSchema()} $fields;\n"
+        val unique      = if (index.unique) "UNIQUE " else ""
+        val indexId     = wrapQuotes(entity.tableName + "_" + index.id.snakeCase)
+        val fields      = index.fields.map(f => getEntityFieldName(entity.expandedFields, f)).mkString("(", ", ", ")")
+        val usingMethod = index.method.map(m => s"USING ${m.method} ").getOrElse("")
+        val include     = if (index.includeFields.nonEmpty) {
+          val includeFields =
+            index.includeFields.map(f => getEntityFieldName(entity.expandedFields, f)).mkString("(", ", ", ")")
+          s" INCLUDE $includeFields "
+        } else ""
+        val where       = index.condition.map(c => s" WHERE $c").getOrElse("")
+        s"CREATE ${unique}INDEX $indexId ON ${entity.tableNameWithSchema()} $usingMethod$fields$include$where;\n"
       }.mkString("\n")
     } else ""
 
@@ -187,21 +195,22 @@ case class DDLRenderer(
     entity.expandedRelations
       .filter(!_.logical)
       .map { relation =>
-      val relationId   = wrapQuotes(entity.tableName + "_" + relation.id.snakeCase)
-      val refEntity    = domain.entities(relation.referenceEntityId)
-      val refTableName = refEntity.tableNameWithSchema()
-      val fields1      = relation.fields
-        .map(f => getEntityFieldName(entity.expandedFields, f._1))
-        .mkString("(", ", ", ")")
-      val fields2      = relation.fields
-        .map(f => getEntityFieldName(refEntity.expandedFields, f._2))
-        .mkString("(", ", ", ")")
-      val onDelete     = if (relation.onDelete != NoAction) s" ON DELETE ${relation.onDelete.sqlAction()}" else ""
-      val onUpdate     = if (relation.onDelete != NoAction) s" ON UPDATE ${relation.onUpdate.sqlAction()}" else ""
-      s"ALTER TABLE $tableName ADD CONSTRAINT $relationId " +
-        s"FOREIGN KEY $fields1 REFERENCES $refTableName $fields2" +
-        s"$onDelete$onUpdate;\n"
-    }.mkString("\n")
+        val relationId   = wrapQuotes(entity.tableName + "_" + relation.id.snakeCase)
+        val refEntity    = domain.entities(relation.referenceEntityId)
+        val refTableName = refEntity.tableNameWithSchema()
+        val fields1      = relation.fields
+          .map(f => getEntityFieldName(entity.expandedFields, f._1))
+          .mkString("(", ", ", ")")
+        val fields2      = relation.fields
+          .map(f => getEntityFieldName(refEntity.expandedFields, f._2))
+          .mkString("(", ", ", ")")
+        val onDelete     = if (relation.onDelete != NoAction) s" ON DELETE ${relation.onDelete.sqlAction()}" else ""
+        val onUpdate     = if (relation.onDelete != NoAction) s" ON UPDATE ${relation.onUpdate.sqlAction()}" else ""
+        s"ALTER TABLE $tableName ADD CONSTRAINT $relationId " +
+          s"FOREIGN KEY $fields1 REFERENCES $refTableName $fields2" +
+          s"$onDelete$onUpdate;\n"
+      }
+      .mkString("\n")
   }
 
   def getEntityFieldName(entityFields: Seq[EntityField], fieldName: String): String =
