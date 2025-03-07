@@ -186,7 +186,10 @@ case class GolangRenderer(domain: Domain, target: GoTarget) extends TextRenderer
     }
 
     val dt       = fieldDatatype(field)
-    val datatype = if (field.notNull) dt else s"*$dt"
+    val datatype =
+      if (field.notNull) dt
+      else if (target == Gorm) s"*$dt"
+      else s"sql.Null[$dt]"
     KtStructMember(
       comments = field.name +: description2Comments(field.description),
       name = field.fieldName.pascalCase,
@@ -200,6 +203,7 @@ case class GolangRenderer(domain: Domain, target: GoTarget) extends TextRenderer
     (
       datatypes.find(dt => dt.contains("decimal.Decimal")).map(_ => "github.com/shopspring/decimal") ::
         datatypes.find(dt => dt.contains("time.Time")).map(_ => "time") ::
+        datatypes.find(dt => dt.contains("sql.Null")).map(_ => "database/sql") ::
         Nil
     ).flatten
 
