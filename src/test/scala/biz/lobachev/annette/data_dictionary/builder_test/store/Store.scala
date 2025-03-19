@@ -167,6 +167,8 @@ object Store {
               includeWithRelations("Analytics"),
               "price"         :# "Amount",
               "quantity"      :# "Quantity",
+              "counter" :# IntInt() :& AutoInc,
+              "counter2" :#++ IntInt() ,
               include("Modification")
               // format: on
             )

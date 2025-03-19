@@ -48,7 +48,7 @@ trait Fields {
     def :&(modificator: EntityFieldModificator) =
       modificator match {
         case Null    => entityField.copy(notNull = false)
-        case AutoInc => entityField.copy(autoIncrement = false)
+        case AutoInc => entityField.copy(autoIncrement = true)
       }
 
     def :>(dbFieldName: String) = entityField.copy(dbFieldName = dbFieldName.trim.snakeCase)
