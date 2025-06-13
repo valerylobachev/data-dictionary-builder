@@ -1,7 +1,7 @@
 package biz.lobachev.annette.data_dictionary.builder.model
 
 import biz.lobachev.annette.data_dictionary.builder.builder.DomainBuilder
-import biz.lobachev.annette.data_dictionary.builder.{POSTGRESQL, SCALA}
+import biz.lobachev.annette.data_dictionary.builder.{CLICKHOUSE, POSTGRESQL, SCALA}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
 import biz.lobachev.annette.data_dictionary.builder.utils.Utils
 
@@ -74,6 +74,9 @@ case class Domain(
 
   def withEnums(seq: EnumData*) = withEnumSeq(seq)
 
+  /** @param seq
+    * @return
+    */
   def withLabels(seq: Label*) = copy(labels = labels ++ seq.map(a => a.key -> a.value))
 
   def build(): Either[Seq[String], Domain] =
@@ -85,149 +88,165 @@ case class Domain(
         target match {
           case SCALA      => "String"
           case POSTGRESQL => s"varchar($length)"
+          case CLICKHOUSE => s"FixedString($length)"
           case _          => UNDEFINED_DATA_TYPE
         }
       case StringChar(length, _)                  =>
         target match {
           case SCALA      => "String"
           case POSTGRESQL => s"char($length)"
+          case CLICKHOUSE => s"FixedString($length)"
           case _          => UNDEFINED_DATA_TYPE
         }
       case StringText(_)                          =>
         target match {
           case SCALA      => "String"
           case POSTGRESQL => "text"
+          case CLICKHOUSE => "String"
           case _          => UNDEFINED_DATA_TYPE
         }
       case StringJson(_)                          =>
         target match {
           case SCALA      => "String"
           case POSTGRESQL => "json"
+          case CLICKHOUSE => "JSON"
           case _          => UNDEFINED_DATA_TYPE
         }
       case StringJsonB(_)                         =>
         target match {
           case SCALA      => "String"
           case POSTGRESQL => "jsonb"
+          case CLICKHOUSE => "JSON"
           case _          => UNDEFINED_DATA_TYPE
         }
       case IntInt(_)                              =>
         target match {
           case SCALA      => "Int"
           case POSTGRESQL => s"integer"
+          case CLICKHOUSE => "Int32"
           case _          => UNDEFINED_DATA_TYPE
         }
       case LongLong(_)                            =>
         target match {
           case SCALA      => "Long"
           case POSTGRESQL => s"bigint"
+          case CLICKHOUSE => "Int64"
           case _          => UNDEFINED_DATA_TYPE
         }
       case ShortSmallint(_)                       =>
         target match {
           case SCALA      => "Short"
           case POSTGRESQL => "smallint"
+          case CLICKHOUSE => "Int16"
           case _          => UNDEFINED_DATA_TYPE
         }
       case BigDecimalNumeric(precision, scale, _) =>
         target match {
           case SCALA      => "BigDecimal"
           case POSTGRESQL => s"decimal($precision,$scale)"
+          case CLICKHOUSE => s"Decimal($precision,$scale)"
           case _          => UNDEFINED_DATA_TYPE
         }
       case BigIntegerNumeric(precision, _)        =>
         target match {
           case SCALA      => "BigInteger"
           case POSTGRESQL => s"decimal($precision,0)"
+          case CLICKHOUSE => s"Decimal($precision,0)"
           case _          => UNDEFINED_DATA_TYPE
         }
       case DoubleDouble(_)                        =>
         target match {
           case SCALA      => "Double"
           case POSTGRESQL => "float8"
+          case CLICKHOUSE => "Float64"
           case _          => UNDEFINED_DATA_TYPE
         }
       case FloatFloat(_)                          =>
         target match {
           case SCALA      => "Float"
           case POSTGRESQL => "float4"
+          case CLICKHOUSE => "Float32"
           case _          => UNDEFINED_DATA_TYPE
         }
       case BooleanBoolean(_)                      =>
         target match {
           case SCALA      => "Boolean"
           case POSTGRESQL => "boolean"
+          case CLICKHOUSE => "Bool"
           case _          => UNDEFINED_DATA_TYPE
         }
       case UuidUuid(_)                            =>
         target match {
           case SCALA      => "UUID"
           case POSTGRESQL => "uuid"
+          case CLICKHOUSE => "UUID"
           case _          => UNDEFINED_DATA_TYPE
         }
       case InstantTimestamp(_)                    =>
         target match {
           case SCALA      => "Instant"
           case POSTGRESQL => "timestamptz"
+          case CLICKHOUSE => "DateTime64(9)"
           case _          => UNDEFINED_DATA_TYPE
         }
       case OffsetDateTimeTimestamp(_)             =>
         target match {
           case SCALA      => "OffsetDateTime"
           case POSTGRESQL => "timestamptz"
+          case CLICKHOUSE => "DateTime64(9)"
           case _          => UNDEFINED_DATA_TYPE
         }
       case LocalDateTimeTimestamp(_)              =>
         target match {
           case SCALA      => "LocalDateTime"
           case POSTGRESQL => "timestamp"
+          case CLICKHOUSE => "DateTime64(9)" // TODO: check
           case _          => UNDEFINED_DATA_TYPE
         }
       case LocalDateDate(_)                       =>
         target match {
           case SCALA      => "LocalDate"
           case POSTGRESQL => "date"
+          case CLICKHOUSE => "Date"
           case _          => UNDEFINED_DATA_TYPE
         }
       case LocalTimeTime(_)                       =>
         target match {
           case SCALA      => "LocalTime"
           case POSTGRESQL => "time"
+          case CLICKHOUSE => "DateTime64(9)" // TODO: check
           case _          => UNDEFINED_DATA_TYPE
         }
       case EnumString(enumId, _)                  =>
         target match {
           case SCALA      => enumId.pascalCase
           case POSTGRESQL => enumId.snakeCase
+          case CLICKHOUSE => enumId.snakeCase
           case _          => UNDEFINED_DATA_TYPE
         }
       case EmbeddedEntityType(_, _, _)            =>
         UNDEFINED_DATA_TYPE
       case ObjectType(entityId)                   =>
         target match {
-          case SCALA      => entities(entityId).entityName.pascalCase
-          case POSTGRESQL => UNDEFINED_DATA_TYPE
-          case _          => UNDEFINED_DATA_TYPE
+          case SCALA => entities(entityId).entityName.pascalCase
+          case _     => UNDEFINED_DATA_TYPE
         }
       case DataElementType(dataElementId)         =>
         getTargetDataType(dataElements(dataElementId).dataType, target)
       case ListCollection(dataType)               =>
         target match {
-          case SCALA      => s"Seq[${getTargetDataType(dataType, target)}]"
-          case POSTGRESQL => UNDEFINED_DATA_TYPE
-          case _          => UNDEFINED_DATA_TYPE
+          case SCALA => s"Seq[${getTargetDataType(dataType, target)}]"
+          case _     => UNDEFINED_DATA_TYPE
         }
       case SetCollection(dataType)                =>
         target match {
-          case SCALA      => s"Set[${getTargetDataType(dataType, target)}]"
-          case POSTGRESQL => UNDEFINED_DATA_TYPE
-          case _          => UNDEFINED_DATA_TYPE
+          case SCALA => s"Set[${getTargetDataType(dataType, target)}]"
+          case _     => UNDEFINED_DATA_TYPE
         }
       case StringMapCollection(dataType)          =>
         target match {
-          case SCALA      => s"Map[String, ${getTargetDataType(dataType, target)}]"
-          case POSTGRESQL => UNDEFINED_DATA_TYPE
-          case _          => UNDEFINED_DATA_TYPE
+          case SCALA => s"Map[String, ${getTargetDataType(dataType, target)}]"
+          case _     => UNDEFINED_DATA_TYPE
         }
     }
 

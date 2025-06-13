@@ -2,12 +2,9 @@ package biz.lobachev.annette.data_dictionary.builder_test.simple
 
 import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
 import biz.lobachev.annette.data_dictionary.builder.labels.Audit.audit
+import biz.lobachev.annette.data_dictionary.builder.labels.ClickHouse._
 import biz.lobachev.annette.data_dictionary.builder.labels.GolangPackage.goModelPackage
-import biz.lobachev.annette.data_dictionary.builder.labels.OverrideDatatype.{
-  goDataType,
-  kotlinDataType,
-  postgreSqlDataType,
-}
+import biz.lobachev.annette.data_dictionary.builder.labels.OverrideDatatype.{goDataType, kotlinDataType, postgreSqlDataType}
 import biz.lobachev.annette.data_dictionary.builder.model._
 
 object Simple {
@@ -42,6 +39,9 @@ object Simple {
       component("PersonGroup", "Person Group Model")
         withEntities (
           tableEntity("Person", "Person")
+            .withLabels(
+              clickHouseExclude(),
+            )
             .withPK(
               "id" :#++ "PersonId",
             )
