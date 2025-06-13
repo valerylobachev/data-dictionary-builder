@@ -4,18 +4,13 @@ import biz.lobachev.annette.data_dictionary.builder.builder.DomainBuilder
 import biz.lobachev.annette.data_dictionary.builder.rendering.Generator
 import biz.lobachev.annette.data_dictionary.builder.rendering.dbdiagram.DbDiagramRenderer
 import biz.lobachev.annette.data_dictionary.builder.rendering.`export`.ExportJsonRenderer
+import biz.lobachev.annette.data_dictionary.builder.rendering.click_house_ddl.ClickHouseDDLRenderer
 import biz.lobachev.annette.data_dictionary.builder.rendering.ddl.DDLRenderer
 import biz.lobachev.annette.data_dictionary.builder.rendering.golang.{GolangRenderer, Gorm, Sqlx}
 import biz.lobachev.annette.data_dictionary.builder.rendering.kotlin.KotlinRenderer
-import biz.lobachev.annette.data_dictionary.builder.rendering.markdown.{
-  MarkdownRenderer,
-  PolishTranslaltion,
-  RussianTranslaltion,
-}
+import biz.lobachev.annette.data_dictionary.builder.rendering.markdown.{MarkdownRenderer, PolishTranslaltion, RussianTranslaltion}
 import biz.lobachev.annette.data_dictionary.builder.rendering.xls_domain.{ExcelDomainRenderer, WorkbookTranslation}
-import biz.lobachev.annette.data_dictionary.builder.rendering.xls_insert.{
-  ExcelInsertTemplateRenderer,
-}
+import biz.lobachev.annette.data_dictionary.builder.rendering.xls_insert.ExcelInsertTemplateRenderer
 import biz.lobachev.annette.data_dictionary.builder_test.finance.Finance
 import org.scalatest.wordspec.AnyWordSpec
 
@@ -30,6 +25,17 @@ class FinanceSpec extends AnyWordSpec with BuildValidator {
           DDLRenderer(
             domain = domain,
             enableAudit = true,
+          ),
+          s"docs/${domain.id}/ddl",
+        )
+      }
+    }
+
+    "generate ClickHouse DDL" in {
+      validateAndProcess(build) { domain =>
+        Generator.generate(
+          ClickHouseDDLRenderer(
+            domain = domain,
           ),
           s"docs/${domain.id}/ddl",
         )

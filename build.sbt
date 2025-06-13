@@ -20,18 +20,20 @@ ThisBuild / developers := List(
   ),
 )
 
+
+
 ThisBuild / description := "Annette Data Dictionary builder"
 ThisBuild / licenses    := List("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0.txt"))
 ThisBuild / homepage    := Some(url("https://github.com/valerylobachev/data-dictionary-builder"))
 
 // Remove all additional repository other than Maven Central from POM
 ThisBuild / pomIncludeRepository := { _ => false }
-ThisBuild / publishTo            := {
-  val nexus = "https://oss.sonatype.org/"
-  if (isSnapshot.value) Some("snapshots" at nexus + "content/repositories/snapshots")
-  else Some("releases" at nexus + "service/local/staging/deploy/maven2")
-}
 ThisBuild / publishMavenStyle    := true
+ThisBuild / publishTo := {
+  val centralSnapshots = "https://central.sonatype.com/repository/maven-snapshots/"
+  if (isSnapshot.value) Some("central-snapshots" at centralSnapshots)
+  else localStaging.value
+}
 
 
 lazy val root = (project in file("."))
