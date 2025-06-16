@@ -119,7 +119,7 @@ case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends T
     val indexes = entity.indexes.map { index =>
       val indexId  = entity.tableName + '_' + index.id.snakeCase
       val fields   =
-        if (index.fields == 1) index.fields.map(f => getEntityFieldName(entity.expandedFields, f, logical)).head
+        if (index.fields.length == 1) index.fields.map(f => getEntityFieldName(entity.expandedFields, f, logical)).head
         else index.fields.map(f => getEntityFieldName(entity.expandedFields, f, logical)).mkString("(", ", ", ")")
       val params   = Seq(
         if (index.unique) Some("unique") else None,
