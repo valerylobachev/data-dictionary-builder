@@ -4,7 +4,6 @@ import biz.lobachev.annette.data_dictionary.builder.POSTGRESQL
 import biz.lobachev.annette.data_dictionary.builder.model._
 import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, TextRenderer}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
-import biz.lobachev.annette.data_dictionary.builder.model.Domain
 
 case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends TextRenderer {
   val path                = "diagrams"
@@ -82,7 +81,7 @@ case class DbDiagramRenderer(domain: Domain, logical: Boolean = false) extends T
     val relations = renderRelations(entity, group)
     s"table ${entity.tableNameWithSchema(logical)} {\n$fields" +
       (if (indexes.nonEmpty) s"\n$indexes" else "") +
-      (if (entity.name.nonEmpty) s"\n  note: '${entity.name}'\n") +
+      (if (entity.name.nonEmpty) s"\n  note: '${entity.name}'\n" else "") +
       "}\n" +
       (if (relations.nonEmpty) s"\n$relations\n" else "")
 

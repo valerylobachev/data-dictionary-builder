@@ -4,7 +4,6 @@ import biz.lobachev.annette.data_dictionary.builder.POSTGRESQL
 import biz.lobachev.annette.data_dictionary.builder.model._
 import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, TextRenderer}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
-import biz.lobachev.annette.data_dictionary.builder.model.{Component, Domain}
 import org.fusesource.scalate.TemplateEngine
 
 import scala.io.Source

@@ -1,5 +1,6 @@
 ThisBuild / version      := "0.4.10-SNAPSHOT"
-ThisBuild / scalaVersion := "2.13.16"
+ThisBuild / scalaVersion := "3.3.6"
+//ThisBuild / scalaVersion := "2.13.16"
 
 ThisBuild / organization         := "biz.lobachev.annette"
 ThisBuild / organizationName     := "Valery Lobachev"

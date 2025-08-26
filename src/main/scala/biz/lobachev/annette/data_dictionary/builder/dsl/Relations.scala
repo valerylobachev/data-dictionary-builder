@@ -76,7 +76,7 @@ trait Relations {
     name: String,
     referenceEntityId: String,
     fields: (String, String)*,
-  ) = oneToOne(id, name, referenceEntityId, fields: _*)
+  ) = oneToOne(id, name, referenceEntityId, fields*)
 
   @deprecated("use manyToOne", "0.4.5")
   def manyToOneRelation(
@@ -84,6 +84,6 @@ trait Relations {
     name: String,
     referenceEntityId: String,
     fields: (String, String)*,
-  ) = manyToOne(id, name, referenceEntityId, fields: _*)
+  ) = manyToOne(id, name, referenceEntityId, fields*)
 
 }

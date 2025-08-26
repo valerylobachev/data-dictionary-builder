@@ -37,7 +37,7 @@ object Simple {
             ),
         ),
       component("PersonGroup", "Person Group Model")
-        withEntities (
+        .withEntities (
           tableEntity("Person", "Person")
             .withLabels(
               clickHouseExclude(),
