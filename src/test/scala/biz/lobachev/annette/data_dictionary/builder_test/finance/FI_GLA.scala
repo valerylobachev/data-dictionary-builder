@@ -13,7 +13,7 @@ trait FI_GLA {
       javaRepoPackage("finance.data.fi.gla")
     )
     .withDataElements(
-      dataElement("AccountType", "accountType", EnumString("AccountType"), "Account type"),
+      dataElement("AccountType", "accountType", Enum("AccountType"), "Account type"),
       dataElement("ChartOfAccountsId", "chartOfAccountsId", StringVarchar(4), "Chart of accounts id"),
       dataElementDb("GLAccountId", "glAccountId", "gl_account_id", StringVarchar(10), "General ledger account id"),
       dataElementDb(
@@ -27,7 +27,7 @@ trait FI_GLA {
         "GLAccountType",
         "glAccountType",
         "gl_account_type",
-        EnumString("GLAccountType"),
+        Enum("GLAccountType"),
         "General ledger account type"
       ),
     )

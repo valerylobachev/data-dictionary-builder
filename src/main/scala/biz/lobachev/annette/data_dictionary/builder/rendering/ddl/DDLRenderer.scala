@@ -29,6 +29,7 @@ case class DDLRenderer(
 
   override def render(): Seq[RenderResult] = {
     val res         = domain.rootComponentIds.map(id => renderComponent(id))
+    val enums       = renderEnums(domain.enums.values).mkString("\n", "\n", "\n")
     val tables      = res.map(_.tables).filter(_.nonEmpty).mkString("\n", "\n", "\n")
     val indexes     = res.map(_.indexes).filter(_.nonEmpty).mkString("\n")
     val comments    = res.map(_.comments).filter(_.nonEmpty).mkString("\n", "\n", "\n")
@@ -57,6 +58,7 @@ case class DDLRenderer(
           filename,
           (
             header ++ Seq(
+              enums,
               tables,
               indexes,
               comments,
@@ -111,6 +113,20 @@ case class DDLRenderer(
       (auditTables ++ Seq(jsonDiffFunc) ++ audit.generatedAudit).mkString("\n\n")
     } else ""
 
+  private def renderEnums(enums: Iterable[EnumData]): Seq[String] =
+    enums
+      .filter(_.enumType == NativeEnum)
+      .map { e =>
+        val enumId = e.id.snakeCase
+        s"CREATE TYPE $enumId AS ENUM (\n" +
+          e.elements.map { case EnumElement(key, _, name) =>
+            val comma = if key == e.elements.last._1 then " " else ","
+            s"  '$key'$comma -- $name \n"
+          }.mkString("") +
+          ");\n"
+      }
+      .toSeq
+
   private def renderComponent(id: String): DDLSegments = {
     val res1      = domain.entities.values
       .filter(e => e.entityType == TableEntity && e.componentId == id)
@@ -145,7 +161,16 @@ case class DDLRenderer(
       else if (field.autoIncrement && datatype == "smallint") datatype = "smallserial"
       val primaryKey = if (entity.pk.length == 1 && entity.pk.head == field.fieldName) " PRIMARY KEY" else ""
       val notNull    = if (field.notNull) " NOT NULL" else ""
-      s"  $fieldName $datatype$primaryKey$notNull"
+      val checkEnum  = domain
+        .getEnumData(field.dataType)
+        .flatMap { ed =>
+          if ed.enumType != NativeEnum && ed.strict && ed.elements.nonEmpty then {
+            val list = ed.elements.map(e => s"'${e.id}'").mkString(", ")
+            Some(s" check  ($fieldName in ($list))")
+          } else None
+        }
+        .getOrElse("")
+      s"  $fieldName $datatype$primaryKey$notNull$checkEnum"
     }.mkString(",\n")
 
     val primaryKey = if (entity.pk.length > 1) {

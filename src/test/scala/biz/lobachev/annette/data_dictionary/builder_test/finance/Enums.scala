@@ -1,36 +1,36 @@
 package biz.lobachev.annette.data_dictionary.builder_test.finance
 
-import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
+import biz.lobachev.annette.data_dictionary.builder.dsl.DSL.*
 
 trait Enums {
-
+  val x     = "" -> "" -> ""
   val enums = Seq(
-    enumDef("LedgerType", "Ledger Type", 2)
+    nativeEnum("LedgerType", "Ledger Type", 2)
       .withValues(
-        "L" -> "Leading ledger",
-        "X" -> "Extension ledger"
+        "L" -> "LeadingLedger"               -> "Leading ledger",
+        "X" -> "ExtensionLedger"             -> "Extension ledger",
       ),
-    enumDef("GLAccountType", "General ledger account type", 1)
+    nativeEnum("GLAccountType", "General ledger account type", 1)
       .withValues(
-        "X" -> "Balance Sheet Account",
-        "N" -> "Nonoperating Expense or Income",
-        "P" -> "Primary Costs or Revenue",
-        "S" -> "Secondary Costs",
-        "C" -> "Cash Account"
+        "X" -> "BalanceSheetAccount"         -> "Balance Sheet Account",
+        "N" -> "NonOperatingExpenseOrIncome" -> "Nonoperating Expense or Income",
+        "P" -> "PrimaryCostsOrRevenue"       -> "Primary Costs or Revenue",
+        "S" -> "SecondaryCosts"              -> "Secondary Costs",
+        "C" -> "CashAccount"                 -> "Cash Account",
       ),
-    enumDef("AccountType", "Account type", 1)
+    nativeEnum("AccountType", "Account type", 1)
       .withValues(
-        "A" -> "Assets",
-        "D" -> "Customer",
-        "K" -> "Vendor",
-        "M" -> "Materials",
-        "S" -> "General Ledger"
+        "A" -> "Assets"                      -> "Assets",
+        "D" -> "Customer"                    -> "Customer",
+        "K" -> "Vendor"                      -> "Vendor",
+        "M" -> "Materials"                   -> "Materials",
+        "S" -> "GeneralLedger"               -> "General Ledger",
       ),
-    enumDef("DebitCredit", "Debit/Credit", 1)
+    nativeEnum("DebtCredit", "Debt/Credit", 1)
       .withValues(
-        "D" -> "Debit",
-        "C" -> "Credit"
-      )
+        "D" -> "Debt"                        -> "Debt",
+        "C" -> "Credit"                      -> "Credit",
+      ),
   )
 
 }

@@ -212,7 +212,7 @@ case class KotlinRenderer(domain: Domain) extends TextRenderer {
         defaultValue.map(s => s"LocalDateTime.parse(\"$s\")").getOrElse("LocalDateTime.now()")
       case LocalDateDate(defaultValue)           => defaultValue.map(s => s"LocalDate.parse(\"$s\")").getOrElse("LocalDate.now()")
       case LocalTimeTime(defaultValue)           => defaultValue.map(s => s"LocalTime.parse(\"$s\")").getOrElse("LocalTime.now()")
-      case EnumString(_, defaultValue)           => defaultValue.map(s => s""""$s"""").getOrElse("\"\"")
+      case Enum(_, defaultValue)           => defaultValue.map(s => s""""$s"""").getOrElse("\"\"")
       case EmbeddedEntityType(_, _, _)           => "\"\""
       case ObjectType(_)                         => "\"\""
       case DataElementType(dataElementId)        =>
@@ -243,7 +243,7 @@ case class KotlinRenderer(domain: Domain) extends TextRenderer {
       case LocalDateTimeTimestamp(defaultValue)  => defaultValue.map(s => s"LocalDateTime.parse(\"$s\")")
       case LocalDateDate(defaultValue)           => defaultValue.map(s => s"LocalDate.parse(\"$s\")")
       case LocalTimeTime(defaultValue)           => defaultValue.map(s => s"LocalTime.parse(\"$s\")")
-      case EnumString(_, defaultValue)           => defaultValue.map(s => s""""$s"""")
+      case Enum(_, defaultValue)           => defaultValue.map(s => s""""$s"""")
       case EmbeddedEntityType(_, _, _)           => None
       case ObjectType(_)                         => None
       case DataElementType(dataElementId)        => fieldDefaultValue(domain.dataElements(dataElementId).dataType)
@@ -294,7 +294,7 @@ case class KotlinRenderer(domain: Domain) extends TextRenderer {
       case LocalDateTimeTimestamp(_)      => "LocalDateTime"
       case LocalDateDate(_)               => "LocalDate"
       case LocalTimeTime(_)               => "LocalTime"
-      case EnumString(_, _)               => "String"
+      case Enum(_, _)               => "String"
       case EmbeddedEntityType(_, _, _)    => "Undefined"
       case ObjectType(entityId)           => domain.entities(entityId).entityName
       case DataElementType(dataElementId) => fieldDatatype(domain.dataElements(dataElementId))
@@ -323,7 +323,7 @@ case class KotlinRenderer(domain: Domain) extends TextRenderer {
       case StringVarchar(lenght, _)       => Some(lenght)
       case StringChar(lenght, _)          => Some(lenght)
       case DataElementType(dataElementId) => fieldLength(domain.dataElements(dataElementId).dataType)
-      case EnumString(enumId, _)          => Some(domain.enums(enumId).length)
+      case Enum(enumId, _)          => Some(domain.enums(enumId).length)
       case _                              => None
     }
 

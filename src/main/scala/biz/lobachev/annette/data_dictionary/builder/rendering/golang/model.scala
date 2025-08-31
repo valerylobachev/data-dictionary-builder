@@ -5,7 +5,7 @@ import biz.lobachev.annette.data_dictionary.builder.model.EntityField
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
-case class GoStruct(
+case class GoEntityStruct(
   pkg: String,
   lastPkg: String,
   imports: Seq[String],
@@ -31,4 +31,22 @@ case class KtStructMember(
 case class Constant(
   key: String,
   value: String,
+)
+
+case class GoEnumStruct(
+  pkg: String,
+  lastPkg: String,
+  enums: Seq[GoEnum],
+  date: String = OffsetDateTime.now().toLocalDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+)
+
+case class GoEnum(
+  comments: Seq[String],
+  constants: Seq[GoEnumConstant],
+)
+
+case class GoEnumConstant(
+  constant: String,
+  value: String,
+  comment: String,
 )

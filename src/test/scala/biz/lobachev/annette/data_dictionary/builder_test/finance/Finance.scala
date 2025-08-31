@@ -1,8 +1,8 @@
 package biz.lobachev.annette.data_dictionary.builder_test.finance
 
-import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
+import biz.lobachev.annette.data_dictionary.builder.dsl.DSL.*
 import biz.lobachev.annette.data_dictionary.builder.labels.Audit.audit
-import biz.lobachev.annette.data_dictionary.builder.labels.GolangPackage.goModelPackage
+import biz.lobachev.annette.data_dictionary.builder.labels.GolangPackage.{goEnumPackage, goModelPackage}
 
 object Finance
     extends Enums
@@ -23,6 +23,7 @@ object Finance
   )
     .withLabels(
       goModelPackage("github.com/valerylobachev/finance/logic/repository/entity"),
+      goEnumPackage("github.com/valerylobachev/finance/logic/model"),
       audit("audit")
     )
     .withEnumSeq(

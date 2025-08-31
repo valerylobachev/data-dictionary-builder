@@ -24,7 +24,13 @@ case class ExportJsonRenderer(domain: Domain) extends TextRenderer {
   }
   implicit val encoder5: Encoder[Entity]            = deriveEncoder[Entity]
   implicit val encoder4: Encoder[DataElement]       = deriveEncoder[DataElement]
+  implicit val encoder31: Encoder[EnumType]         = Encoder.instance {
+    case NativeEnum => Json.fromString("native")
+    case StringEnum => Json.fromString("string")
+    case IntEnum    => Json.fromString("int")
+  }
   implicit val encoder3: Encoder[Component]         = deriveEncoder[Component]
+  implicit val encoder21: Encoder[EnumElement]      = deriveEncoder[EnumElement]
   implicit val encoder2: Encoder[EnumData]          = deriveEncoder[EnumData]
   implicit val encoder1: Encoder[DomainExport]      = deriveEncoder[DomainExport]
 

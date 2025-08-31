@@ -61,7 +61,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
     row.createCell(depth + 7).setCellValue(len)
     row.createCell(depth + 8).setCellValue(scale)
     dataElement.dataType match {
-      case EnumString(enumId, _) =>
+      case Enum(enumId, _) =>
         row.createCell(depth + 9).setCellValue(enumId)
       case _                     =>
     }
@@ -85,9 +85,11 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
 
     row.createCell(depth).setCellValue(e.id)
     row.createCell(depth + 1).setCellValue(e.name)
-    row.createCell(depth + 2).setCellValue(e.length.toString)
-    row.createCell(depth + 3).setCellValue(e.description)
-    e.elements.map { case key -> value =>
+    row.createCell(depth + 2).setCellValue(e.enumType.toString)
+    if e.strict then row.createCell(depth + 3).setCellValue("X")
+    row.createCell(depth + 4).setCellValue(e.length.toString)
+    row.createCell(depth + 5).setCellValue(e.description)
+    e.elements.map { case EnumElement(key, constName, name) =>
       enumElementRowIndex += 1
       val row = dwb.enumItems.sheet.createRow(enumElementRowIndex)
 
@@ -99,7 +101,8 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
       row.createCell(depth).setCellValue(e.id)
       row.createCell(depth + 1).setCellValue(e.name)
       row.createCell(depth + 2).setCellValue(key)
-      row.createCell(depth + 3).setCellValue(value)
+      row.createCell(depth + 3).setCellValue(constName)
+      row.createCell(depth + 4).setCellValue(name)
     }
   }
 
@@ -169,7 +172,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
     row.createCell(depth + 1).setCellValue(entity.tableName)
     row.createCell(depth + 2).setCellValue(entity.name)
     field.dataType match {
-      case EnumString(enumId, _)          =>
+      case Enum(enumId, _)          =>
         row.createCell(depth + 12).setCellValue(enumId)
       case DataElementType(dataElementId) =>
         row.createCell(depth + 12).setCellValue(dataElementId)
@@ -247,12 +250,13 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
     row.createCell(depth + 2).setCellValue(entity.tableName + "_" + relation.id.snakeCase)
     row.createCell(depth + 3).setCellValue(relation.name)
     row.createCell(depth + 4).setCellValue(relation.relationType.toString)
+    if relation.logical then row.createCell(depth + 5).setCellValue("X")
     val refEntity = domain.entities(relation.referenceEntityId)
-    row.createCell(depth + 5).setCellValue(refEntity.tableName)
-    row.createCell(depth + 6).setCellValue(refEntity.name)
-    row.createCell(depth + 7).setCellValue(relation.onUpdate.toString)
-    row.createCell(depth + 8).setCellValue(relation.onDelete.toString)
-    row.createCell(depth + 9).setCellValue(relation.description.replaceBR)
+    row.createCell(depth + 6).setCellValue(refEntity.tableName)
+    row.createCell(depth + 7).setCellValue(refEntity.name)
+    row.createCell(depth + 8).setCellValue(relation.onUpdate.toString)
+    row.createCell(depth + 9).setCellValue(relation.onDelete.toString)
+    row.createCell(depth + 10).setCellValue(relation.description.replaceBR)
     relation.fields.foreach { field =>
       entityRelationFieldIndex += 1
       val row = dwb.relationFields.sheet.createRow(entityRelationFieldIndex)
@@ -270,12 +274,14 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
       row.createCell(depth + 1).setCellValue(entity.name)
       row.createCell(depth + 2).setCellValue(entity.tableName + "_" + relation.id.snakeCase)
       row.createCell(depth + 3).setCellValue(relation.name)
-      row.createCell(depth + 4).setCellValue(refEntity.tableName)
-      row.createCell(depth + 5).setCellValue(refEntity.name)
-      row.createCell(depth + 6).setCellValue(entityField.dbFieldName)
-      row.createCell(depth + 7).setCellValue(entityField.name)
-      row.createCell(depth + 8).setCellValue(refEntityField.dbFieldName)
-      row.createCell(depth + 9).setCellValue(refEntityField.name)
+      row.createCell(depth + 4).setCellValue(relation.relationType.toString)
+      if relation.logical then row.createCell(depth + 5).setCellValue("X")
+      row.createCell(depth + 6).setCellValue(refEntity.tableName)
+      row.createCell(depth + 7).setCellValue(refEntity.name)
+      row.createCell(depth + 8).setCellValue(entityField.dbFieldName)
+      row.createCell(depth + 9).setCellValue(entityField.name)
+      row.createCell(depth + 10).setCellValue(refEntityField.dbFieldName)
+      row.createCell(depth + 11).setCellValue(refEntityField.name)
     }
   }
 
@@ -388,12 +394,21 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
         javaDatatype = "LocalTime"
         postgresDatatype = "time"
         default = defaultValue.map(s => s"\"${s.toString}\"")
-      case EnumString(enumId, defaultValue)                   =>
-        datatype = "EnumString"
-        javaDatatype = "String"
-        postgresDatatype = "varchar"
-        len = domain.enums(enumId).length.toString
-        default = defaultValue.map(s => s"\"$s\"")
+      case Enum(enumId, defaultValue)                   =>
+        val en = domain.enums(enumId)
+        en.enumType match {
+          case NativeEnum | StringEnum =>
+            datatype = "Enum"
+            javaDatatype = "String(enum)"
+            postgresDatatype = "varchar"
+            len = en.length.toString
+            default = defaultValue.map(s => s"\"$s\"")
+          case IntEnum =>
+            datatype = "Enum"
+            javaDatatype = "Int(enum)"
+            postgresDatatype = "integer"
+            default = defaultValue.map(s => s"\"$s\"")
+        }
       case EmbeddedEntityType(_, _, _)                        =>
         datatype = "EmbeddedEntity"
       case ObjectType(_)                                      =>

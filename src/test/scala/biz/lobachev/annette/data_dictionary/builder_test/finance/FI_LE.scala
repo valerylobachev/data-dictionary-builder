@@ -4,7 +4,7 @@ import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
 import biz.lobachev.annette.data_dictionary.builder.labels.JavaPackage.{javaModelPackage, javaRepoPackage}
 import biz.lobachev.annette.data_dictionary.builder.model.{
   BigDecimalNumeric,
-  EnumString,
+  Enum,
   IntInt,
   LocalDateDate,
   StringVarchar,
@@ -26,7 +26,7 @@ trait FI_LE {
       dataElementDb("FYPeriod", "fyPeriod", "fy_period", IntInt(), "Fiscal year period"),
       dataElement("Amount", "amount", BigDecimalNumeric(25, 2), "Amount"),
       dataElement("Quantity", "quantity", BigDecimalNumeric(25, 3), "Quantity"),
-      dataElement("DebitCredit", "debitCredit", EnumString("DebitCredit"), "Debit/credit indicator"),
+      dataElement("DebtCredit", "debtCredit", Enum("DebtCredit"), "Debt/credit indicator"),
     )
     .withEntities(
       // ***************************** LedgerEntry *****************************
@@ -62,7 +62,7 @@ trait FI_LE {
           "locationId"          :#? "LocationId",
           "materialId"          :#? "MaterialId",
           // amounts
-          "debitCredit"             :# "DebitCredit",
+          "debtCredit"             :# "DebtCredit",
           "documentAmount"          :# "Amount"       :@ "Document amount",
           "documentCurrencyId"      :# "CurrencyId"   :@ "Document currency",
           "companyCodeAmount"       :# "Amount"       :@ "Company code amount",
