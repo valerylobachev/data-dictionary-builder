@@ -53,7 +53,7 @@ trait ModelValidator {
         Seq(s"$source: object entity $entityId not found")
       case DataElementType(dataElementId) if domain.dataElements.get(dataElementId).isEmpty =>
         Seq(s"$source: data element $dataElementId not found")
-      case EnumString(enumId, _) if domain.enums.get(enumId).isEmpty                        =>
+      case Enum(enumId, _) if domain.enums.get(enumId).isEmpty                        =>
         Seq(s"$source: enum $enumId not found")
       case ListCollection(dataType)                                                         =>
         validateDataType(domain, dataType, source)

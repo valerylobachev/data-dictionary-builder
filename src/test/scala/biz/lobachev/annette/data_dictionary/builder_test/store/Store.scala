@@ -12,11 +12,11 @@ object Store {
       goModelPackage("github.com/valerylobachev/store/logic/repository/entity"),
     )
     .withEnums(
-      enumDef("OrderStatus", "Order Status", 1)
+      nativeEnum("OrderStatus", "Order Status", 1)
         .withValues(
-          "P" -> "Placed",
-          "D" -> "Delivered",
-          "C" -> "Canceled",
+          "P" -> "Placed"    -> "Placed",
+          "D" -> "Delivered" -> "Delivered",
+          "C" -> "Canceled"  -> "Canceled",
         ),
     )
     .withDataElements(
@@ -135,7 +135,7 @@ object Store {
               "description"       :#? "Description",
               "clientId"          :#  "ClientId",
               "deliveryAddressId" :#  "AddressId"                :@ "Delivery address",
-              "status"            :#  EnumString("OrderStatus")  :@ "Order status",
+              "status"            :#  Enum("OrderStatus")  :@ "Order status",
               includeWithRelations("Analytics"),
               include("Modification")
               // format: on

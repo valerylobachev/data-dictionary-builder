@@ -15,7 +15,7 @@ trait FI_GLS {
     .withDataElements(
       dataElement("LedgerId", "ledgerId", StringVarchar(4), "Ledger Id"),
       dataElement("LedgerGroupId", "ledgerGroupId", StringVarchar(2), "Ledger Group Id"),
-      dataElement("LedgerType", "ledgerType", EnumString("LedgerType"), "Ledger Type"),
+      dataElement("LedgerType", "ledgerType", Enum("LedgerType"), "Ledger Type"),
     )
     .withEntities(
       // ***************************** Ledger *****************************

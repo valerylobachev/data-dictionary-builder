@@ -13,8 +13,8 @@ case class StringText(defaultValue: Option[String] = None)              extends 
 case class StringJson(defaultValue: Option[String] = None)              extends DataType
 case class StringJsonB(defaultValue: Option[String] = None)             extends DataType
 
-case class IntInt(defaultValue: Option[Int] = None)        extends DataType
-case class LongLong(defaultValue: Option[Long] = None)     extends DataType
+case class IntInt(defaultValue: Option[Int] = None)          extends DataType
+case class LongLong(defaultValue: Option[Long] = None)       extends DataType
 case class ShortSmallint(defaultValue: Option[Short] = None) extends DataType
 
 case class BigDecimalNumeric(precision: Int, scale: Int, defaultValue: Option[BigDecimal] = None) extends DataType
@@ -33,7 +33,7 @@ case class LocalDateTimeTimestamp(defaultValue: Option[LocalDateTime] = None) ex
 case class LocalDateDate(defaultValue: Option[LocalDate] = None)              extends DataType
 case class LocalTimeTime(defaultValue: Option[LocalTime] = None)              extends DataType
 
-case class EnumString(enumId: String, defaultValue: Option[String] = None) extends DataType
+case class Enum(enumId: String, defaultValue: Option[String] = None) extends DataType
 
 case class EmbeddedEntityType(entityId: String, withPrefix: Boolean = false, withRelations: Boolean = false)
     extends DataType

@@ -1,9 +1,9 @@
 package biz.lobachev.annette.data_dictionary.builder.rendering.golang
 
-import biz.lobachev.annette.data_dictionary.builder.labels.GolangPackage.GO_MODEL_PACKAGE
+import biz.lobachev.annette.data_dictionary.builder.labels.GolangPackage.{GO_ENUM_PACKAGE, GO_MODEL_PACKAGE}
 import biz.lobachev.annette.data_dictionary.builder.labels.JavaPackage.JAVA_MODEL_PACKAGE
 import biz.lobachev.annette.data_dictionary.builder.labels.OverrideDatatype.GO_DATA_TYPE
-import biz.lobachev.annette.data_dictionary.builder.model._
+import biz.lobachev.annette.data_dictionary.builder.model.*
 import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, TextRenderer}
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax.{PascalCase, SnakeCase}
 import org.fusesource.scalate.TemplateEngine
@@ -20,9 +20,52 @@ case class GolangRenderer(domain: Domain, target: GoTarget) extends TextRenderer
   engine.escapeMarkup = false
 
   override def render(): Seq[RenderResult] =
-    renderEntityClasses()
+    renderEnums() ++ renderEntities()
 
-  private def renderEntityClasses(): Seq[RenderResult] = {
+  private def renderEnums(): Seq[RenderResult] = {
+    val source   = Source.fromResource("golang/enums.ssp").getLines().mkString("\n")
+    val template = engine.compileSsp(source)
+    domain.enums.values
+      // group by enum package
+      .groupBy(e => domain.getEnumLabel(e, GO_ENUM_PACKAGE).getOrElse("model"))
+      .map { case pkg -> enums =>
+        val splited              = pkg.split("/")
+        val lastPkg              = splited.last
+        val goEnums: Seq[GoEnum] = enums.map { enumData =>
+          val comments = enumData.name +: description2Comments(enumData.description)
+          GoEnum(
+            comments = comments,
+            constants = enumData.elements.map { element =>
+              GoEnumConstant(
+                constant = s"${enumData.id.snakeCase}_${element.constName.snakeCase}".toUpperCase,
+                value = if enumData.enumType == IntEnum then element.id else s"\"${element.id}\"",
+                comment = element.name,
+              )
+            },
+          )
+        }.toSeq
+        val enumStructs          = GoEnumStruct(
+          pkg = pkg,
+          lastPkg = lastPkg,
+          enums = goEnums,
+        )
+        val output               = engine.layout(
+          uri = "enums.ssp",
+          template = template,
+          attributes = Map(
+            "cl" -> enumStructs,
+          ),
+        )
+        RenderResult(
+          path = pkg,
+          filename = "enums.go",
+          content = output,
+        )
+      }
+      .toSeq
+  }
+
+  private def renderEntities(): Seq[RenderResult] = {
     val source   = Source.fromResource("golang/struct.ssp").getLines().mkString("\n")
     val template = engine.compileSsp(source)
 
@@ -46,7 +89,7 @@ case class GolangRenderer(domain: Domain, target: GoTarget) extends TextRenderer
       .toSeq
   }
 
-  private def renderEntity(entity: Entity): Seq[GoStruct] = {
+  private def renderEntity(entity: Entity): Seq[GoEntityStruct] = {
     val pkg      = domain
       .getEntityLabel(entity, GO_MODEL_PACKAGE)
       .orElse(domain.getEntityLabel(entity, JAVA_MODEL_PACKAGE).map(_.replace(".", "/")))
@@ -82,7 +125,7 @@ case class GolangRenderer(domain: Domain, target: GoTarget) extends TextRenderer
 
     val constants = Seq(pk) ++ fks ++ uqs
 
-    val entityClass = GoStruct(
+    val entityClass = GoEntityStruct(
       pkg = pkg,
       lastPkg = lastPkg,
       imports = imports, // ++ relationImports.toSeq,
@@ -158,7 +201,13 @@ case class GolangRenderer(domain: Domain, target: GoTarget) extends TextRenderer
       case LocalDateTimeTimestamp(_)      => "time.Time"
       case LocalDateDate(_)               => "string"
       case LocalTimeTime(_)               => "time.Time"
-      case EnumString(_, _)               => "string"
+      case Enum(enumId, _)                =>
+        val en = domain.enums(enumId)
+        en.enumType match {
+          case NativeEnum => "string"
+          case StringEnum => "string"
+          case IntEnum    => "int"
+        }
       case EmbeddedEntityType(_, _, _)    => "Undefined"
       case ObjectType(entityId)           => domain.entities(entityId).entityName
       case DataElementType(dataElementId) => fieldDatatype(domain.dataElements(dataElementId))

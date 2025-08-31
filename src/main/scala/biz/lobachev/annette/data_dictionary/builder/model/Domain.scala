@@ -82,6 +82,16 @@ case class Domain(
   def build(): Either[Seq[String], Domain] =
     DomainBuilder.build(this)
 
+  def getEnumData(dataType: DataType): Option[EnumData] =
+    dataType match {
+      case Enum(enumId, _)                =>
+        enums.get(enumId)
+      case DataElementType(dataElementId) =>
+        getEnumData(dataElements(dataElementId).dataType)
+      case _                              =>
+        None
+    }
+
   def getTargetDataType(dataType: DataType, target: String): String =
     dataType match {
       case StringVarchar(length, _)               =>
@@ -217,10 +227,16 @@ case class Domain(
           case CLICKHOUSE => "DateTime64(9)" // TODO: check
           case _          => UNDEFINED_DATA_TYPE
         }
-      case EnumString(enumId, _)                  =>
+      case Enum(enumId, _)                        =>
         target match {
           case SCALA      => enumId.pascalCase
-          case POSTGRESQL => enumId.snakeCase
+          case POSTGRESQL =>
+            val e = enums(enumId)
+            e.enumType match {
+              case NativeEnum => enumId.snakeCase
+              case StringEnum => s"varchar(${e.length})"
+              case IntEnum    => "integer"
+            }
           case CLICKHOUSE => enumId.snakeCase
           case _          => UNDEFINED_DATA_TYPE
         }
@@ -250,8 +266,22 @@ case class Domain(
         }
     }
 
+  def getEnumLabel(raw: EnumData, labelId: String): Option[String] =
+    raw.labels
+      .get(labelId)
+      .orElse(
+        raw.componentId match {
+          case Some(componentId) => getComponentLabel(componentId, labelId)
+          case None              => getDomainLabel(labelId)
+        },
+      )
+
   def getEntityLabel(raw: Entity, labelId: String): Option[String] =
-    raw.labels.get(labelId).orElse(getComponentLabel(raw.componentId, labelId))
+    raw.labels
+      .get(labelId)
+      .orElse(
+        getComponentLabel(raw.componentId, labelId),
+      )
 
   def getComponentLabel(componentId: String, labelId: String): Option[String] =
     components
