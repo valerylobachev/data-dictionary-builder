@@ -46,6 +46,7 @@ case class Domain(
       components = components ++ newComponents.map(c => c.id -> c),
       entities = entities ++ newEntities.map(e => e.id -> e),
       dataElements = dataElements ++ newDataElements.map(e => e.id -> e),
+      enums = enums ++ newEnums.map(e => e.id -> e),
       errors = errors ++ newErrors,
     )
   }
