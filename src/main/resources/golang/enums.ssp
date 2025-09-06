@@ -7,10 +7,10 @@ const (
 #for (e <- cl.enums)
 
 #for (comment <- e.comments)
-  // ${comment}
+    // ${comment}
 #end
 #for (c <-e.constants)
-  ${c.constant} = ${c.value} // ${c.comment}
+    ${c.constant} = ${c.value} // ${c.comment}
 #end
 #end
 

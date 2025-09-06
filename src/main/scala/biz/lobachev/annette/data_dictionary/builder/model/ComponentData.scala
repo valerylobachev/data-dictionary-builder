@@ -24,6 +24,8 @@ case class ComponentData(
   def withDataElementSeq(dataElementSeq: Seq[DataElement]): ComponentData =
     copy(dataElements = dataElements ++ dataElementSeq.map(e => e.copy(componentId = Some(component.id))))
 
+  def withDataElements(dataElementSeq: DataElement*): ComponentData = withDataElementSeq(dataElementSeq)
+
   def withEnumSeq(enumSeq: Seq[EnumData]): ComponentData =
     copy(enums =
       enums ++ enumSeq.map(e =>
@@ -34,8 +36,6 @@ case class ComponentData(
     )
 
   def withEnums(enumSeq: EnumData*): ComponentData = withEnumSeq(enumSeq)
-
-  def withDataElements(dataElementSeq: DataElement*): ComponentData = withDataElementSeq(dataElementSeq)
 
   def withComponentSeq(componentSeq: Seq[ComponentData]): ComponentData = {
     val newChildren = componentSeq.map(_.component.id)

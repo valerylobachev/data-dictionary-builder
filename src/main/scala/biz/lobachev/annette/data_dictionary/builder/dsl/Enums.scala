@@ -1,6 +1,6 @@
 package biz.lobachev.annette.data_dictionary.builder.dsl
 
-import biz.lobachev.annette.data_dictionary.builder.model.{EnumData, IntEnum, NativeEnum, StringEnum}
+import biz.lobachev.annette.data_dictionary.builder.model.*
 
 trait Enums {
 
@@ -77,5 +77,9 @@ trait Enums {
       strict = true,
       elements = Seq.empty,
     )
+
+  def including(seq: String*) = IncludeFields(seq)
+
+  def excluding(seq: String*) = ExcludeFields(seq)
 
 }

@@ -1,5 +1,6 @@
 package biz.lobachev.annette.data_dictionary.builder.model
 
+import biz.lobachev.annette.data_dictionary.builder.model.*
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax.wrapQuotes
 
 case class Entity(
@@ -10,6 +11,7 @@ case class Entity(
   entityName: String,
   tableName: String,
   entityType: EntityType,
+  likeEntity: Option[LikeEntity] = None,
   fields: Seq[EntityField] = Seq.empty,
   pk: Seq[String] = Seq.empty,
   indexes: Seq[EntityIndex] = Seq.empty,
@@ -19,6 +21,11 @@ case class Entity(
   expandedFields: Seq[EntityField] = Seq.empty,
   expandedRelations: Seq[EntityRelation] = Seq.empty,
 ) {
+  def likeEntity(entityId: String, fieldUsage: FieldUsage = IncludeAllFields) =
+    copy(likeEntity = Some(LikeEntity(entityId, fieldUsage)))
+
+  def likeEntityPK(entityId: String) =
+    copy(likeEntity = Some(LikeEntity(entityId, IncludePKFields)))
 
   def withTableName(tableName: String) = copy(tableName = tableName)
 

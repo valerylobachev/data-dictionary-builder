@@ -1,8 +1,9 @@
 package biz.lobachev.annette.data_dictionary.builder.model
 
 import biz.lobachev.annette.data_dictionary.builder.builder.DomainBuilder
+import biz.lobachev.annette.data_dictionary.builder.model.*
 import biz.lobachev.annette.data_dictionary.builder.{CLICKHOUSE, POSTGRESQL, SCALA}
-import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
+import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax.*
 import biz.lobachev.annette.data_dictionary.builder.utils.Utils
 
 import scala.collection.immutable.ListMap
@@ -265,6 +266,9 @@ case class Domain(
           case SCALA => s"Map[String, ${getTargetDataType(dataType, target)}]"
           case _     => UNDEFINED_DATA_TYPE
         }
+      case ObjectArray(_)                     => UNDEFINED_DATA_TYPE
+      case LinkedObject(_, _)                 => UNDEFINED_DATA_TYPE
+      case LinkedObjectArray(_, _)            => UNDEFINED_DATA_TYPE
     }
 
   def getEnumLabel(raw: EnumData, labelId: String): Option[String] =

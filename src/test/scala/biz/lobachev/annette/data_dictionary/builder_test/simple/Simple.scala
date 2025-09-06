@@ -3,7 +3,7 @@ package biz.lobachev.annette.data_dictionary.builder_test.simple
 import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
 import biz.lobachev.annette.data_dictionary.builder.labels.Audit.audit
 import biz.lobachev.annette.data_dictionary.builder.labels.ClickHouse._
-import biz.lobachev.annette.data_dictionary.builder.labels.GolangPackage.goModelPackage
+import biz.lobachev.annette.data_dictionary.builder.labels.GolangPackage.goTablePackage
 import biz.lobachev.annette.data_dictionary.builder.labels.OverrideDatatype.{goDataType, kotlinDataType, postgreSqlDataType}
 import biz.lobachev.annette.data_dictionary.builder.model._
 
@@ -11,7 +11,7 @@ object Simple {
 
   val data = domain("Simple", "Simple Example", "This example provides simple person group data model")
     .withLabels(
-      goModelPackage("github.com/valerylobachev/simple/logic/repository/entity"),
+      goTablePackage("github.com/valerylobachev/simple/logic/repository/entity"),
       audit("audit"),
     )
     .withDataElements(

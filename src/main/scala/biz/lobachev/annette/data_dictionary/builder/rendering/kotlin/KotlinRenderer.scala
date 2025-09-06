@@ -41,7 +41,7 @@ case class KotlinRenderer(domain: Domain) extends TextRenderer {
   }
 
   private def renderEntity(entity: Entity): Seq[KtClass] = {
-    val pkg = domain
+    val pkg                                = domain
       .getEntityLabel(entity, JAVA_MODEL_PACKAGE)
       .getOrElse("model") // .entity.labels.getOrElse(JAVA_MODEL_PACKAGE, "model")
     val schema                             = entity.schema.map(s => s""", schema = "$s"""").getOrElse("")
@@ -212,7 +212,7 @@ case class KotlinRenderer(domain: Domain) extends TextRenderer {
         defaultValue.map(s => s"LocalDateTime.parse(\"$s\")").getOrElse("LocalDateTime.now()")
       case LocalDateDate(defaultValue)           => defaultValue.map(s => s"LocalDate.parse(\"$s\")").getOrElse("LocalDate.now()")
       case LocalTimeTime(defaultValue)           => defaultValue.map(s => s"LocalTime.parse(\"$s\")").getOrElse("LocalTime.now()")
-      case Enum(_, defaultValue)           => defaultValue.map(s => s""""$s"""").getOrElse("\"\"")
+      case Enum(_, defaultValue)                 => defaultValue.map(s => s""""$s"""").getOrElse("\"\"")
       case EmbeddedEntityType(_, _, _)           => "\"\""
       case ObjectType(_)                         => "\"\""
       case DataElementType(dataElementId)        =>
@@ -220,6 +220,9 @@ case class KotlinRenderer(domain: Domain) extends TextRenderer {
       case ListCollection(_)                     => "\"\""
       case SetCollection(_)                      => "\"\""
       case StringMapCollection(_)                => "\"\""
+      case ObjectArray(_)                    => ???
+      case LinkedObject(_, _)                => ???
+      case LinkedObjectArray(_, _)           => ???
     }
 
   private def fieldDefaultValue(dataType: DataType): Option[String] =
@@ -243,13 +246,16 @@ case class KotlinRenderer(domain: Domain) extends TextRenderer {
       case LocalDateTimeTimestamp(defaultValue)  => defaultValue.map(s => s"LocalDateTime.parse(\"$s\")")
       case LocalDateDate(defaultValue)           => defaultValue.map(s => s"LocalDate.parse(\"$s\")")
       case LocalTimeTime(defaultValue)           => defaultValue.map(s => s"LocalTime.parse(\"$s\")")
-      case Enum(_, defaultValue)           => defaultValue.map(s => s""""$s"""")
+      case Enum(_, defaultValue)                 => defaultValue.map(s => s""""$s"""")
       case EmbeddedEntityType(_, _, _)           => None
       case ObjectType(_)                         => None
       case DataElementType(dataElementId)        => fieldDefaultValue(domain.dataElements(dataElementId).dataType)
       case ListCollection(_)                     => None
       case SetCollection(_)                      => None
       case StringMapCollection(_)                => None
+      case ObjectArray(_)                    => None
+      case LinkedObject(_, _)                => None
+      case LinkedObjectArray(_, _)           => None
     }
 
   private def datatypeImports(datatypes: Seq[String]): Seq[String] =
@@ -265,42 +271,43 @@ case class KotlinRenderer(domain: Domain) extends TextRenderer {
         Nil
     ).flatten
 
-  private def fieldDatatype(field: EntityField): String = {
+  private def fieldDatatype(field: EntityField): String =
     field.labels.get(KOTLIN_DATA_TYPE).getOrElse(fieldDatatype(field.dataType))
-  }
 
-  private def fieldDatatype(dataElement: DataElement): String = {
+  private def fieldDatatype(dataElement: DataElement): String =
     dataElement.labels.get(KOTLIN_DATA_TYPE).getOrElse(fieldDatatype(dataElement.dataType))
-  }
 
   private def fieldDatatype(dataType: DataType): String =
     dataType match {
-      case StringVarchar(_, _)            => "String"
-      case StringChar(_, _)               => "String"
-      case StringText(_)                  => "String"
-      case StringJson(_)                  => "String"
-      case StringJsonB(_)                 => "String"
-      case IntInt(_)                      => "Int"
-      case LongLong(_)                    => "Long"
-      case ShortSmallint(_)               => "Short"
-      case BigDecimalNumeric(_, _, _)     => "BigDecimal"
-      case BigIntegerNumeric(_, _)        => "BigInteger"
-      case DoubleDouble(_)                => "Double"
-      case FloatFloat(_)                  => "Float"
-      case BooleanBoolean(_)              => "Boolean"
-      case UuidUuid(_)                    => "UUID"
-      case InstantTimestamp(_)            => "Instant"
-      case OffsetDateTimeTimestamp(_)     => "OffsetDateTime"
-      case LocalDateTimeTimestamp(_)      => "LocalDateTime"
-      case LocalDateDate(_)               => "LocalDate"
-      case LocalTimeTime(_)               => "LocalTime"
-      case Enum(_, _)               => "String"
-      case EmbeddedEntityType(_, _, _)    => "Undefined"
-      case ObjectType(entityId)           => domain.entities(entityId).entityName
-      case DataElementType(dataElementId) => fieldDatatype(domain.dataElements(dataElementId))
-      case ListCollection(dataType)       => s"List<${fieldDatatype(dataType)}>"
-      case SetCollection(dataType)        => s"Set<${fieldDatatype(dataType)}>"
-      case StringMapCollection(dataType)  => s"Map<String, ${fieldDatatype(dataType)}>"
+      case StringVarchar(_, _)                => "String"
+      case StringChar(_, _)                   => "String"
+      case StringText(_)                      => "String"
+      case StringJson(_)                      => "String"
+      case StringJsonB(_)                     => "String"
+      case IntInt(_)                          => "Int"
+      case LongLong(_)                        => "Long"
+      case ShortSmallint(_)                   => "Short"
+      case BigDecimalNumeric(_, _, _)         => "BigDecimal"
+      case BigIntegerNumeric(_, _)            => "BigInteger"
+      case DoubleDouble(_)                    => "Double"
+      case FloatFloat(_)                      => "Float"
+      case BooleanBoolean(_)                  => "Boolean"
+      case UuidUuid(_)                        => "UUID"
+      case InstantTimestamp(_)                => "Instant"
+      case OffsetDateTimeTimestamp(_)         => "OffsetDateTime"
+      case LocalDateTimeTimestamp(_)          => "LocalDateTime"
+      case LocalDateDate(_)                   => "LocalDate"
+      case LocalTimeTime(_)                   => "LocalTime"
+      case Enum(_, _)                         => "String"
+      case EmbeddedEntityType(_, _, _)        => "Undefined"
+      case ObjectType(entityId)               => domain.entities(entityId).entityName
+      case DataElementType(dataElementId)     => fieldDatatype(domain.dataElements(dataElementId))
+      case ListCollection(dataType)           => s"List<${fieldDatatype(dataType)}>"
+      case SetCollection(dataType)            => s"Set<${fieldDatatype(dataType)}>"
+      case StringMapCollection(dataType)      => s"Map<String, ${fieldDatatype(dataType)}>"
+      case ObjectArray(entityId)          => domain.entities(entityId).entityName
+      case LinkedObject(entityId, _)      => domain.entities(entityId).entityName
+      case LinkedObjectArray(entityId, _) => s"List<${domain.entities(entityId).entityName}>"
     }
 
   private def fieldPrecision(dataType: DataType): Option[Int] =
@@ -323,7 +330,7 @@ case class KotlinRenderer(domain: Domain) extends TextRenderer {
       case StringVarchar(lenght, _)       => Some(lenght)
       case StringChar(lenght, _)          => Some(lenght)
       case DataElementType(dataElementId) => fieldLength(domain.dataElements(dataElementId).dataType)
-      case Enum(enumId, _)          => Some(domain.enums(enumId).length)
+      case Enum(enumId, _)                => Some(domain.enums(enumId).length)
       case _                              => None
     }
 

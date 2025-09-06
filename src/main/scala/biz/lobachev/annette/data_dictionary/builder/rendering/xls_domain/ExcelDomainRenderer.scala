@@ -63,7 +63,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
     dataElement.dataType match {
       case Enum(enumId, _) =>
         row.createCell(depth + 9).setCellValue(enumId)
-      case _                     =>
+      case _               =>
     }
     row.createCell(depth + 10).setCellValue(default)
     row.createCell(depth + 11).setCellValue(dataElement.description)
@@ -172,7 +172,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
     row.createCell(depth + 1).setCellValue(entity.tableName)
     row.createCell(depth + 2).setCellValue(entity.name)
     field.dataType match {
-      case Enum(enumId, _)          =>
+      case Enum(enumId, _)                =>
         row.createCell(depth + 12).setCellValue(enumId)
       case DataElementType(dataElementId) =>
         row.createCell(depth + 12).setCellValue(dataElementId)
@@ -394,7 +394,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
         javaDatatype = "LocalTime"
         postgresDatatype = "time"
         default = defaultValue.map(s => s"\"${s.toString}\"")
-      case Enum(enumId, defaultValue)                   =>
+      case Enum(enumId, defaultValue)                         =>
         val en = domain.enums(enumId)
         en.enumType match {
           case NativeEnum | StringEnum =>
@@ -403,7 +403,7 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
             postgresDatatype = "varchar"
             len = en.length.toString
             default = defaultValue.map(s => s"\"$s\"")
-          case IntEnum =>
+          case IntEnum                 =>
             datatype = "Enum"
             javaDatatype = "Int(enum)"
             postgresDatatype = "integer"
@@ -427,6 +427,12 @@ case class ExcelDomainRenderer(domain: Domain, translation: WorkbookTranslation)
         datatype = "Set"
       case StringMapCollection(_)                             =>
         datatype = "StringMap"
+      case ObjectArray(_)                                     =>
+        datatype = "ObjectArray"
+      case LinkedObject(_, _)                                 =>
+        datatype = "LinkedObject"
+      case LinkedObjectArray(_, _)                            =>
+        datatype = "LinkedObjectArray"
     }
 
     (datatype, javaDatatype, postgresDatatype, len, scale, default.getOrElse(""))

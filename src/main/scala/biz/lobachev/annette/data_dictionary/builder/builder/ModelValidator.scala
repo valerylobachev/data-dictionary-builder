@@ -1,6 +1,6 @@
 package biz.lobachev.annette.data_dictionary.builder.builder
 
-import biz.lobachev.annette.data_dictionary.builder.model._
+import biz.lobachev.annette.data_dictionary.builder.model.*
 
 trait ModelValidator {
 

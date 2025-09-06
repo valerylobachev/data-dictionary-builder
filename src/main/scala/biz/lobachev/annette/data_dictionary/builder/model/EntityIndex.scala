@@ -1,5 +1,6 @@
 package biz.lobachev.annette.data_dictionary.builder.model
 
+
 case class EntityIndex(
   id: String,
   name: String,

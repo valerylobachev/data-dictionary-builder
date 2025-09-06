@@ -1,6 +1,6 @@
 package biz.lobachev.annette.data_dictionary.builder.dsl
 
-import biz.lobachev.annette.data_dictionary.builder.model.{DataElementType, DataType, EmbeddedEntityType, EntityField}
+import biz.lobachev.annette.data_dictionary.builder.model._
 import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
 
 trait Fields {
@@ -9,7 +9,7 @@ trait Fields {
     dataType: DataType,
     name: String,
     notNull: Boolean = true,
-    autoIncrement: Boolean = false
+    autoIncrement: Boolean = false,
   ): EntityField =
     EntityField(
       name = name.trim,
@@ -17,7 +17,7 @@ trait Fields {
       dbFieldName = fieldName.trim.snakeCase,
       dataType = dataType,
       notNull = notNull,
-      autoIncrement = autoIncrement
+      autoIncrement = autoIncrement,
     )
 
   def fieldDb(
@@ -26,7 +26,7 @@ trait Fields {
     dataType: DataType,
     name: String,
     notNull: Boolean = true,
-    autoIncrement: Boolean = false
+    autoIncrement: Boolean = false,
   ): EntityField =
     EntityField(
       name = name.trim,
@@ -34,7 +34,7 @@ trait Fields {
       dbFieldName = dbFieldName.trim.snakeCase,
       dataType = dataType,
       notNull = notNull,
-      autoIncrement = autoIncrement
+      autoIncrement = autoIncrement,
     )
 
   sealed trait EntityFieldModificator

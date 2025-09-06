@@ -1,13 +1,17 @@
 package biz.lobachev.annette.data_dictionary.builder.rendering.`export`
 
 import biz.lobachev.annette.data_dictionary.builder.rendering.{RenderResult, TextRenderer}
-import biz.lobachev.annette.data_dictionary.builder.model._
-import io.circe._
-import io.circe.syntax._
-import io.circe.generic.semiauto._
+import biz.lobachev.annette.data_dictionary.builder.model.*
+import io.circe.*
+import io.circe.syntax.*
+import io.circe.generic.semiauto.*
 
 case class ExportJsonRenderer(domain: Domain) extends TextRenderer {
   val path = "export"
+
+  implicit val encoder14_7: Encoder[Endpoint]      = deriveEncoder[Endpoint]
+  implicit val encoder14_5: Encoder[RelationLink]  = deriveEncoder[RelationLink]
+  implicit val encoder14_4: Encoder[FieldDatatype] = deriveEncoder[FieldDatatype]
 
   implicit val encoder13: Encoder[IndexMethod]      = Encoder.instance(a => Json.fromString(a.method))
   implicit val encoder12: Encoder[EntityIndex]      = deriveEncoder[EntityIndex]
@@ -22,6 +26,8 @@ case class ExportJsonRenderer(domain: Domain) extends TextRenderer {
     case StructEntity   => Json.fromString("struct")
     case EmbeddedEntity => Json.fromString("embedded")
   }
+  implicit val encoder5_2: Encoder[FieldUsage]      = deriveEncoder[FieldUsage]
+  implicit val encoder5_1: Encoder[LikeEntity]      = deriveEncoder[LikeEntity]
   implicit val encoder5: Encoder[Entity]            = deriveEncoder[Entity]
   implicit val encoder4: Encoder[DataElement]       = deriveEncoder[DataElement]
   implicit val encoder31: Encoder[EnumType]         = Encoder.instance {

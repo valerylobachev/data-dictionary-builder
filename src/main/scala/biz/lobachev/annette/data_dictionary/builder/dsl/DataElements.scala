@@ -1,7 +1,7 @@
 package biz.lobachev.annette.data_dictionary.builder.dsl
 
-import biz.lobachev.annette.data_dictionary.builder.model._
-import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax._
+import biz.lobachev.annette.data_dictionary.builder.model.*
+import biz.lobachev.annette.data_dictionary.builder.utils.StringSyntax.*
 
 trait DataElements {
 

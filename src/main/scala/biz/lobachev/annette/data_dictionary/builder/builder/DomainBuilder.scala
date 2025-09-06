@@ -25,8 +25,18 @@ object DomainBuilder extends ModelValidator {
     domain.copy(entities = newEntities)
   }
 
-  def expandEntity(domain: Domain, entity: Entity): ExpandedEntity = {
-    val r = entity.fields.map { field =>
+  private def expandEntity(domain: Domain, entity: Entity): ExpandedEntity = {
+    val inheritedFields = entity.likeEntity.map { likeEntity =>
+      val expandingEntity = domain.entities(likeEntity.entityId)
+      val expand          = expandEntity(domain, expandingEntity)
+      likeEntity.fieldUsage match {
+        case IncludeAllFields      => expand.fields
+        case IncludePKFields       => expand.fields.filter(f => expandingEntity.pk.contains(f.fieldName))
+        case IncludeFields(fields) => expand.fields.filter(f => fields.contains(f.fieldName))
+        case ExcludeFields(fields) => expand.fields.filterNot(f => fields.contains(f.fieldName))
+      }
+    }.getOrElse(Seq.empty)
+    val fields        = entity.fields.map { field =>
       field.dataType match {
         case EmbeddedEntityType(entityId, withPrefix, withRelations) =>
           val embeddedEntity = domain.entities(entityId)
@@ -55,8 +65,8 @@ object DomainBuilder extends ModelValidator {
       }
     }
     ExpandedEntity(
-      r.flatMap(_.fields),
-      r.flatMap(_.relations),
+      inheritedFields ++ fields.flatMap(_.fields),
+      fields.flatMap(_.relations),
     )
   }
 

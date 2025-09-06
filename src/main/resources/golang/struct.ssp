@@ -5,18 +5,19 @@ package ${cl.lastPkg}
 
 #if (cl.imports.nonEmpty)import (
 #for (imp <- cl.imports)
-  "${imp}"
+    "${imp}"
 #end
 )
 #end
 
+#if(!cl.isStruct)
 const (
-  ${cl.entityName}TableName = "#if(cl.schemaName.isDefined)${cl.schemaName.get}.#end${cl.tableName}"
+    ${cl.entityName}TableName = "#if(cl.schemaName.isDefined)${cl.schemaName.get}.#end${cl.tableName}"
 #for (c <- cl.constants)
-  ${c.key} = "${c.value}"
+    ${c.key} = "${c.value}"
 #end
 )
-
+#end
 
 #for (comment <- cl.comments)
 // ${comment}
@@ -26,12 +27,13 @@ type ${cl.name} struct {
 #for (comment <- member.comments)
     // ${comment}
 #end
-    ${member.name} ${member.datatype} `${member.tags}`
+    ${member.name} ${member.datatype} ${member.tags}
 #end
 }
 
-
+#if(!cl.isStruct)
 #if(cl.isGorm)func (*${cl.name}) TableName() string {
 	return ${cl.entityName}TableName
 }
+#end
 #end

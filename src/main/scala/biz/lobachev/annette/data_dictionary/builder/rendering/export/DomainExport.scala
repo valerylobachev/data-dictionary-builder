@@ -1,6 +1,6 @@
 package biz.lobachev.annette.data_dictionary.builder.rendering.`export`
 
-import biz.lobachev.annette.data_dictionary.builder.model.{Component, DataElement, Domain, Entity, EnumData, Labels}
+import biz.lobachev.annette.data_dictionary.builder.model.*
 
 case class DomainExport(
   id: String,

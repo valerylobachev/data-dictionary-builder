@@ -1,6 +1,6 @@
 package biz.lobachev.annette.data_dictionary.builder.dsl
 
-import biz.lobachev.annette.data_dictionary.builder.model.{EntityRelation, ManyToOne, NoAction, OneToOne}
+import biz.lobachev.annette.data_dictionary.builder.model._
 
 trait Relations {
 

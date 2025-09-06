@@ -1,7 +1,7 @@
 package biz.lobachev.annette.data_dictionary.builder.model
 
 import java.math.BigInteger
-import java.time.{Instant, LocalDate, LocalDateTime, LocalTime, OffsetDateTime}
+import java.time.*
 import java.util.UUID
 
 sealed trait DataType
@@ -34,11 +34,19 @@ case class LocalDateDate(defaultValue: Option[LocalDate] = None)              ex
 case class LocalTimeTime(defaultValue: Option[LocalTime] = None)              extends DataType
 
 case class Enum(enumId: String, defaultValue: Option[String] = None) extends DataType
+case class DataElementType(dataElementId: String)                    extends DataType
 
 case class EmbeddedEntityType(entityId: String, withPrefix: Boolean = false, withRelations: Boolean = false)
     extends DataType
-case class ObjectType(entityId: String)           extends DataType
-case class DataElementType(dataElementId: String) extends DataType
+case class ObjectType(entityId: String)  extends DataType
+case class ObjectArray(entityId: String) extends DataType
+
+case class LinkedObject(entityId: String, relation: RelationLink)  extends DataType
+case class LinkedObjectArray(entityId: String, relationId: String) extends DataType
+
+sealed trait RelationLink
+case class OwnRelationLink(relationId: String)        extends RelationLink
+case class AssociatedRelationLink(relationId: String) extends RelationLink
 
 case class ListCollection(dataType: DataType)      extends DataType
 case class SetCollection(dataType: DataType)       extends DataType

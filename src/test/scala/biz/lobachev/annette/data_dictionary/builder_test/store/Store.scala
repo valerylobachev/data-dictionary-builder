@@ -1,15 +1,15 @@
 package biz.lobachev.annette.data_dictionary.builder_test.store
 
-import biz.lobachev.annette.data_dictionary.builder.dsl.DSL._
-import biz.lobachev.annette.data_dictionary.builder.labels.GolangPackage.goModelPackage
+import biz.lobachev.annette.data_dictionary.builder.dsl.DSL.*
+import biz.lobachev.annette.data_dictionary.builder.labels.GolangPackage.goTablePackage
 import biz.lobachev.annette.data_dictionary.builder.labels.TablePrefixSuffix.{tableNamePrefix, tableNameSuffix}
-import biz.lobachev.annette.data_dictionary.builder.model._
+import biz.lobachev.annette.data_dictionary.builder.model.*
 
 object Store {
   val data = domain("Store", "Store example", "Store data model example")
     .withLabels(
       tableNameSuffix("table"),
-      goModelPackage("github.com/valerylobachev/store/logic/repository/entity"),
+      goTablePackage("github.com/valerylobachev/store/logic/repository/entity"),
     )
     .withEnums(
       nativeEnum("OrderStatus", "Order Status", 1)

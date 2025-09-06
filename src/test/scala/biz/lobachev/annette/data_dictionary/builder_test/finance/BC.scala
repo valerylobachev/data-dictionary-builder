@@ -21,11 +21,14 @@ trait BC {
       embeddedEntity("Modification", "Modification data structure")
         .withFields(
           // format: off
-          "createdBy" :# "UserId"             :@ "User created record",
-          "createdAt"       :# InstantTimestamp()   :@ "Timestamp of record create",
           "updatedBy"       :# "UserId"             :@ "User updated record",
           "updatedAt"       :# InstantTimestamp()   :@ "Timestamp of record update"
           // format: on
+        ),
+      structEntity("SortBy", "Sort by structure")
+        .withFields(
+          "field" :# StringText() :@ "Field",
+          "desc" :# BooleanBoolean() :@ "Descending indicator",
         ),
     )
 }
