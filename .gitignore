@@ -1,5 +1,5 @@
 /result
-/docs
+/examples/**/*.xlsx
 
 .metals
 .bloop

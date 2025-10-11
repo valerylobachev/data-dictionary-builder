@@ -1,0 +1,73 @@
+// Order status
+enum order_status {
+  DRAFT [note: 'Draft']
+  APPROVED [note: 'Approved']
+  POSTED [note: 'Posted']
+}
+
+table "materials" {
+  "id" varchar(20) [pk, not null, note: 'Material Id']
+  "name" varchar(200) [not null, note: 'Material name']
+  "description" text [not null, note: 'Material description']
+
+  indexes {
+    name [name: 'materials_name_search', note: 'Index to find material by name']
+  }
+
+  note: 'Material'
+}
+
+table "customers" {
+  "id" varchar(20) [pk, not null, note: 'Customer Id']
+  "name" varchar(200) [not null, note: 'Customer name']
+  "description" text [not null, note: 'Customer description']
+
+  indexes {
+    name [name: 'customers_name_search', note: 'Index to find customer by name']
+  }
+
+  note: 'Customer'
+}
+
+table "orders" {
+  "id" varchar(20) [pk, not null, note: 'Order Id']
+  "order_date" date [not null, note: 'Date of order']
+  "posting_date" date [note: 'Date of order posting']
+  "status" order_status [not null, note: 'Order status']
+  "customer_id" varchar(20) [not null, note: 'Customer Id']
+  "description" text [not null, note: 'Order description']
+
+  indexes {
+    status [name: 'orders_status', note: 'Index to filter orders by status']
+    (order_date, customer_id, status) [name: 'orders_filter', note: 'Index to filter order by orderDate, customer & status']
+    customer_id [name: 'orders_customer', note: 'Index to filter orders by customer']
+  }
+
+  note: 'Order'
+}
+
+// Reference to customer
+Ref orders_customer_id: "orders".customer_id > "customers".id
+
+
+table "order_lines" {
+  "id" integer [pk, not null, note: 'Order Line Id']
+  "order_id" varchar(20) [not null, note: 'Order Id']
+  "material_id" varchar(20) [not null, note: 'Material Id']
+  "price" decimal(9,2) [not null, note: 'Material price']
+  "quantity" decimal(9,0) [not null, note: 'Material quantity']
+  "amount" decimal(9,2) [not null, note: 'Amount']
+
+  indexes {
+    order_id [name: 'order_lines_order_id', note: 'Index to filter lines by order']
+    material_id [name: 'order_lines_material_id', note: 'Index to filter lines by material id']
+  }
+
+  note: 'Order Line'
+}
+
+// Reference to order
+Ref order_lines_order_id: "order_lines".order_id > "orders".id
+// Reference to material
+Ref order_lines_material_id: "order_lines".material_id > "materials".id
+
