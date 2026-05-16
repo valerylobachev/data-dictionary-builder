@@ -8,14 +8,9 @@ import scala.collection.immutable.ListMap
 object DomainBuilder extends PreValidation with PostValidation with DomainDefMetaHelper {
 
   def build(domainDef: DomainDef): Either[Seq[Message], BuildResult] = {
-    val startPreValidation  = System.currentTimeMillis()
-    println("Running pre-validation...")
     val enrichedDomainDef   = enrichDomainDef(domainDef)
     val preValidateMessages = preValidate(enrichedDomainDef)
-    println(s"Pre-validation done (${System.currentTimeMillis() - startPreValidation} ms)")
     if (!Message.messagesHaveErrors(preValidateMessages)) {
-      val startBuilding        = System.currentTimeMillis()
-      println("Building...")
       val includeMap           = buildIncludes(enrichedDomainDef.includes)
       val enums                = buildEnums(enrichedDomainDef.enums)
       val dataElements         = buildDataElements(enrichedDomainDef.dataElements)
@@ -34,11 +29,7 @@ object DomainBuilder extends PreValidation with PostValidation with DomainDefMet
         tables = tables,
         structs = structs,
       )
-      println(s"Building done (${System.currentTimeMillis() - startBuilding} ms)")
-      val startPostValidation  = System.currentTimeMillis()
-      println("Running post-validation...")
       val postValidateMessages = postValidate(domain)
-      println(s"Post-validation done (${System.currentTimeMillis() - startPostValidation} ms)")
 
       if (Message.messagesHaveErrors(postValidateMessages)) {
         Left(preValidateMessages ++ postValidateMessages)

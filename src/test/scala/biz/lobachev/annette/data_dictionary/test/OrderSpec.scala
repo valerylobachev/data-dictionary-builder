@@ -22,7 +22,14 @@ class OrderSpec extends AnyWordSpec with BuildValidator {
 
     "generate order domain" in
       validateAndProcess(build) { domain =>
-        Generator.generate(PostgresDDLGenerator(domain), s"examples/${domain.id}/ddl")
+        Generator.generate(
+          PostgresDDLGenerator(
+            domain,
+            withNameComment = true,
+            withDescriptionComment = true,
+          ),
+          s"examples/${domain.id}/ddl",
+        )
         Generator.generate(ClickHouseDDLGenerator(domain), s"examples/${domain.id}/ddl")
         Generator.generate(
           DomainExcelGenerator(

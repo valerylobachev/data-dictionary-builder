@@ -26,6 +26,8 @@ class FinanceSpec extends AnyWordSpec with BuildValidator {
         Generator.generate(
           PostgresDDLGenerator(
             domain = domain,
+            withNameComment = true,
+            withDescriptionComment = true,
           ),
           s"examples/${domain.id}/ddl",
         )
@@ -58,9 +60,10 @@ class FinanceSpec extends AnyWordSpec with BuildValidator {
         Generator.generate(
           DomainExcelGenerator(
             target = GoTarget,
-            filename =  "go-finance-domain",
+            filename = "go-finance-domain",
             translation = Map.empty,
-            domains = domain1, domain2,
+            domains = domain1,
+            domain2,
           ),
           s"examples/${domain.id}",
         )
